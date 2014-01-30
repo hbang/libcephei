@@ -68,9 +68,7 @@
 		build = @"?";
 	}
 
-	NSLog(@"wat");NSLog(@"%@ %@ %@",product,version,build);
 	[viewController setMessageBody:[NSString stringWithFormat:L18N(@"\n\nDevice information: %@, iOS %@ (%@)"), product, version, build] isHTML:NO];
-	NSLog(@"yes");
 
 	[self.navigationController presentViewController:viewController animated:YES completion:nil];
 }
