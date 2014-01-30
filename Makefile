@@ -10,4 +10,4 @@ after-stage::
 	rsync -rav *.h prefs/*.h $(THEOS)/include/libhbangcommon
 
 after-install::
-	install.exec "killall Preferences; sleep 0.2; sbopenurl 'prefs:root=Cydia&path=FlagPaint7'"
+	install.exec "killall Preferences; sleep 0.2; sbopenurl 'prefs:root=Cydia&path=TypeStatus'"
