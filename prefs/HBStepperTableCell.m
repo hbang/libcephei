@@ -11,13 +11,7 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 
 @implementation HBStepperTableCell
 
-- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
-	[super refreshCellContentsWithSpecifier:specifier];
-
-	self.control.minimumValue = ((NSNumber *)specifier.properties[PSControlMinimumKey]).doubleValue;
-	self.control.maximumValue = ((NSNumber *)specifier.properties[PSControlMaximumKey]).doubleValue;
-	[self _updateLabel];
-}
+#pragma mark - UITableViewCell
 
 - (void)prepareForReuse {
 	[super prepareForReuse];
@@ -27,11 +21,27 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 	self.control.maximumValue = 100;
 }
 
+#pragma mark - PSTableCell
+
+- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
+	[super refreshCellContentsWithSpecifier:specifier];
+
+	self.control.minimumValue = ((NSNumber *)specifier.properties[PSControlMinimumKey]).doubleValue;
+	self.control.maximumValue = ((NSNumber *)specifier.properties[PSControlMaximumKey]).doubleValue;
+	[self _updateLabel];
+}
+
+- (void)setCellEnabled:(BOOL)cellEnabled {
+	[super setCellEnabled:cellEnabled];
+	self.control.enabled = cellEnabled;
+}
+
+#pragma mark - PSControlTableCell
+
 - (UIStepper *)newControl {
 	UIStepper *stepper = [[UIStepper alloc] init];
 	stepper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	stepper.continuous = NO;
-
 	stepper.center = CGPointMake(stepper.center.x, self.frame.size.height / 2);
 
 	// i assume this is what i'm meant to do?
@@ -40,11 +50,6 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 	stepper.frame = frame;
 
 	return stepper;
-}
-
-- (void)setCellEnabled:(BOOL)cellEnabled {
-	[super setCellEnabled:cellEnabled];
-	self.control.enabled = cellEnabled;
 }
 
 - (NSNumber *)controlValue {
