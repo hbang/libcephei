@@ -67,6 +67,10 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 }
 
 - (void)_updateLabel {
+	if (!self.control) {
+		return;
+	}
+
 	self.textLabel.text = self.control.value == 1 ? self.specifier.properties[kHBStepperTableCellSingularLabelKey] : [NSString stringWithFormat:self.specifier.name, (int)self.control.value];
 	[self setNeedsLayout];
 }

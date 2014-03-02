@@ -52,9 +52,11 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	UITableView *tableView = [self respondsToSelector:@selector(table)] ? self.table : self.view;
+
 	// fix weird bug where selected row doesn't deselect
 	// thanks insanj <4
-	[(UITableView *)self.view deselectRowAtIndexPath:((UITableView *)self.view).indexPathForSelectedRow animated:YES];
+	[tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
 
 	if (IS_MODERN) {
 		self.view.tintColor = _cachedTintColor;
