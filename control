@@ -1,6 +1,6 @@
 Package: ws.hbang.common
 Name: HASHBANG Productions Common
-Version: 1.1~beta1
+Version: 1.1~beta2
 Architecture: iphoneos-arm
 Description: Code shared by HASHBANG packages
 Maintainer: HASHBANG Productions <support@hbang.ws>
