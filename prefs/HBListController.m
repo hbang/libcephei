@@ -20,6 +20,10 @@
 	return nil;
 }
 
++ (NSString *)hb_plistName {
+	return nil; //Totally makes sense.
+}
+
 #pragma mark - UIViewController
 
 // TODO: figure out why none of these methods (that's right, none) are called when
@@ -85,6 +89,25 @@
 - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2 {
 	[super tableView:arg1 didSelectRowAtIndexPath:arg2];
 	[arg1 deselectRowAtIndexPath:arg2 animated:YES];
+}
+
+#pragma mark - Sepcifier stuffs
+
+- (void)hb_loadSpecifiersFromPlist{
+	if(_specifiers || ![[self class] hb_plistName] || [[[self class] hb_plistName] isEqualToString:@""]) return;
+	_specifiers = [[self loadSpecifiersFromPlistName:[[self class] hb_plistName] target:self] retain];
+}
+
+- (id)specifiers{
+	if(_specifiers) return;
+	[self hb_loadSpecifiersFromPlist];
+}
+
+- (instancetype)init{
+	if((self = [super init])){
+		[self hb_loadSpecifiersFromPlist];
+	}
+	return self;
 }
 
 @end
