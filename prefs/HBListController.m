@@ -72,16 +72,6 @@
 	}
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-
-	UITableView *tableView = [self respondsToSelector:@selector(table)] ? self.table : self.view;
-
-	// fix weird bug where selected row doesn't deselect
-	// thanks insanj <4
-	[tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
