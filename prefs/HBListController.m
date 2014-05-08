@@ -77,4 +77,10 @@
 	}
 }
 
+#pragma mark - PSViewController
+
+- (BOOL)canBeShownFromSuspendedState {
+	return NO;
+}
+
 @end
