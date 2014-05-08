@@ -52,16 +52,20 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	if (IS_MODERN) {
+		self.view.tintColor = _cachedTintColor;
+		self.navigationController.navigationBar.tintColor = _cachedTintColor;
+	}
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+
 	UITableView *tableView = [self respondsToSelector:@selector(table)] ? self.table : self.view;
 
 	// fix weird bug where selected row doesn't deselect
 	// thanks insanj <4
 	[tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
-
-	if (IS_MODERN) {
-		self.view.tintColor = _cachedTintColor;
-		self.navigationController.navigationBar.tintColor = _cachedTintColor;
-	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
