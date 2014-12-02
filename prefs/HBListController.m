@@ -4,8 +4,6 @@
 
 @class HBRootListController;
 
-#define IS_MODERN IS_IOS_OR_NEWER(iOS_7_0)
-
 @interface HBListController () {
 	UIColor *_cachedTintColor;
 }
@@ -37,7 +35,7 @@
 - (UIColor *)cachedTintColor {
 	if (IS_MODERN) {
 		if (!_cachedTintColor) {
-			NSArray *viewControllers = self.navigationController.viewControllers;
+			NSArray *viewControllers = IS_MOST_MODERN ? self.navigationController.navigationController.viewControllers : self.navigationController.viewControllers;
 			UIColor *tintColor = [self.class hb_tintColor];
 
 			if (!tintColor) {
@@ -65,7 +63,14 @@
 
 	if (IS_MODERN) {
 		self.view.tintColor = [self cachedTintColor];
-		self.navigationController.navigationBar.tintColor = [self cachedTintColor];
+
+		if (IS_MOST_MODERN) {
+			self.navigationController.navigationController.navigationBar.tintColor = [self cachedTintColor];
+		}
+
+		else {
+			self.navigationController.navigationBar.tintColor = [self cachedTintColor];
+		}
 
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
 		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
@@ -77,7 +82,14 @@
 
 	if (IS_MODERN) {
 		self.view.tintColor = nil;
-		self.navigationController.navigationBar.tintColor = nil;
+
+		if (IS_MOST_MODERN) {
+			self.navigationController.navigationController.navigationBar.tintColor = nil;
+		}
+
+		else {
+			self.navigationController.navigationBar.tintColor = nil;
+		}
 	}
 }
 

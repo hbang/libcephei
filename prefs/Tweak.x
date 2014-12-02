@@ -1,3 +1,5 @@
+#import <UIKit/UIKit.h>
+
 %hook UISlider
 
 - (void)_layoutSubviewsForBoundsChange:(BOOL)something {

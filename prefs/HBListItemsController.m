@@ -21,7 +21,7 @@
 
 	if (IS_MODERN) {
 		UIColor *tintColor = [self.class hb_tintColor];
-		NSArray *viewControllers = self.navigationController.viewControllers;
+		NSArray *viewControllers = IS_MOST_MODERN ? self.navigationController.navigationController.viewControllers : self.navigationController.viewControllers;
 
 		if (!tintColor) {
 			NSInteger i = viewControllers.count;
@@ -35,7 +35,14 @@
 		}
 
 		self.view.tintColor = tintColor;
-		self.navigationController.navigationBar.tintColor = tintColor;
+
+		if (IS_MOST_MODERN) {
+			self.navigationController.navigationController.navigationBar.tintColor = tintColor;
+		}
+
+		else {
+			self.navigationController.navigationBar.tintColor = tintColor;
+		}
 	}
 }
 
@@ -44,7 +51,14 @@
 
 	if (IS_MODERN) {
 		self.view.tintColor = nil;
-		self.navigationController.navigationBar.tintColor = nil;
+
+		if (IS_MOST_MODERN) {
+			self.navigationController.navigationController.navigationBar.tintColor = nil;
+		}
+
+		else {
+			self.navigationController.navigationBar.tintColor = nil;
+		}
 	}
 }
 
