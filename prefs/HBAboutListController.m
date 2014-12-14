@@ -9,11 +9,11 @@
 #pragma mark - Constants
 
 + (NSURL *)hb_websiteURL {
-	return [NSURL URLWithString:@"http://hbang.ws"];
+	return [NSURL URLWithString:@"https://www.hbang.ws"];
 }
 
 + (NSURL *)hb_donateURL {
-	return [NSURL URLWithString:@"http://hbang.ws/donate"];
+	return [NSURL URLWithString:@"https://www.hbang.ws/donate"];
 }
 
 + (NSString *)hb_supportEmailAddress {
