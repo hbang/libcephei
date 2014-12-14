@@ -53,7 +53,7 @@
 	MFMailComposeViewController *viewController = [[[MFMailComposeViewController alloc] init] autorelease];
 	viewController.mailComposeDelegate = self;
 	viewController.toRecipients = @[ [self.class hb_supportEmailAddress] ];
-	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", info[@"HBPackageIdentifier"]])];
+	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", info[@"HBPackageIdentifier"] ?: info[@"CFBundleIdentifier"]])];
 	[viewController addAttachmentData:[HBOutputForShellCommand(@"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"dpkgl.txt"];
 
 	NSString *product = nil, *version = nil, *build = nil;
