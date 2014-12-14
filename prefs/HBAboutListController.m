@@ -55,6 +55,10 @@
 	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", info[@"HBPackageIdentifier"] ?: info[@"CFBundleIdentifier"]])];
 	[viewController addAttachmentData:[HBOutputForShellCommand(@"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"dpkgl.txt"];
 
+	if (IS_MODERN) {
+		viewController.view.tintColor = self.view.tintColor;
+	}
+
 	NSString *product = nil, *version = nil, *build = nil;
 
 	if (IS_IOS_OR_NEWER(iOS_6_0)) {
