@@ -1,4 +1,3 @@
-#import "HBGlobal.h"
 #import "HBTwitterCell.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIColor+Private.h>

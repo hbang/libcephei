@@ -1,4 +1,3 @@
-#import "../HBGlobal.h"
 #import "HBRootListController.h"
 #import <Twitter/Twitter.h>
 

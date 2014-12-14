@@ -1,4 +1,3 @@
-#import "HBGlobal.h"
 #import "HBAboutListController.h"
 #import "HBOutputForShellCommand.h"
 #import <MobileGestalt/MobileGestalt.h>

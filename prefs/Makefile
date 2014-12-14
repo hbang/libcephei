@@ -4,9 +4,10 @@ ARCHS = armv7 arm64
 include theos/makefiles/common.mk
 
 LIBRARY_NAME = libhbangprefs
-libhbangprefs_FILES = ../HBGlobal.x $(wildcard *.x) $(wildcard *.m)
+libhbangprefs_FILES = $(wildcard *.x) $(wildcard *.m)
 libhbangprefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
 libhbangprefs_PRIVATE_FRAMEWORKS = Preferences
+libhbangprefs_CFLAGS = -include HBGlobal.h
 libhbangprefs_LDFLAGS = -weak_framework Twitter
 libhbangprefs_LIBRARIES = substrate
 
