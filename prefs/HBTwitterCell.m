@@ -21,7 +21,10 @@
 		_user = [specifier.properties[@"user"] copy];
 
 		_defaultImage = [[UIImage imageNamed:@"twitter" inBundle:globalBundle] retain];
-		_highlightedImage = IS_IOS_OR_NEWER(iOS_7_0) ? _defaultImage : [[UIImage imageNamed:@"twitter_selected" inBundle:globalBundle] retain];
+
+		if (!IS_MODERN) {
+			_highlightedImage = [[UIImage imageNamed:@"twitter_selected" inBundle:globalBundle] retain];
+		}
 
 		self.detailTextLabel.text = [@"@" stringByAppendingString:specifier.properties[@"user"]];
 		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor colorWithWhite:0.5568627451f alpha:1] : [UIColor tableCellValue1BlueColor];
@@ -38,7 +41,10 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
 	[super setHighlighted:highlighted animated:animated];
-	((UIImageView *)self.accessoryView).image = highlighted ? _highlightedImage : _defaultImage;
+
+	if (!IS_MODERN) {
+		((UIImageView *)self.accessoryView).image = highlighted ? _highlightedImage : _defaultImage;
+	}
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
