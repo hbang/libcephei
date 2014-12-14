@@ -35,15 +35,18 @@
 - (UIColor *)cachedTintColor {
 	if (IS_MODERN) {
 		if (!_cachedTintColor) {
-			NSArray *viewControllers = IS_MOST_MODERN ? self.navigationController.navigationController.viewControllers : self.navigationController.viewControllers;
+			NSArray *viewControllers = self.navigationController.viewControllers;
 			UIColor *tintColor = [self.class hb_tintColor];
 
 			if (!tintColor) {
-				NSInteger i = viewControllers.count;
+				NSUInteger count = viewControllers.count;
 
-				while (--i) {
-					if ([((NSObject *)viewControllers[i]).class respondsToSelector:@selector(hb_tintColor)] && [((HBListController *)viewControllers[i]).class hb_tintColor]) {
-						tintColor = [((HBListController *)viewControllers[i]).class hb_tintColor];
+				for (NSUInteger i = 2; i <= count; i++) {
+					HBListController *viewController = viewControllers[count - i];
+					NSLog(@"%lu %@",(unsigned long)i,viewController);
+
+					if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+						tintColor = [viewController.class hb_tintColor];
 						break;
 					}
 				}
