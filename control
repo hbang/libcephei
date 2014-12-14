@@ -1,9 +1,10 @@
 Package: ws.hbang.common
 Name: HASHBANG Productions Common
-Version: 1.1
+Depends: mobilesubstrate, preferenceloader
+Version: 1.1.1
 Architecture: iphoneos-arm
 Description: Code shared by HASHBANG packages
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
-Section: System
-Tag: role::developer
+Section: Development
+Tag: cydia::obsolete, role::developer
