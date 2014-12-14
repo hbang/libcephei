@@ -2,9 +2,6 @@
 #import "HBListController.h"
 #import <version.h>
 
-#define IS_MODERN IS_IOS_OR_NEWER(iOS_7_0)
-;
-
 @implementation HBListItemsController
 
 
