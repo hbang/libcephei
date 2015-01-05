@@ -1,21 +1,27 @@
-TARGET = :clang::5.0
-ARCHS = armv7 arm64
-
 include theos/makefiles/common.mk
 
-LIBRARY_NAME = libhbangprefs
-libhbangprefs_FILES = $(wildcard *.x) $(wildcard *.m)
-libhbangprefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
-libhbangprefs_PRIVATE_FRAMEWORKS = Preferences
-libhbangprefs_CFLAGS = -include HBGlobal.h
-libhbangprefs_LDFLAGS = -weak_framework Twitter
-libhbangprefs_LIBRARIES = substrate
+BUNDLE_NAME = libcepheiprefs
+libcepheiprefs_FILES = $(wildcard *.x) $(wildcard *.m)
+libcepheiprefs_INSTALL_PATH = /Library/PreferenceBundles
+libcepheiprefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
+libcepheiprefs_PRIVATE_FRAMEWORKS = Preferences
+libcepheiprefs_CFLAGS = -include HBGlobal.h
+libcepheiprefs_LDFLAGS = -weak_framework Twitter
+libcepheiprefs_LIBRARIES = substrate
 
-include $(THEOS_MAKE_PATH)/library.mk
+include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::
-	mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
-	rsync -rav Resources/ $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
-	ln -s /usr/lib/libhbangprefs.dylib $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle/libhbangprefs
+	ln -s libcepheiprefs.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
+	ln -s libcepheiprefs $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libcepheiprefs.bundle/libhbangprefs
 
-	cp $(THEOS_OBJ_DIR)/libhbangprefs.dylib $(THEOS)/lib/libhbangprefs.dylib
+	mkdir -p $(THEOS_STAGING_DIR)/usr/lib
+	ln -s /Library/PreferenceBundles/libcepheiprefs.bundle/libcepheiprefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib
+	ln -s libcepheiprefs.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib
+
+	cp $(THEOS_OBJ_DIR)/libcepheiprefs.bundle/libcepheiprefs $(THEOS)/lib/libcepheiprefs.dylib
+
+ifeq ($(DEBUG),1)
+	mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences
+	cp entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/libcepheiprefs.plist
+endif
