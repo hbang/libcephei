@@ -27,7 +27,7 @@
 		}
 
 		self.detailTextLabel.text = [@"@" stringByAppendingString:specifier.properties[@"user"]];
-		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor colorWithWhite:0.5568627451f alpha:1] : [UIColor tableCellValue1BlueColor];
+		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:0.5568627451f alpha:1] : [UIColor tableCellValue1BlueColor];
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 		self.accessoryView = [[UIImageView alloc] initWithImage:_defaultImage];
 	}
