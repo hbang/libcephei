@@ -43,7 +43,6 @@
 
 				for (NSUInteger i = 2; i <= count; i++) {
 					HBListController *viewController = viewControllers[count - i];
-					NSLog(@"%lu %@",(unsigned long)i,viewController);
 
 					if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 						tintColor = [viewController.class hb_tintColor];
