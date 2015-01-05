@@ -1,10 +1,10 @@
 Package: ws.hbang.common
-Name: HASHBANG Productions Common
-Depends: mobilesubstrate, preferenceloader
+Name: Cephei
 Version: 1.2
 Architecture: iphoneos-arm
-Description: Code shared by HASHBANG packages
+Description: Useful functions for tweak developers
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
+Support: https://www.hbang.ws/faq
 Section: Development
-Tag: cydia::obsolete, role::developer
+Tag: role::developer, cydia::obsolete
