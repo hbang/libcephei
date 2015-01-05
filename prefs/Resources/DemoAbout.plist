@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>headerCellClass</key>
+			<string>HBPackageNameHeaderCell</string>
+			<key>icon</key>
+			<string>icon.png</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.common</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Developers</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>Adam D</string>
+			<key>user</key>
+			<string>thekirbylover</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Experiencing issues? Send us an email and we’ll help you.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>hb_sendSupportEmail</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>HBTintedTableCell</string>
+			<key>label</key>
+			<string>Email Support</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>If you like this tweak, please consider a donation.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>hb_openDonate</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>HBTintedTableCell</string>
+			<key>label</key>
+			<string>Donate</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>About</string>
+</dict>
+</plist>

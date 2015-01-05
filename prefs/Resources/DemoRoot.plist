@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>This is a demo of libcephei features. Refer to https://hbang.github.io/libcephei for further details.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>PSSwitchCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>ws.hbang.libcephei.demo</string>
+			<key>key</key>
+			<string>Switch</string>
+			<key>label</key>
+			<string>Awesome</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBListItemsController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>default</key>
+			<integer>0</integer>
+			<key>defaults</key>
+			<string>ws.hbang.libcephei.demo</string>
+			<key>detail</key>
+			<string>HBListItemsController</string>
+			<key>key</key>
+			<string>Region</string>
+			<key>label</key>
+			<string>Region</string>
+			<key>validTitles</key>
+			<array>
+				<string>Worldwide</string>
+				<string>Australia</string>
+				<string>Canada</string>
+				<string>China</string>
+				<string>France</string>
+				<string>Germany</string>
+				<string>Japan</string>
+				<string>New Zealand</string>
+				<string>United Kingdom</string>
+				<string>United States</string>
+			</array>
+			<key>validValues</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
+				<integer>6</integer>
+				<integer>7</integer>
+				<integer>8</integer>
+				<integer>9</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBSpinnerTableCell</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>doStuffTapped:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>HBSpinnerTableCell</string>
+			<key>label</key>
+			<string>Do Stuff</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBStepperTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBStepperTableCell</string>
+			<key>default</key>
+			<real>5</real>
+			<key>defaults</key>
+			<string>ws.hbang.libcephei.demo</string>
+			<key>key</key>
+			<string>Stepper</string>
+			<key>label</key>
+			<string>%i Things</string>
+			<key>max</key>
+			<real>15</real>
+			<key>min</key>
+			<real>1</real>
+			<key>singularLabel</key>
+			<string>1 Thing</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBTintedTableCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>HBTintedTableCell</string>
+			<key>label</key>
+			<string>Do Something Else</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBTwitterCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>user</key>
+			<string>hbangws</string>
+		</dict>
+		<dict>
+			<key>big</key>
+			<true/>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>height</key>
+			<integer>56</integer>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>user</key>
+			<string>hbangws</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>showAvatar</key>
+			<false/>
+			<key>user</key>
+			<string>hbangws</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBAboutListController</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>HBDemoAboutListController</string>
+			<key>isController</key>
+			<true/>
+			<key>label</key>
+			<string>About</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Cephei Demo</string>
+</dict>
+</plist>
