@@ -7,6 +7,14 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>headerCellClass</key>
+			<string>HBPackageNameHeaderCell</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.common</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>This is a demo of libcephei features. Refer to https://hbang.github.io/libcephei for further details.</string>
 		</dict>
