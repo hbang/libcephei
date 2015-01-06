@@ -92,6 +92,8 @@
 		else {
 			self.navigationController.navigationBar.tintColor = nil;
 		}
+
+		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
 	}
 }
 
