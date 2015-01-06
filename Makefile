@@ -13,3 +13,7 @@ after-stage::
 
 after-install::
 	install.exec "killall Preferences" || true
+
+ifeq ($(DEBUG),1)
+	install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
+endif
