@@ -11,7 +11,7 @@
 }
 
 + (NSURL *)hb_shareURL {
-	return [NSURL URLWithString:@"https://github.com/hbang/libcephei"];
+	return [NSURL URLWithString:@"https://hbang.github.io/libcephei"];
 }
 
 + (UIColor *)hb_tintColor {
