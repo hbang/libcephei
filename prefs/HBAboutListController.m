@@ -7,26 +7,20 @@
 
 #pragma mark - Constants
 
++ (NSString *)hb_specifierPlist {
+	return @"About";
+}
+
 + (NSURL *)hb_websiteURL {
-	return [NSURL URLWithString:@"https://www.hbang.ws"];
+	return [NSURL URLWithString:@"https://www.hbang.ws/"];
 }
 
 + (NSURL *)hb_donateURL {
-	return [NSURL URLWithString:@"https://www.hbang.ws/donate"];
+	return [NSURL URLWithString:@"https://www.hbang.ws/donate/"];
 }
 
 + (NSString *)hb_supportEmailAddress {
 	return @"HASHBANG Productions Support <support@hbang.ws>";
-}
-
-#pragma mark - PSListController
-
-- (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"About" target:self] retain];
-	}
-
-	return _specifiers;
 }
 
 #pragma mark - Callbacks
@@ -75,9 +69,7 @@
 
 	if (IS_MOST_MODERN) {
 		[self.navigationController.navigationController presentViewController:viewController animated:YES completion:nil];
-	}
-
-	else {
+	} else {
 		[self.navigationController presentViewController:viewController animated:YES completion:nil];
 	}
 }

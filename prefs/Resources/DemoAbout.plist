@@ -11,6 +11,8 @@
 			<true/>
 			<key>headerCellClass</key>
 			<string>HBPackageNameHeaderCell</string>
+			<key>icon</key>
+			<string>icon.png</string>
 			<key>packageIdentifier</key>
 			<string>ws.hbang.common</string>
 		</dict>
