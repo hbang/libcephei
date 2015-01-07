@@ -15,13 +15,12 @@ static NSString *const kHBDebianControlFileVersionKey = @"Version";
 static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 
 @implementation HBPackageNameHeaderCell {
-	NSDictionary *_packageDetails;
 	BOOL _condensed;
 	BOOL _showAuthor;
 	BOOL _showIcon;
 	BOOL _showVersion;
 
-	BOOL _hasLoadedIcon;
+	NSDictionary *_packageDetails;
 	UIImage *_icon;
 }
 
@@ -37,10 +36,13 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
 		_showIcon = !specifier.properties[@"showIcon"] || ((NSNumber *)specifier.properties[@"showIcon"]).boolValue;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
+		_icon = specifier.properties[@"iconImage"];
 
 		_packageDetails = [@{
 			kHBDebianControlFilePackageKey: specifier.properties[@"packageIdentifier"]
 		} retain];
+
+		[self updateData];
 	}
 
 	return self;
@@ -49,34 +51,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 - (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
 	self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil specifier:specifier];
 	return self;
-}
-
-- (void)willMoveToSuperview:(UIView *)superview {
-	[super willMoveToSuperview:superview];
-
-	if (_showIcon && !_hasLoadedIcon) {
-		/*
-		 there might be somewhere better to do this, and there probably is.
-		 it's vital that the view is in the view hierarchy because it must get
-		 at the containing view controller so it can get at the bundle that
-		 implements that view controller, so it can get at the info plist, so
-		 it can get at the bundle name and package identifier, so it can get
-		 at the package version from dpkg.
-		*/
-
-		UIView *rootView = superview;
-
-		while (rootView && ![UIViewController viewControllerForView:rootView]) {
-			rootView = rootView.superview;
-		}
-
-		NSBundle *bundle = [NSBundle bundleForClass:[UIViewController viewControllerForView:rootView].class];
-		_icon = [[UIImage imageNamed:self.specifier.properties[@"icon"] ?: @"icon" inBundle:bundle] retain];
-
-		_hasLoadedIcon = YES;
-
-		[self updateData];
-	}
 }
 
 - (void)layoutSubviews {
@@ -129,7 +103,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	NSUInteger location = 0, length = 0;
 
 	if (_icon && _condensed) {
-		length += 1;
+		length++;
 
 		NSTextAttachment *textAttachment = [[[NSTextAttachment alloc] init] autorelease];
 		textAttachment.image = _icon;
@@ -144,15 +118,11 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
 	if (_condensed) {
-		if (_showVersion) {
-			length++;
-		}
-
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
 			NSBaselineOffsetAttributeName: @(6.f),
 			NSParagraphStyleAttributeName: paragraphStyle
-		} range:NSMakeRange(location, length + version.length)];
+		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize],
@@ -193,6 +163,15 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		kHBDebianControlFileVersionKey: packageData[1],
 		kHBDebianControlFileAuthorKey: packageData[2],
 	} retain];
+}
+
+#pragma mark - Memory management
+
+- (void)dealloc {
+	[_packageDetails release];
+	[_icon release];
+
+	[super dealloc];
 }
 
 @end
