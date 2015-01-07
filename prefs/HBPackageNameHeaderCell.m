@@ -15,7 +15,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 @implementation HBPackageNameHeaderCell {
 	BOOL _condensed;
 	BOOL _showAuthor;
-	BOOL _showIcon;
 	BOOL _showVersion;
 
 	NSDictionary *_packageDetails;
@@ -32,7 +31,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
-		_showIcon = !specifier.properties[@"showIcon"] || ((NSNumber *)specifier.properties[@"showIcon"]).boolValue;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
 		_icon = specifier.properties[@"iconImage"];
 
