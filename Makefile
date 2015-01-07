@@ -2,12 +2,21 @@ TARGET = iphone:clang:latest:5.0
 
 include theos/makefiles/common.mk
 
+LIBRARY_NAME = libcephei
+libcephei_FILES = $(wildcard *.m)
+libcephei_FRAMEWORKS = CoreGraphics UIKit
+
 SUBPROJECTS = prefs
+
+include $(THEOS_MAKE_PATH)/library.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
+after-libcephei-all::
+	cp $(THEOS_OBJ_DIR)/libcephei.dylib $(THEOS)/lib
+
 after-stage::
-	mkdir -p $(THEOS)/include/libcephei $(THEOS_STAGING_DIR)/usr/include
-	rsync -ra *.h prefs/*.h {$(THEOS)/include/Cephei,$(THEOS_STAGING_DIR)/usr/include/Cephei}
+	mkdir -p $(THEOS)/include/Cephei $(THEOS_STAGING_DIR)/usr/include
+	rsync -ra *.h {$(THEOS)/include/Cephei,$(THEOS_STAGING_DIR)/usr/include/Cephei}
 
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
 
