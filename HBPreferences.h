@@ -29,18 +29,6 @@
 @interface HBPreferences : NSObject
 
 /**
- * The default preferences to be used when no value has been set by the user.
- *
- * You may modify the values of this dictionary directly.
- */
-@property (nonatomic, retain, readonly) NSMutableDictionary *defaults;
-
-/**
- * The preferences identifier provided at initialisation.
- */
-@property (nonatomic, retain, readonly) NSString *identifier;
-
-/**
  * @name Initializing an HBPreferences Object
  */
 
@@ -61,6 +49,11 @@
  * @returns An autoreleased instance of HBPreferences for the specified identifier.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier;
+
+/**
+ * The preferences identifier provided at initialisation.
+ */
+@property (nonatomic, retain, readonly) NSString *identifier;
 
 /**
  * @name Getting Preference Values
@@ -136,7 +129,7 @@
  * user preference is set, the provided default.
  *
  * @param key The key for which to return the corresponding value.
- * @param default The default value to use when no user preference is set.
+ * @param defaultValue The default value to use when no user preference is set.
  * @returns The object associated with the specified key, or the default value.
  */
 - (id)objectForKey:(NSString *)key default:(id)defaultValue;
@@ -146,7 +139,7 @@
  * user preference is set, the provided default.
  *
  * @param key The key for which to return the corresponding value.
- * @param default The default value to use when no user preference is set.
+ * @param defaultValue The default value to use when no user preference is set.
  * @returns The integer value associated with the specified key, or the default
  * value.
  */
@@ -157,7 +150,7 @@
  * user preference is set, the provided default.
  *
  * @param key The key for which to return the corresponding value.
- * @param default The default value to use when no user preference is set.
+ * @param defaultValue The default value to use when no user preference is set.
  * @returns The floating-point value associated with the specified key, or the
  * default value.
  */
@@ -168,7 +161,7 @@
  * user preference is set, the provided default.
  *
  * @param key The key for which to return the corresponding value.
- * @param default The default value to use when no user preference is set.
+ * @param defaultValue The default value to use when no user preference is set.
  * @returns The double value associated with the specified key, or the default
  * value.
  */
@@ -179,7 +172,7 @@
  * user preference is set, the provided default.
  *
  * @param key The key for which to return the corresponding value.
- * @param default The default value to use when no user preference is set.
+ * @param defaultValue The default value to use when no user preference is set.
  * @returns The Boolean value associated with the specified key, or the default
  * value.
  */
@@ -219,7 +212,7 @@
  * This is a convenience method that calls setObject:forKey:. See the discussion
  * of that method for more details.
  *
- * @param value The Boolean value to store in the preferences.
+ * @param value The floating-point value to store in the preferences.
  * @param key The key with which to associate with the value.
  */
 - (void)setFloat:(CGFloat)value forKey:(NSString *)key;
@@ -230,7 +223,7 @@
  * This is a convenience method that calls setObject:forKey:. See the discussion
  * of that method for more details.
  *
- * @param value The Boolean value to store in the preferences.
+ * @param value The double value to store in the preferences.
  * @param key The key with which to associate with the value.
  */
 - (void)setDouble:(double)value forKey:(NSString *)key;
@@ -248,6 +241,9 @@
 
 /**
  * Sets the value of the specified key to the specified value.
+ *
+ * @param object The value to store in the preferences.
+ * @param key The key with which to associate with the value.
  */
 - (void)setObject:(id)object forKeyedSubscript:(id)key;
 
@@ -256,13 +252,20 @@
  */
 
 /**
+ * The default preferences to be used when no value has been set by the user.
+ *
+ * You may modify the values of this dictionary directly.
+ */
+@property (nonatomic, retain, readonly) NSMutableDictionary *defaults;
+
+/**
  * Register an object to be automatically set to the user's preference.
  *
  * If the preference is not yet set, the object will be set to the provided
  * default.
  *
  * @param object The pointer to the object.
- * @param default The default value to be used if no user preference is set.
+ * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
  */
 - (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key;
@@ -274,7 +277,7 @@
  * default.
  *
  * @param object The pointer to the integer.
- * @param default The default value to be used if no user preference is set.
+ * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
  */
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key;
@@ -287,7 +290,7 @@
  * default.
  *
  * @param object The pointer to the integer.
- * @param default The default value to be used if no user preference is set.
+ * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
  */
 - (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key;
@@ -299,7 +302,7 @@
  * default.
  *
  * @param object The pointer to the double.
- * @param default The default value to be used if no user preference is set.
+ * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
  */
 - (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key;
@@ -311,7 +314,7 @@
  * default.
  *
  * @param object The pointer to the Boolean.
- * @param default The default value to be used if no user preference is set.
+ * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
  */
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
@@ -319,7 +322,7 @@
 /*
  * Adds the contents of the specified dictionary to the defaults property.
  *
- * @param defaults The dictionary of keys and values you want to register.
+ * @param defaultValues The dictionary of keys and values you want to register.
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
 
