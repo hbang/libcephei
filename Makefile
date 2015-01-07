@@ -27,3 +27,9 @@ after-install::
 ifeq ($(DEBUG),1)
 	install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
 endif
+
+docs::
+	appledoc --project-name libcephei --project-company "HASHBANG Productions" --company-id ws.hbang \
+		--docset-atom-filename libcephei.atom --docset-feed-url "https://hbang.github.io/libcephei/%DOCSETATOMFILENAME" \
+		--docset-fallback-url "https://hbang.github.io/libcephei/" --index-desc README.md \
+		--keep-intermediate-files --no-repeat-first-par --output docs $(wildcard *.h) $(wildcard prefs/*.h)

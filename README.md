@@ -5,6 +5,8 @@ Little by little, we added more useful classes to Common that we realised we nee
 
 Don’t forget to submit pull requests if you think there’s something useful every tweak developer could benefit from!
 
+**Note: Documentation is currently a work in progress.**
+
 ## Integrating libcephei into your Theos projects
 It’s really easy to integrate libcephei into a Theos project. First, install libcephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it - try TypeStatus - or just install it with `apt-get install ws.hbang.common` at the command line. 
 
