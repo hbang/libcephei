@@ -13,7 +13,7 @@ It’s really easy to integrate libcephei into a Theos project. First, install l
 Now, copy the dynamic libraries and headers into the location you cloned Theos to. If you’re using [our headers](https://github.com/hbang/headers), you already have the headers needed and can skip the second command. (We assume you have `$THEOS`, `$THEOS_DEVICE_IP`, and `$THEOS_DEVICE_PORT` set and exported in your shell.)
 
     scp -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/lib/libcephei\* $THEOS/lib
-    scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/libcephei $THEOS/include
+    scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/Cephei $THEOS/include
 
 Next, for all targets that will be using libcephei, add it to the target’s libraries:
 

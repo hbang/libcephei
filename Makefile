@@ -7,7 +7,7 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-stage::
 	mkdir -p $(THEOS)/include/libcephei $(THEOS_STAGING_DIR)/usr/include
-	rsync -ra *.h prefs/*.h {$(THEOS)/include/libcephei,$(THEOS_STAGING_DIR)/usr/include/libcephei}
+	rsync -ra *.h prefs/*.h {$(THEOS)/include/Cephei,$(THEOS_STAGING_DIR)/usr/include/Cephei}
 
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
 
