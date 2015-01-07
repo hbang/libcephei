@@ -6,6 +6,10 @@
 
 #pragma mark - Constants
 
++ (NSString *)hb_specifierPlist {
+	return @"DemoRoot";
+}
+
 + (NSString *)hb_shareText {
 	return @"libcephei is a great developer library used behind the scenes of jailbroken iOS packages.";
 }
@@ -16,16 +20,6 @@
 
 + (UIColor *)hb_tintColor {
 	return [UIColor purpleColor];
-}
-
-#pragma mark - PSListController
-
-- (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"DemoRoot" target:self] retain];
-	}
-
-	return _specifiers;
 }
 
 #pragma mark - Actions

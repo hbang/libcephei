@@ -18,14 +18,26 @@
 	return nil;
 }
 
-+ (NSString *)hb_plistName {
-	return nil; //Totally makes sense.
++ (NSString *)hb_specifierPlist {
+	return nil; // Totally makes sense.
+}
+
+#pragma mark - Loading specifiers
+
+- (void)_loadSpecifiersFromPlistIfNeeded {
+	if (_specifiers || ![self.class hb_specifierPlist]) {
+		return;
+	}
+
+	_specifiers = [[self loadSpecifiersFromPlistName:[self.class hb_specifierPlist] target:self] retain];
+}
+
+- (NSArray *)specifiers {
+	[self _loadSpecifiersFromPlistIfNeeded];
+	return _specifiers;
 }
 
 #pragma mark - UIViewController
-
-// TODO: figure out why none of these methods (that's right, none) are called when
-// going back into Preferences after exiting.
 
 - (void)viewDidLoad {
 	// I'm not even gonna ask what this is about... https://www.youtube.com/watch?v=BkWl679wB1c
@@ -91,9 +103,7 @@
 
 		if (IS_MOST_MODERN) {
 			self.navigationController.navigationController.navigationBar.tintColor = nil;
-		}
-
-		else {
+		} else {
 			self.navigationController.navigationBar.tintColor = nil;
 		}
 
@@ -101,36 +111,25 @@
 	}
 }
 
-#pragma mark - PSViewController
+#pragma mark - PSListController
 
-- (BOOL)canBeShownFromSuspendedState {
+/*
+ this prevents specifiers from being lost if the app is closed and
+ re-opened
+*/
+- (BOOL)shouldReloadSpecifiersOnResume {
 	return NO;
 }
 
-// Fixes weird iOS 7 glitch, a little neater than before, and ideally
-// preventing crashes on iPads and older devices.
+#pragma mark - UITableViewDelegate
+
+/*
+ Fixes weird iOS 7 glitch, a little neater than before, and ideally
+ preventing crashes on iPads and older devices.
+*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Sepcifier stuffs
-
-- (void)hb_loadSpecifiersFromPlist{
-	if(_specifiers || ![[self class] hb_plistName] || [[[self class] hb_plistName] isEqualToString:@""]) return;
-	_specifiers = [[self loadSpecifiersFromPlistName:[[self class] hb_plistName] target:self] retain];
-}
-
-- (id)specifiers{
-	if(_specifiers) return;
-	[self hb_loadSpecifiersFromPlist];
-}
-
-- (instancetype)init{
-	if((self = [super init])){
-		[self hb_loadSpecifiersFromPlist];
-	}
-	return self;
 }
 
 @end

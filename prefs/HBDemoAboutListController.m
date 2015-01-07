@@ -2,14 +2,10 @@
 
 @implementation HBDemoAboutListController
 
-#pragma mark - PSListController
+#pragma mark - HBListController
 
-- (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"DemoAbout" target:self] retain];
-	}
-
-	return _specifiers;
++ (NSString *)hb_specifierPlist {
+	return @"DemoAbout";
 }
 
 @end
