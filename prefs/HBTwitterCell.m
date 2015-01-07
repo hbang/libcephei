@@ -32,7 +32,7 @@
 			_highlightedImage = [[UIImage imageNamed:@"twitter_selected" inBundle:globalBundle] retain];
 		}
 
-		self.detailTextLabel.text = [@"@" stringByAppendingString:specifier.properties[@"user"]];
+		self.detailTextLabel.text = [@"@" stringByAppendingString:_user];
 		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:0.5568627451f alpha:1] : [UIColor tableCellValue1BlueColor];
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 		self.accessoryView = [[UIImageView alloc] initWithImage:_defaultImage];
@@ -46,7 +46,7 @@
 			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
 			_avatarView.userInteractionEnabled = NO;
 			_avatarView.clipsToBounds = YES;
-			_avatarView.layer.cornerRadius = IS_MODERN ? 4.f : size / 2;
+			_avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
 			[self.contentView addSubview:_avatarView];
 
 			_avatarImageView = [[UIImageView alloc] initWithFrame:_avatarView.bounds];
