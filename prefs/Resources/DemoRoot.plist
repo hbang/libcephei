@@ -56,6 +56,28 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>HBDiscreteSliderTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBDiscreteSliderTableCell</string>
+			<key>default</key>
+			<real>5</real>
+			<key>defaults</key>
+			<string>ws.hbang.libcephei.demo</string>
+			<key>key</key>
+			<string>Discrete</string>
+			<key>label</key>
+			<string>Discrete</string>
+			<key>max</key>
+			<real>15</real>
+			<key>min</key>
+			<real>1</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>HBListItemsController</string>
 		</dict>
 		<dict>
