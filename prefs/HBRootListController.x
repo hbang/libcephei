@@ -29,7 +29,7 @@
 	if (%c(UIActivityViewController)) {
 		UIActivityViewController *viewController = [[[UIActivityViewController alloc] initWithActivityItems:@[ [self.class hb_shareText], [self.class hb_shareURL] ] applicationActivities:nil] autorelease];
 		[self.navigationController presentViewController:viewController animated:YES completion:nil];
-	} else if (%c(TWTweetComposeViewController) && [TWTweetComposeViewController canSendTweet]) {
+	} else if ([TWTweetComposeViewController canSendTweet]) {
 		TWTweetComposeViewController *viewController = [[[TWTweetComposeViewController alloc] init] autorelease];
 		viewController.initialText = [self.class hb_shareText];
 		[viewController addURL:[self.class hb_shareURL]];

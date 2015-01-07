@@ -3,10 +3,9 @@ include theos/makefiles/common.mk
 BUNDLE_NAME = libcepheiprefs
 libcepheiprefs_FILES = $(wildcard *.x) $(wildcard *.m)
 libcepheiprefs_INSTALL_PATH = /Library/PreferenceBundles
-libcepheiprefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
+libcepheiprefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 libcepheiprefs_PRIVATE_FRAMEWORKS = Preferences
 libcepheiprefs_CFLAGS = -include HBGlobal.h
-libcepheiprefs_LDFLAGS = -weak_framework Twitter
 libcepheiprefs_LIBRARIES = substrate
 
 include $(THEOS_MAKE_PATH)/bundle.mk
