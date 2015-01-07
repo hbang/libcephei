@@ -1,3 +1,5 @@
+#import "HBOutputForShellCommand.h"
+
 NSString *HBOutputForShellCommand(NSString *command) {
 	FILE *file = popen(command.UTF8String, "r");
 

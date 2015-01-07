@@ -1,1 +1,1 @@
-NSString *HBOutputForShellCommand(NSString *command);
+extern NSString *HBOutputForShellCommand(NSString *command);
