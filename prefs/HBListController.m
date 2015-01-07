@@ -84,9 +84,7 @@
 
 		if (IS_MOST_MODERN) {
 			self.navigationController.navigationController.navigationBar.tintColor = [self cachedTintColor];
-		}
-
-		else {
+		} else {
 			self.navigationController.navigationBar.tintColor = [self cachedTintColor];
 		}
 
@@ -117,7 +115,7 @@
  this prevents specifiers from being lost if the app is closed and
  re-opened
 */
-- (BOOL)shouldReloadSpecifiersOnResume {
+- (BOOL)canBeShownFromSuspendedState {
 	return NO;
 }
 
