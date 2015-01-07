@@ -17,10 +17,7 @@
  * directory, to support sandboxed apps and apps running as `root`.
  * - Intuitive method of setting a default preference value.
  * - Updating of the app/tweak's variables when preferences are changed.
- * - Keyed subscripting is allowed, which enables simple array syntax:
- *         NSString *value = preferences[@"key"];
- *         preferences[@"key"] = @"awesome";
- *
+ * - Keyed subscripting is allowed, which enables simple array syntax.
  * - Values in the preferences plist are called preferences, not defaults, to
  * avoid confusion. (`NSUserDefaults` even uses "defaults" to refer to both
  * preferences themselves and the defaults if a key doesn't exist.)
