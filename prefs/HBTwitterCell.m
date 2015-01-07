@@ -98,19 +98,24 @@
 		return;
 	}
 
-	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"aphelion:"]]) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"aphelion://profile/" stringByAppendingString:_user]]];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot:"]]) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"tweetbot:///user_profile/" stringByAppendingString:_user]]];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitterrific:"]]) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"twitterrific:///profile?screen_name=" stringByAppendingString:_user]]];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetings:"]]) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"tweetings:///user?screen_name=" stringByAppendingString:_user]]];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter:"]]) {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"twitter://user?screen_name=" stringByAppendingString:_user]]];
+	NSString *user = URL_ENCODE(_user);
+	NSURL *url = nil;
+
+	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"aphelion://"]]) {
+		url = [NSURL URLWithString:[@"aphelion://profile/" stringByAppendingString:user]];
+	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot://"]]) {
+		url = [NSURL URLWithString:[@"tweetbot:///user_profile/" stringByAppendingString:user]];
+	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitterrific://"]]) {
+		url = [NSURL URLWithString:[@"twitterrific:///profile?screen_name=" stringByAppendingString:user]];
+	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetings://"]]) {
+		url = [NSURL URLWithString:[@"tweetings:///user?screen_name=" stringByAppendingString:user]];
+	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter://"]]) {
+		url = [NSURL URLWithString:[@"twitter://user?screen_name=" stringByAppendingString:user]];
 	} else {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"https://mobile.twitter.com/" stringByAppendingString:_user]]];
+		url = [NSURL URLWithString:[@"https://mobile.twitter.com/" stringByAppendingString:user]];
 	}
+
+	[[UIApplication sharedApplication] openURL:url];
 }
 
 #pragma mark - Avatar
