@@ -40,6 +40,22 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>HBBigImageTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBBigImageTableCell</string>
+			<key>height</key>
+			<integer>29</integer>
+			<key>icon</key>
+			<string>icon.png</string>
+			<key>label</key>
+			<string>Big Image</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>HBListItemsController</string>
 		</dict>
 		<dict>
