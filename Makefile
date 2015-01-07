@@ -17,7 +17,7 @@ after-libcephei-all::
 after-stage::
 	mkdir -p $(THEOS)/include/Cephei $(THEOS_STAGING_DIR)/usr/include
 	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/Cephei --exclude HBGlobal.h
-	rsync -ra $(THEOS_STAGING_DIR)/usr/include/Cephei $(THEOS)/include/Cephei
+	rsync -ra $(THEOS_STAGING_DIR)/usr/include/Cephei $(THEOS)/include/Cephei/
 
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
 

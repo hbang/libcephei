@@ -16,7 +16,7 @@ after-libcephei-all::
 internal-stage::
 	mkdir -p $(THEOS)/include/CepheiPrefs $(THEOS_STAGING_DIR)/usr/include
 	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs --exclude HBGlobal.h
-	rsync -ra $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs $(THEOS)/include/CepheiPrefs
+	rsync -ra $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs $(THEOS)/include/CepheiPrefs/
 
 	ln -s libcepheiprefs.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
 	ln -s libcepheiprefs $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libcepheiprefs.bundle/libhbangprefs
