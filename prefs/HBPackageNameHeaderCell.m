@@ -1,8 +1,6 @@
 #import "HBPackageNameHeaderCell.h"
 #import "HBOutputForShellCommand.h"
 #import <Preferences/PSSpecifier.h>
-#import <UIKit/UIImage+Private.h>
-#import <UIKit/UIViewController+Private.h>
 #import <version.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
