@@ -1,6 +1,6 @@
 #import <Preferences/PSTableCell.h>
 #import <Preferences/PSHeaderFooterView.h>
 
-@interface HBBigImageTableCell : PSTableCell <PSHeaderFooterView>
+@interface HBImageTableCell : PSTableCell <PSHeaderFooterView>
 
 @end

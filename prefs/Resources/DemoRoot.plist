@@ -40,11 +40,11 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>HBBigImageTableCell</string>
+			<string>HBImageTableCell</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
-			<string>HBBigImageTableCell</string>
+			<string>HBImageTableCell</string>
 			<key>height</key>
 			<integer>29</integer>
 			<key>icon</key>

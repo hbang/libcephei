@@ -1,8 +1,8 @@
-#import "HBBigImageTableCell.h"
+#import "HBImageTableCell.h"
 #import <Preferences/PSSpecifier.h>
 #import <version.h>
 
-@implementation HBBigImageTableCell {
+@implementation HBImageTableCell {
 	UIImageView *_bigImageView;
 }
 
