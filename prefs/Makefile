@@ -14,8 +14,9 @@ after-libcephei-all::
 	cp $(THEOS_OBJ_DIR)/libcepheiprefs.bundle/libcepheiprefs $(THEOS)/lib
 
 internal-stage::
-	mkdir -p $(THEOS)/include/Cephei $(THEOS_STAGING_DIR)/usr/include
-	rsync -ra *.h {$(THEOS)/include/Cephei,$(THEOS_STAGING_DIR)/usr/include/Cephei}
+	mkdir -p $(THEOS)/include/CepheiPrefs $(THEOS_STAGING_DIR)/usr/include
+	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs --exclude HBGlobal.h
+	rsync -ra $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs $(THEOS)/include/CepheiPrefs
 
 	ln -s libcepheiprefs.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
 	ln -s libcepheiprefs $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libcepheiprefs.bundle/libhbangprefs
@@ -26,5 +27,5 @@ internal-stage::
 
 ifeq ($(DEBUG),1)
 	mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences
-	cp entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/libcepheiprefs.plist
+	mv $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libcepheiprefs.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/libcepheiprefs.plist
 endif
