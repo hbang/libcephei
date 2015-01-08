@@ -40,6 +40,10 @@
 		if (!specifier.properties[@"showAvatar"] || ((NSNumber *)specifier.properties[@"showAvatar"]).boolValue) {
 			CGFloat size = _isBig ? 38.f : 29.f;
 
+			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
+			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
+			UIGraphicsEndImageContext();
+
 			_avatarView = [[UIView alloc] initWithFrame:CGRectMake(IS_MODERN ? 15.f : 8.f, 0, size, size)];
 			_avatarView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 			_avatarView.center = CGPointMake(_avatarView.center.x, self.contentView.frame.size.height / 2);
@@ -60,24 +64,6 @@
 	}
 
 	return self;
-}
-
-- (void)layoutSubviews {
-	[super layoutSubviews];
-
-	if (_avatarView) {
-		CGFloat extra = _avatarView.frame.size.width + 8.f;
-
-		CGRect labelFrame = self.textLabel.frame;
-		labelFrame.origin.x += extra;
-		self.textLabel.frame = labelFrame;
-
-		if (_isBig) {
-			CGRect detailFrame = self.detailTextLabel.frame;
-			detailFrame.origin.x += extra;
-			self.detailTextLabel.frame = detailFrame;
-		}
-	}
 }
 
 - (void)setSelectionStyle:(UITableViewCellSelectionStyle)style {
