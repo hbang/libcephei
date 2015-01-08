@@ -1,3 +1,3 @@
 %ctor {
-	globalBundle = [[NSBundle bundleWithPath:@"/Library/PreferenceBundles/libcepheiprefs.bundle"] retain];
+	globalBundle = [[NSBundle bundleWithPath:@"/Library/PreferenceBundles/Cephei.bundle"] retain];
 }
