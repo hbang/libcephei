@@ -27,6 +27,8 @@ static NSMutableDictionary *KnownIdentifiers;
 		_defaults = [[NSMutableDictionary alloc] init];
 		_pointers = [[NSMutableDictionary alloc] init];
 
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
+
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
 			KnownIdentifiers = [[NSMutableDictionary alloc] init];
@@ -41,42 +43,11 @@ static NSMutableDictionary *KnownIdentifiers;
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	// TODO
-	/*
-	if (![NSUserName() isEqualToString:@"mobile"]) {
-		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
-	}
-
-	BOOL success = NO;
-
-	if (_isDirty) {
-		_isDirty = NO;
-		success = [_preferences writeToURL:self._path atomically:YES];
-
-		[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
-	}
-
-	[self _reloadPreferences];
-
-	return success && _preferences != nil;
-	*/
-
-	return YES;
+	return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
 }
 
-- (void)_reloadPreferences {
-	// TODO
-	/*
-	[_preferences release];
-	_preferences = [[NSDictionary alloc] initWithContentsOfURL:self._path];
-
-	for (NSString *key in _preferences.allKeys) {
-		if ([_pointers.allKeys containsObject:key]) {
-			void *pointer = _pointers[key];
-			*pointer = _preferences[key];
-		}
-	}
-	*/
+- (void)userDefaultsDidChange:(NSNotification *)notification {
+	NSLog(@"userDefaultsDidChange:%@ object=%@", notification, notification.object);
 }
 
 #pragma mark - Getters
@@ -140,8 +111,14 @@ static NSMutableDictionary *KnownIdentifiers;
 #pragma mark - Setters
 
 - (void)setObject:(id)value forKey:(NSString *)key {
+	if (![NSUserName() isEqualToString:@"mobile"]) {
+		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
+	}
+
 	_preferences[key] = value;
-	[self synchronize];
+
+	CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
+	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 }
 
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key {
@@ -197,6 +174,9 @@ static NSMutableDictionary *KnownIdentifiers;
 	[_identifier release];
 	[_defaults release];
 	[_pointers release];
+
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
 	[super dealloc];
 }
 

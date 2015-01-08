@@ -342,6 +342,23 @@
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
 
+/*
+ * @name Synchronizing Preferences
+ */
+
+/*
+ * Writes all pending changes to preference data to permanent storage, and
+ * reads latest preference data from permanent storage.
+ *
+ * Do not use this function directly unless you have a specific need.
+ * Synchronization is automatically invoked at periodic intervals. Use this
+ * method if you cannot wait for automatic synchronization (for example, if the
+ * process is about to exit).
+ *
+ * @returns `YES` if synchronization was successful, `NO` if an error occurred.
+ */
+- (BOOL)synchronize;
+
 @end
 
 #ifndef _HB_PREFERENCES_M
