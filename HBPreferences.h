@@ -1,5 +1,5 @@
 /**
- * The `HBPreferences` class provides an interface for managing the
+ * The `HBPreferences` class in `libcephei` provides an interface for managing
  * user-defined preferences of a tweak, and the default values used when the
  * user has not yet changed a value.
  *
@@ -19,8 +19,25 @@
  * - Updating of the app/tweak's variables when preferences are changed.
  * - Keyed subscripting is allowed, which enables simple array syntax.
  * - Values in the preferences plist are called preferences, not defaults, to
- * avoid confusion. (`NSUserDefaults` even uses "defaults" to refer to both
- * preferences themselves and the defaults if a key doesn't exist.)
+ * avoid ambiguity - `NSUserDefaults` uses "defaults" to refer to both
+ * preferences themselves and the defaults if a key doesn't exist.
+ *
+ * ### Example usage:
+ *
+ * 	BOOL doThing;
+ *
+ * 	%ctor {
+ * 		preferences = [[HBPreferences alloc] initWithIdentifier:@"ws.hbang.common.demo"];
+ * 		[preferences registerDefaults:@{
+ * 			@"Enabled": @YES,
+ * 			@"AnotherSetting": @1.f
+ * 		}];
+ *
+ * 		[preferences registerBool:&doThing default:NO forKey:@"DoThing"];
+ *
+ * 		NSLog(@"Am I enabled? %i", [preferences boolForKey:@"Enabled"]);
+ * 		NSLog(@"Can I do thing? %i", doThing);
+ * 	}
  */
 
 @interface HBPreferences : NSObject
@@ -318,6 +335,8 @@
 
 /*
  * Adds the contents of the specified dictionary to the defaults property.
+ *
+ * Provided as a convenience for converting code from using `NSUserDefaults`.
  *
  * @param defaultValues The dictionary of keys and values you want to register.
  */
