@@ -99,8 +99,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	NSUInteger location = 0, length = 0;
 
 	if (_icon && _condensed) {
-		length++;
-
 		NSTextAttachment *textAttachment = [[[NSTextAttachment alloc] init] autorelease];
 		textAttachment.image = _icon;
 		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
@@ -114,6 +112,9 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
 	if (_condensed) {
+		location++;
+		length++;
+
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
 			NSBaselineOffsetAttributeName: @(6.f),
