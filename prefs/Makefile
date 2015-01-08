@@ -10,11 +10,13 @@ libcepheiprefs_LIBRARIES = cephei substrate
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
-after-libcephei-all::
-	cp $(THEOS_OBJ_DIR)/libcepheiprefs.bundle/libcepheiprefs $(THEOS)/lib
+after-libcepheiprefs-all::
+ifneq ($(DEBUG),1)
+	cp $(THEOS_OBJ_DIR)/libcepheiprefs.bundle/libcepheiprefs $(THEOS)/lib/libcepheiprefs.dylib
+endif
 
 internal-stage::
-	mkdir -p $(THEOS)/include/CepheiPrefs $(THEOS_STAGING_DIR)/usr/include
+	mkdir -p $(THEOS)/include/CepheiPrefs $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs
 	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs --exclude HBGlobal.h
 	rsync -ra $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs $(THEOS)/include/CepheiPrefs/
 
