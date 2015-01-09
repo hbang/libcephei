@@ -24,6 +24,7 @@
  *
  * ### Example usage:
  *
+ * 	HBPreferences *preferences;
  * 	BOOL doThing;
  *
  * 	%ctor {
@@ -205,7 +206,7 @@
  * @param value The object to store in the preferences.
  * @param key The key with which to associate with the value.
  * @exception HBPreferencesNotMobileException Thrown when the method is called
- * by a user other than `mobile`.
+ * by a process not running as the `mobile` user.
  */
 - (void)setObject:(id)value forKey:(NSString *)key;
 
