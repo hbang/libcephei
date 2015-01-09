@@ -1,5 +1,5 @@
 #import "HBAboutListController.h"
-#import "HBOutputForShellCommand.h"
+#import "../HBOutputForShellCommand.h"
 #import <MobileGestalt/MobileGestalt.h>
 #include <version.h>
 

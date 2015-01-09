@@ -1,5 +1,5 @@
 #import "HBPackageNameHeaderCell.h"
-#import "HBOutputForShellCommand.h"
+#import "../HBOutputForShellCommand.h"
 #import <Preferences/PSSpecifier.h>
 #import <version.h>
 
