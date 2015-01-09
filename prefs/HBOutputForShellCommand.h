@@ -6,7 +6,7 @@
  * of the command.
  * @returns The output of the provided command.
  */
-extern NSString *HBOutputForShellCommand(NSString *command, int *returnCode);
+NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode);
 
 /**
  * Executes a shell command and returns its output.
@@ -15,4 +15,8 @@ extern NSString *HBOutputForShellCommand(NSString *command, int *returnCode);
  * @returns The output of the provided command, or nil if the command returned
  * with a code other than 0.
  */
-extern NSString *HBOutputForShellCommand(NSString *command);
+inline NSString *HBOutputForShellCommand(NSString *command) {
+	int returnCode = 0;
+	NSString *output = HBOutputForShellCommandWithReturnCode(command, &returnCode);
+	return returnCode == 0 ? output : nil;
+}

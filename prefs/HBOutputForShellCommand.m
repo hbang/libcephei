@@ -1,12 +1,6 @@
 #import "HBOutputForShellCommand.h"
 
-NSString *HBOutputForShellCommand(NSString *command) {
-	int returnCode = 0;
-	NSString *output = HBOutputForShellCommand(command, &returnCode);
-	return returnCode == 0 ? output : nil;
-}
-
-NSString *HBOutputForShellCommand(NSString *command, int *returnCode) {
+NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode) {
 	FILE *file = popen(command.UTF8String, "r");
 
 	if (!file) {
@@ -21,7 +15,7 @@ NSString *HBOutputForShellCommand(NSString *command, int *returnCode) {
 	}
 
 	int result = pclose(file);
-	&returnCode = result;
+	*returnCode = result;
 
 	return [NSString stringWithString:output];
 }

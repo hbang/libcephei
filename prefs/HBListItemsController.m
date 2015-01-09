@@ -2,7 +2,9 @@
 #import "HBListController.h"
 #import <version.h>
 
-@implementation HBListItemsController
+@implementation HBListItemsController {
+	UIColor *_cachedTintColor;
+}
 
 #pragma mark - Constants
 
@@ -65,9 +67,6 @@
 		} else {
 			self.navigationController.navigationBar.tintColor = [self cachedTintColor];
 		}
-
-		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
-		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
 	}
 }
 
@@ -82,8 +81,6 @@
 		} else {
 			self.navigationController.navigationBar.tintColor = nil;
 		}
-
-		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
 	}
 }
 
