@@ -42,6 +42,8 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
+	<option value="overview">Overview</option>
+	
 
 	
 	
@@ -81,6 +83,41 @@
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBSpinnerTableCell</code> class in <code>libcepheiprefs</code> displays an activity
+indicator when the cell is disabled.</p>
+
+<h3>Example Usage:</h3>
+
+<p>Specifier plist:</p>
+
+<pre><code>&lt;dict&gt;
+    &lt;key&gt;action&lt;/key&gt;
+    &lt;string&gt;doStuffTapped:&lt;/string&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSButtonCell&lt;/string&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBSpinnerTableCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Do Stuff&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+
+<p>List controller implementation:</p>
+
+<pre><code>- (void)doStuffTapped:(PSSpecifier *)specifier {
+    PSTableCell *cell = (PSTableCell *)[(UITableView *)self.view cellForRowAtIndexPath:[self indexPathForSpecifier:specifier]];
+    cell.cellEnabled = NO;
+    // do something in the background...
+    cell.cellEnabled = YES;
+}
+</code></pre>
+					</div>
+					
+					
 
 					
 					

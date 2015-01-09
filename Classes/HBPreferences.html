@@ -121,6 +121,8 @@
 		
 		<option value="//api/name/setObject:forKeyedSubscript:">- setObject:forKeyedSubscript:</option>
 		
+		<option value="//api/name/synchronize">- synchronize</option>
+		
 	</optgroup>
 	
 	
@@ -183,7 +185,8 @@ preferences themselves and the defaults if a key doesn&rsquo;t exist.</li>
 
 <h3>Example usage:</h3>
 
-<pre><code>BOOL doThing;
+<pre><code>HBPreferences *preferences;
+BOOL doThing;
 
 %ctor {
     preferences = [[HBPreferences alloc] initWithIdentifier:@"ws.hbang.common.demo"];
@@ -220,54 +223,56 @@ preferences themselves and the defaults if a key doesn&rsquo;t exist.</li>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Creates an instance of the class for the specified <a href="#//api/name/identifier">identifier</a>.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>+ (instancetype)preferencesForIdentifier:(NSString *)<em>identifier</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>identifier</code></th>
-					<td><p>The <a href="#//api/name/identifier">identifier</a> to be used. This is usually the same as the
+			
+			<div class="method-subsection brief-description">
+				<p>Creates an instance of the class for the specified <a href="#//api/name/identifier">identifier</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (instancetype)preferencesForIdentifier:(NSString *)<em>identifier</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>identifier</code></th>
+						<td><p>The <a href="#//api/name/identifier">identifier</a> to be used. This is usually the same as the
 package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
-				</tr>
+					</tr>
+				
+				</table>
+			</div>
 			
-			</table>
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An autoreleased instance of HBPreferences for the specified <a href="#//api/name/identifier">identifier</a>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>An autoreleased instance of HBPreferences for the specified <a href="#//api/name/identifier">identifier</a>.</p>
-		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/initWithIdentifier:" title="initWithIdentifier:"></a>
@@ -277,54 +282,56 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Initializes an instance of the class for the specified <a href="#//api/name/identifier">identifier</a>.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (instancetype)initWithIdentifier:(NSString *)<em>identifier</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>identifier</code></th>
-					<td><p>The <a href="#//api/name/identifier">identifier</a> to be used. This is usually the same as the
+			
+			<div class="method-subsection brief-description">
+				<p>Initializes an instance of the class for the specified <a href="#//api/name/identifier">identifier</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype)initWithIdentifier:(NSString *)<em>identifier</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>identifier</code></th>
+						<td><p>The <a href="#//api/name/identifier">identifier</a> to be used. This is usually the same as the
 package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
-				</tr>
+					</tr>
+				
+				</table>
+			</div>
 			
-			</table>
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An autoreleased instance of HBPreferences for the specified <a href="#//api/name/identifier">identifier</a>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>An autoreleased instance of HBPreferences for the specified <a href="#//api/name/identifier">identifier</a>.</p>
-		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/identifier" title="identifier"></a>
@@ -334,36 +341,38 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>The preferences identifier provided at initialisation.</p>
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The preferences identifier provided at initialisation.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) NSString *identifier</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) NSString *identifier</code></div>
-
-	    
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div>
 						</div>
@@ -381,59 +390,61 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the object associated with the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (id)objectForKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection brief-description">
+				<p>Returns the object associated with the specified key.</p>
+			</div>
+			
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The object associated with the specified key.</p>
-		</div>
-		
+			<div class="method-subsection method-declaration"><code>- (id)objectForKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, returns the default. If no default is set,
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The object associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/integerForKey:" title="integerForKey:"></a>
@@ -443,59 +454,61 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the integer value associated with the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (NSInteger)integerForKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection brief-description">
+				<p>Returns the integer value associated with the specified key.</p>
+			</div>
+			
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The integer value associated with the specified key.</p>
-		</div>
-		
+			<div class="method-subsection method-declaration"><code>- (NSInteger)integerForKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, returns the default. If no default is set,
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The integer value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/floatForKey:" title="floatForKey:"></a>
@@ -505,59 +518,61 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the floating-point value associated with the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (CGFloat)floatForKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection brief-description">
+				<p>Returns the floating-point value associated with the specified key.</p>
+			</div>
+			
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The floating-point value associated with the specified key.</p>
-		</div>
-		
+			<div class="method-subsection method-declaration"><code>- (CGFloat)floatForKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, returns the default. If no default is set,
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The floating-point value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/doubleForKey:" title="doubleForKey:"></a>
@@ -567,59 +582,61 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the double value associated with the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (double)doubleForKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection brief-description">
+				<p>Returns the double value associated with the specified key.</p>
+			</div>
+			
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The double value associated with the specified key.</p>
-		</div>
-		
+			<div class="method-subsection method-declaration"><code>- (double)doubleForKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, returns the default. If no default is set,
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The double value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/boolForKey:" title="boolForKey:"></a>
@@ -629,59 +646,61 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the Boolean value associated with the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (BOOL)boolForKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection brief-description">
+				<p>Returns the Boolean value associated with the specified key.</p>
+			</div>
+			
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The Boolean value associated with the specified key.</p>
-		</div>
-		
+			<div class="method-subsection method-declaration"><code>- (BOOL)boolForKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, returns the default. If no default is set,
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The Boolean value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/objectForKeyedSubscript:" title="objectForKeyedSubscript:"></a>
@@ -691,58 +710,60 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the value associated with a given key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (id)objectForKeyedSubscript:(id)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
 			
-			</table>
+			<div class="method-subsection brief-description">
+				<p>Returns the value associated with a given key.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (id)objectForKeyedSubscript:(id)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This method behaves the same as <a href="#//api/name/objectForKey:">objectForKey:</a>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The value associated with the specified key.</p>
-		</div>
-		
-
-		
-
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>This method behaves the same as <a href="#//api/name/objectForKey:">objectForKey:</a>.</p>
-		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/objectForKey:default:" title="objectForKey:default:"></a>
@@ -752,59 +773,61 @@ returns <code>nil</code>.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the object associated with the specified key, or if no
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the object associated with the specified key, or if no
 user preference is set, the provided default.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (id)objectForKey:(NSString *)<em>key</em> default:(id)<em>defaultValue</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (id)objectForKey:(NSString *)<em>key</em> default:(id)<em>defaultValue</em></code></div>
+
+		    
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to use when no user preference is set.</p></td>
-				</tr>
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
 			
-			</table>
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The object associated with the specified key, or the default value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The object associated with the specified key, or the default value.</p>
-		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/integerForKey:default:" title="integerForKey:default:"></a>
@@ -814,60 +837,62 @@ user preference is set, the provided default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the integer value associated with the specified key, or if no
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the integer value associated with the specified key, or if no
 user preference is set, the provided default.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (NSInteger)integerForKey:(NSString *)<em>key</em> default:(NSInteger)<em>defaultValue</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to use when no user preference is set.</p></td>
-				</tr>
-			
-			</table>
-		</div>
-		
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The integer value associated with the specified key, or the default
+			<div class="method-subsection method-declaration"><code>- (NSInteger)integerForKey:(NSString *)<em>key</em> default:(NSInteger)<em>defaultValue</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The integer value associated with the specified key, or the default
 value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/floatForKey:default:" title="floatForKey:default:"></a>
@@ -877,60 +902,62 @@ value.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the floating-point value associated with the specified key, or if no
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the floating-point value associated with the specified key, or if no
 user preference is set, the provided default.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (CGFloat)floatForKey:(NSString *)<em>key</em> default:(CGFloat)<em>defaultValue</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to use when no user preference is set.</p></td>
-				</tr>
-			
-			</table>
-		</div>
-		
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The floating-point value associated with the specified key, or the
+			<div class="method-subsection method-declaration"><code>- (CGFloat)floatForKey:(NSString *)<em>key</em> default:(CGFloat)<em>defaultValue</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The floating-point value associated with the specified key, or the
 default value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/doubleForKey:default:" title="doubleForKey:default:"></a>
@@ -940,60 +967,62 @@ default value.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the double value associated with the specified key, or if no
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the double value associated with the specified key, or if no
 user preference is set, the provided default.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (double)doubleForKey:(NSString *)<em>key</em> default:(double)<em>defaultValue</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to use when no user preference is set.</p></td>
-				</tr>
-			
-			</table>
-		</div>
-		
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The double value associated with the specified key, or the default
+			<div class="method-subsection method-declaration"><code>- (double)doubleForKey:(NSString *)<em>key</em> default:(double)<em>defaultValue</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The double value associated with the specified key, or the default
 value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/boolForKey:default:" title="boolForKey:default:"></a>
@@ -1003,60 +1032,62 @@ value.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Returns the Boolean value associated with the specified key, or if no
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the Boolean value associated with the specified key, or if no
 user preference is set, the provided default.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (BOOL)boolForKey:(NSString *)<em>key</em> default:(BOOL)<em>defaultValue</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key for which to return the corresponding value.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to use when no user preference is set.</p></td>
-				</tr>
-			
-			</table>
-		</div>
-		
+		    
 
-		
-		<div class="method-subsection return">
-			<h4 class="method-subtitle parameter-title">Return Value</h4>
-			<p>The Boolean value associated with the specified key, or the default
+			<div class="method-subsection method-declaration"><code>- (BOOL)boolForKey:(NSString *)<em>key</em> default:(BOOL)<em>defaultValue</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The Boolean value associated with the specified key, or the default
 value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div>
 						</div>
@@ -1074,72 +1105,74 @@ value.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>value</code></th>
-					<td><p>The object to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key.</p>
+			</div>
 			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The object to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>You should only call these methods if you are certain that the process is
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>You should only call these methods if you are certain that the process is
 running as the <code>mobile</code> user.</p>
-		</div>
-		
-
-		
-		<div class="method-subsection arguments-section exceptions">
-			<h4 class="method-subtitle exception-title">Exceptions</h4>
-			<table class="argument-def exception-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>HBPreferencesNotMobileException</code></th>
-					<td><p>Thrown when the method is called
-by a user other than <code>mobile</code>.</p></td>
-				</tr>
+
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection arguments-section exceptions">
+				<h4 class="method-subtitle exception-title">Exceptions</h4>
+				<table class="argument-def exception-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>HBPreferencesNotMobileException</code></th>
+						<td><p>Thrown when the method is called
+by a process not running as the <code>mobile</code> user.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
+			
 
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/setInteger:forKey:" title="setInteger:forKey:"></a>
@@ -1149,59 +1182,61 @@ by a user other than <code>mobile</code>.</p></td>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key to the specified integer value.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setInteger:(NSInteger)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>value</code></th>
-					<td><p>The integer value to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified integer value.</p>
+			</div>
 			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)setInteger:(NSInteger)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The integer value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
 of that method for more details.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/setFloat:forKey:" title="setFloat:forKey:"></a>
@@ -1211,59 +1246,61 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key to the specified floating-point value.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setFloat:(CGFloat)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>value</code></th>
-					<td><p>The floating-point value to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified floating-point value.</p>
+			</div>
 			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)setFloat:(CGFloat)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The floating-point value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
 of that method for more details.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/setDouble:forKey:" title="setDouble:forKey:"></a>
@@ -1273,59 +1310,61 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key to the specified double value.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setDouble:(double)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>value</code></th>
-					<td><p>The double value to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified double value.</p>
+			</div>
 			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)setDouble:(double)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The double value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
 of that method for more details.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/setBool:forKey:" title="setBool:forKey:"></a>
@@ -1335,59 +1374,61 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key to the specified Boolean value.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setBool:(BOOL)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>value</code></th>
-					<td><p>The Boolean value to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified Boolean value.</p>
+			</div>
 			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)setBool:(BOOL)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The Boolean value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
 of that method for more details.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/setObject:forKeyedSubscript:" title="setObject:forKeyedSubscript:"></a>
@@ -1397,53 +1438,55 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Sets the value of the specified key to the specified value.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKeyedSubscript:(id)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The value to store in the preferences.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key with which to associate with the value.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified value.</p>
+			</div>
 			
-			</table>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKeyedSubscript:(id)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div>
 						</div>
@@ -1461,41 +1504,43 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>The default preferences to be used when no value has been set by the user.</p>
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The default preferences to be used when no value has been set by the user.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) NSMutableDictionary *defaults</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>You may modify the values of this dictionary directly.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) NSMutableDictionary *defaults</code></div>
-
-	    
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>You may modify the values of this dictionary directly.</p>
-		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerObject:default:forKey:" title="registerObject:default:forKey:"></a>
@@ -1505,64 +1550,66 @@ of that method for more details.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Register an object to be automatically set to the user&rsquo;s preference.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)registerObject:(void *)<em>object</em> default:(id)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The pointer to the object.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to be used if no user preference is set.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Register an object to be automatically set to the user&rsquo;s preference.</p>
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key in the preferences property list.</p></td>
-				</tr>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerObject:(void *)<em>object</em> default:(id)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the object.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
+			
 
-		
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, the object will be set to the provided
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
 default.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerInteger:default:forKey:" title="registerInteger:default:forKey:"></a>
@@ -1572,64 +1619,66 @@ default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Register an integer value to be automatically set to the user&rsquo;s preference.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)registerInteger:(NSInteger *)<em>object</em> default:(NSInteger)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The pointer to the integer.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to be used if no user preference is set.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Register an integer value to be automatically set to the user&rsquo;s preference.</p>
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key in the preferences property list.</p></td>
-				</tr>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerInteger:(NSInteger *)<em>object</em> default:(NSInteger)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the integer.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
+			
 
-		
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, the object will be set to the provided
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
 default.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerFloat:default:forKey:" title="registerFloat:default:forKey:"></a>
@@ -1639,65 +1688,67 @@ default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Register a floating-point value to be automatically set to the user&rsquo;s
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Register a floating-point value to be automatically set to the user&rsquo;s
 preference.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)registerFloat:(CGFloat *)<em>object</em> default:(CGFloat)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The pointer to the integer.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to be used if no user preference is set.</p></td>
-				</tr>
-			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key in the preferences property list.</p></td>
-				</tr>
-			
-			</table>
-		</div>
-		
+		    
 
-		
+			<div class="method-subsection method-declaration"><code>- (void)registerFloat:(CGFloat *)<em>object</em> default:(CGFloat)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
 
-		
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the integer.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, the object will be set to the provided
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
 default.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerDouble:default:forKey:" title="registerDouble:default:forKey:"></a>
@@ -1707,64 +1758,66 @@ default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Register a double value to be automatically set to the user&rsquo;s preference.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)registerDouble:(double *)<em>object</em> default:(double)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The pointer to the double.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to be used if no user preference is set.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Register a double value to be automatically set to the user&rsquo;s preference.</p>
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key in the preferences property list.</p></td>
-				</tr>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerDouble:(double *)<em>object</em> default:(double)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the double.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
+			
 
-		
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, the object will be set to the provided
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
 default.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerBool:default:forKey:" title="registerBool:default:forKey:"></a>
@@ -1774,64 +1827,66 @@ default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
-		
-		<div class="method-subsection brief-description">
-			<p>Register a Boolean value to be automatically set to the user&rsquo;s preference.</p>
-		</div>
-		
-	    
-
-		<div class="method-subsection method-declaration"><code>- (void)registerBool:(BOOL *)<em>object</em> default:(BOOL)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
-
-	    
-		
-		<div class="method-subsection arguments-section parameters">
-			<h4 class="method-subtitle parameter-title">Parameters</h4>
-			<table class="argument-def parameter-def">
+		<div class="method-info-container">
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>object</code></th>
-					<td><p>The pointer to the Boolean.</p></td>
-				</tr>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>defaultValue</code></th>
-					<td><p>The default value to be used if no user preference is set.</p></td>
-				</tr>
+			<div class="method-subsection brief-description">
+				<p>Register a Boolean value to be automatically set to the user&rsquo;s preference.</p>
+			</div>
 			
-				<tr>
-					<th scope="row" class="argument-name"><code>key</code></th>
-					<td><p>The key in the preferences property list.</p></td>
-				</tr>
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerBool:(BOOL *)<em>object</em> default:(BOOL)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
 			
-			</table>
-		</div>
-		
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the Boolean.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
 
-		
+			
 
-		
+			
 
-		
-		<div class="method-subsection discussion-section">
-			<h4 class="method-subtitle">Discussion</h4>
-			<p>If the preference is not yet set, the object will be set to the provided
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
 default.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
 		</div>
-		
-
-		
-
-		
-
-		
-		<div class="method-subsection declared-in-section">
-			<h4 class="method-subtitle">Declared In</h4>
-			<p><code class="declared-in-ref">HBPreferences.h</code></p>
-		</div>
-		
-		
 	</div>
 </div><div class="section-method">
 	<a name="//api/name/registerDefaults:" title="registerDefaults:"></a>
@@ -1841,11 +1896,29 @@ default.</p>
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
+		<div class="method-info-container">
+			
 
-		<div class="method-subsection method-declaration"><code>- (void)registerDefaults:(NSDictionary *)<em>defaultValues</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)registerDefaults:(NSDictionary *)<em>defaultValues</em></code></div>
 
-	    
+		    
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/synchronize" title="synchronize"></a>
+	<h3 class="method-title"><code><a href="#//api/name/synchronize">&ndash;&nbsp;synchronize</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)synchronize</code></div>
+
+		    
+		</div>
 	</div>
 </div>
 						</div>

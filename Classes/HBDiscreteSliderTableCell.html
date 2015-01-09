@@ -42,6 +42,8 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
+	<option value="overview">Overview</option>
+	
 
 	
 	
@@ -89,6 +91,45 @@
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBDiscreteSliderTableCell</code> class in <code>libcepheiprefs</code> is a subclass of
+the standard slider cell, which displays a vertical line at every whole
+number. Additionally, when dragging the slider, it jumps to these lines
+so the user&rsquo;s preference will always be a whole number.</p>
+
+<p>Requires iOS 7.0 or later.</p>
+
+<h3>Specifier Parameters</h3>
+
+<p>All parameters specific to
+<a href="http://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSliderCell">PSSliderCell</a>
+are applicable here. There are no custom parameters.</p>
+
+<h3>Example Usage:</h3>
+
+<pre><code>&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBDiscreteSliderTableCell&lt;/string&gt;
+    &lt;key&gt;default&lt;/key&gt;
+    &lt;real&gt;5&lt;/real&gt;
+    &lt;key&gt;defaults&lt;/key&gt;
+    &lt;string&gt;ws.hbang.libcephei.demo&lt;/string&gt;
+    &lt;key&gt;key&lt;/key&gt;
+    &lt;string&gt;Discrete&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Discrete&lt;/string&gt;
+    &lt;key&gt;max&lt;/key&gt;
+    &lt;real&gt;15&lt;/real&gt;
+    &lt;key&gt;min&lt;/key&gt;
+    &lt;real&gt;1&lt;/real&gt;
+&lt;/dict&gt;
+</code></pre>
+					</div>
+					
+					
 
 					
 					
@@ -108,11 +149,13 @@
 	<div class="method-info">
 		<div class="pointy-thing"></div>
 
-		
+		<div class="method-info-container">
+			
 
-		<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) PSDiscreteSlider *control</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) PSDiscreteSlider *control</code></div>
 
-	    
+		    
+		</div>
 	</div>
 </div>
 						</div>

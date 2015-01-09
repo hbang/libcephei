@@ -42,6 +42,8 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
+	<option value="overview">Overview</option>
+	
 
 	
 	
@@ -81,6 +83,77 @@
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBTwitterCell</code> class in <code>libcepheiprefs</code> displays a button containing a
+person&rsquo;s name, along with their Twitter username and avatar. When tapped,
+a Twitter client installed on the user&rsquo;s device or the Twitter website is
+opened to the person&rsquo;s profile.</p>
+
+<h3>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>big</th> <td>Whether to display the username below the name (true) or
+to the right of it (false). The default is false. If you set this to true,
+you should also set the cell's height to 56pt.</td>
+</tr>
+<tr>
+<th>label</th> <td>The name of the person.</td>
+</tr>
+<tr>
+<th>showAvatar</th> <td>Whether to show the avatar of the user. The default
+is true.</td>
+</tr>
+<tr>
+<th>user</th> <td>The Twitter username of the person.</td>
+</tr>
+</table>
+
+
+<h3>Example Usage:</h3>
+
+<pre><code>&lt;!-- Standard size: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBTwitterCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;HASHBANG Productions&lt;/string&gt;
+    &lt;key&gt;user&lt;/key&gt;
+    &lt;string&gt;hbangws&lt;/string&gt;
+&lt;/dict&gt;
+
+&lt;!-- Big size: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;big&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBTwitterCell&lt;/string&gt;
+    &lt;key&gt;height&lt;/key&gt;
+    &lt;integer&gt;56&lt;/integer&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;HASHBANG Productions&lt;/string&gt;
+    &lt;key&gt;user&lt;/key&gt;
+    &lt;string&gt;hbangws&lt;/string&gt;
+&lt;/dict&gt;
+
+&lt;!-- Without an avatar: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBTwitterCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;HASHBANG Productions&lt;/string&gt;
+    &lt;key&gt;showAvatar&lt;/key&gt;
+    &lt;false/&gt;
+    &lt;key&gt;user&lt;/key&gt;
+    &lt;string&gt;hbangws&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+					</div>
+					
+					
 
 					
 					

@@ -575,32 +575,41 @@ article {
   .section-specification table th {
     text-align: left; }
 
-.method-title code {
-  font-weight: 400;
-  font-size: .85em; }
-.method-title a {
-  color: inherit; }
+.method-title {
+  margin-left: -15px;
+  margin-bottom: 8px;
+  transition: margin-left .3s ease-out; }
+  .section-method.hide .method-title {
+    margin-left: 0; }
+  .method-title code {
+    font-weight: 400;
+    font-size: .85em; }
 
 .method-info {
   background: #f9f9f9;
-  border: 1px solid #e9e9e9;
-  border-left: 0;
-  border-right: 0;
+  border-bottom: 1px solid #e9e9e9;
   margin: 0 -25px;
-  padding: 13px 25px 0 25px;
+  padding: 20px 25px 0 25px;
+  transition: height .3s ease-out;
   position: relative; }
   .method-info .pointy-thing {
-    background: #f9f9f9;
-    border: 1px solid #e9e9e9;
-    border-bottom: 0;
-    border-right: 0;
-    display: inline-block;
-    position: absolute;
-    left: 21px;
-    top: -7px;
-    width: 12px;
-    height: 12px;
-    transform: rotate(45deg); }
+    background: #fff;
+    height: 10px;
+    border-bottom: 1px solid #e9e9e9;
+    margin: -20px -25px 16px -25px; }
+    .method-info .pointy-thing:before {
+      display: inline-block;
+      content: "";
+      background: #f9f9f9;
+      border: 1px solid #e9e9e9;
+      border-bottom: 0;
+      border-right: 0;
+      position: absolute;
+      left: 21px;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      transform: rotate(45deg); }
   .method-info .method-subsection {
     margin-bottom: 15px; }
     .method-info .method-subsection .argument-name {
@@ -610,6 +619,15 @@ article {
         color: #808080;
         font-style: italic;
         font-weight: 400; }
+
+.section-method.hide .method-info {
+  height: 0 !important;
+  overflow: hidden;
+  display: none; }
+.section-method.hide.animating .method-info {
+  display: block; }
+.section-method.animating .method-info {
+  overflow: hidden; }
 
 @media print {
   body {
@@ -640,5 +658,20 @@ article {
 
   .method-info, .method-info .pointy-thing {
     background: #fff; } }
+.xcode header, .xcode aside {
+  display: none; }
+.xcode .container {
+  padding: 0; }
+.xcode article {
+  margin-top: 0; }
+  .xcode article #content {
+    border: 0;
+    margin: 0; }
+.xcode .section-method.hide .method-info, .xcode .section-method.hide.animating .method-info, .xcode .section-method.animating .method-info {
+  height: auto !important;
+  overflow: visible;
+  display: block; }
+.xcode .section-method.hide .method-title {
+  margin-left: -15px; }
 
 /*# sourceMappingURL=style.css.map */
