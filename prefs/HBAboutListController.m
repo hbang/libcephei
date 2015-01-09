@@ -41,12 +41,19 @@
 		return;
 	}
 
-	NSDictionary *info = [NSBundle bundleForClass:self.class].infoDictionary;
+	NSBundle *bundle = [NSBundle bundleForClass:self.class];
+	NSDictionary *info = bundle.infoDictionary;
+	NSString *packageIdentifier = info[@"HBPackageIdentifier"];
+
+	if (!packageIdentifier) {
+		NSString *output = HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg -S '%@'", bundle.executablePath]);
+		packageIdentifier = output ? [output componentsSeparatedByString:@": "][0] : nil;
+	}
 
 	MFMailComposeViewController *viewController = [[[MFMailComposeViewController alloc] init] autorelease];
 	viewController.mailComposeDelegate = self;
 	viewController.toRecipients = @[ [self.class hb_supportEmailAddress] ];
-	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", info[@"HBPackageIdentifier"] ?: info[@"CFBundleIdentifier"]])];
+	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", packageIdentifier])];
 	[viewController addAttachmentData:[HBOutputForShellCommand(@"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"dpkgl.txt"];
 
 	if (IS_MODERN) {
@@ -56,9 +63,9 @@
 	NSString *product = nil, *version = nil, *build = nil;
 
 	if (IS_IOS_OR_NEWER(iOS_6_0)) {
-		product = (NSString *)MGCopyAnswer(kMGProductType);
-		version = (NSString *)MGCopyAnswer(kMGProductVersion);
-		build = (NSString *)MGCopyAnswer(kMGBuildVersion);
+		product = [(NSString *)MGCopyAnswer(kMGProductType) autorelease];
+		version = [(NSString *)MGCopyAnswer(kMGProductVersion) autorelease];
+		build = [(NSString *)MGCopyAnswer(kMGBuildVersion) autorelease];
 	} else {
 		product = [UIDevice currentDevice].localizedModel;
 		version = [UIDevice currentDevice].systemVersion;

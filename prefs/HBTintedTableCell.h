@@ -5,7 +5,7 @@
  * with +[HBListController hb_tintColor] will also be applied to the title
  * label of a cell intended to be used as a button.
  *
- * ### Example Usage:
+ * ### Example Usage
  * 	<dict>
  * 		<key>cell</key>
  * 		<string>PSButtonCell</string>

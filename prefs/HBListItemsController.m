@@ -4,7 +4,6 @@
 
 @implementation HBListItemsController
 
-
 #pragma mark - Constants
 
 + (UIColor *)hb_tintColor {
@@ -13,33 +12,62 @@
 
 #pragma mark - UIViewController
 
+/*
+ unfortunately, we don't really have much choice except to copy this code from
+ HBListController.m and hopefully keep it in sync :(
+*/
+
+- (void)viewDidLoad {
+	// I'm not even gonna ask what this is about... https://www.youtube.com/watch?v=BkWl679wB1c
+	// yeah i don't even know myself ~kirb
+	[self cachedTintColor];
+	[super viewDidLoad];
+}
+
+// If needed, and possible, runs through every view controller on the current navigation
+// stack, pulling the Hashbang tintColor from the root Hashbang list view controller.
+- (UIColor *)cachedTintColor {
+	if (IS_MODERN) {
+		if (!_cachedTintColor) {
+			NSArray *viewControllers = self.navigationController.viewControllers;
+			UIColor *tintColor = [self.class hb_tintColor];
+
+			if (!tintColor) {
+				NSUInteger count = viewControllers.count;
+
+				for (NSUInteger i = 2; i <= count; i++) {
+					HBListController *viewController = viewControllers[count - i];
+
+					if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+						tintColor = [viewController.class hb_tintColor];
+						break;
+					}
+				}
+			}
+
+			_cachedTintColor = [tintColor copy];
+		}
+
+		return _cachedTintColor;
+	}
+
+	return nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
 	if (IS_MODERN) {
-		UIColor *tintColor = [self.class hb_tintColor];
-		NSArray *viewControllers = IS_MOST_MODERN ? self.navigationController.navigationController.viewControllers : self.navigationController.viewControllers;
-
-		if (!tintColor) {
-			NSInteger i = viewControllers.count;
-
-			while (--i) {
-				if ([((NSObject *)viewControllers[i]).class respondsToSelector:@selector(hb_tintColor)] && [((HBListController *)viewControllers[i]).class hb_tintColor]) {
-					tintColor = [((HBListController *)viewControllers[i]).class hb_tintColor];
-					break;
-				}
-			}
-		}
-
-		self.view.tintColor = tintColor;
+		self.view.tintColor = [self cachedTintColor];
 
 		if (IS_MOST_MODERN) {
-			self.navigationController.navigationController.navigationBar.tintColor = tintColor;
+			self.navigationController.navigationController.navigationBar.tintColor = [self cachedTintColor];
+		} else {
+			self.navigationController.navigationBar.tintColor = [self cachedTintColor];
 		}
 
-		else {
-			self.navigationController.navigationBar.tintColor = tintColor;
-		}
+		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
+		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
 	}
 }
 
@@ -51,11 +79,11 @@
 
 		if (IS_MOST_MODERN) {
 			self.navigationController.navigationController.navigationBar.tintColor = nil;
-		}
-
-		else {
+		} else {
 			self.navigationController.navigationBar.tintColor = nil;
 		}
+
+		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
 	}
 }
 

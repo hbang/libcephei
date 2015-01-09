@@ -334,7 +334,7 @@
  */
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
 
-/*
+/**
  * Adds the contents of the specified dictionary to the defaults property.
  *
  * Provided as a convenience for converting code from using `NSUserDefaults`.
@@ -343,11 +343,11 @@
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
 
-/*
+/**
  * @name Synchronizing Preferences
  */
 
-/*
+/**
  * Writes all pending changes to preference data to permanent storage, and
  * reads latest preference data from permanent storage.
  *

@@ -5,8 +5,6 @@ Little by little, we added more useful classes to Common that we realised we nee
 
 Don’t forget to submit pull requests if you think there’s something useful every tweak developer could benefit from!
 
-**Note: Documentation is currently a work in progress.**
-
 ## Integrating libcephei into your Theos projects
 It’s really easy to integrate libcephei into a Theos project. First, install libcephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it - try TypeStatus - or just install it with `apt-get install ws.hbang.common` at the command line. 
 
@@ -22,6 +20,9 @@ Next, for all targets that will be using libcephei, add it to the target’s lib
 For all targets that will be using preferences components of Cephei, make sure you also link against `cepheiprefs`.
 
 You can now use libcephei components in your project.
+
+## Trying it out
+You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` - quit and relaunch Settings if it's open. Alternatively, you can compile Cephei with `make package install DEBUG=1` - this will also automatically kill and relaunch the Settings app as long as you have [sbutils](http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp) installed.
 
 ## License
 Licensed under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).

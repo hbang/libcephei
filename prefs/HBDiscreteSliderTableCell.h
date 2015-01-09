@@ -14,7 +14,7 @@
  * [PSSliderCell](http://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSliderCell)
  * are applicable here. There are no custom parameters.
  *
- * ### Example Usage:
+ * ### Example Usage
  *	<dict>
  *		<key>cellClass</key>
  *		<string>HBDiscreteSliderTableCell</string>

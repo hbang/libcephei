@@ -9,22 +9,24 @@
  * ### Specifier Parameters
  * <table>
  * <tr>
- * <th>label</th> <td>The label displayed when the value is plural. Use
- * <code>%i</code> to denote where the number should be displayed.</td>
+ * <th>label</th> <td>Required. The label displayed when the value is plural.
+ * Use <code>%i</code> to denote where the number should be displayed.</td>
  * </tr>
  * <tr>
- * <th>max</th> <td>The highest possible numeric value for the stepper.</td>
+ * <th>max</th> <td>Required. The highest possible numeric value for the
+ * stepper.</td>
  * </tr>
  * <tr>
- * <th>min</th> <td>The lowest possible numeric value for the stepper.</td>
+ * <th>min</th> <td>Required. The lowest possible numeric value for the
+ * stepper.</td>
  * </tr>
  * <tr>
- * <th>singularLabel</th> <td>The label displayed when the value is
+ * <th>singularLabel</th> <td>Required. The label displayed when the value is
  * singular.</td>
  * </tr>
  * </table>
  *
- * ### Example Usage:
+ * ### Example Usage
  *	<dict>
  *		<key>cellClass</key>
  *		<string>HBStepperTableCell</string>

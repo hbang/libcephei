@@ -4,7 +4,7 @@
  * The `HBSpinnerTableCell` class in `libcepheiprefs` displays an activity
  * indicator when the cell is disabled.
  *
- * ### Example Usage:
+ * ### Example Usage
  * Specifier plist:
  *
  * 	<dict>

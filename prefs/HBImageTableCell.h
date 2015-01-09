@@ -8,7 +8,8 @@
  * ### Specifier Parameters
  * <table>
  * <tr>
- * <th>icon</th> <td>The file name of the image to display in the cell.</td>
+ * <th>icon</th> <td>Required. The file name of the image to display in the
+ * cell.</td>
  * </tr>
  * </table>
  *
@@ -17,7 +18,7 @@
  * use it as a cell with `cellClass`, you must set the height yourself using
  * the `height` key.
  *
- * ### Example Usage:
+ * ### Example Usage
  * 	<!-- As a header (or footer): -->
  * 	<dict>
  * 		<key>cell</key>

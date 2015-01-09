@@ -9,23 +9,23 @@
  * ### Specifier Parameters
  * <table>
  * <tr>
- * <th>big</th> <td>Whether to display the username below the name (true) or
- * to the right of it (false). The default is false. If you set this to true,
- * you should also set the cell's height to 56pt.</td>
+ * <th>big</th> <td>Optional. Whether to display the username below the name
+ * (true) or to the right of it (false). The default is false. If you set this
+ * to true, you should also set the cell's height to 56pt.</td>
  * </tr>
  * <tr>
- * <th>label</th> <td>The name of the person.</td>
+ * <th>label</th> <td>Required. The name of the person.</td>
  * </tr>
  * <tr>
- * <th>showAvatar</th> <td>Whether to show the avatar of the user. The default
- * is true.</td>
+ * <th>showAvatar</th> <td>Optional. Whether to show the avatar of the user.
+ * The default is true.</td>
  * </tr>
  * <tr>
- * <th>user</th> <td>The Twitter username of the person.</td>
+ * <th>user</th> <td>Required. The Twitter username of the person.</td>
  * </tr>
  * </table>
  *
- * ### Example Usage:
+ * ### Example Usage
  * 	<!-- Standard size: -->
  * 	<dict>
  * 		<key>cellClass</key>
