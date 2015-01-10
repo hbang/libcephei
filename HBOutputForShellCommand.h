@@ -15,8 +15,4 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
  * @returns The output of the provided command, or nil if the command returned
  * with a code other than 0.
  */
-inline NSString *HBOutputForShellCommand(NSString *command) {
-	int returnCode = 0;
-	NSString *output = HBOutputForShellCommandWithReturnCode(command, &returnCode);
-	return returnCode == 0 ? output : nil;
-}
+NSString *HBOutputForShellCommand(NSString *command);

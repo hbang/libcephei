@@ -19,3 +19,9 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
 
 	return [NSString stringWithString:output];
 }
+
+NSString *HBOutputForShellCommand(NSString *command) {
+	int returnCode = 0;
+	NSString *output = HBOutputForShellCommandWithReturnCode(command, &returnCode);
+	return returnCode == 0 ? output : nil;
+}
