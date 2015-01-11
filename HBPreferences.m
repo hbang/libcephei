@@ -189,7 +189,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Setters
 
 - (void)setObject:(id)value forKey:(NSString *)key {
-	if (![NSUserName() isEqualToString:@"mobile"]) {
+	if (getuid() != 501) {
 		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
 	}
 
