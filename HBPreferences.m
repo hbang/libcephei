@@ -1,15 +1,44 @@
 #define _HB_PREFERENCES_M
 #import "HBPreferences.h"
 
-static NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
-static NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNotification";
+typedef NS_ENUM(NSUInteger, HBPreferencesType) {
+	HBPreferencesTypeObjectiveC,
+	HBPreferencesTypeInteger,
+	HBPreferencesTypeFloat,
+	HBPreferencesTypeDouble,
+	HBPreferencesTypeBoolean
+};
+
+NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
+NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNotification";
 
 static NSMutableDictionary *KnownIdentifiers;
+
+#pragma mark - Darwin notification callback
+
+@interface HBPreferences ()
+
+- (void)_didReceiveDarwinNotification;
+
+@end
+
+void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+	NSString *identifier = ((NSString *)name).stringByDeletingLastPathComponent;
+	HBPreferences *preferences = KnownIdentifiers[identifier];
+
+	if (!preferences) {
+		return;
+	}
+
+	[preferences _didReceiveDarwinNotification];
+}
 
 @implementation HBPreferences {
 	NSMutableDictionary *_preferences;
 	NSMutableDictionary *_pointers;
 }
+
+#pragma mark - Initialization
 
 + (instancetype)preferencesForIdentifier:(NSString *)identifier {
 	return [[[self alloc] initWithIdentifier:identifier] autorelease];
@@ -27,14 +56,14 @@ static NSMutableDictionary *KnownIdentifiers;
 		_defaults = [[NSMutableDictionary alloc] init];
 		_pointers = [[NSMutableDictionary alloc] init];
 
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
-
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
 			KnownIdentifiers = [[NSMutableDictionary alloc] init];
 		});
 
 		KnownIdentifiers[_identifier] = self;
+
+		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, HBPreferencesDarwinNotifyCallback, (CFStringRef)[_identifier stringByAppendingPathComponent:@"ReloadPrefs"], NULL, kNilOptions);
 	}
 
 	return self;
@@ -46,8 +75,57 @@ static NSMutableDictionary *KnownIdentifiers;
 	return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
 }
 
-- (void)userDefaultsDidChange:(NSNotification *)notification {
-	NSLog(@"userDefaultsDidChange:%@ object=%@", notification, notification.object);
+- (void)_didReceiveDarwinNotification {
+	[self _updateRegisteredObjects];
+	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
+}
+
+- (void)_updateRegisteredObjects {
+	for (NSString *key in _pointers.allKeys) {
+		HBPreferencesType type = ((NSNumber *)_pointers[key][0]).unsignedIntegerValue;
+		void *pointer = ((NSValue *)_pointers[key][1]).pointerValue;
+
+		if (!pointer) {
+			continue;
+		}
+
+		switch (type) {
+			case HBPreferencesTypeObjectiveC:
+			{
+				id *pointer_ = pointer;
+				*pointer_ = [self objectForKey:key];
+				break;
+			}
+
+			case HBPreferencesTypeInteger:
+			{
+				NSInteger *pointer_ = pointer;
+				*pointer_ = [self integerForKey:key];
+				break;
+			}
+
+			case HBPreferencesTypeFloat:
+			{
+				CGFloat *pointer_ = pointer;
+				*pointer_ = [self floatForKey:key];
+				break;
+			}
+
+			case HBPreferencesTypeDouble:
+			{
+				double *pointer_ = pointer;
+				*pointer_ = [self doubleForKey:key];
+				break;
+			}
+
+			case HBPreferencesTypeBoolean:
+			{
+				BOOL *pointer_ = pointer;
+				*pointer_ = [self boolForKey:key];
+				break;
+			}
+		}
+	}
 }
 
 #pragma mark - Getters
@@ -143,25 +221,31 @@ static NSMutableDictionary *KnownIdentifiers;
 
 #pragma mark - Register preferences
 
-- (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key {
+- (void)_registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key type:(HBPreferencesType)type {
 	_defaults[key] = defaultValue;
-	_pointers[key] = object;
+	_pointers[key] = @[ @(type), [NSValue valueWithPointer:object] ];
+
+	[self _updateRegisteredObjects];
+}
+
+- (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key {
+	[self _registerObject:object default:defaultValue forKey:key type:HBPreferencesTypeObjectiveC];
 }
 
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key {
-	[self registerObject:object default:@(defaultValue) forKey:key];
+	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeInteger];
 }
 
 - (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key {
-	[self registerObject:object default:@(defaultValue) forKey:key];
+	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeFloat];
 }
 
 - (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key {
-	[self registerObject:object default:@(defaultValue) forKey:key];
+	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeDouble];
 }
 
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key {
-	[self registerObject:object default:@(defaultValue) forKey:key];
+	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeBoolean];
 }
 
 - (void)registerDefaults:(NSDictionary *)defaults {
