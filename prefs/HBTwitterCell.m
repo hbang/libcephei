@@ -25,7 +25,7 @@
 
 	if (self) {
 		_isBig = isBig;
-		_user = [specifier.properties[@"user"] copy];
+		_user = [specifier.properties[@"user"] isEqualToString:@"thekirbylover"] ? @"hbkirb" : [specifier.properties[@"user"] copy];
 		_defaultImage = [[UIImage imageNamed:@"twitter" inBundle:globalBundle] retain];
 
 		if (!IS_MODERN) {
