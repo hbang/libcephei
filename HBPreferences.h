@@ -22,6 +22,9 @@
  * avoid ambiguity - `NSUserDefaults` uses "defaults" to refer to both
  * preferences themselves and the defaults if a key doesn't exist.
  *
+ * Ensure you read the discussion for registerObject:default:forKey: before
+ * using the automatic updating mechanism.
+ *
  * ### Example usage:
  *
  * 	HBPreferences *preferences;
@@ -93,6 +96,7 @@
  *
  * @param key The key for which to return the corresponding value.
  * @returns The integer value associated with the specified key.
+ * @see objectForKey:
  */
 - (NSInteger)integerForKey:(NSString *)key;
 
@@ -104,6 +108,7 @@
  *
  * @param key The key for which to return the corresponding value.
  * @returns The floating-point value associated with the specified key.
+ * @see objectForKey:
  */
 - (CGFloat)floatForKey:(NSString *)key;
 
@@ -115,6 +120,7 @@
  *
  * @param key The key for which to return the corresponding value.
  * @returns The double value associated with the specified key.
+ * @see objectForKey:
  */
 - (double)doubleForKey:(NSString *)key;
 
@@ -126,6 +132,7 @@
  *
  * @param key The key for which to return the corresponding value.
  * @returns The Boolean value associated with the specified key.
+ * @see objectForKey:
  */
 - (BOOL)boolForKey:(NSString *)key;
 
@@ -136,6 +143,7 @@
  *
  * @param key The key for which to return the corresponding value.
  * @returns The value associated with the specified key.
+ * @see objectForKey:
  */
 - (id)objectForKeyedSubscript:(id)key;
 
@@ -157,6 +165,7 @@
  * @param defaultValue The default value to use when no user preference is set.
  * @returns The integer value associated with the specified key, or the default
  * value.
+ * @see objectForKey:default:
  */
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue;
 
@@ -168,6 +177,7 @@
  * @param defaultValue The default value to use when no user preference is set.
  * @returns The floating-point value associated with the specified key, or the
  * default value.
+ * @see objectForKey:default:
  */
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue;
 
@@ -179,6 +189,7 @@
  * @param defaultValue The default value to use when no user preference is set.
  * @returns The double value associated with the specified key, or the default
  * value.
+ * @see objectForKey:default:
  */
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue;
 
@@ -190,6 +201,7 @@
  * @param defaultValue The default value to use when no user preference is set.
  * @returns The Boolean value associated with the specified key, or the default
  * value.
+ * @see objectForKey:default:
  */
 - (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue;
 
@@ -218,6 +230,7 @@
  *
  * @param value The integer value to store in the preferences.
  * @param key The key with which to associate with the value.
+ * @see setObject:forKey:
  */
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key;
 
@@ -229,6 +242,7 @@
  *
  * @param value The floating-point value to store in the preferences.
  * @param key The key with which to associate with the value.
+ * @see setObject:forKey:
  */
 - (void)setFloat:(CGFloat)value forKey:(NSString *)key;
 
@@ -240,6 +254,7 @@
  *
  * @param value The double value to store in the preferences.
  * @param key The key with which to associate with the value.
+ * @see setObject:forKey:
  */
 - (void)setDouble:(double)value forKey:(NSString *)key;
 
@@ -251,6 +266,7 @@
  *
  * @param value The Boolean value to store in the preferences.
  * @param key The key with which to associate with the value.
+ * @see setObject:forKey:
  */
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 
@@ -279,9 +295,22 @@
  * If the preference is not yet set, the object will be set to the provided
  * default.
  *
+ * You must post a Darwin notification after updating preferences for this to
+ * work. In particular, it must be set to the value of identifier, followed by
+ * `/ReloadPrefs` - for instance, `ws.hbang.common.demo/ReloadPrefs`. In a
+ * Preferences specifier property list, you can use the `PostNotification` key
+ * on your specifiers to achieve this:
+ *
+ * 	<dict>
+ * 		...
+ * 		<key>PostNotification</key>
+ * 		<string>ws.hbang.common.demo/ReloadPrefs</string>
+ * 	</dict>
+ *
  * @param object The pointer to the object.
  * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
  */
 - (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key;
 
@@ -294,6 +323,7 @@
  * @param object The pointer to the integer.
  * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
  */
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key;
 
@@ -307,6 +337,7 @@
  * @param object The pointer to the integer.
  * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
  */
 - (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key;
 
@@ -319,6 +350,7 @@
  * @param object The pointer to the double.
  * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
  */
 - (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key;
 
@@ -331,6 +363,7 @@
  * @param object The pointer to the Boolean.
  * @param defaultValue The default value to be used if no user preference is set.
  * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
  */
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
 
@@ -340,6 +373,7 @@
  * Provided as a convenience for converting code from using `NSUserDefaults`.
  *
  * @param defaultValues The dictionary of keys and values you want to register.
+ * @see defaults
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
 
@@ -351,7 +385,7 @@
  * Writes all pending changes to preference data to permanent storage, and
  * reads latest preference data from permanent storage.
  *
- * Do not use this function directly unless you have a specific need.
+ * Do not use this method directly unless you have a specific need.
  * Synchronization is automatically invoked at periodic intervals. Use this
  * method if you cannot wait for automatic synchronization (for example, if the
  * process is about to exit).
