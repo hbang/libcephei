@@ -312,7 +312,7 @@
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key;
+- (void)registerObject:(id *)object default:(id)defaultValue forKey:(NSString *)key;
 
 /**
  * Register an integer value to be automatically set to the user's preference.

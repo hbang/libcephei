@@ -228,7 +228,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	[self _updateRegisteredObjects];
 }
 
-- (void)registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key {
+- (void)registerObject:(id *)object default:(id)defaultValue forKey:(NSString *)key {
 	[self _registerObject:object default:defaultValue forKey:key type:HBPreferencesTypeObjectiveC];
 }
 
