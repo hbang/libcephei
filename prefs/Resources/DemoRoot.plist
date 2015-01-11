@@ -30,7 +30,7 @@
 			<key>default</key>
 			<true/>
 			<key>defaults</key>
-			<string>ws.hbang.libcephei.demo</string>
+			<string>ws.hbang.common.demo</string>
 			<key>key</key>
 			<string>Switch</string>
 			<key>label</key>
@@ -64,7 +64,7 @@
 			<key>default</key>
 			<real>5</real>
 			<key>defaults</key>
-			<string>ws.hbang.libcephei.demo</string>
+			<string>ws.hbang.common.demo</string>
 			<key>key</key>
 			<string>Discrete</string>
 			<key>label</key>
@@ -86,7 +86,7 @@
 			<key>default</key>
 			<integer>0</integer>
 			<key>defaults</key>
-			<string>ws.hbang.libcephei.demo</string>
+			<string>ws.hbang.common.demo</string>
 			<key>detail</key>
 			<string>HBListItemsController</string>
 			<key>key</key>
@@ -148,7 +148,7 @@
 			<key>default</key>
 			<real>5</real>
 			<key>defaults</key>
-			<string>ws.hbang.libcephei.demo</string>
+			<string>ws.hbang.common.demo</string>
 			<key>key</key>
 			<string>Stepper</string>
 			<key>label</key>
