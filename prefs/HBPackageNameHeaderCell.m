@@ -32,7 +32,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
-		_icon = specifier.properties[@"iconImage"];
+		_icon = [specifier.properties[@"iconImage"] retain];
 
 		_packageDetails = [@{
 			kHBDebianControlFilePackageKey: specifier.properties[@"packageIdentifier"]
