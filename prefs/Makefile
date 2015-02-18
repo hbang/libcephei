@@ -19,9 +19,9 @@ ifneq ($(DEBUG),1)
 endif
 
 internal-stage::
-	mkdir -p $(THEOS)/include/Cephei $(THEOS_STAGING_DIR)/usr/include/Cephei
-	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/Cephei --exclude HBGlobal.h
-	rsync -ra $(THEOS_STAGING_DIR)/usr/include/Cephei $(THEOS)/include/Cephei/
+	mkdir -p $(THEOS)/include/CepheiPrefs $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs
+	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs --exclude HBGlobal.h
+	rsync -ra $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs $(THEOS)/include/CepheiPrefs/
 
 	ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
 	ln -s Cephei $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle/libhbangprefs
