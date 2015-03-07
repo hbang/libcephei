@@ -9,8 +9,12 @@
 #pragma mark - PSControlTableCell
 
 - (PSDiscreteSlider *)newControl {
-	PSDiscreteSlider *slider = [[PSDiscreteSlider alloc] initWithFrame:CGRectZero];
-	slider.trackMarkersColor = [UIColor colorWithWhite:0.596078f alpha:1];
+	PSDiscreteSlider *slider = [[%c(PSDiscreteSlider) ?: UISlider.class alloc] initWithFrame:CGRectZero];
+
+	if ([slider respondsToSelector:@selector(setTrackMarkersColor:)]) {
+		slider.trackMarkersColor = [UIColor colorWithWhite:0.596078f alpha:1];
+	}
+
 	return slider;
 }
 

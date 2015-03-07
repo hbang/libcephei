@@ -7,7 +7,8 @@
  * number. Additionally, when dragging the slider, it jumps to these lines
  * so the user's preference will always be a whole number.
  *
- * Requires iOS 7.0 or later.
+ * Requires iOS 7.0 or later. Superclass is dynamically changed at runtime to
+ * not break iOS 5 and 6, which do not have the PSSliderTableCell class.
  *
  * ### Specifier Parameters
  * All parameters specific to
@@ -33,7 +34,7 @@
  *	</dict>
  */
 
-@interface HBDiscreteSliderTableCell : PSSliderTableCell
+@interface HBDiscreteSliderTableCell : PSControlTableCell
 
 @property (nonatomic, retain) PSDiscreteSlider *control;
 
