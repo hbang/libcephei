@@ -1,5 +1,8 @@
 #define _HB_PREFERENCES_M
 #import "HBPreferences.h"
+#import <version.h>
+
+#define HAS_CFPREFSD (IS_IOS_OR_NEWER(iOS_8_0))
 
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 	HBPreferencesTypeObjectiveC,
@@ -196,6 +199,11 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	_preferences[key] = value;
 
 	CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
+
+	if (!HAS_CFPREFSD) {
+		[self synchronize];
+	}
+
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 }
 
