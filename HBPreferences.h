@@ -23,7 +23,9 @@
  * preferences themselves and the defaults if a key doesn't exist.
  *
  * Ensure you read the discussion for registerObject:default:forKey: before
- * using the automatic updating mechanism.
+ * using the automatic updating mechanism. objectForKey: does not update as
+ * another process updates the preferences on iOS 7 or older; if you need to
+ * support older iOS versions, use the registration methods instead.
  *
  * ### Example usage:
  *
@@ -88,6 +90,9 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  *
  * @param key The key for which to return the corresponding value.
  * @returns The object associated with the specified key.
+ * @warning You must manually synchronize preferences or use
+ * registerObject:default:forKey:for this value to be updated when running on
+ * iOS 7 or older.
  */
 - (id)objectForKey:(NSString *)key;
 
