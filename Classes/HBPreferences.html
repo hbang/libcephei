@@ -189,7 +189,9 @@ preferences themselves and the defaults if a key doesn&rsquo;t exist.</li>
 
 
 <p>Ensure you read the discussion for registerObject:default:forKey: before
-using the automatic updating mechanism.</p>
+using the automatic updating mechanism. objectForKey: does not update as
+another process updates the preferences on iOS 7 or older; if you need to
+support older iOS versions, use the registration methods instead.</p>
 
 <h3>Example usage:</h3>
 
@@ -437,7 +439,9 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>If the preference is not yet set, returns the default. If no default is set,
-returns <code>nil</code>.</p>
+returns <code>nil</code>.</p><div class="warning"><p><strong>Warning:</strong> You must manually <a href="#//api/name/synchronize">synchronize</a> preferences or use
+registerObject:default:forKey:for this value to be updated when running on
+iOS 7 or older.</p></div>
 			</div>
 			
 
