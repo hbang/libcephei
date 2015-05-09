@@ -28,6 +28,8 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		self.backgroundColor = [UIColor clearColor];
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
 		self.textLabel.textAlignment = NSTextAlignmentCenter;
+		self.textLabel.adjustsFontSizeToFitWidth = NO;
+		self.textLabel.adjustsLetterSpacingToFitWidth = NO;
 
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
