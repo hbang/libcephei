@@ -21,7 +21,7 @@
  * List controller implementation:
  *
  *	- (void)doStuffTapped:(PSSpecifier *)specifier {
- *		PSTableCell *cell = (PSTableCell *)[(UITableView *)self.view cellForRowAtIndexPath:[self indexPathForSpecifier:specifier]];
+ *		PSTableCell *cell = [self cachedCellForSpecifier:specifier];
  * 		cell.cellEnabled = NO;
  * 		// do something in the background...
  * 		cell.cellEnabled = YES;
