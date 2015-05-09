@@ -6,6 +6,8 @@
 
 @implementation HBDiscreteSliderTableCell
 
+@dynamic control;
+
 #pragma mark - PSControlTableCell
 
 - (PSDiscreteSlider *)newControl {

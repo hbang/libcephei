@@ -11,6 +11,8 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 
 @implementation HBStepperTableCell
 
+@dynamic control;
+
 #pragma mark - UITableViewCell
 
 - (void)prepareForReuse {
