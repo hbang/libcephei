@@ -110,6 +110,10 @@
 		
 		<option value="//api/name/registerObject:default:forKey:">- registerObject:default:forKey:</option>
 		
+		<option value="//api/name/registerPreferenceChangeBlock:">- registerPreferenceChangeBlock:</option>
+		
+		<option value="//api/name/registerPreferenceChangeBlock:forKey:">- registerPreferenceChangeBlock:forKey:</option>
+		
 		<option value="//api/name/setBool:forKey:">- setBool:forKey:</option>
 		
 		<option value="//api/name/setDouble:forKey:">- setDouble:forKey:</option>
@@ -2138,6 +2142,159 @@ default.</p>
 						</div>
 						
 
+						<a title="Preference Change Callbacks" name="task_Preference Change Callbacks"></a>
+						<h2 class="task-title">Preference Change Callbacks</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/registerPreferenceChangeBlock:" title="registerPreferenceChangeBlock:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerPreferenceChangeBlock:">&ndash;&nbsp;registerPreferenceChangeBlock:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Register a block to be called when a preference change is detected.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerPreferenceChangeBlock:(HBPreferencesChangeCallback)<em>callback</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>callback</code></th>
+						<td><p>A block object called when the specified key’s value changes.
+The block object takes no parameters and returns no value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Blocks are called after HBPreferences’ cache of values is updated. The block
+will also be called immediately after calling this method. See
+<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for details on how to set up callbacks.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/registerObject:default:forKey:">- registerObject:default:forKey:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerPreferenceChangeBlock:forKey:" title="registerPreferenceChangeBlock:forKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerPreferenceChangeBlock:forKey:">&ndash;&nbsp;registerPreferenceChangeBlock:forKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Register a block to be called when a specific preference is changed.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)<em>callback</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>callback</code></th>
+						<td><p>A block object called when the specified key’s value changes.
+The block object’s parameters are the key and its new value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key to listen for.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Blocks are called after HBPreferences’ cache of values is updated. The block
+will also be called immediately after calling this method. See
+<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for details on how to set up callbacks.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/registerObject:default:forKey:">- registerObject:default:forKey:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
 						<a title="Synchronizing Preferences" name="task_Synchronizing Preferences"></a>
 						<h2 class="task-title">Synchronizing Preferences</h2>
 
@@ -2210,7 +2367,7 @@ process is about to exit).</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-01-12</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-05-10</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
