@@ -1,11 +1,11 @@
 Package: ws.hbang.common
 Name: Cephei
 Depends: mobilesubstrate, preferenceloader
-Version: 1.2.2
+Version: 1.3
 Architecture: iphoneos-arm
 Description: Useful functions for tweak developers
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Support: https://www.hbang.ws/faq
 Section: Development
-Tag: role::developer, cydia::obsolete
+Tag: role::developer

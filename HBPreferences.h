@@ -44,6 +44,9 @@
  * 	}
  */
 
+typedef void(^HBPreferencesChangeCallback)();
+typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> value);
+
 @interface HBPreferences : NSObject
 
 /**
@@ -376,6 +379,37 @@
  * @see defaults
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
+
+/**
+ * @name Preference Change Callbacks
+ */
+
+/**
+ * Register a block to be called when a preference change is detected.
+ *
+ * Blocks are called after HBPreferences’ cache of values is updated. The block
+ * will also be called immediately after calling this method. See
+ * registerObject:default:forKey: for details on how to set up callbacks.
+ *
+ * @param callback A block object called when the specified key’s value changes.
+ * The block object takes no parameters and returns no value.
+ * @see registerObject:default:forKey:
+ */
+- (void)registerPreferenceChangeBlock:(HBPreferencesChangeCallback)callback;
+
+/**
+ * Register a block to be called when a specific preference is changed.
+ *
+ * Blocks are called after HBPreferences’ cache of values is updated. The block
+ * will also be called immediately after calling this method. See
+ * registerObject:default:forKey: for details on how to set up callbacks.
+ *
+ * @param callback A block object called when the specified key’s value changes.
+ * The block object’s parameters are the key and its new value.
+ * @param key The key to listen for.
+ * @see registerObject:default:forKey:
+ */
+- (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key;
 
 /**
  * @name Synchronizing Preferences
