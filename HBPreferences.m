@@ -82,6 +82,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 }
 
 - (void)_didReceiveDarwinNotification {
+	if (!HAS_CFPREFSD) {
+		[self synchronize];
+	}
+
 	[self _updateRegisteredObjects];
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 
