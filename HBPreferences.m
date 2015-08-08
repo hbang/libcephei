@@ -155,7 +155,17 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Getters
 
 - (id)_objectForKey:(NSString *)key {
-	return [(id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost) autorelease];
+	id value = nil;
+
+	if (getuid() == 501) {
+		value = (id)CFPreferencesCopyAppValue((CFStringRef)key, (CFStringRef)_identifier);
+	} else {
+		value = (id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
+	}
+
+	value = [value autorelease];
+
+	return value;
 }
 
 - (id)objectForKey:(NSString *)key {
@@ -219,7 +229,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	_preferences[key] = value;
 
-	CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
+	CFPreferencesSetAppValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier);
 
 	if (!HAS_CFPREFSD) {
 		[self synchronize];
