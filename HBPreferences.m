@@ -37,7 +37,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 }
 
 @implementation HBPreferences {
-	NSMutableDictionary *_preferences;
+	NSMutableDictionary *_lastSeenValues;
 	NSMutableDictionary *_pointers;
 
 	NSMutableDictionary *_preferenceChangeBlocks;
@@ -61,6 +61,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		_identifier = [identifier copy];
 		_defaults = [[NSMutableDictionary alloc] init];
 		_pointers = [[NSMutableDictionary alloc] init];
+		_lastSeenValues = [[NSMutableDictionary alloc] init];
 
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
@@ -91,8 +92,12 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	if (_preferenceChangeBlocks && _preferenceChangeBlocks.allKeys.count > 0) {
 		for (NSString *key in _preferenceChangeBlocks) {
-			for (HBPreferencesChangeCallback callback in _preferenceChangeBlocks[key]) {
-				callback(key, [self objectForKey:key]);
+			id newValue = [self _objectForKey:key];
+
+			if (newValue != _lastSeenValues[key] || (newValue == nil && [_lastSeenValues[key] isKindOfClass:NSNull.class]) || ![newValue isEqual:_lastSeenValues[key]]) {
+				for (HBPreferencesChangeCallback callback in _preferenceChangeBlocks[key]) {
+					callback(key, [self objectForKey:key]);
+				}
 			}
 		}
 	}
@@ -165,6 +170,8 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	value = [value autorelease];
 
+	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
+
 	return value;
 }
 
@@ -227,7 +234,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
 	}
 
-	_preferences[key] = value;
+	_lastSeenValues[key] = value;
 
 	CFPreferencesSetAppValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier);
 
@@ -315,6 +322,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	}
 
 	[(NSMutableArray *)_preferenceChangeBlocks[key] addObject:[callback copy]];
+	[self _objectForKey:key];
 
 	callback(key, [self objectForKey:key]);
 }
@@ -327,6 +335,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	[_pointers release];
 	[_preferenceChangeBlocks release];
 	[_preferenceChangeBlocksGlobal release];
+	[_lastSeenValues release];
 
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
