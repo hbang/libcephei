@@ -1,3 +1,7 @@
+#include <sys/cdefs.h>
+
+__BEGIN_DECLS
+
 /**
  * Executes a shell command and returns its output.
  *
@@ -16,3 +20,5 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
  * with a code other than 0.
  */
 NSString *HBOutputForShellCommand(NSString *command);
+
+__END_DECLS
