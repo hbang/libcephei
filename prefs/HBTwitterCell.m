@@ -87,6 +87,7 @@
 	NSString *user = URL_ENCODE(_user);
 	NSURL *url = nil;
 
+	// lol, people still copy paste this shitty code
 	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"aphelion://"]]) {
 		url = [NSURL URLWithString:[@"aphelion://profile/" stringByAppendingString:user]];
 	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot://"]]) {
@@ -116,7 +117,7 @@
 		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@/profile_image?size=bigger", URL_ENCODE(_user)]]] returningResponse:nil error:&error];
 
 		if (error) {
-			NSLog(@"libcephei: error loading twitter avatar: %@", error);
+			HBLogError(@"error loading twitter avatar: %@", error);
 			return;
 		}
 
