@@ -1,8 +1,17 @@
 #define _HB_PREFERENCES_M
 #import "HBPreferences.h"
 #import <version.h>
+#include <dlfcn.h>
 
 #define HAS_CFPREFSD (IS_IOS_OR_NEWER(iOS_8_0))
+
+typedef CFPropertyListRef (*_CFPreferencesCopyValueWithContainerType)(CFStringRef key, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
+typedef void (*_CFPreferencesSetValueWithContainerType)(CFStringRef key, CFPropertyListRef value, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
+typedef Boolean (*_CFPreferencesSynchronizeWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
+
+_CFPreferencesCopyValueWithContainerType _CFPreferencesCopyValueWithContainer;
+_CFPreferencesSetValueWithContainerType _CFPreferencesSetValueWithContainer;
+_CFPreferencesSynchronizeWithContainerType _CFPreferencesSynchronizeWithContainer;
 
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 	HBPreferencesTypeObjectiveC,
@@ -26,15 +35,14 @@ static NSMutableDictionary *KnownIdentifiers;
 @end
 
 void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-	NSString *identifier = ((NSString *)name).stringByDeletingLastPathComponent;
-	HBPreferences *preferences = KnownIdentifiers[identifier];
+	HBLogDebug(@"received change notification - reloading preferences");
 
-	if (!preferences) {
-		return;
+	for (NSString *key in KnownIdentifiers) {
+		[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
 	}
-
-	[preferences _didReceiveDarwinNotification];
 }
+
+#pragma mark - Class implementation
 
 @implementation HBPreferences {
 	NSMutableDictionary *_lastSeenValues;
@@ -58,19 +66,23 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	self = [self init];
 
 	if (self) {
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			KnownIdentifiers = [[NSMutableDictionary alloc] init];
+
+			_CFPreferencesCopyValueWithContainer = (_CFPreferencesCopyValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
+			_CFPreferencesSetValueWithContainer = (_CFPreferencesSetValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
+			_CFPreferencesSynchronizeWithContainer = (_CFPreferencesSynchronizeWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
+
+			CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, CFSTR("com.apple.CFPreferences._domainsChangedExternally"), NULL, kNilOptions);
+		});
+
 		_identifier = [identifier copy];
 		_defaults = [[NSMutableDictionary alloc] init];
 		_pointers = [[NSMutableDictionary alloc] init];
 		_lastSeenValues = [[NSMutableDictionary alloc] init];
 
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-			KnownIdentifiers = [[NSMutableDictionary alloc] init];
-		});
-
 		KnownIdentifiers[_identifier] = self;
-
-		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, HBPreferencesDarwinNotifyCallback, (CFStringRef)[_identifier stringByAppendingPathComponent:@"ReloadPrefs"], NULL, kNilOptions);
 	}
 
 	return self;
@@ -79,7 +91,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
+	return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
 }
 
 - (void)_didReceiveDarwinNotification {
@@ -160,15 +172,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Getters
 
 - (id)_objectForKey:(NSString *)key {
-	id value = nil;
-
-	if (getuid() == 501) {
-		value = (id)CFPreferencesCopyAppValue((CFStringRef)key, (CFStringRef)_identifier);
-	} else {
-		value = (id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesCurrentHost);
-	}
-
-	value = [value autorelease];
+	id value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile")) autorelease];
 
 	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
 
@@ -236,11 +240,8 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	_lastSeenValues[key] = value;
 
-	CFPreferencesSetAppValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier);
-
-	if (!HAS_CFPREFSD) {
-		[self synchronize];
-	}
+	_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+	[self synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 }
