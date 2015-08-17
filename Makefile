@@ -28,10 +28,14 @@ after-stage::
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
 
 after-install::
+ifeq ($(RESPRING),0)
 	install.exec "killall Preferences" || true
 
 ifeq ($(DEBUG),1)
 	install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
+endif
+else
+	install.exec spring
 endif
 
 docs::
