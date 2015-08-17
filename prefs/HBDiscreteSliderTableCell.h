@@ -7,8 +7,7 @@
  * number. Additionally, when dragging the slider, it jumps to these lines
  * so the user's preference will always be a whole number.
  *
- * Requires iOS 7.0 or later. Superclass is dynamically changed at runtime to
- * not break iOS 5 and 6, which do not have the PSSliderTableCell class.
+ * Requires iOS 7.0 or later. A normal slider is shown for older versions.
  *
  * ### Specifier Parameters
  * All parameters specific to
