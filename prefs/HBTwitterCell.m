@@ -6,6 +6,7 @@
 
 @interface HBTwitterCell () {
 	NSString *_user;
+	NSString *_initials;
 	UIImage *_defaultImage;
 	UIImage *_highlightedImage;
 
@@ -53,13 +54,25 @@
 			_avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
 			[self.contentView addSubview:_avatarView];
 
-			_avatarImageView = [[UIImageView alloc] initWithFrame:_avatarView.bounds];
-			_avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-			_avatarImageView.alpha = 0;
-			_avatarImageView.userInteractionEnabled = NO;
-			[_avatarView addSubview:_avatarImageView];
+			if (specifier.properties[@"initials"]) {
+				_avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
 
-			[self loadAvatarIfNeeded];
+				UILabel *label = [[[UILabel alloc] initWithFrame:_avatarView.bounds] autorelease];
+				label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+				label.font = [UIFont systemFontOfSize:13.f];
+				label.textAlignment = NSTextAlignmentCenter;
+				label.textColor = [UIColor whiteColor];
+				label.text = specifier.properties[@"initials"];
+				[_avatarView addSubview:label];
+			} else {
+				_avatarImageView = [[UIImageView alloc] initWithFrame:_avatarView.bounds];
+				_avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+				_avatarImageView.alpha = 0;
+				_avatarImageView.userInteractionEnabled = NO;
+				[_avatarView addSubview:_avatarImageView];
+
+				[self loadAvatarIfNeeded];
+			}
 		}
 	}
 

@@ -14,6 +14,10 @@
  * to true, you should also set the cell's height to 56pt.</td>
  * </tr>
  * <tr>
+ * <th>initials</th> <td>Optional. One or two characters to show instead of an
+ * avatar.</td>
+ * </tr>
+ * <tr>
  * <th>label</th> <td>Required. The name of the person.</td>
  * </tr>
  * <tr>
