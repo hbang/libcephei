@@ -74,7 +74,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 			_CFPreferencesSetValueWithContainer = (_CFPreferencesSetValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
 			_CFPreferencesSynchronizeWithContainer = (_CFPreferencesSynchronizeWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
 
-			CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, CFSTR("com.apple.CFPreferences._domainsChangedExternally"), NULL, kNilOptions);
+			// CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, CFSTR("com.apple.CFPreferences._domainsChangedExternally"), NULL, kNilOptions);
 		});
 
 		_identifier = [identifier copy];
@@ -83,6 +83,8 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		_lastSeenValues = [[NSMutableDictionary alloc] init];
 
 		KnownIdentifiers[_identifier] = self;
+
+		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, (CFStringRef)[_identifier stringByAppendingPathComponent:@"ReloadPrefs"], NULL, kNilOptions);
 	}
 
 	return self;
@@ -91,7 +93,11 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+	if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
+		return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	} else {
+		return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+	}
 }
 
 - (void)_didReceiveDarwinNotification {
@@ -171,6 +177,15 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 #pragma mark - Getters
 
+- (NSDictionary *)dictionaryRepresentation {
+	// TODO: needs to support being in a container
+	CFArrayRef allKeys = CFPreferencesCopyKeyList((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	NSDictionary *result = [(NSDictionary *)CFPreferencesCopyMultiple(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
+	CFRelease(allKeys);
+
+	return result;
+}
+
 - (id)_objectForKey:(NSString *)key {
 	id value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile")) autorelease];
 
@@ -238,9 +253,18 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
 	}
 
-	_lastSeenValues[key] = value;
+	if (value) {
+		[_lastSeenValues removeObjectForKey:value];
+	} else {
+		_lastSeenValues[key] = value;
+	}
 
-	_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+	if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
+		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	} else {
+		_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+	}
+
 	[self synchronize];
 
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
@@ -297,6 +321,12 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 - (void)registerDefaults:(NSDictionary *)defaults {
 	[_defaults addEntriesFromDictionary:defaults];
+}
+
+#pragma mark - Remove
+
+- (void)removeObjectForKey:(NSString *)key {
+	[self setObject:nil forKey:key];
 }
 
 #pragma mark - Register block

@@ -83,6 +83,13 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  */
 
 /**
+ * Returns a dictionary that contains all preferences that are set.
+ *
+ * @returns A dictionary containing all keys and values.
+ */
+- (NSDictionary *)dictionaryRepresentation;
+
+/**
  * Returns the object associated with the specified key.
  *
  * If the preference is not yet set, returns the default. If no default is set,
@@ -91,7 +98,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  * @param key The key for which to return the corresponding value.
  * @returns The object associated with the specified key.
  * @warning You must manually synchronize preferences or use
- * registerObject:default:forKey:for this value to be updated when running on
+ * registerObject:default:forKey: for this value to be updated when running on
  * iOS 7 or older.
  */
 - (id)objectForKey:(NSString *)key;
@@ -384,6 +391,21 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  * @see defaults
  */
 - (void)registerDefaults:(NSDictionary *)defaultValues;
+
+/**
+ * @name Removing Preference Values
+ */
+
+/**
+ * Removes a given key and its associated value from the dictionary.
+ *
+ * Blocks are called after HBPreferences’ cache of values is updated. The block
+ * will also be called immediately after calling this method. See
+ * registerObject:default:forKey: for details on how to set up callbacks.
+ *
+ * @param key The key to remove.
+ */
+- (void)removeObjectForKey:(NSString *)key;
 
 /**
  * @name Preference Change Callbacks
