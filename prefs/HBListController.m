@@ -46,8 +46,53 @@
 	[super viewDidLoad];
 }
 
-// If needed, and possible, runs through every view controller on the current navigation
-// stack, pulling the Hashbang tintColor from the root Hashbang list view controller.
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	if (IS_MODERN) {
+		self.view.tintColor = [self cachedTintColor];
+		self.realNavigationController.navigationBar.tintColor = [self cachedTintColor];
+
+		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
+		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];return;
+
+	if (IS_MODERN) {
+		self.view.tintColor = nil;
+		self.realNavigationController.navigationBar.tintColor = nil;
+
+		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
+	}
+}
+
+#pragma mark - Navigation controller quirks
+
+/*
+ The layout of Settings is weird on iOS 8. On iPhone, the actual navigatioon
+ controller is the parent of self.navigationController. On iPad, it remains
+ how it's always been.
+*/
+- (UINavigationController *)realNavigationController {
+	UINavigationController *navigationController = self.navigationController;
+
+	while (navigationController.navigationController) {
+		navigationController = navigationController.navigationController;
+	}
+
+	return navigationController;
+}
+
+#pragma mark - Tint color
+
+/*
+ If needed, and possible, runs through every view controller on the current
+ navigation stack, pulling the libcephei tintColor from the previous
+ HBListController.
+*/
 - (UIColor *)cachedTintColor {
 	if (IS_MODERN) {
 		if (!_cachedTintColor) {
@@ -74,39 +119,6 @@
 	}
 
 	return nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	if (IS_MODERN) {
-		self.view.tintColor = [self cachedTintColor];
-
-		if (IS_MOST_MODERN) {
-			self.navigationController.navigationController.navigationBar.tintColor = [self cachedTintColor];
-		} else {
-			self.navigationController.navigationBar.tintColor = [self cachedTintColor];
-		}
-
-		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
-		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
-	}
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-
-	if (IS_MODERN) {
-		self.view.tintColor = nil;
-
-		if (IS_MOST_MODERN) {
-			self.navigationController.navigationController.navigationBar.tintColor = nil;
-		} else {
-			self.navigationController.navigationBar.tintColor = nil;
-		}
-
-		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
-	}
 }
 
 #pragma mark - PSListController

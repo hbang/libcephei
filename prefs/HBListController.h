@@ -46,6 +46,22 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable UIColor *)hb_tintColor;
 
+/**
+ * @name Related View Controllers
+ */
+
+/**
+ * Returns the “real” navigation controller for this view controller.
+ *
+ * As of iOS 8.0, the navigation controller that owns the navigation bar and
+ * other responsibilities is actually a parent of `self.navigationController` on
+ * iPhone, due to the larger Plus models. The realNavigationController method
+ * returns the correct navigation controller.
+ *
+ * @returns The real navigation controller.
+ */
+- (UINavigationController *)realNavigationController;
+
 @end
 
 NS_ASSUME_NONNULL_END
