@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (TSPackage *)packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file;
 
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier supportInstructions:(NSArray *)supportInstructions;
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(TSLinkInstruction *)linkInstruction supportInstructions:(NSArray *)supportInstructions;
 
 @end
 

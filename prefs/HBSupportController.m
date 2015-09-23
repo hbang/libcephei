@@ -29,7 +29,7 @@
 	return data;
 }
 
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(NSArray *)supportInstructions {
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(TSLinkInstruction *)linkInstruction supportInstructions:(NSArray *)supportInstructions {
 	NSParameterAssert(preferencesIdentifier ?: bundle);
 	NSParameterAssert(supportInstructions);
 

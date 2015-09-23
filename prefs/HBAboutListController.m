@@ -57,7 +57,7 @@
 }
 
 - (void)hb_sendSupportEmail:(nullable PSSpecifier *)specifier {
-	TSContactViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] supportInstructions:[self.class hb_supportInstructions]];
+	TSContactViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] linkInstruction:[self.class hb_linkInstruction] supportInstructions:[self.class hb_supportInstructions]];
 
 	if ([viewController respondsToSelector:@selector(tintColor)]) {
 		viewController.view.tintColor = self.view.tintColor;
