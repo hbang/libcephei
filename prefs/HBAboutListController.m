@@ -1,7 +1,10 @@
 #import "HBAboutListController.h"
-#import "../HBOutputForShellCommand.h"
-#import <MobileGestalt/MobileGestalt.h>
+#import "HBSupportController.h"
+#import <Preferences/PSSpecifier.h>
+#import <TechSupport/TechSupport.h>
 #include <version.h>
+
+@class TSInstruction;
 
 @implementation HBAboutListController
 
@@ -20,7 +23,23 @@
 }
 
 + (NSString *)hb_supportEmailAddress {
-	return @"HASHBANG Productions Support <support@hbang.ws>";
+	return nil;
+}
+
++ (nullable TSLinkInstruction *)hb_linkInstruction {
+	if ([self hb_supportEmailAddress]) {
+		return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", [self hb_supportEmailAddress], LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+	}
+
+	return nil;
+}
+
+/*
+ TODO: eventually after xcode 7 has been out for a while, this more strict
+ type should be used in the header
+*/
++ (NSArray <TSInstruction *> *)hb_supportInstructions {
+	return @[];
 }
 
 #pragma mark - Callbacks
@@ -34,45 +53,15 @@
 }
 
 - (void)hb_sendSupportEmail {
-	if (![MFMailComposeViewController canSendMail]) {
-		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:L18N(@"No mail accounts are set up.") message:L18N(@"Use the Mail settings to add a new account.") delegate:nil cancelButtonTitle:L18N(@"OK") otherButtonTitles:nil] autorelease];
-		[alertView show];
+	[self hb_sendSupportEmail:nil];
+}
 
-		return;
-	}
+- (void)hb_sendSupportEmail:(nullable PSSpecifier *)specifier {
+	TSContactViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] supportInstructions:[self.class hb_supportInstructions]];
 
-	NSBundle *bundle = [NSBundle bundleForClass:self.class];
-	NSDictionary *info = bundle.infoDictionary;
-	NSString *packageIdentifier = info[@"HBPackageIdentifier"];
-
-	if (!packageIdentifier) {
-		NSString *output = HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg -S '%@'", bundle.executablePath]);
-		packageIdentifier = output ? [output componentsSeparatedByString:@": "][0] : nil;
-	}
-
-	MFMailComposeViewController *viewController = [[[MFMailComposeViewController alloc] init] autorelease];
-	viewController.mailComposeDelegate = self;
-	viewController.toRecipients = @[ [self.class hb_supportEmailAddress] ];
-	viewController.subject = [NSString stringWithFormat:L18N(@"%@ %@ Support"), info[@"CFBundleName"], HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Version}' -W '%@'", packageIdentifier])];
-	[viewController addAttachmentData:[HBOutputForShellCommand(@"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"dpkgl.txt"];
-
-	if (IS_MODERN) {
+	if ([viewController respondsToSelector:@selector(tintColor)]) {
 		viewController.view.tintColor = self.view.tintColor;
 	}
-
-	NSString *product = nil, *version = nil, *build = nil;
-
-	if (IS_IOS_OR_NEWER(iOS_6_0)) {
-		product = [(NSString *)MGCopyAnswer(kMGProductType) autorelease];
-		version = [(NSString *)MGCopyAnswer(kMGProductVersion) autorelease];
-		build = [(NSString *)MGCopyAnswer(kMGBuildVersion) autorelease];
-	} else {
-		product = [UIDevice currentDevice].localizedModel;
-		version = [UIDevice currentDevice].systemVersion;
-		build = @"?";
-	}
-
-	[viewController setMessageBody:[NSString stringWithFormat:L18N(@"\n\nDevice information: %@, iOS %@ (%@)"), product, version, build] isHTML:NO];
 
 	[self.realNavigationController pushViewController:viewController animated:YES];
 }

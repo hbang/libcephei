@@ -97,6 +97,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)hb_supportEmailAddress;
 
 /**
+ * The instructions to provide to the TechSupport framework, in addition to the
+ * default ones provided by Cephei. For details and examples of support
+ * instructions, refer to the TechSupport project’s GitHub repo:
+ * https://github.com/ashikase/TechSupport/tree/master/Demo
+ *
+ * @returns By default, an empty array.
+ */
++ (NSArray *)hb_supportInstructions;
+
+/**
  * @name Preference Specifier Actions
  */
 

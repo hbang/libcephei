@@ -7,6 +7,7 @@ LIBRARY_NAME = libcepheiprefs
 libcepheiprefs_FILES = $(wildcard *.x) $(wildcard *.m)
 libcepheiprefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 libcepheiprefs_PRIVATE_FRAMEWORKS = Preferences
+libcepheiprefs_EXTRA_FRAMEWORKS = TechSupport
 libcepheiprefs_CFLAGS = -include HBGlobal.h
 libcepheiprefs_LIBRARIES = cephei MobileGestalt substrate
 
