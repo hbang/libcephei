@@ -12,6 +12,8 @@
  * presence of an HBRootListController.
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HBRootListController : HBListController
 
 /**
@@ -28,7 +30,7 @@
  *
  * @returns By default, nil.
  */
-+ (NSString *)hb_shareText;
++ (nullable NSString *)hb_shareText;
 
 
 /**
@@ -40,6 +42,8 @@
  *
  * @returns By default, nil.
  */
-+ (NSURL *)hb_shareURL;
++ (nullable NSURL *)hb_shareURL;
 
 @end
+
+NS_ASSUME_NONNULL_END

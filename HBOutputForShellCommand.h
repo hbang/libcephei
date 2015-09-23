@@ -1,5 +1,6 @@
 #include <sys/cdefs.h>
 
+NS_ASSUME_NONNULL_BEGIN
 __BEGIN_DECLS
 
 /**
@@ -22,3 +23,4 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
 NSString *HBOutputForShellCommand(NSString *command);
 
 __END_DECLS
+NS_ASSUME_NONNULL_END

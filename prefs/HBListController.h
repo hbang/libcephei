@@ -14,6 +14,8 @@
  * elements within the list controller.
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HBListController : PSListController
 
 /**
@@ -32,7 +34,7 @@
  *
  * @returns By default, nil.
  */
-+ (NSString *)hb_specifierPlist;
++ (nullable NSString *)hb_specifierPlist;
 
 /**
  * The tint color to use for interactable elements within the list controller.
@@ -42,6 +44,8 @@
  *
  * @returns By default, nil.
  */
-+ (UIColor *)hb_tintColor;
++ (nullable UIColor *)hb_tintColor;
 
 @end
+
+NS_ASSUME_NONNULL_END

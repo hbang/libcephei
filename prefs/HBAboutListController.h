@@ -64,6 +64,8 @@
  * 	</dict>
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface HBAboutListController : HBListController <MFMailComposeViewControllerDelegate>
 
 /**
@@ -82,7 +84,7 @@
  * The website URL to open when tapping the "donate" cell. Override this method
  * to return your own URL.
  *
- * @returns By default, https://www.hbang.ws/donate.
+ * @returns By default, https://www.hbang.ws/donate/.
  */
 + (NSURL *)hb_donateURL;
 
@@ -124,3 +126,5 @@
 - (void)hb_sendSupportEmail;
 
 @end
+
+NS_ASSUME_NONNULL_END

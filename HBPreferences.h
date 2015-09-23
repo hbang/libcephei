@@ -46,8 +46,10 @@
  * 	}
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^HBPreferencesChangeCallback)();
-typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> value);
+typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nullable value);
 
 @interface HBPreferences : NSObject
 
@@ -235,7 +237,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  * @exception HBPreferencesNotMobileException Thrown when the method is called
  * by a process not running as the `mobile` user.
  */
-- (void)setObject:(id)value forKey:(NSString *)key;
+- (void)setObject:(nullable id)value forKey:(NSString *)key;
 
 /**
  * Sets the value of the specified key to the specified integer value.
@@ -291,7 +293,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  * @param object The value to store in the preferences.
  * @param key The key with which to associate with the value.
  */
-- (void)setObject:(id)object forKeyedSubscript:(id)key;
+- (void)setObject:(nullable id)object forKeyedSubscript:(id)key;
 
 /**
  * @name Registering Default Preferences
@@ -327,7 +329,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> val
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerObject:(id *)object default:(id)defaultValue forKey:(NSString *)key;
+- (void)registerObject:(_Nullable id * _Nonnull)object default:(id)defaultValue forKey:(NSString *)key;
 
 /**
  * Register an integer value to be automatically set to the user's preference.
@@ -471,3 +473,5 @@ extern NSString *const HBPreferencesNotMobileException;
  */
 extern NSString *const HBPreferencesDidChangeNotification;
 #endif
+
+NS_ASSUME_NONNULL_END
