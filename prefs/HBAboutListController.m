@@ -74,11 +74,7 @@
 
 	[viewController setMessageBody:[NSString stringWithFormat:L18N(@"\n\nDevice information: %@, iOS %@ (%@)"), product, version, build] isHTML:NO];
 
-	if (IS_MOST_MODERN) {
-		[self.navigationController.navigationController presentViewController:viewController animated:YES completion:nil];
-	} else {
-		[self.navigationController presentViewController:viewController animated:YES completion:nil];
-	}
+	[self.realNavigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - MFMailComposeViewControllerDelegate

@@ -95,10 +95,10 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	NSUInteger cleanedAuthorLocation = [(NSString *)_packageDetails[kHBDebianControlFileAuthorKey] rangeOfString:@" <"].location;
 	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _packageDetails[kHBDebianControlFileAuthorKey] : [_packageDetails[kHBDebianControlFileAuthorKey] substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
-	NSString *icon = _icon && _condensed ? @"ICON " : @"";
+	NSString *icon = _icon && _condensed ? @"ICON " : @""; // note: there's a zero width space here
 	NSString *name = _packageDetails[kHBDebianControlFileNameKey];
-	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:L18N(@"Version %@")], _packageDetails[kHBDebianControlFileVersionKey]] : @"";
-	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:L18N(@"by %@")], cleanedAuthor] : @"";
+	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _packageDetails[kHBDebianControlFileVersionKey]] : @"";
+	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADING_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
 	NSMutableAttributedString *attributedString = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
 		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
