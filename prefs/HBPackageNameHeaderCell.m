@@ -18,6 +18,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	BOOL _showVersion;
 
 	NSDictionary *_packageDetails;
+	NSString *_nameOverride;
 	UIImage *_icon;
 }
 
@@ -35,6 +36,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
 		_icon = [specifier.properties[@"iconImage"] retain];
+		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
 		_packageDetails = [@{
 			kHBDebianControlFilePackageKey: specifier.properties[@"packageIdentifier"]
@@ -112,7 +114,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
 	}
 
-	location += length;
 	length = name.length;
 
 	NSMutableParagraphStyle *paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
@@ -161,11 +162,17 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	NSString *identifier = _packageDetails[kHBDebianControlFilePackageKey];
 	NSArray *packageData = [HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Name}\n==libcephei-divider==\n${Version}\n==libcephei-divider==\n${Author}' -W '%@'", identifier]) componentsSeparatedByString:@"\n==libcephei-divider==\n"];
 
+	NSString *name = packageData[0] ?: @"";
+
+	if (_nameOverride) {
+		name = _nameOverride;
+	}
+
 	[_packageDetails release];
 
 	_packageDetails = [@{
 		kHBDebianControlFilePackageKey: identifier,
-		kHBDebianControlFileNameKey: packageData[0] ?: @"",
+		kHBDebianControlFileNameKey: name,
 		kHBDebianControlFileVersionKey: packageData[1] ?: @"",
 		kHBDebianControlFileAuthorKey: packageData[2] ?: @"",
 	} retain];
@@ -175,6 +182,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 
 - (void)dealloc {
 	[_packageDetails release];
+	[_nameOverride release];
 	[_icon release];
 
 	[super dealloc];

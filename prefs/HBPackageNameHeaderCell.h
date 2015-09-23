@@ -22,8 +22,12 @@
  * don't set this value.</td>
  * </tr>
  * <tr>
- * <th>packageIdentifier</th> <td>Reqired. The package identifier to retrieve
+ * <th>packageIdentifier</th> <td>Required. The package identifier to retrieve
  * the required information from.</td>
+ * </tr>
+ * <tr>
+ * <th>packageNameOverride</th> <td>Optional. A custom name to use instead of
+ * the package’s name.</td>
  * </tr>
  * <tr>
  * <th>showAuthor</th> <td>Optional. Whether to show the `Author` field of the
