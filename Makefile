@@ -4,7 +4,7 @@ APPLEDOCFILES = $(wildcard *.h) $(wildcard prefs/*.h)
 DOCS_STAGING_DIR = _docs
 DOCS_OUTPUT_PATH = docs
 
-include theos/makefiles/common.mk
+include $(THEOS)/makefiles/common.mk
 
 LIBRARY_NAME = libcephei
 libcephei_FILES = $(wildcard *.m)
