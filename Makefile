@@ -6,32 +6,39 @@ DOCS_OUTPUT_PATH = docs
 
 include $(THEOS)/makefiles/common.mk
 
-LIBRARY_NAME = libcephei
-libcephei_FILES = $(wildcard *.m)
-libcephei_FRAMEWORKS = CoreGraphics UIKit
+FRAMEWORK_NAME = Cephei
+Cephei_FILES = $(wildcard *.m)
+Cephei_FRAMEWORKS = CoreGraphics UIKit
 
 SUBPROJECTS = prefs
 
-include $(THEOS_MAKE_PATH)/library.mk
+include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
-after-libcephei-all::
-ifneq ($(DEBUG),1)
-	cp $(THEOS_OBJ_DIR)/libcephei.dylib $(THEOS)/lib/libcephei.dylib
-endif
+after-Cephei-stage::
+	# create directories
+	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework/Headers
 
-after-stage::
-	mkdir -p $(THEOS)/include/Cephei $(THEOS_STAGING_DIR)/usr/include/Cephei
-	rsync -ra *.h $(THEOS_STAGING_DIR)/usr/include/Cephei/ --exclude HBGlobal.h
-	rsync -ra $(THEOS_STAGING_DIR)/usr/include/Cephei/ $(THEOS)/include/Cephei
+	# copy headers
+	rsync -ra *.h $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework/Headers --exclude HBGlobal.h
 
+	# libhbangcommon.dylib -> libcephei.dylib
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
+
+	# libcephei.dylib -> Cephei.framework
+	ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib
+
+	# Cephei -> Cephei.framework/Headers
+	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
+
+	# copy to theos lib dir
+	rsync -ra $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework $(THEOS)/lib
 
 after-install::
 ifeq ($(RESPRING),0)
 	install.exec "killall Preferences" || true
 
-ifeq ($(DEBUG),1)
+ifneq ($(DEBUG),0)
 	install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
 endif
 else
