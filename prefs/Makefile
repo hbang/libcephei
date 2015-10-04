@@ -9,7 +9,8 @@ libcepheiprefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 libcepheiprefs_PRIVATE_FRAMEWORKS = Preferences
 libcepheiprefs_EXTRA_FRAMEWORKS = TechSupport
 libcepheiprefs_CFLAGS = -include HBGlobal.h
-libcepheiprefs_LIBRARIES = cephei MobileGestalt substrate
+libcepheiprefs_LOGOSFLAGS = -c generator=internal
+libcepheiprefs_LIBRARIES = cephei MobileGestalt
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/library.mk
