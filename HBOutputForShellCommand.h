@@ -11,7 +11,7 @@ __BEGIN_DECLS
  * of the command.
  * @returns The output of the provided command.
  */
-NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode);
+NSString * _Nullable HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode);
 
 /**
  * Executes a shell command and returns its output.
@@ -20,7 +20,7 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
  * @returns The output of the provided command, or nil if the command returned
  * with a code other than 0.
  */
-NSString *HBOutputForShellCommand(NSString *command);
+NSString * _Nullable HBOutputForShellCommand(NSString *command);
 
 __END_DECLS
 NS_ASSUME_NONNULL_END
