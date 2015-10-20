@@ -6,7 +6,7 @@
 	<key>ABOUT</key>
 	<string>About</string>
 
-	<!-- Label for a button that allows the user to visit the website of the developer.-->
+	<!-- Label for a button that allows the user to visit the website of the developer. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Visit Website</string>
 
