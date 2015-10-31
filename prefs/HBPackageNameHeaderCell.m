@@ -1,23 +1,18 @@
 #import "HBPackageNameHeaderCell.h"
-#import "../HBOutputForShellCommand.h"
 #import <Preferences/PSSpecifier.h>
+#import <TechSupport/TSPackage.h>
 #import <version.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
 static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
-static NSString *const kHBDebianControlFilePackageKey = @"Package";
-static NSString *const kHBDebianControlFileNameKey = @"Name";
-static NSString *const kHBDebianControlFileVersionKey = @"Version";
-static NSString *const kHBDebianControlFileAuthorKey = @"Author";
-
 @implementation HBPackageNameHeaderCell {
 	BOOL _condensed;
 	BOOL _showAuthor;
 	BOOL _showVersion;
 
-	NSDictionary *_packageDetails;
+	TSPackage *_package;
 	NSString *_nameOverride;
 	UIImage *_icon;
 
@@ -30,6 +25,8 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
+		NSParameterAssert(specifier.properties[@"packageIdentifier"]);
+
 		self.backgroundColor = [UIColor clearColor];
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
 		self.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -46,9 +43,9 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		_icon = [specifier.properties[@"iconImage"] retain];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
-		_packageDetails = [@{
-			kHBDebianControlFilePackageKey: specifier.properties[@"packageIdentifier"]
-		} retain];
+		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
+
+		_package = [[TSPackage alloc] initWithIdentifier:specifier.properties[@"packageIdentifier"]];
 
 		[self updateData];
 	}
@@ -89,25 +86,24 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 #pragma mark - Updating
 
 - (void)updateData {
-	[self _retrievePackageDetails];
-
-	if ([_packageDetails.allValues containsObject:@""]) {
+	if (!_package) {
 		// i hate pirate repos
 		return;
 	}
 
+	NSString *name = _nameOverride ?: _package.name;
+
 	if (![self.textLabel respondsToSelector:@selector(setAttributedText:)]) {
 		// starting to realise the features we take for granted these days...
-		self.textLabel.text = [NSString stringWithFormat:@"%@%@%@", _packageDetails[kHBDebianControlFileNameKey], _showVersion ? @" " : @"", _showVersion ? _packageDetails[kHBDebianControlFileVersionKey] : @""];
+		self.textLabel.text = [NSString stringWithFormat:@"%@%@%@", name, _showVersion ? @" " : @"", _showVersion ? _package.version : @""];
 		return;
 	}
 
-	NSUInteger cleanedAuthorLocation = [(NSString *)_packageDetails[kHBDebianControlFileAuthorKey] rangeOfString:@" <"].location;
-	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _packageDetails[kHBDebianControlFileAuthorKey] : [_packageDetails[kHBDebianControlFileAuthorKey] substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
+	NSUInteger cleanedAuthorLocation = [(NSString *)_package.author rangeOfString:@" <"].location;
+	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _package.author : [_package.author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
 	NSString *icon = _icon && _condensed ? @"ICON " : @""; // note: there's a zero width space here
-	NSString *name = _packageDetails[kHBDebianControlFileNameKey];
-	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _packageDetails[kHBDebianControlFileVersionKey]] : @"";
+	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _package.version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADING_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
 	NSMutableAttributedString *attributedString = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
@@ -170,26 +166,6 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	self.textLabel.attributedText = attributedString;
 }
 
-- (void)_retrievePackageDetails {
-	NSString *identifier = _packageDetails[kHBDebianControlFilePackageKey];
-	NSArray *packageData = [HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Name}\n==libcephei-divider==\n${Version}\n==libcephei-divider==\n${Author}' -W '%@'", identifier]) componentsSeparatedByString:@"\n==libcephei-divider==\n"];
-
-	NSString *name = packageData[0] ?: @"";
-
-	if (_nameOverride) {
-		name = _nameOverride;
-	}
-
-	[_packageDetails release];
-
-	_packageDetails = [@{
-		kHBDebianControlFilePackageKey: identifier,
-		kHBDebianControlFileNameKey: name,
-		kHBDebianControlFileVersionKey: packageData[1] ?: @"",
-		kHBDebianControlFileAuthorKey: packageData[2] ?: @"",
-	} retain];
-}
-
 #pragma mark color setters/getters
 
 - (void)setCondensedColor:(UIColor *)condensedColor {
@@ -235,7 +211,7 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 #pragma mark - Memory management
 
 - (void)dealloc {
-	[_packageDetails release];
+	[_package release];
 	[_nameOverride release];
 	[_icon release];
 
