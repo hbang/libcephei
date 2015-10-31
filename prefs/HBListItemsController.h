@@ -1,7 +1,7 @@
 #import <Preferences/PSListItemsController.h>
 
 /**
- * The `HBListItemsController` class in `libcepheiprefs` provides a subclass of
+ * The `HBListItemsController` class in `CepheiPrefs` provides a subclass of
  * `PSListItemsController` which will ensure that the tint color from previous
  * view controllers is also applied to this class which is not typically
  * subclassed. Set this as the value of `detail` where you would typically put

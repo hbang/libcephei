@@ -1,5 +1,5 @@
 /**
- * The `HBPreferences` class in `libcephei` provides an interface for managing
+ * The `HBPreferences` class in `Cephei` provides an interface for managing
  * user-defined preferences of a tweak, and the default values used when the
  * user has not yet changed a value.
  *

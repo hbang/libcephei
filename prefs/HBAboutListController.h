@@ -2,11 +2,11 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 /**
- * The `HBAboutListController` class in `libcepheiprefs` provides a list
- * controller with functions that would typically be used on an "about" page.
- * It includes two class methods you can override to provide a developer
- * website and donation URL, and a class method to provide an email address
- * so the user can send the developer an email right from the tweak's settings.
+ * The `HBAboutListController` class in `CepheiPrefs` provides a list controller
+ * with functions that would typically be used on an "about" page. It includes
+ * two class methods you can override to provide a developer website and
+ * donation URL, and a class method to provide an email address so the user can
+ * send the developer an email right from the tweak's settings.
  *
  * There is a sample of an HBAboutListController implemented in the Cephei demo
  * preferences. See the Cephei readme for details.

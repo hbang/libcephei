@@ -2,10 +2,10 @@
 #import <Preferences/PSDiscreteSlider.h>
 
 /**
- * The `HBDiscreteSliderTableCell` class in `libcepheiprefs` is a subclass of
- * the standard slider cell, which displays a vertical line at every whole
- * number. Additionally, when dragging the slider, it jumps to these lines
- * so the user's preference will always be a whole number.
+ * The `HBDiscreteSliderTableCell` class in `CepheiPrefs` is a subclass of the
+ * standard slider cell, which displays a vertical line at every whole number.
+ * Additionally, when dragging the slider, it jumps to these lines so the user’s
+ * preference will always be a whole number.
  *
  * Requires iOS 7.0 or later. A normal slider is shown for older versions.
  *

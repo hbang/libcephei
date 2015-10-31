@@ -1,7 +1,7 @@
 #import <Preferences/PSTableCell.h>
 
 /**
- * The `HBTwitterCell` class in `libcepheiprefs` displays a button containing a
+ * The `HBTwitterCell` class in `CepheiPrefs` displays a button containing a
  * person's name, along with their Twitter username and avatar. When tapped,
  * a Twitter client installed on the user's device or the Twitter website is
  * opened to the person's profile.

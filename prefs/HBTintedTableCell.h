@@ -1,9 +1,9 @@
 #import <Preferences/PSTableCell.h>
 
 /**
- * The `HBTintedTableCell` class in `libcepheiprefs` ensures that a tint set
- * with +[HBListController hb_tintColor] will also be applied to the title
- * label of a cell intended to be used as a button.
+ * The `HBTintedTableCell` class in `CepheiPrefs` ensures that a tint set with
+ * +[HBListController hb_tintColor] will also be applied to the title label of a
+ * of a cell intended to be used as a button.
  *
  * ### Example Usage
  * 	<dict>

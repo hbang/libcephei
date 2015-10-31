@@ -2,7 +2,7 @@
 #import <Preferences/PSHeaderFooterView.h>
 
 /**
- * The `HBImageTableCell` class in `libcepheiprefs` provides a simple way to
+ * The `HBImageTableCell` class in `CepheiPrefs` provides a simple way to
  * display an image as a table cell, or a header or footer.
  *
  * ### Specifier Parameters
