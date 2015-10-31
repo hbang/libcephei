@@ -20,6 +20,10 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 	NSDictionary *_packageDetails;
 	NSString *_nameOverride;
 	UIImage *_icon;
+
+	UIColor *_condensedColor;
+	UIColor *_headerColor;
+	UIColor *_subtitleColor;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
@@ -31,6 +35,10 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		self.textLabel.textAlignment = NSTextAlignmentCenter;
 		self.textLabel.adjustsFontSizeToFitWidth = NO;
 		self.textLabel.adjustsLetterSpacingToFitWidth = NO;
+
+		self.condensedColor = [self colorWithHexString:specifier.properties[@"condensedColor"]];
+		self.headerColor = [self colorWithHexString:specifier.properties[@"headerColor"]];
+		self.subtitleColor = [self colorWithHexString:specifier.properties[@"subtitleColor"]];
 
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
@@ -127,12 +135,14 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
 			NSBaselineOffsetAttributeName: @(6.f),
-			NSParagraphStyleAttributeName: paragraphStyle
+			NSParagraphStyleAttributeName: paragraphStyle,
+			NSForegroundColorAttributeName: self.condensedColor
 		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize],
-			NSParagraphStyleAttributeName: paragraphStyle
+			NSParagraphStyleAttributeName: paragraphStyle,
+			NSForegroundColorAttributeName: self.headerColor
 		} range:NSMakeRange(location, length)];
 	}
 
@@ -141,7 +151,8 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		length = version.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: _condensed ? [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize]
+			NSFontAttributeName: _condensed ? [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSForegroundColorAttributeName: self.condensedColor
 		} range:NSMakeRange(location, length)];
 	}
 
@@ -150,7 +161,8 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		length = author.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize]
+			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSForegroundColorAttributeName: self.subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
 
@@ -176,6 +188,48 @@ static NSString *const kHBDebianControlFileAuthorKey = @"Author";
 		kHBDebianControlFileVersionKey: packageData[1] ?: @"",
 		kHBDebianControlFileAuthorKey: packageData[2] ?: @"",
 	} retain];
+}
+
+#pragma mark color setters/getters
+
+- (void)setCondensedColor:(UIColor *)condensedColor {
+	_condensedColor = condensedColor;
+}
+
+- (void)setHeaderColor:(UIColor *)headerColor {
+	_headerColor = headerColor;
+}
+
+- (void)setSubtitleColor:(UIColor *)subtitleColor {
+	_subtitleColor = subtitleColor;
+}
+
+- (UIColor *)condensedColor {
+	return _condensedColor ?: [UIColor darkGrayColor];
+}
+
+- (UIColor *)headerColor {
+	return _headerColor ?: [UIColor darkGrayColor];
+}
+
+- (UIColor *)subtitleColor {
+	return _subtitleColor ?: [UIColor darkGrayColor];
+}
+
+#pragma mark helper methods
+//http://stackoverflow.com/questions/3010216/how-can-i-convert-rgb-hex-string-into-uicolor-in-objective-c - thanks!
+- (UIColor *)colorWithHexString:(NSString *)stringToConvert {
+    NSString *noHashString = [stringToConvert stringByReplacingOccurrencesOfString:@"#" withString:@""]; // remove the #
+    NSScanner *scanner = [NSScanner scannerWithString:noHashString];
+    [scanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; // remove + and $
+
+    unsigned hex;
+    if (![scanner scanHexInt:&hex]) return nil;
+    int r = (hex >> 16) & 0xFF;
+    int g = (hex >> 8) & 0xFF;
+    int b = (hex) & 0xFF;
+
+    return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 #pragma mark - Memory management
