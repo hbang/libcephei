@@ -66,7 +66,7 @@
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
 		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
 
-		if ([self.class hb_invertedColors] && ![self lightUIColors]) {
+		if ([self.class hb_invertedColors]) {
 			_statusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
 			[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 			_navigationBarStyle = self.realNavigationController.navigationBar.barStyle;
@@ -161,15 +161,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Helper method
-
-- (BOOL)lightUIColors {
-    const CGFloat *components = CGColorGetComponents(_cachedTintColor.CGColor);
-    CGFloat brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000;
-
-    return brightness > 0.5 ? YES : NO;
 }
 
 @end
