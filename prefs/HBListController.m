@@ -6,6 +6,11 @@
 
 @interface HBListController () {
 	UIColor *_cachedTintColor;
+
+	BOOL _invertedColors;
+
+	UIStatusBarStyle _statusBarStyle;
+	UIBarStyle _navigationBarStyle;
 }
 
 @end
@@ -16,6 +21,10 @@
 
 + (UIColor *)hb_tintColor {
 	return nil;
+}
+
++ (BOOL)hb_invertedColors {
+	return NO;
 }
 
 + (NSString *)hb_specifierPlist {
@@ -50,20 +59,32 @@
 	[super viewWillAppear:animated];
 
 	if (IS_MODERN) {
-		self.view.tintColor = [self cachedTintColor];
-		self.realNavigationController.navigationBar.tintColor = [self cachedTintColor];
+		self.view.tintColor = [self.class hb_invertedColors] ? self.realNavigationController.navigationBar.barTintColor : [self cachedTintColor];
+		self.realNavigationController.navigationBar.tintColor = [self.class hb_invertedColors] ? (self.realNavigationController.navigationBar.barTintColor ?: [UIColor colorWithRed:(247/255.0) green:(247/255.0) blue:(247/255.0) alpha:1]) : [self cachedTintColor];
+		self.realNavigationController.navigationBar.barTintColor = [self.class hb_invertedColors] ? [self cachedTintColor] : self.realNavigationController.navigationBar.barTintColor;
 
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = [self cachedTintColor];
 		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = [self cachedTintColor];
+
+		if ([self.class hb_invertedColors] && ![self lightUIColors]) {
+			_statusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+			[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+			_navigationBarStyle = self.realNavigationController.navigationBar.barStyle;
+			self.realNavigationController.navigationBar.barStyle = UIBarStyleBlack;
+		}
 	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];return;
+	[super viewWillDisappear:animated];
 
 	if (IS_MODERN) {
 		self.view.tintColor = nil;
 		self.realNavigationController.navigationBar.tintColor = nil;
+		self.realNavigationController.navigationBar.barTintColor = nil;
+
+		[[UIApplication sharedApplication] setStatusBarStyle:_statusBarStyle];
+		self.realNavigationController.navigationBar.barStyle = _navigationBarStyle;
 
 		[UILabel appearanceWhenContainedIn:HBTintedTableCell.class, nil].textColor = nil;
 	}
@@ -140,6 +161,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Helper method
+
+- (BOOL)lightUIColors {
+    const CGFloat *components = CGColorGetComponents(_cachedTintColor.CGColor);
+    CGFloat brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000;
+
+    return brightness > 0.5 ? YES : NO;
 }
 
 @end
