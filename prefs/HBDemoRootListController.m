@@ -11,11 +11,11 @@
 }
 
 + (NSString *)hb_shareText {
-	return @"libcephei is a great developer library used behind the scenes of jailbroken iOS packages.";
+	return @"Cephei is a great developer library used behind the scenes of jailbroken iOS packages.";
 }
 
 + (NSURL *)hb_shareURL {
-	return [NSURL URLWithString:@"https://hbang.github.io/libcephei"];
+	return [NSURL URLWithString:@"https://hbang.github.io/libcephei/"];
 }
 
 + (UIColor *)hb_tintColor {
