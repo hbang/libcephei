@@ -6,7 +6,7 @@
 	<key>ABOUT</key>
 	<string>About</string>
 
-	<!-- Label for a button that allows the user to visit the website of the developer. -->
+	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Visit Website</string>
 
@@ -14,17 +14,17 @@
 	<key>EMAIL_SUPPORT_HEADER</key>
 	<string>Having Problems?</string>
 
-	<!-- Label for a button that allows the user to email the developer. -->
+	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
 	<string>Email Support</string>
 
-	<!-- Heading above the "Donate" button. -->
-	<key>DONATE_HEADER</key>
-	<string>Like %@?</string>
-
-	<!-- Label for a button that allows the user to send a donation the developer. -->
+	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
 	<string>Donate</string>
+
+	<!-- Footer under the donate button. -->
+	<key>DONATE_FOOTER</key>
+	<string>Please consider showing your appreciation for this tweak with a donation.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
