@@ -1,4 +1,4 @@
-NSBundle *globalBundle;
+extern NSBundle *globalBundle;
 
 #define LOCALIZE(key, table, comment) NSLocalizedStringFromTableInBundle(key, table ?: @"Localizable", globalBundle, comment)
 

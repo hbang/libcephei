@@ -1,22 +1,29 @@
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = CepheiPrefs
-CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m)
+CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m) ../Global.x
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
-CepheiPrefs_CFLAGS = -include HBGlobal.h
+CepheiPrefs_CFLAGS = -include ../Global.h
 CepheiPrefs_LOGOSFLAGS = -c generator=internal
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/framework.mk
 
-after-CepheiPrefs-stage::
+after-Cephei-all::
 	# create directories
-	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework/Headers $(THEOS_STAGING_DIR)/Library/PreferenceBundles
+	mkdir -p $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
 
 	# copy headers
-	rsync -ra *.h $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework/Headers --exclude HBGlobal.h
+	rsync -ra *.h $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
+
+	# copy to theos lib dir
+	rsync -ra $(THEOS_OBJ_DIR)/CepheiPrefs.framework $(THEOS)/lib
+
+after-CepheiPrefs-stage::
+	# create directories
+	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/PreferenceBundles
 
 	# libhbangprefs.dylib -> libcepheiprefs.dylib
 	ln -s libcepheiprefs.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib
@@ -33,10 +40,8 @@ after-CepheiPrefs-stage::
 	# Cephei.bundle -> CepheiPrefs.framework
 	ln -s /Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle
 
-	# copy to theos lib dir
-	rsync -ra $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework $(THEOS)/lib
-
 ifeq ($(DEBUG),1)
+	# install demo entry plist
 	mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences
 	mv $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist
 endif

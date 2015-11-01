@@ -7,20 +7,28 @@ DOCS_OUTPUT_PATH = docs
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
-Cephei_FILES = $(wildcard *.m)
+Cephei_FILES = $(wildcard *.m) Global.x
 Cephei_FRAMEWORKS = CoreGraphics UIKit
+Cephei_CFLAGS = -include Global.h
 
 SUBPROJECTS = prefs
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
-after-Cephei-stage::
+after-Cephei-all::
 	# create directories
-	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework/Headers
+	mkdir -p $(THEOS_OBJ_DIR)/Cephei.framework/Headers
 
 	# copy headers
-	rsync -ra *.h $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework/Headers --exclude HBGlobal.h
+	rsync -ra *.h $(THEOS_OBJ_DIR)/Cephei.framework/Headers --exclude Global.h
+
+	# copy to theos lib dir
+	rsync -ra $(THEOS_OBJ_DIR)/Cephei.framework $(THEOS)/lib
+
+after-Cephei-stage::
+	# create directories
+	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib}
 
 	# libhbangcommon.dylib -> libcephei.dylib
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
@@ -30,9 +38,6 @@ after-Cephei-stage::
 
 	# Cephei -> Cephei.framework/Headers
 	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
-
-	# copy to theos lib dir
-	rsync -ra $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework $(THEOS)/lib
 
 after-install::
 ifeq ($(RESPRING),0)
