@@ -69,6 +69,7 @@
 				_avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 				_avatarImageView.alpha = 0;
 				_avatarImageView.userInteractionEnabled = NO;
+				_avatarImageView.layer.minificationFilter = kCAFilterTrilinear;
 				[_avatarView addSubview:_avatarImageView];
 
 				[self loadAvatarIfNeeded];
