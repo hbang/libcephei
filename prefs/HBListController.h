@@ -47,6 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable UIColor *)hb_tintColor;
 
 /**
+ * Whether to use an inverted navigation bar. Override this method if you want
+ * this behavior.
+ *
+ * An inverted navigation bar has a tinted background, rather than the buttons
+ * being tinted. All other interface elements will be tinted the same.
+ *
+ * @returns By default, NO.
+ */
++ (BOOL)hb_invertedNavigationBar;
+
+/**
  * @name Related View Controllers
  */
 
