@@ -1,4 +1,5 @@
 #import "HBPackageNameHeaderCell.h"
+#import <Cephei/UIColor+HBAdditions.h>
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
 #import <version.h>
@@ -11,14 +12,12 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	BOOL _condensed;
 	BOOL _showAuthor;
 	BOOL _showVersion;
+	UIColor *_titleColor;
+	UIColor *_subtitleColor;
 
 	TSPackage *_package;
 	NSString *_nameOverride;
 	UIImage *_icon;
-
-	UIColor *_condensedColor;
-	UIColor *_headerColor;
-	UIColor *_subtitleColor;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
@@ -42,6 +41,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
 		_icon = [specifier.properties[@"iconImage"] retain];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
+
+		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]] ?: [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1];
+		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]] ?: [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
 
 		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
 
@@ -132,13 +134,13 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
 			NSBaselineOffsetAttributeName: @(6.f),
 			NSParagraphStyleAttributeName: paragraphStyle,
-			NSForegroundColorAttributeName: self.condensedColor
+			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize],
 			NSParagraphStyleAttributeName: paragraphStyle,
-			NSForegroundColorAttributeName: self.headerColor
+			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length)];
 	}
 
@@ -148,7 +150,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		[attributedString addAttributes:@{
 			NSFontAttributeName: _condensed ? [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
-			NSForegroundColorAttributeName: self.condensedColor
+			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
 
@@ -158,59 +160,20 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		[attributedString addAttributes:@{
 			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
-			NSForegroundColorAttributeName: self.subtitleColor
+			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
 
 	self.textLabel.numberOfLines = 0;
 	self.textLabel.attributedText = attributedString;
 }
-
-#pragma mark color setters/getters
-
-- (void)setCondensedColor:(UIColor *)condensedColor {
-	_condensedColor = condensedColor;
-}
-
-- (void)setHeaderColor:(UIColor *)headerColor {
-	_headerColor = headerColor;
-}
-
-- (void)setSubtitleColor:(UIColor *)subtitleColor {
-	_subtitleColor = subtitleColor;
-}
-
-- (UIColor *)condensedColor {
-	return _condensedColor ?: [UIColor darkGrayColor];
-}
-
-- (UIColor *)headerColor {
-	return _headerColor ?: [UIColor darkGrayColor];
-}
-
-- (UIColor *)subtitleColor {
-	return _subtitleColor ?: [UIColor darkGrayColor];
-}
-
-#pragma mark helper methods
-//http://stackoverflow.com/questions/3010216/how-can-i-convert-rgb-hex-string-into-uicolor-in-objective-c - thanks!
-- (UIColor *)colorWithHexString:(NSString *)stringToConvert {
-    NSString *noHashString = [stringToConvert stringByReplacingOccurrencesOfString:@"#" withString:@""]; // remove the #
-    NSScanner *scanner = [NSScanner scannerWithString:noHashString];
-    [scanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; // remove + and $
-
-    unsigned hex;
-    if (![scanner scanHexInt:&hex]) return nil;
-    int r = (hex >> 16) & 0xFF;
-    int g = (hex >> 8) & 0xFF;
-    int b = (hex) & 0xFF;
-
-    return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:1.0f];
 }
 
 #pragma mark - Memory management
 
 - (void)dealloc {
+	[_titleColor release];
+	[_subtitleColor release];
 	[_package release];
 	[_nameOverride release];
 	[_icon release];
