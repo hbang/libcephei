@@ -11,7 +11,7 @@ CepheiPrefs_LOGOSFLAGS = -c generator=internal
 include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/framework.mk
 
-after-Cephei-all::
+after-CepheiPrefs-all::
 	# create directories
 	mkdir -p $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
 
