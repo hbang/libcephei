@@ -7,7 +7,7 @@
 	<string>Version %@</string>
 
 	<!-- The subheading containing the package author. -->
-	<key>HEADING_AUTHOR</key>
+	<key>HEADER_AUTHOR</key>
 	<string>By %@</string>
 </dict>
 </plist>
