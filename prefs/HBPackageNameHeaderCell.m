@@ -2,6 +2,7 @@
 #import <Cephei/UIColor+HBAdditions.h>
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
+#import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
@@ -18,6 +19,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	TSPackage *_package;
 	NSString *_nameOverride;
 	UIImage *_icon;
+	UILabel *_label;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
@@ -28,13 +30,19 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		self.backgroundColor = [UIColor clearColor];
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
-		self.textLabel.textAlignment = NSTextAlignmentCenter;
-		self.textLabel.adjustsFontSizeToFitWidth = NO;
-		self.textLabel.adjustsLetterSpacingToFitWidth = NO;
 
-		self.condensedColor = [self colorWithHexString:specifier.properties[@"condensedColor"]];
-		self.headerColor = [self colorWithHexString:specifier.properties[@"headerColor"]];
-		self.subtitleColor = [self colorWithHexString:specifier.properties[@"subtitleColor"]];
+		CGRect labelFrame = self.contentView.bounds;
+		labelFrame.origin.x -= self._marginWidth;
+		labelFrame.origin.y += 30.f;
+		labelFrame.size.width -= self._marginWidth * 2;
+		labelFrame.size.height -= 30.f;
+
+		_label = [[UILabel alloc] initWithFrame:labelFrame];
+		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		_label.textAlignment = NSTextAlignmentCenter;
+		_label.adjustsFontSizeToFitWidth = NO;
+		_label.adjustsLetterSpacingToFitWidth = NO;
+		[self.contentView addSubview:_label];
 
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
@@ -58,15 +66,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 - (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
 	self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil specifier:specifier];
 	return self;
-}
-
-- (void)layoutSubviews {
-	[super layoutSubviews];
-
-	CGRect labelFrame = self.textLabel.frame;
-	labelFrame.origin.y += 30.f;
-	labelFrame.size.height -= 30.f;
-	self.textLabel.frame = labelFrame;
 }
 
 #pragma mark - PSHeaderFooterView
@@ -95,9 +94,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 	NSString *name = _nameOverride ?: _package.name;
 
-	if (![self.textLabel respondsToSelector:@selector(setAttributedText:)]) {
+	if (![_label respondsToSelector:@selector(setAttributedText:)]) {
 		// starting to realise the features we take for granted these days...
-		self.textLabel.text = [NSString stringWithFormat:@"%@%@%@", name, _showVersion ? @" " : @"", _showVersion ? _package.version : @""];
+		_label.text = [NSString stringWithFormat:@"%@%@%@", name, _showVersion ? @" " : @"", _showVersion ? _package.version : @""];
 		return;
 	}
 
@@ -164,9 +163,8 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		} range:NSMakeRange(location, length)];
 	}
 
-	self.textLabel.numberOfLines = 0;
-	self.textLabel.attributedText = attributedString;
-}
+	_label.numberOfLines = 0;
+	_label.attributedText = attributedString;
 }
 
 #pragma mark - Memory management
@@ -177,6 +175,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	[_package release];
 	[_nameOverride release];
 	[_icon release];
+	[_label release];
 
 	[super dealloc];
 }
