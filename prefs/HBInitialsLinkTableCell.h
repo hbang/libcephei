@@ -1,4 +1,5 @@
 #import <Preferences/PSTableCell.h>
+
 /**
  * The `HBInitialsLinkTableCell` class in `CepheiPrefs` displays a button that,
  * when tapped, opens the specified URL. A typical icon can be used, or the
