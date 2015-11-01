@@ -1,28 +1,31 @@
 # Cephei
-libcephei, formerly HASHBANG Productions Common, is a package that we at [HASHBANG Productions](https://www.hbang.ws/) initially wrote for ourselves so we didn’t have to paste the same code into our Cydia packages over and over - after all, [Don’t Repeat Yourself](https://en.wikipedia.org/wiki/Don't_repeat_yourself) is quite an important principle.
+Cephei is a framework for jailbroken iOS devices that includes various convenience features for developers. Primarily, it focuses on settings-related features, but it also contains other utilties. I hope you’ll appreciate what it has to offer.
 
-Little by little, we added more useful classes to Common that we realised we need to make it clear that *anyone* is allowed to use this code. So now, we renamed HASHSBANG Productions Common to Cephei, [wrote up documentation](https://hbang.github.io/libcephei), and hope you’ll appreciate what it has to offer.
+All iOS versions since 5.0 are supported, on all devices.
 
-Don’t forget to submit pull requests if you think there’s something useful every tweak developer could benefit from!
+## Integrating Cephei into your Theos projects
+It’s really easy to integrate Cephei into a Theos project. First, install Cephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it – try TypeStatus – or just install it with `apt-get install ws.hbang.common` at the command line. 
 
-## Integrating libcephei into your Theos projects
-It’s really easy to integrate libcephei into a Theos project. First, install libcephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it - try TypeStatus - or just install it with `apt-get install ws.hbang.common` at the command line. 
+Now, copy the dynamic libraries and headers into the location you cloned Theos to. (Hopefully you have `$THEOS`, `$THEOS_DEVICE_IP`, and `$THEOS_DEVICE_PORT` set and exported in your shell.)
 
-Now, copy the dynamic libraries and headers into the location you cloned Theos to. If you’re using [our headers](https://github.com/hbang/headers), you already have the headers needed and can skip the second command. (We assume you have `$THEOS`, `$THEOS_DEVICE_IP`, and `$THEOS_DEVICE_PORT` set and exported in your shell.)
+```
+scp -rP $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/Library/Frameworks/Cephei\*.framework $THEOS/lib
+```
 
-    scp -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/lib/libcephei\* $THEOS/lib
-    scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/\{Cephei,CepheiPrefs\} $THEOS/include
+Next, for all projects that will be using Cephei, add it to the instance’s libraries:
 
-Next, for all targets that will be using libcephei, add it to the target’s libraries:
+```
+MyAwesomeTweak_EXTRA_FRAMEWORKS += Cephei
+```
 
-    TargetName_LIBRARIES += cephei
+For all projects that will be using preferences components of Cephei, make sure you also link against `CepheiPrefs`.
 
-For all targets that will be using preferences components of Cephei, make sure you also link against `cepheiprefs`.
+You can now use Cephei components in your project.
 
-You can now use libcephei components in your project.
+Please note that Cephei is now a framework, instead of a library. Frameworks are only properly supported with [kirb/theos](https://github.com/kirb/theos).
 
 ## Trying it out
-You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` - quit and relaunch Settings if it's open. Alternatively, you can compile Cephei with `make package install DEBUG=1` - this will also automatically kill and relaunch the Settings app as long as you have [sbutils](http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp) installed.
+You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` – quit and relaunch Settings if it's open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app as long as you have [sbutils](http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp) installed.
 
 ## License
-Licensed under [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).
+Licensed under [Apache License, version 2.0](https://github.com/hbang/libcephei/blob/master/LICENSE.md).
