@@ -17,6 +17,7 @@
 		_bigImageView.frame = self.contentView.bounds;
 		_bigImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_bigImageView.contentMode = UIViewContentModeScaleAspectFit;
+		_bigImageView.layer.minificationFilter = kCAFilterTrilinear;
 		[self.contentView addSubview:_bigImageView];
 
 		self.imageView.hidden = YES;
