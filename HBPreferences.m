@@ -5,13 +5,19 @@
 
 #define HAS_CFPREFSD (IS_IOS_OR_NEWER(iOS_8_0))
 
+#define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
+
 typedef CFPropertyListRef (*_CFPreferencesCopyValueWithContainerType)(CFStringRef key, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef void (*_CFPreferencesSetValueWithContainerType)(CFStringRef key, CFPropertyListRef value, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef Boolean (*_CFPreferencesSynchronizeWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
+typedef CFArrayRef (*_CFPreferencesCopyKeyListWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
+typedef CFDictionaryRef (*_CFPreferencesCopyMultipleWithContainerType)(CFArrayRef keysToFetch, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 
 _CFPreferencesCopyValueWithContainerType _CFPreferencesCopyValueWithContainer;
 _CFPreferencesSetValueWithContainerType _CFPreferencesSetValueWithContainer;
 _CFPreferencesSynchronizeWithContainerType _CFPreferencesSynchronizeWithContainer;
+_CFPreferencesCopyKeyListWithContainerType _CFPreferencesCopyKeyListWithContainer;
+_CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContainer;
 
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 	HBPreferencesTypeObjectiveC,
@@ -73,8 +79,8 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 			_CFPreferencesCopyValueWithContainer = (_CFPreferencesCopyValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
 			_CFPreferencesSetValueWithContainer = (_CFPreferencesSetValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSetValueWithContainer");
 			_CFPreferencesSynchronizeWithContainer = (_CFPreferencesSynchronizeWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSynchronizeWithContainer");
-
-			// CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, CFSTR("com.apple.CFPreferences._domainsChangedExternally"), NULL, kNilOptions);
+			_CFPreferencesCopyKeyListWithContainer = (_CFPreferencesCopyKeyListWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyKeyListWithContainer");
+			_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyMultipleWithContainer");
 		});
 
 		_identifier = [identifier copy];
@@ -93,17 +99,15 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
-		return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	if (HAS_CFPREFSD) {
+		return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
-		return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+		return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	}
 }
 
 - (void)_didReceiveDarwinNotification {
-	if (!HAS_CFPREFSD) {
-		[self synchronize];
-	}
+	[self synchronize];
 
 	[self _updateRegisteredObjects];
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
@@ -178,16 +182,29 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Getters
 
 - (NSDictionary *)dictionaryRepresentation {
-	// TODO: needs to support being in a container
-	CFArrayRef allKeys = CFPreferencesCopyKeyList((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
-	NSDictionary *result = [(NSDictionary *)CFPreferencesCopyMultiple(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
-	CFRelease(allKeys);
+	NSDictionary *result;
+
+	if (HAS_CFPREFSD) {
+		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		result = [(NSDictionary *)_CFPreferencesCopyMultipleWithContainer(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
+		CFRelease(allKeys);
+	} else {
+		CFArrayRef allKeys = CFPreferencesCopyKeyList((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		result = [(NSDictionary *)CFPreferencesCopyMultiple(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
+		CFRelease(allKeys);
+	}
 
 	return result;
 }
 
 - (id)_objectForKey:(NSString *)key {
-	id value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile")) autorelease];
+	id value;
+
+	if (HAS_CFPREFSD) {
+		value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
+	} else {
+		value = [(id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
+	}
 
 	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
 
@@ -259,10 +276,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		_lastSeenValues[key] = value;
 	}
 
-	if ([NSHomeDirectory() isEqualToString:@"/var/mobile"]) {
-		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	if (HAS_CFPREFSD) {
+		_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
-		_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, CFSTR("/var/mobile"));
+		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	}
 
 	[self synchronize];
