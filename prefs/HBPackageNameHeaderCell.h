@@ -17,9 +17,8 @@
  * the package version and author. The default is false.</td>
  * </tr>
  * <tr>
- * <th>icon</th> <td>Optional. The file name of the icon to use within the
- * current preference bundle. Only used in condensed mode. To not show an icon,
- * don't set this value.</td>
+ * <th>icon</th> <td>Required in condensed mode. Not used otherwise. The file
+ * name of the icon to use within the current preference bundle.</td>
  * </tr>
  * <tr>
  * <th>packageIdentifier</th> <td>Required. The package identifier to retrieve
@@ -36,6 +35,14 @@
  * <tr>
  * <th>showVersion</th> <td>Optional. Whether to show the `Version` field of
  * the package. The default is true.</td>
+ * </tr>
+ * <tr>
+ * <th>titleColor</th> <td>Optional. The color to apply to the name of the
+ * package. The default is #111111.</td>
+ * </tr>
+ * <tr>
+ * <th>subtitleColor</th> <td>Optional. The color to apply to the subtitles.
+ * The default is #444444.</td>
  * </tr>
  * </table>
  *
@@ -62,6 +69,24 @@
  * 		<string>icon.png</string>
  * 		<key>packageIdentifier</key>
  * 		<string>ws.hbang.common</string>
+ * 	</dict>
+
+ * 	<!-- Standard size with custom colors: -->
+ * 	<dict>
+ * 		<key>cell</key>
+ * 		<string>PSGroupCell</string>
+ * 		<key>headerCellClass</key>
+ * 		<string>HBPackageNameHeaderCell</string>
+ * 		<key>packageIdentifier</key>
+ * 		<string>ws.hbang.common</string>
+ * 		<key>titleColor</key>
+ * 		<string>#CC0000</string>
+ * 		<key>subtitleColor</key>
+ * 		<array>
+ * 			<integer>55</integer>
+ * 			<integer>147</integer>
+ * 			<integer>230</integer>
+ * 		</array>
  * 	</dict>
  */
 
