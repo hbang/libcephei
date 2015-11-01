@@ -29,7 +29,7 @@
 	if (%c(UIActivityViewController)) {
 		UIActivityViewController *viewController = [[[UIActivityViewController alloc] initWithActivityItems:@[ [self.class hb_shareText], [self.class hb_shareURL] ] applicationActivities:nil] autorelease];
 
-		if ([viewController respondsToSelector:@selector(presentationController)]) {
+		if ([viewController respondsToSelector:@selector(presentationController)] && [viewController.presentationController respondsToSelector:@selector(barButtonItem)]) {
 			((UIPopoverPresentationController *)viewController.presentationController).barButtonItem = sender;
 		}
 
