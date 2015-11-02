@@ -2,46 +2,52 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Title. -->
+	<!-- Buttons leading to, and titles of, sub-sections. -->
 	<key>ABOUT</key>
-	<string>About</string>
+	<string>Over</string>
+	<key>CREDITS</key>
+	<string>Credits</string>
+
+	<!-- Label for switch to enable or disable the tweak. -->
+	<key>ENABLED</key>
+	<string>Ingeschakeld</string>
 
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
-	<string>Visit Website</string>
+	<string>Bezoek website</string>
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
-	<string>Having Problems?</string>
+	<string>Ervaart u problemen?</string>
 
 	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
-	<string>Email Support</string>
+	<string>E-mail Ondersteuning</string>
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Donate</string>
+	<string>Doneer</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Please consider showing your appreciation for this tweak with a donation.</string>
+	<string>Laat uw waardering voor deze tweak zien door middel van een donatie.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
-	<string>Developer</string>
+	<string>Ontwikkelaar</string>
 	<key>DEVELOPERS</key>
-	<string>Developers</string>
+	<string>Ontwikkelaars</string>
 	<key>LEAD_DEVELOPER</key>
-	<string>Lead Developer</string>
+	<string>Hoofd-ontwikkelaar</string>
 	<key>DESIGNER</key>
-	<string>Designer</string>
+	<string>Ontwerper</string>
 	<key>DESIGNERS</key>
-	<string>Designers</string>
+	<string>Ontwerpers</string>
 	<key>ICON</key>
-	<string>Icon</string>
+	<string>Icoon</string>
 	<key>ICONS</key>
-	<string>Icons</string>
+	<string>Iconen</string>
 	<key>TRANSLATORS</key>
-	<string>Translators</string>
+	<string>Vertalers</string>
 </dict>
 </plist>
