@@ -32,9 +32,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
 
 		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= self._marginWidth;
+		labelFrame.origin.x -= IS_IPAD ? self._marginWidth : 0;
 		labelFrame.origin.y += 30.f;
-		labelFrame.size.width -= self._marginWidth * 2;
+		labelFrame.size.width -= IS_IPAD ? self._marginWidth * 2 : 0;
 		labelFrame.size.height -= 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
