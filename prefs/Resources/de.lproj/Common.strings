@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Buttons leading to, and titles of, sub-sections. -->
+	<key>ABOUT</key>
+	<string>Informationen</string>
+	<key>CREDITS</key>
+	<string>Credits</string>
+
+	<!-- Label for switch to enable or disable the tweak. -->
+	<key>ENABLED</key>
+	<string>Aktiviert</string>
+
+	<!-- Button leading to a website. -->
+	<key>VISIT_WEBSITE</key>
+	<string>Website besuchen</string>
+
+	<!-- Heading above the "Email Support" button. -->
+	<key>EMAIL_SUPPORT_HEADER</key>
+	<string>Bestehen Probleme?</string>
+
+	<!-- Button leading to a contact form. -->
+	<key>EMAIL_SUPPORT</key>
+	<string>Email Support</string>
+
+	<!-- Button leading to a donation page. -->
+	<key>DONATE</key>
+	<string>Spenden</string>
+
+	<!-- Footer under the donate button. -->
+	<key>DONATE_FOOTER</key>
+	<string>Bitte ziehen Sie eine Spende in Betracht, wenn sie unsere Arbeit wertschätzen.</string>
+
+	<!-- Headings above the credits. -->
+	<key>DEVELOPER</key>
+	<string>Entwickler</string>
+	<key>DEVELOPERS</key>
+	<string>Entwickler</string>
+	<key>LEAD_DEVELOPER</key>
+	<string>Führender Entwickler</string>
+	<key>DESIGNER</key>
+	<string>Designer</string>
+	<key>DESIGNERS</key>
+	<string>Designer</string>
+	<key>ICON</key>
+	<string>Symbol</string>
+	<key>ICONS</key>
+	<string>Symbole</string>
+	<key>TRANSLATORS</key>
+	<string>Übersetzer</string>
+</dict>
+</plist>
