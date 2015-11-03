@@ -5,17 +5,6 @@
 
 @class HBRootListController;
 
-@interface HBListController () {
-	UIColor *_cachedTintColor;
-
-	BOOL _invertedColors;
-
-	UIStatusBarStyle _statusBarStyle;
-	UIBarStyle _navigationBarStyle;
-}
-
-@end
-
 @implementation HBListController
 
 #pragma mark - Constants
