@@ -1,3 +1,8 @@
+#import <Preferences/PSListController.h>
+#import <Preferences/PSSpecifier.h>
+
+#pragma mark - Fallback
+
 %hook NSBundle
 
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
@@ -12,6 +17,25 @@
 	}
 
 	return string;
+}
+
+%end
+
+#pragma mark - Localize specifier keys
+
+%hook PSListController
+
+- (NSArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target {
+	NSArray *specifiers = %orig;
+	NSBundle *bundle = [NSBundle bundleForClass:self.class];
+
+	for (PSSpecifier *specifier in specifiers) {
+		if (specifier.properties[@"singularLabel"]) {
+			specifier.properties[@"singularLabel"] = [bundle localizedStringForKey:specifier.properties[@"singularLabel"] value:@"" table:plistName];
+		}
+	}
+
+	return specifiers;
 }
 
 %end
