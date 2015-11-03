@@ -18,7 +18,7 @@
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
-	<string>Des problèmes ?</string>
+	<string>Des problèmes?</string>
 
 	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
