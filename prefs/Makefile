@@ -5,6 +5,7 @@ CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m) ../Global.x
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
+CepheiPrefs_LIBRARIES = prefs
 CepheiPrefs_CFLAGS = -include ../Global.h
 CepheiPrefs_LOGOSFLAGS = -c generator=internal
 

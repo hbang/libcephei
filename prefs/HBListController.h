@@ -1,4 +1,4 @@
-#import <Preferences/PSListController.h>
+#import <libprefs/PLCustomListController.h>
 
 /**
  * The `HBListController` class in `CepheiPrefs` provides a list controller with
@@ -16,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HBListController : PSListController
+@interface HBListController : PLCustomListController
 
 /**
  * @name Constants
