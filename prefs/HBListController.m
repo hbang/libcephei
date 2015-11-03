@@ -89,15 +89,6 @@
 	return navigationController;
 }
 
-#pragma mark - PSListController
-
-/*
- this prevents specifiers from being lost if the app is closed and re-opened.
-*/
-- (BOOL)canBeShownFromSuspendedState {
-	return NO;
-}
-
 #pragma mark - UITableViewDelegate
 
 /*
