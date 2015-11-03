@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Buttons leading to, and titles of, sub-sections. -->
+	<key>ABOUT</key>
+	<string>Hakkında</string>
+	<key>CREDITS</key>
+	<string>Katkıda Bulunanlar</string>
+
+	<!-- Label for switch to enable or disable the tweak. -->
+	<key>ENABLED</key>
+	<string>Etkin</string>
+
+	<!-- Button leading to a website. -->
+	<key>VISIT_WEBSITE</key>
+	<string>Websiteyi ziyaret et</string>
+
+	<!-- Heading above the "Email Support" button. -->
+	<key>EMAIL_SUPPORT_HEADER</key>
+	<string>Sorun Var Mı?</string>
+
+	<!-- Button leading to a contact form. -->
+	<key>EMAIL_SUPPORT</key>
+	<string>Email Destek</string>
+
+	<!-- Button leading to a donation page. -->
+	<key>DONATE</key>
+	<string>Bağış</string>
+
+	<!-- Footer under the donate button. -->
+	<key>DONATE_FOOTER</key>
+	<string>Bu uygulamayı takdir etmek için bağışta bulunabilirsiniz.</string>
+
+	<!-- Headings above the credits. -->
+	<key>DEVELOPER</key>
+	<string>Geliştirici</string>
+	<key>DEVELOPERS</key>
+	<string>Geliştiriciler</string>
+	<key>LEAD_DEVELOPER</key>
+	<string>Baş Geliştirici</string>
+	<key>DESIGNER</key>
+	<string>Tasarımcı</string>
+	<key>DESIGNERS</key>
+	<string>Tasarımcılar</string>
+	<key>ICON</key>
+	<string>Simge</string>
+	<key>ICONS</key>
+	<string>Simgeler</string>
+	<key>TRANSLATORS</key>
+	<string>Çevirmenler</string>
+</dict>
+</plist>
