@@ -30,7 +30,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Bitte ziehen Sie eine Spende in Betracht, wenn sie unsere Arbeit wertschätzen.</string>
+	<string>Bitte ziehe in Betracht, deine Wertschätzung für diesen Tweak in Form einer Spende zu zeigen.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
