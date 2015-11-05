@@ -14,15 +14,15 @@
 
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
-	<string>Visita il sito web</string>
+	<string>Visita il sito</string>
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
-	<string>Stai riscontrando problemi?</string>
+	<string>Hai problemi?</string>
 
 	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
-	<string>Supporto email</string>
+	<string>Email supporto</string>
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
@@ -30,7 +30,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Per piacere, considera di mostrare il tuo apprezzamento per questo tweak con una donazione.</string>
+	<string>Dimostra di apprezzare questo tweak con una donazione.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
@@ -40,9 +40,9 @@
 	<key>LEAD_DEVELOPER</key>
 	<string>Sviluppatore principale</string>
 	<key>DESIGNER</key>
-	<string>Designer</string>
+	<string>Progettista</string>
 	<key>DESIGNERS</key>
-	<string>Designers</string>
+	<string>Progettisti</string>
 	<key>ICON</key>
 	<string>Icona</string>
 	<key>ICONS</key>

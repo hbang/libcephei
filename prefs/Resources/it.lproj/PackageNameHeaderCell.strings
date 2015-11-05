@@ -8,6 +8,6 @@
 
 	<!-- The subheading containing the package author. -->
 	<key>HEADER_AUTHOR</key>
-	<string>Da %@</string>
+	<string>Di %@</string>
 </dict>
 </plist>
