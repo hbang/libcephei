@@ -3,6 +3,8 @@ Cephei is a framework for jailbroken iOS devices that includes various convenien
 
 All iOS versions since 5.0 are supported, on all devices.
 
+Documentation is available at **[hbang.github.io/libcephei](https://hbang.github.io/libcephei/)**.
+
 ## Integrating Cephei into your Theos projects
 It’s really easy to integrate Cephei into a Theos project. First, install Cephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it – try TypeStatus – or just install it with `apt-get install ws.hbang.common` at the command line. 
 
