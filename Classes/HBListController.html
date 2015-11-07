@@ -58,6 +58,8 @@
 	
 	<optgroup label="Class Methods">
 		
+		<option value="//api/name/hb_invertedNavigationBar">+ hb_invertedNavigationBar</option>
+		
 		<option value="//api/name/hb_specifierPlist">+ hb_specifierPlist</option>
 		
 		<option value="//api/name/hb_tintColor">+ hb_tintColor</option>
@@ -65,6 +67,12 @@
 	</optgroup>
 	
 
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/realNavigationController">- realNavigationController</option>
+		
+	</optgroup>
 	
 	
 </select>
@@ -98,13 +106,13 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBListController</code> class in <code>libcepheiprefs</code> provides a list controller
-with various conveniences such as a unique tint color for the list
-controllers within a preference bundle, and bug fixes for common issues
-within the Settings app and Preferences framework. In particular,
-a bug with the list controller&rsquo;s content disappearing after closing the
-Settings app and opening it again is worked around, as well as an issue on
-iOS 7 where in some cases a cell may stay highlighted after being tapped.</p>
+						<p>The <code>HBListController</code> class in <code>CepheiPrefs</code> provides a list controller with
+various conveniences such as a unique tint color for the list controllers
+within a preference bundle, and bug fixes for common issues within the
+Settings app and Preferences framework. In particular,a bug with the list
+controller&rsquo;s content disappearing after closing the Settings app and opening
+it again is worked around, as well as an issue on iOS 7 where in some cases
+a cell may stay highlighted after being tapped.</p>
 
 <p>It includes two class methods you can override to return the name of a
 Preferences specifier property list, and a tint color for the interactable
@@ -120,8 +128,8 @@ elements within the list controller.</p>
 						
 
 						<a title="Constants" name="task_Constants"></a>
-						
-<h2 class="task-title">Constants</h2>
+						<h2 class="task-title">Constants</h2>
+
 						<div class="task-list">
 							<div class="section-method">
 	<a name="//api/name/hb_specifierPlist" title="hb_specifierPlist"></a>
@@ -143,7 +151,7 @@ file extension.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (NSString *)hb_specifierPlist</code></div>
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)hb_specifierPlist</code></div>
 
 		    
 			
@@ -197,7 +205,7 @@ Override this method to return a UIColor to use.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tintColor</code></div>
+			<div class="method-subsection method-declaration"><code>+ (nullable UIColor *)hb_tintColor</code></div>
 
 		    
 			
@@ -231,6 +239,121 @@ Override this method to return a UIColor to use.</p>
 			
 		</div>
 	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_invertedNavigationBar" title="hb_invertedNavigationBar"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_invertedNavigationBar">+&nbsp;hb_invertedNavigationBar</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether to use an inverted navigation bar. Override this method if you want
+this behavior.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (BOOL)hb_invertedNavigationBar</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, NO.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>An inverted navigation bar has a tinted background, rather than the buttons
+being tinted. All other interface elements will be tinted the same.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Related View Controllers" name="task_Related View Controllers"></a>
+						<h2 class="task-title">Related View Controllers</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/realNavigationController" title="realNavigationController"></a>
+	<h3 class="method-title"><code><a href="#//api/name/realNavigationController">&ndash;&nbsp;realNavigationController</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the “real” navigation controller for this view controller.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (UINavigationController *)realNavigationController</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The real navigation controller.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>As of iOS 8.0, the navigation controller that owns the navigation bar and
+other responsibilities is actually a parent of <code>self.navigationController</code> on
+iPhone, due to the larger Plus models. The realNavigationController method
+returns the correct navigation controller.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
 </div>
 						</div>
 						
@@ -244,7 +367,7 @@ Override this method to return a UIColor to use.</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-05-10</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-11-07</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>

@@ -91,67 +91,124 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBPackageNameHeaderCell</code> class in <code>libcepheiprefs</code> displays a header
-containing the package&rsquo;s icon, name, version number, and author. It can be
-displayed in a subtle condensed design, or, by default, a tall header that
-might be displayed at the top of a preference bundle&rsquo;s root list controller,
-for instance.</p>
+						<ul>
+<li>The <code>HBPackageNameHeaderCell</code> class in <code>CepheiPrefs</code> displays a header</li>
+<li>containing the package&rsquo;s icon, name, version number, and author. It can be</li>
+<li>displayed in a subtle condensed design, or, by default, a tall header that</li>
+<li>might be displayed at the top of a preference bundle&rsquo;s root list controller,</li>
+<li>for instance.
+*</li>
+<li><h3>Specifier Parameters</h3></li>
+<li><table></li>
+<li><tr></li>
+<li><th>condensed</th> <td>Optional. When true, displays an icon, the package</li>
+<li>name and version in one line, and on another displays the author name.</li>
+<li>When false, displays a large package name, and on two lines in small font</li>
+<li>the package version and author. The default is false.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>icon</th> <td>Required in condensed mode. Not used otherwise. The file</li>
+<li>name of the icon to use within the current preference bundle.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>packageIdentifier</th> <td>Required. The package identifier to retrieve</li>
+<li>the required information from.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>packageNameOverride</th> <td>Optional. A custom name to use instead of</li>
+<li>the package’s name.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>showAuthor</th> <td>Optional. Whether to show the <code>Author</code> field of the</li>
+<li>package. The default is true.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>showVersion</th> <td>Optional. Whether to show the <code>Version</code> field of</li>
+<li>the package. The default is true.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>titleColor</th> <td>Optional. The color to apply to the name of the</li>
+<li>package. The default is #111111.</td></li>
+<li></tr></li>
+<li><tr></li>
+<li><th>subtitleColor</th> <td>Optional. The color to apply to the subtitles.</li>
+<li>The default is #444444.</td></li>
+<li></tr></li>
+<li></table>
+*</li>
+<li><h3>Example Usage</h3></li>
+<li><!-- Standard size: --></li>
+<li><dict></li>
+<li><pre><code>&lt;key&gt;cell&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;PSGroupCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;headerCellClass&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;HBPackageNameHeaderCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;packageIdentifier&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;ws.hbang.common&lt;/string&gt;
+</code></pre></li>
+<li></dict>
+*</li>
+<li><!-- Condensed size: --></li>
+<li><dict></li>
+<li><pre><code>&lt;key&gt;cell&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;PSGroupCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;condensed&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;true/&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;headerCellClass&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;HBPackageNameHeaderCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;icon&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;icon.png&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;packageIdentifier&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;ws.hbang.common&lt;/string&gt;
+</code></pre></li>
+<li><p></dict></p></li>
+<li><p><!-- Standard size with custom colors: --></p></li>
+<li><dict></li>
+<li><pre><code>&lt;key&gt;cell&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;PSGroupCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;headerCellClass&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;HBPackageNameHeaderCell&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;packageIdentifier&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;ws.hbang.common&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;titleColor&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;string&gt;#CC0000&lt;/string&gt;
+</code></pre></li>
+<li><pre><code>&lt;key&gt;subtitleColor&lt;/key&gt;
+</code></pre></li>
+<li><pre><code>&lt;array&gt;
+</code></pre></li>
+<li><pre><code>    &lt;integer&gt;55&lt;/integer&gt;
+</code></pre></li>
+<li><pre><code>    &lt;integer&gt;147&lt;/integer&gt;
+</code></pre></li>
+<li><pre><code>    &lt;integer&gt;230&lt;/integer&gt;
+</code></pre></li>
+<li><pre><code>&lt;/array&gt;
+</code></pre></li>
+<li></dict></li>
+</ul>
 
-<h3>Specifier Parameters</h3>
-
-<table>
-<tr>
-<th>condensed</th> <td>Optional. When true, displays an icon, the package
-name and version in one line, and on another displays the author name.
-When false, displays a large package name, and on two lines in small font
-the package version and author. The default is false.</td>
-</tr>
-<tr>
-<th>icon</th> <td>Optional. The file name of the icon to use within the
-current preference bundle. Only used in condensed mode. To not show an icon,
-don't set this value.</td>
-</tr>
-<tr>
-<th>packageIdentifier</th> <td>Reqired. The package identifier to retrieve
-the required information from.</td>
-</tr>
-<tr>
-<th>showAuthor</th> <td>Optional. Whether to show the `Author` field of the
-package. The default is true.</td>
-</tr>
-<tr>
-<th>showVersion</th> <td>Optional. Whether to show the `Version` field of
-the package. The default is true.</td>
-</tr>
-</table>
-
-
-<h3>Example Usage</h3>
-
-<pre><code>&lt;!-- Standard size: --&gt;
-&lt;dict&gt;
-    &lt;key&gt;cell&lt;/key&gt;
-    &lt;string&gt;PSGroupCell&lt;/string&gt;
-    &lt;key&gt;headerCellClass&lt;/key&gt;
-    &lt;string&gt;HBPackageNameHeaderCell&lt;/string&gt;
-    &lt;key&gt;packageIdentifier&lt;/key&gt;
-    &lt;string&gt;ws.hbang.common&lt;/string&gt;
-&lt;/dict&gt;
-
-&lt;!-- Condensed size: --&gt;
-&lt;dict&gt;
-    &lt;key&gt;cell&lt;/key&gt;
-    &lt;string&gt;PSGroupCell&lt;/string&gt;
-    &lt;key&gt;condensed&lt;/key&gt;
-    &lt;true/&gt;
-    &lt;key&gt;headerCellClass&lt;/key&gt;
-    &lt;string&gt;HBPackageNameHeaderCell&lt;/string&gt;
-    &lt;key&gt;icon&lt;/key&gt;
-    &lt;string&gt;icon.png&lt;/string&gt;
-    &lt;key&gt;packageIdentifier&lt;/key&gt;
-    &lt;string&gt;ws.hbang.common&lt;/string&gt;
-&lt;/dict&gt;
-</code></pre>
 					</div>
 					
 					
@@ -166,7 +223,7 @@ the package. The default is true.</td>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-05-10</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-11-07</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>

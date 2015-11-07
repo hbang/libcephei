@@ -78,6 +78,8 @@
 		
 		<option value="//api/name/boolForKey:default:">- boolForKey:default:</option>
 		
+		<option value="//api/name/dictionaryRepresentation">- dictionaryRepresentation</option>
+		
 		<option value="//api/name/doubleForKey:">- doubleForKey:</option>
 		
 		<option value="//api/name/doubleForKey:default:">- doubleForKey:default:</option>
@@ -113,6 +115,8 @@
 		<option value="//api/name/registerPreferenceChangeBlock:">- registerPreferenceChangeBlock:</option>
 		
 		<option value="//api/name/registerPreferenceChangeBlock:forKey:">- registerPreferenceChangeBlock:forKey:</option>
+		
+		<option value="//api/name/removeObjectForKey:">- removeObjectForKey:</option>
 		
 		<option value="//api/name/setBool:forKey:">- setBool:forKey:</option>
 		
@@ -162,7 +166,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBPreferences</code> class in <code>libcephei</code> provides an interface for managing
+						<p>The <code>HBPreferences</code> class in <code>Cephei</code> provides an interface for managing
 user-defined preferences of a tweak, and the default values used when the
 user has not yet changed a value.</p>
 
@@ -393,6 +397,52 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 
 						<div class="task-list">
 							<div class="section-method">
+	<a name="//api/name/dictionaryRepresentation" title="dictionaryRepresentation"></a>
+	<h3 class="method-title"><code><a href="#//api/name/dictionaryRepresentation">&ndash;&nbsp;dictionaryRepresentation</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns a dictionary that contains all preferences that are set.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSDictionary *)dictionaryRepresentation</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>A dictionary containing all keys and values.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
 	<a name="//api/name/objectForKey:" title="objectForKey:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/objectForKey:">&ndash;&nbsp;objectForKey:</a></code>
 </h3>
@@ -440,7 +490,7 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>If the preference is not yet set, returns the default. If no default is set,
 returns <code>nil</code>.</p><div class="warning"><p><strong>Warning:</strong> You must manually <a href="#//api/name/synchronize">synchronize</a> preferences or use
-registerObject:default:forKey:for this value to be updated when running on
+<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for this value to be updated when running on
 iOS 7 or older.</p></div>
 			</div>
 			
@@ -1207,7 +1257,7 @@ value.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)setObject:(nullable id)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
 
 		    
 			
@@ -1576,7 +1626,7 @@ of that method for more details.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)setObject:(id)<em>object</em> forKeyedSubscript:(id)<em>key</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)setObject:(nullable id)<em>object</em> forKeyedSubscript:(id)<em>key</em></code></div>
 
 		    
 			
@@ -1688,7 +1738,7 @@ of that method for more details.</p>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)registerObject:(id *)<em>object</em> default:(id)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)registerObject:(_Nullable id *_Nonnull)<em>object</em> default:(id)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
 
 		    
 			
@@ -2146,6 +2196,74 @@ default.</p>
 						</div>
 						
 
+						<a title="Removing Preference Values" name="task_Removing Preference Values"></a>
+						<h2 class="task-title">Removing Preference Values</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/removeObjectForKey:" title="removeObjectForKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeObjectForKey:">&ndash;&nbsp;removeObjectForKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Removes a given key and its associated value from the dictionary.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key to remove.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Blocks are called after HBPreferences’ cache of values is updated. The block
+will also be called immediately after calling this method. See
+<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for details on how to set up callbacks.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
 						<a title="Preference Change Callbacks" name="task_Preference Change Callbacks"></a>
 						<h2 class="task-title">Preference Change Callbacks</h2>
 
@@ -2371,7 +2489,7 @@ process is about to exit).</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-05-10</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-11-07</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>

@@ -46,38 +46,39 @@
 						
 						<h1>Cephei</h1>
 
-<p>libcephei, formerly HASHBANG Productions Common, is a package that we at <a href="https://www.hbang.ws/">HASHBANG Productions</a> initially wrote for ourselves so we didn’t have to paste the same code into our Cydia packages over and over - after all, <a href="https://en.wikipedia.org/wiki/Don't_repeat_yourself">Don’t Repeat Yourself</a> is quite an important principle.</p>
+<p>Cephei is a framework for jailbroken iOS devices that includes various convenience features for developers. Primarily, it focuses on settings-related features, but it also contains other utilties. I hope you’ll appreciate what it has to offer.</p>
 
-<p>Little by little, we added more useful classes to Common that we realised we need to make it clear that <em>anyone</em> is allowed to use this code. So now, we renamed HASHSBANG Productions Common to Cephei, <a href="https://hbang.github.io/libcephei">wrote up documentation</a>, and hope you’ll appreciate what it has to offer.</p>
+<p>All iOS versions since 5.0 are supported, on all devices.</p>
 
-<p>Don’t forget to submit pull requests if you think there’s something useful every tweak developer could benefit from!</p>
+<p>Documentation is available at <strong><a href="https://hbang.github.io/libcephei/">hbang.github.io/libcephei</a></strong>.</p>
 
-<h2>Integrating libcephei into your Theos projects</h2>
+<h2>Integrating Cephei into your Theos projects</h2>
 
-<p>It’s really easy to integrate libcephei into a Theos project. First, install libcephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it - try TypeStatus - or just install it with <code>apt-get install ws.hbang.common</code> at the command line.</p>
+<p>It’s really easy to integrate Cephei into a Theos project. First, install Cephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it – try TypeStatus – or just install it with <code>apt-get install ws.hbang.common</code> at the command line.</p>
 
-<p>Now, copy the dynamic libraries and headers into the location you cloned Theos to. If you’re using <a href="https://github.com/hbang/headers">our headers</a>, you already have the headers needed and can skip the second command. (We assume you have <code>$THEOS</code>, <code>$THEOS_DEVICE_IP</code>, and <code>$THEOS_DEVICE_PORT</code> set and exported in your shell.)</p>
+<p>Now, copy the dynamic libraries and headers into the location you cloned Theos to. (Hopefully you have <code>$THEOS</code>, <code>$THEOS_DEVICE_IP</code>, and <code>$THEOS_DEVICE_PORT</code> set and exported in your shell.)</p>
 
-<pre><code>scp -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/lib/libcephei\* $THEOS/lib
-scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/\{Cephei,CepheiPrefs\} $THEOS/include
+<pre><code>scp -rP $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/Library/Frameworks/Cephei\*.framework $THEOS/lib
 </code></pre>
 
-<p>Next, for all targets that will be using libcephei, add it to the target’s libraries:</p>
+<p>Next, for all projects that will be using Cephei, add it to the instance’s libraries:</p>
 
-<pre><code>TargetName_LIBRARIES += cephei
+<pre><code>MyAwesomeTweak_EXTRA_FRAMEWORKS += Cephei
 </code></pre>
 
-<p>For all targets that will be using preferences components of Cephei, make sure you also link against <code>cepheiprefs</code>.</p>
+<p>For all projects that will be using preferences components of Cephei, make sure you also link against <code>CepheiPrefs</code>.</p>
 
-<p>You can now use libcephei components in your project.</p>
+<p>You can now use Cephei components in your project.</p>
+
+<p>Please note that Cephei is now a framework, instead of a library. Frameworks are only properly supported with <a href="https://github.com/kirb/theos">kirb/theos</a>; other variants of Theos may or may not support it.</p>
 
 <h2>Trying it out</h2>
 
-<p>You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying <code>/Library/PreferenceBundles/Cephei.bundle/entry.plist</code> to <code>/Library/PreferenceLoader/Preferences/Cephei.plist</code> - quit and relaunch Settings if it&rsquo;s open. Alternatively, you can compile Cephei with <code>make package install DEBUG=1</code> - this will also automatically kill and relaunch the Settings app as long as you have <a href="http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp">sbutils</a> installed.</p>
+<p>You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying <code>/Library/PreferenceBundles/Cephei.bundle/entry.plist</code> to <code>/Library/PreferenceLoader/Preferences/Cephei.plist</code> – quit and relaunch Settings if it&rsquo;s open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app as long as you have <a href="http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp">sbutils</a> installed.</p>
 
 <h2>License</h2>
 
-<p>Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.</p>
+<p>Licensed under <a href="https://github.com/hbang/libcephei/blob/master/LICENSE.md">Apache License, version 2.0</a>.</p>
 						
 						
 					</div>
@@ -100,6 +101,8 @@ scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/\{Cephei,CepheiP
 								<li><a href="Classes/HBDiscreteSliderTableCell.html">HBDiscreteSliderTableCell</a></li>
 								
 								<li><a href="Classes/HBImageTableCell.html">HBImageTableCell</a></li>
+								
+								<li><a href="Classes/HBInitialsLinkTableCell.html">HBInitialsLinkTableCell</a></li>
 								
 								<li><a href="Classes/HBListController.html">HBListController</a></li>
 								
@@ -124,12 +127,27 @@ scp -r -P $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/usr/include/\{Cephei,CepheiP
 						
 
 						
+						<div class="index-column">
+							
+
+							
+
+							
+							<h2 class="index-title">Category References</h2>
+							<ul>
+								
+								<li><a href="Categories/UIColor+HBAdditions.html">UIColor(HBAdditions)</a></li>
+								
+							</ul>
+							
+						</div>
+						
 					</div>
 
 					<footer>
 						<div class="footer-copyright">
 							
-							<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-05-10</p>
+							<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-11-07</p>
 							
 							
 							<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
