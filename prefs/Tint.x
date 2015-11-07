@@ -35,10 +35,26 @@ BOOL animateBarTintColor = NO;
 	return item;
 }
 
+%group JonyIve
+- (void)_setItems:(NSArray *)items transition:(NSInteger)transition {
+	%orig;
+	[self _hb_updateTintColorsAnimated:transition != 0];
+}
+%end
+
+%group CraigFederighi
 - (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset {
 	%orig;
 	[self _hb_updateTintColorsAnimated:transition != 0];
 }
+%end
+
+%group EddyCue
+- (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset resetOwningRelationship:(BOOL)resetOwningRelationship {
+	%orig;
+	[self _hb_updateTintColorsAnimated:transition != 0];
+}
+%end
 
 - (UIColor *)_titleTextColor {
 	return self.hb_navigationBarTextColor ?: %orig;
@@ -121,9 +137,16 @@ BOOL animateBarTintColor = NO;
 #pragma mark - Constructor
 
 %ctor {
-	// this entire thing isn't particularly useful if the device doesn't support
-	// it
+	// this entire thing isn't particularly useful if the OS doesn't support it
 	if (IS_MODERN) {
 		%init;
+	}
+
+	if (IS_IOS_OR_NEWER(iOS_9_0)) {
+		%init(EddyCue);
+	} else if (IS_IOS_OR_NEWER(iOS_8_0)) {
+		%init(CraigFederighi);
+	} else {
+		%init(JonyIve);
 	}
 }
