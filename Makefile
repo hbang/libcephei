@@ -60,7 +60,7 @@ docs::
 		--keep-intermediate-files --create-html --publish-docset --docset-feed-url "https://hbang.github.io/libcephei/xcode-docset.atom" \
 		--docset-atom-filename xcode-docset.atom --docset-package-url "https://hbang.github.io/libcephei/docset.xar" \
 		--docset-package-filename docset --docset-fallback-url "https://hbang.github.io/libcephei/" --docset-feed-name Cephei \
-		--keep-undocumented-objects --keep-undocumented-members --search-undocumented-doc --index-desc README.md --no-repeat-first-par \
+		--index-desc README.md --no-repeat-first-par \
 		--output "$(DOCS_STAGING_DIR)" $(APPLEDOCFILES)
 
 	[[ -d "$(DOCS_OUTPUT_PATH)" ]] || git clone -b gh-pages git@github.com:hbang/libcephei.git "$(DOCS_OUTPUT_PATH)"
