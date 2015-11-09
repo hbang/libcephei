@@ -3,6 +3,8 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <version.h>
 
+UIStatusBarStyle statusBarStyle;
+
 @class HBRootListController;
 
 @implementation HBListController
@@ -66,10 +68,19 @@
 	}
 
 	[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = self.view.tintColor;
+
+	if ([self.class hb_invertedNavigationBar]) {
+		statusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	}
+
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-	return [self.class hb_invertedNavigationBar] ? UIStatusBarStyleLightContent : [super preferredStatusBarStyle];
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	if ([self.class hb_invertedNavigationBar]) {
+		[[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle];
+	}
 }
 
 #pragma mark - Navigation controller quirks
