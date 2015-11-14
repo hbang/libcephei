@@ -54,11 +54,11 @@ UIStatusBarStyle statusBarStyle;
 	return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidLoad {
 	// I'm not even gonna ask what this is about... https://www.youtube.com/watch?v=BkWl679wB1c
 	// yeah i don't even know myself ~kirb
 
-	[super viewWillAppear:animated];
+	[super viewDidLoad];
 
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
 		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
@@ -76,8 +76,8 @@ UIStatusBarStyle statusBarStyle;
 
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	if ([self.class hb_invertedNavigationBar]) {
 		[[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle];
 	}
