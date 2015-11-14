@@ -71,7 +71,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 #pragma mark - PSHeaderFooterView
 
 - (CGFloat)preferredHeightForWidth:(CGFloat)width {
-	CGFloat height = _condensed ? 74.f : 94.f;
+	CGFloat height = _condensed ? 74.f : 80.f;
 
 	if (_showAuthor) {
 		height += 26.f;
