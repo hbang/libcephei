@@ -13,13 +13,23 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	BOOL _condensed;
 	BOOL _showAuthor;
 	BOOL _showVersion;
+	BOOL _isBigBeautifulBanner;
 	UIColor *_titleColor;
 	UIColor *_subtitleColor;
+
+	UIColor *_firstColor;
+	UIColor *_secondColor;
+	UIColor *_thirdColor;
+	UIColor *_fourthColor;
 
 	TSPackage *_package;
 	NSString *_nameOverride;
 	UIImage *_icon;
 	UILabel *_label;
+}
+
++ (Class)layerClass {
+	return CAGradientLayer.class;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
@@ -28,14 +38,32 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	if (self) {
 		NSParameterAssert(specifier.properties[@"packageIdentifier"]);
 
+		_firstColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"firstColor"]];
+		_secondColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"secondColor"]];
+		_thirdColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"thirdColor"]];
+		_fourthColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"fourthColor"]];
+
+		_isBigBeautifulBanner = _firstColor && _secondColor && _thirdColor && _fourthColor && [specifier.properties[@"bigBeautifulBanner"] boolValue];
+
 		self.backgroundColor = [UIColor clearColor];
+
+		if (_isBigBeautifulBanner) {
+			((CAGradientLayer *)self.layer).locations = @[ @0, @0.5f, @0.75f, @1 ];
+			((CAGradientLayer *)self.layer).colors = @[
+				(id)_firstColor.CGColor,
+				(id)_secondColor.CGColor,
+				(id)_thirdColor.CGColor,
+				(id)_fourthColor.CGColor
+			];
+		}
+
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
 
 		CGRect labelFrame = self.contentView.bounds;
 		labelFrame.origin.x -= IS_IPAD ? self._marginWidth : 0;
-		labelFrame.origin.y += 30.f;
+		labelFrame.origin.y += _isBigBeautifulBanner ? 0.f : 30.f;
 		labelFrame.size.width -= IS_IPAD ? self._marginWidth * 2 : 0;
-		labelFrame.size.height -= 30.f;
+		labelFrame.size.height -= _isBigBeautifulBanner ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
 		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -50,8 +78,8 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_icon = [specifier.properties[@"iconImage"] retain];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
-		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]] ?: [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1];
-		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]] ?: [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
+		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]] ?: (_isBigBeautifulBanner ? [UIColor colorWithWhite:1.f alpha:0.95f] : [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1]);
+		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]] ?: (_isBigBeautifulBanner ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1]);
 
 		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
 
@@ -71,10 +99,14 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 #pragma mark - PSHeaderFooterView
 
 - (CGFloat)preferredHeightForWidth:(CGFloat)width {
-	CGFloat height = _condensed ? 74.f : 80.f;
+	CGFloat height = _condensed ? 74.f : 94.f;
 
 	if (_showAuthor) {
 		height += 26.f;
+	}
+
+	if (_isBigBeautifulBanner) {
+		height += 41.f;
 	}
 
 	if (_showVersion && !_condensed) {
