@@ -459,7 +459,6 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 
 @end
 
-#ifndef _HB_PREFERENCES_M
 /**
  * Name of an exception that occurs when attempting to set preferences from a
  * process not running as the `mobile` user.
@@ -472,6 +471,5 @@ extern NSString *const HBPreferencesNotMobileException;
  * HBPreferences object.
  */
 extern NSString *const HBPreferencesDidChangeNotification;
-#endif
 
 NS_ASSUME_NONNULL_END
