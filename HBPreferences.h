@@ -304,7 +304,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  *
  * You may modify the values of this dictionary directly.
  */
-@property (nonatomic, retain, readonly) NSMutableDictionary *defaults;
+@property (nonatomic, copy, readonly) NSMutableDictionary *defaults;
 
 /**
  * Register an object to be automatically set to the user's preference.
