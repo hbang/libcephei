@@ -1,4 +1,3 @@
-#define _HB_PREFERENCES_M
 #import "HBPreferences.h"
 #import <version.h>
 #include <dlfcn.h>

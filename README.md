@@ -24,7 +24,13 @@ For all projects that will be using preferences components of Cephei, make sure 
 
 You can now use Cephei components in your project.
 
-Please note that Cephei is now a framework, instead of a library. Frameworks are only properly supported with [kirb/theos](https://github.com/kirb/theos); other variants of Theos may or may not support it.
+You must also add `ws.hbang.common` to your `Depends:` list in your control file. If Cephei isn’t present on the device, your binary will fail to load. For example:
+
+```
+Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common
+```
+
+Please note that Cephei is now a framework, instead of a library. Frameworks are only properly supported with [kirb/theos](https://github.com/kirb/theos); other variants of Theos may or may not support it. For backwards compatibility, libcephei.dylib and libcepheiprefs.dylib (and even libhbangcommon.dylib and libhbangprefs.dylib) are symlinks to the corresponding binaries.
 
 ## Trying it out
 You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` – quit and relaunch Settings if it's open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app as long as you have [sbutils](http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp) installed.

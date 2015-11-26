@@ -304,7 +304,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  *
  * You may modify the values of this dictionary directly.
  */
-@property (nonatomic, retain, readonly) NSMutableDictionary *defaults;
+@property (nonatomic, copy, readonly) NSMutableDictionary *defaults;
 
 /**
  * Register an object to be automatically set to the user's preference.
@@ -329,7 +329,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerObject:(_Nullable id * _Nonnull)object default:(id)defaultValue forKey:(NSString *)key;
+- (void)registerObject:(_Nullable id __strong * _Nonnull)object default:(id)defaultValue forKey:(NSString *)key;
 
 /**
  * Register an integer value to be automatically set to the user's preference.
@@ -459,7 +459,6 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 
 @end
 
-#ifndef _HB_PREFERENCES_M
 /**
  * Name of an exception that occurs when attempting to set preferences from a
  * process not running as the `mobile` user.
@@ -472,6 +471,5 @@ extern NSString *const HBPreferencesNotMobileException;
  * HBPreferences object.
  */
 extern NSString *const HBPreferencesDidChangeNotification;
-#endif
 
 NS_ASSUME_NONNULL_END
