@@ -58,6 +58,16 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hb_invertedNavigationBar;
 
 /**
+ * Whether to override the color used by the navigation bar, when used for
+ * switches, and some other tinted elements. Override this method if you
+ * want this behavior.
+ *
+ * @returns By default, NO.
+ */
++ (UIColor *)hb_overrideTintColor;
+
+
+/**
  * @name Related View Controllers
  */
 

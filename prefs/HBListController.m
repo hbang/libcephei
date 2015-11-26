@@ -19,6 +19,10 @@ UIStatusBarStyle statusBarStyle;
 	return nil;
 }
 
++ (UIColor *)hb_overrideTintColor {
+	return nil;
+}
+
 + (BOOL)hb_invertedNavigationBar {
 	return NO;
 }
@@ -57,14 +61,19 @@ UIStatusBarStyle statusBarStyle;
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	UIColor *switchTintColor = nil;
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
 		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 			self.view.tintColor = [viewController.class hb_tintColor];
+			if ([viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
+				switchTintColor = [viewController.class hb_overrideTintColor];
+			}
 			break;
 		}
+
 	}
 
-	[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = self.view.tintColor;
+	[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = switchTintColor ?: self.view.tintColor;
 }
 
 - (void)viewDidLoad {
