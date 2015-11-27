@@ -63,16 +63,13 @@ static BOOL changeStatusBar = NO;
 	[super viewDidLoad];
 
 	UIColor *switchTintColor = nil;
-	BOOL hasFoundTintColor;
-	BOOL hasFoundOverrideColor;
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		if (!hasFoundTintColor && [viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 			self.view.tintColor = [viewController.class hb_tintColor];
-			hasFoundTintColor = YES;
-		}
-		if (!hasFoundOverrideColor && [viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
-			switchTintColor = [viewController.class hb_overrideTintColor];
-			hasFoundOverrideColor = YES;
+			if ([viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
+				switchTintColor = [viewController.class hb_overrideTintColor];
+			}
+			break;
 		}
 
 	}
