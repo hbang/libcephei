@@ -4,6 +4,7 @@
 #import <version.h>
 
 UIStatusBarStyle statusBarStyle;
+static BOOL changeStatusBar = NO;
 
 @class HBRootListController;
 
@@ -58,17 +59,20 @@ UIStatusBarStyle statusBarStyle;
 	return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 
 	UIColor *switchTintColor = nil;
+	BOOL hasFoundTintColor;
+	BOOL hasFoundOverrideColor;
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+		if (!hasFoundTintColor && [viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 			self.view.tintColor = [viewController.class hb_tintColor];
-			if ([viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
-				switchTintColor = [viewController.class hb_overrideTintColor];
-			}
-			break;
+			hasFoundTintColor = YES;
+		}
+		if (!hasFoundOverrideColor && [viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
+			switchTintColor = [viewController.class hb_overrideTintColor];
+			hasFoundOverrideColor = YES;
 		}
 
 	}
@@ -76,9 +80,18 @@ UIStatusBarStyle statusBarStyle;
 	[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = switchTintColor ?: self.view.tintColor;
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	if ([self.class hb_invertedNavigationBar]) {
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
+		if ([viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
+			changeStatusBar = [viewController.class hb_invertedNavigationBar];
+			break;
+		} else {
+			changeStatusBar = [self.class hb_invertedNavigationBar];
+		}
+	}
+	if (changeStatusBar) {
 		statusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
 		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 	}
@@ -86,7 +99,7 @@ UIStatusBarStyle statusBarStyle;
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	if ([self.class hb_invertedNavigationBar]) {
+	if (changeStatusBar) {
 		[[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle];
 	}
 }
