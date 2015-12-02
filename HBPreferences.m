@@ -270,9 +270,9 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	}
 
 	if (value) {
-		[_lastSeenValues removeObjectForKey:value];
-	} else {
 		_lastSeenValues[key] = value;
+	} else {
+		[_lastSeenValues removeObjectForKey:value];
 	}
 
 	if (HAS_CFPREFSD) {
