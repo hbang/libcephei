@@ -113,9 +113,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	if (_preferenceChangeBlocks && _preferenceChangeBlocks.allKeys.count > 0) {
 		for (NSString *key in _preferenceChangeBlocks) {
+			id lastValue = _lastSeenValues[key];
 			id newValue = [self _objectForKey:key];
 
-			if (newValue != _lastSeenValues[key] || (newValue == nil && [_lastSeenValues[key] isKindOfClass:NSNull.class]) || ![newValue isEqual:_lastSeenValues[key]]) {
+			if (newValue != lastValue || (newValue == nil && [lastValue isKindOfClass:NSNull.class]) || ![newValue isEqual:lastValue]) {
 				for (HBPreferencesChangeCallback callback in _preferenceChangeBlocks[key]) {
 					callback(key, [self objectForKey:key]);
 				}
