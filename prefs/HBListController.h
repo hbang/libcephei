@@ -47,6 +47,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable UIColor *)hb_tintColor;
 
 /**
+ * The tint color to use for the navigation bar buttons, or, if
+ * hb_invertedNavigationBar is set, the background of the navigation bar.
+ * Override this method to return a UIColor to use, if you don’t want to use the
+ * same color as hb_tintColor.
+ *
+ * A nil value will cause no modification of the navigation bar tint to occur.
+ *
+ * @returns By default, the return value of hb_tintColor.
+ */
++ (nullable UIColor *)hb_navigationBarTintColor;
+
+/**
  * Whether to use an inverted navigation bar. Override this method if you want
  * this behavior.
  *
@@ -56,15 +68,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @returns By default, NO.
  */
 + (BOOL)hb_invertedNavigationBar;
-
-/**
- * Whether to override the color used by the navigation bar, when used for
- * switches, and some other tinted elements. Override this method if you
- * want this behavior.
- *
- * @returns By default, NO.
- */
-+ (UIColor *)hb_overrideTintColor;
 
 
 /**

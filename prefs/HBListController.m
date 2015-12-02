@@ -3,8 +3,8 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <version.h>
 
-UIStatusBarStyle statusBarStyle;
-static BOOL changeStatusBar = NO;
+UIStatusBarStyle previousStatusBarStyle = -1;
+BOOL changedStatusBarStyle = NO;
 
 @class HBRootListController;
 
@@ -20,8 +20,8 @@ static BOOL changeStatusBar = NO;
 	return nil;
 }
 
-+ (UIColor *)hb_overrideTintColor {
-	return nil;
++ (UIColor *)hb_navigationBarTintColor {
+	return [self hb_tintColor];
 }
 
 + (BOOL)hb_invertedNavigationBar {
@@ -51,53 +51,63 @@ static BOOL changeStatusBar = NO;
 	if (self) {
 		UINavigationItem *navigationItem = self.navigationItem;
 		navigationItem.hb_tintColor = [[self.class hb_tintColor] copy];
-		navigationItem.hb_navigationBarBackgroundColor = [[self.class hb_invertedNavigationBar] ? [self.class hb_tintColor] : nil copy];
-		navigationItem.hb_navigationBarTintColor = [[self.class hb_invertedNavigationBar] ? [UIColor colorWithWhite:247.f / 255.f alpha:1] : [self.class hb_tintColor] copy];
+		navigationItem.hb_navigationBarBackgroundColor = [[self.class hb_invertedNavigationBar] ? [self.class hb_navigationBarTintColor] : nil copy];
+		navigationItem.hb_navigationBarTintColor = [[self.class hb_invertedNavigationBar] ? [UIColor colorWithWhite:247.f / 255.f alpha:1] : [self.class hb_navigationBarTintColor] copy];
 		navigationItem.hb_navigationBarTextColor = [[self.class hb_invertedNavigationBar] ? [UIColor whiteColor] : nil copy];
 	}
 
 	return self;
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-
-	UIColor *switchTintColor = nil;
-	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
-			self.view.tintColor = [viewController.class hb_tintColor];
-			if ([viewController.class respondsToSelector:@selector(hb_overrideTintColor)] && [viewController.class hb_overrideTintColor]) {
-				switchTintColor = [viewController.class hb_overrideTintColor];
-			}
-			break;
-		}
-
-	}
-
-	[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = switchTintColor ?: self.view.tintColor;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	UIColor *tintColor = nil;
+
+	// enumerate backwards over the navigation stack
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		if ([viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
-			changeStatusBar = [viewController.class hb_invertedNavigationBar];
+		// if we have a tint color, grab it and stop there
+		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+			tintColor = [viewController.class hb_tintColor];
 			break;
-		} else {
-			changeStatusBar = [self.class hb_invertedNavigationBar];
 		}
 	}
-	if (changeStatusBar) {
-		statusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-		[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+	// if we have a tint color, apply it
+	if (tintColor) {
+		self.view.tintColor = tintColor;
+		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
 	}
+
+	BOOL changeStatusBar = NO;
+
+	// enumerate the stack *again*
+	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
+		// if we have a YES hb_invertedNavigationBar value, grab it and stop there
+		if ([viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
+			changeStatusBar = YES;
+			break;
+		}
+	}
+
+	// if the status bar is about to change to something custom, or we don’t
+	// already know the previous status bar style, set it here
+	if (changeStatusBar || previousStatusBarStyle == (UIStatusBarStyle)-1) {
+		previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+	}
+
+	// this will come in handy for later
+	changedStatusBarStyle = changeStatusBar;
+
+	// set the status bar style accordingly
+	[UIApplication sharedApplication].statusBarStyle = changeStatusBar ? previousStatusBarStyle : UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	if (changeStatusBar) {
-		[[UIApplication sharedApplication] setStatusBarStyle:statusBarStyle];
+
+	if (changedStatusBarStyle) {
+		[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
 	}
 }
 
