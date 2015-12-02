@@ -105,10 +105,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	}
 }
 
-- (void)_didReceiveDarwinNotification {
+- (void)_preferencesChanged {
 	[self synchronize];
-
 	[self _updateRegisteredObjects];
+
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 
 	if (_preferenceChangeBlocks && _preferenceChangeBlocks.allKeys.count > 0) {
@@ -129,6 +129,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 			callback();
 		}
 	}
+}
+
+- (void)_didReceiveDarwinNotification {
+	[self _preferencesChanged];
 }
 
 - (void)_updateRegisteredObjects {
@@ -282,9 +286,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	}
 
-	[self synchronize];
-
-	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
+	[self _preferencesChanged];
 }
 
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key {
