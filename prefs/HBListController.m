@@ -59,8 +59,8 @@ BOOL changedStatusBarStyle = NO;
 	return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 
 	UIColor *tintColor = nil;
 
@@ -98,9 +98,15 @@ BOOL changedStatusBarStyle = NO;
 
 	// this will come in handy for later
 	changedStatusBarStyle = changeStatusBar;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 
 	// set the status bar style accordingly
-	[UIApplication sharedApplication].statusBarStyle = changeStatusBar ? previousStatusBarStyle : UIStatusBarStyleLightContent;
+	if (changedStatusBarStyle) {
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
