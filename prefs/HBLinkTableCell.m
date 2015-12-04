@@ -60,6 +60,24 @@
 	[[UIApplication sharedApplication] openURL:_url];
 }
 
+#pragma mark - Tint color
+
+- (void)tintColorDidChange {
+	[super tintColorDidChange];
+
+	if (self.type == PSButtonCell) {
+		self.textLabel.textColor = self.tintColor;
+	}
+}
+
+- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
+	[super refreshCellContentsWithSpecifier:specifier];
+
+	if (self.type == PSButtonCell) {
+		self.textLabel.textColor = self.tintColor;
+	}
+}
+
 #pragma mark - Memory management
 
 - (void)dealloc {
