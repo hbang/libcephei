@@ -13,17 +13,17 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 
 @dynamic control;
 
-#pragma mark - UITableViewCell
-
-- (void)prepareForReuse {
-	[super prepareForReuse];
-
-	self.control.value = 0;
-	self.control.minimumValue = 0;
-	self.control.maximumValue = 100;
-}
-
 #pragma mark - PSTableCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+
+	if (self) {
+		self.accessoryView = self.control;
+	}
+
+	return self;
+}
 
 - (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
 	[super refreshCellContentsWithSpecifier:specifier];
@@ -41,16 +41,8 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 #pragma mark - PSControlTableCell
 
 - (UIStepper *)newControl {
-	UIStepper *stepper = [[UIStepper alloc] init];
-	stepper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+	UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectZero];
 	stepper.continuous = NO;
-	stepper.center = CGPointMake(stepper.center.x, self.frame.size.height / 2);
-
-	// i assume this is what i'm meant to do?
-	CGRect frame = stepper.frame;
-	frame.origin.x = self.contentView.frame.size.width - frame.size.width - 15.f;
-	stepper.frame = frame;
-
 	return stepper;
 }
 
@@ -75,6 +67,16 @@ static NSString *const kHBStepperTableCellSingularLabelKey = @"singularLabel";
 
 	self.textLabel.text = self.control.value == 1 ? self.specifier.properties[kHBStepperTableCellSingularLabelKey] : [NSString stringWithFormat:self.specifier.name, (int)self.control.value];
 	[self setNeedsLayout];
+}
+
+#pragma mark - UITableViewCell
+
+- (void)prepareForReuse {
+	[super prepareForReuse];
+
+	self.control.value = 0;
+	self.control.minimumValue = 0;
+	self.control.maximumValue = 100;
 }
 
 @end
