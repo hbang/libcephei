@@ -45,14 +45,13 @@
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
 			UIGraphicsEndImageContext();
 
-			_avatarView = [[UIView alloc] initWithFrame:CGRectMake(IS_MODERN ? 15.f : 8.f, 0, size, size)];
-			_avatarView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-			_avatarView.center = CGPointMake(_avatarView.center.x, self.contentView.frame.size.height / 2);
+			_avatarView = [[UIView alloc] initWithFrame:self.imageView.bounds];
+			_avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
 			_avatarView.userInteractionEnabled = NO;
 			_avatarView.clipsToBounds = YES;
 			_avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
-			[self.contentView addSubview:_avatarView];
+			[self.imageView addSubview:_avatarView];
 
 			if (specifier.properties[@"initials"]) {
 				_avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];

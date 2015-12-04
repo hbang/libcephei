@@ -24,14 +24,13 @@
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
 			UIGraphicsEndImageContext();
 
-			UIView *avatarView = [[[UIView alloc] initWithFrame:CGRectMake(15.f, 0, size, size)] autorelease];
-			avatarView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-			avatarView.center = CGPointMake(avatarView.center.x, self.contentView.frame.size.height / 2);
+			UIView *avatarView = [[[UIView alloc] initWithFrame:self.imageView.bounds] autorelease];
+			avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
 			avatarView.userInteractionEnabled = NO;
 			avatarView.clipsToBounds = YES;
 			avatarView.layer.cornerRadius = size / 2;
-			[self.contentView addSubview:avatarView];
+			[self.imageView addSubview:avatarView];
 
 			UILabel *label = [[[UILabel alloc] initWithFrame:avatarView.bounds] autorelease];
 			label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
