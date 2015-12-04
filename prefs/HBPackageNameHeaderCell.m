@@ -13,14 +13,10 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	BOOL _condensed;
 	BOOL _showAuthor;
 	BOOL _showVersion;
-	BOOL _isBigBeautifulBanner;
+	BOOL _hasGradient;
+
 	UIColor *_titleColor;
 	UIColor *_subtitleColor;
-
-	UIColor *_firstColor;
-	UIColor *_secondColor;
-	UIColor *_thirdColor;
-	UIColor *_fourthColor;
 
 	TSPackage *_package;
 	NSString *_nameOverride;
@@ -38,32 +34,34 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	if (self) {
 		NSParameterAssert(specifier.properties[@"packageIdentifier"]);
 
-		_firstColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"firstColor"]];
-		_secondColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"secondColor"]];
-		_thirdColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"thirdColor"]];
-		_fourthColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"fourthColor"]];
-
-		_isBigBeautifulBanner = _firstColor && _secondColor && _thirdColor && _fourthColor && [specifier.properties[@"bigBeautifulBanner"] boolValue];
-
 		self.backgroundColor = [UIColor clearColor];
-
-		if (_isBigBeautifulBanner) {
-			((CAGradientLayer *)self.layer).locations = @[ @0, @0.5f, @0.75f, @1 ];
-			((CAGradientLayer *)self.layer).colors = @[
-				(id)_firstColor.CGColor,
-				(id)_secondColor.CGColor,
-				(id)_thirdColor.CGColor,
-				(id)_fourthColor.CGColor
-			];
-		}
-
 		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
 
+		NSArray <id> *serializedColors = specifier.properties[@"backgroundGradientColors"];
+
+		if (serializedColors) {
+			NSAssert(serializedColors.count > 0, @"backgroundGradientColors should be an array with more than one value.");
+
+			_hasGradient = YES;
+
+			NSMutableArray <UIColor *> *colors = [NSMutableArray array];
+
+			for (id propertyListValue in serializedColors) {
+				UIColor *color = [UIColor hb_colorWithPropertyListValue:propertyListValue];
+				NSAssert(color, @"Color value %@ is invalid.", propertyListValue);
+				[colors addObject:(id)color.CGColor];
+			}
+
+			CAGradientLayer *layer = (CAGradientLayer *)self.layer;
+			layer.colors = [colors copy];
+		}
+
+		// hack to resolve odd margins being set on ipad
 		CGRect labelFrame = self.contentView.bounds;
 		labelFrame.origin.x -= IS_IPAD ? self._marginWidth : 0;
-		labelFrame.origin.y += _isBigBeautifulBanner ? 0.f : 30.f;
+		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
 		labelFrame.size.width -= IS_IPAD ? self._marginWidth * 2 : 0;
-		labelFrame.size.height -= _isBigBeautifulBanner ? 0.f : 30.f;
+		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
 		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -78,8 +76,16 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_icon = [specifier.properties[@"iconImage"] retain];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
-		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]] ?: (_isBigBeautifulBanner ? [UIColor colorWithWhite:1.f alpha:0.95f] : [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1]);
-		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]] ?: (_isBigBeautifulBanner ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1]);
+		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]];
+		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]];
+
+		if (!_titleColor) {
+			_titleColor = _hasGradient ? [[UIColor alloc] initWithWhite:1.f alpha:0.95f] : [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1];
+		}
+
+		if (!_subtitleColor) {
+			_subtitleColor = _hasGradient ? [[UIColor alloc] initWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
+		}
 
 		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
 
@@ -105,7 +111,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		height += 26.f;
 	}
 
-	if (_isBigBeautifulBanner) {
+	if (_hasGradient) {
 		height += 41.f;
 	}
 

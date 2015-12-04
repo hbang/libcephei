@@ -44,6 +44,11 @@
  * <th>subtitleColor</th> <td>Optional. The color to apply to the subtitles.
  * The default is #444444.</td>
  * </tr>
+ * <tr>
+ * <th>backgroundGradientColors</th> <td>Optional. An array of color stops to
+ * use as a background gradient. At least one is required. The default is no
+ * background gradient.</td>
+ * </tr>
  * </table>
  *
  * ### Example Usage
@@ -86,6 +91,23 @@
  * 			<integer>55</integer>
  * 			<integer>147</integer>
  * 			<integer>230</integer>
+ * 		</array>
+ * 	</dict>
+
+ * 	<!-- Standard size with gradient background: -->
+ * 	<dict>
+ * 		<key>cell</key>
+ * 		<string>PSGroupCell</string>
+ * 		<key>headerCellClass</key>
+ * 		<string>HBPackageNameHeaderCell</string>
+ * 		<key>packageIdentifier</key>
+ * 		<string>ws.hbang.common</string>
+ * 		<key>backgroundGradientColors</key>
+ * 		<array>
+ * 			<string>#5AD427</string>
+ * 			<string>#FFDB4C</string>
+ * 			<string>#EF4DB6</string>
+ * 			<string>#898C90</string>
  * 		</array>
  * 	</dict>
  */
