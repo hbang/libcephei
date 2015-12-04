@@ -112,6 +112,7 @@ BOOL changedStatusBarStyle = NO;
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
+	// set the status bar style accordingly
 	if (changedStatusBarStyle) {
 		[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
 	}
