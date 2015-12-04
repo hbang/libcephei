@@ -7,7 +7,7 @@
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -15,7 +15,9 @@
 
 		_url = [[NSURL alloc] initWithString:specifier.properties[@"url"]];
 
-		NSAssert(_url, @"No URL was provided to HBInitialsLinkTableCell.");
+		NSAssert(_url, @"No URL was provided to HBLinkTableCell, or it is invalid.");
+
+		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 
 		if (specifier.properties[@"initials"]) {
 			CGFloat size = 29.f;

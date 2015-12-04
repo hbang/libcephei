@@ -19,6 +19,10 @@
  * <tr>
  * <th>url</th> <td>Required. The URL to open.</td>
  * </tr>
+ * <tr>
+ * <th>subtitle</th> <td>Optional. A subtitle to display below the label. The
+ * default is an empty string, hiding the subtitle.</td>
+ * </tr>
  * </table>
  *
  * ### Example Usage
@@ -42,6 +46,20 @@
  * 		<string>XX</string>
  * 		<key>label</key>
  * 		<string>Example</string>
+ * 		<key>url</key>
+ * 		<string>http://example.com/</string>
+ * 	</dict>
+ *
+ * 	<!-- With a subtitle, styled as a button: -->
+ * 	<dict>
+ * 		<key>cell</key>
+ * 		<string>PSButtonCell</string>
+ * 		<key>cellClass</key>
+ * 		<string>HBInitialsLinkTableCell</string>
+ * 		<key>label</key>
+ * 		<string>Example</string>
+ * 		<key>subtitle</key>
+ * 		<string>Visit our amazing website</string>
  * 		<key>url</key>
  * 		<string>http://example.com/</string>
  * 	</dict>
