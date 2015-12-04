@@ -7,8 +7,8 @@
 	self.textLabel.textColor = self.tintColor;
 }
 
-- (void)layoutSubviews {
-	[super layoutSubviews];
+- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
+	[super refreshCellContentsWithSpecifier:specifier];
 
 	if ([self respondsToSelector:@selector(tintColor)]) {
 		self.textLabel.textColor = self.tintColor;
