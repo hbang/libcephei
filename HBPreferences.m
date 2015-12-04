@@ -107,13 +107,16 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 - (void)_preferencesChanged {
 	[self synchronize];
+
+	NSDictionary *lastSeenValues = [_lastSeenValues copy];
+
 	[self _updateRegisteredObjects];
 
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 
 	if (_preferenceChangeBlocks && _preferenceChangeBlocks.allKeys.count > 0) {
 		for (NSString *key in _preferenceChangeBlocks) {
-			id lastValue = _lastSeenValues[key];
+			id lastValue = lastSeenValues[key];
 			id newValue = [self _objectForKey:key];
 
 			if (newValue != lastValue || (newValue == nil && [lastValue isKindOfClass:NSNull.class]) || ![newValue isEqual:lastValue]) {
