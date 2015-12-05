@@ -1,18 +1,18 @@
 <?xml version="1.0" standalone="no"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:docset="http://developer.apple.com/rss/docset_extensions" xml:lang="en">
-    <id>https://hbang.github.io/libcephei/xcode-docset.atom/20151107165959</id>
+    <id>https://hbang.github.io/libcephei/xcode-docset.atom/20151206045904</id>
     <title type="text">Cephei</title>
     <rights>Copyright © 2015 HASHBANG Productions. All rights reserved.</rights>
     <link rel="self" href="https://hbang.github.io/libcephei/xcode-docset.atom"></link>
     <docset:publisherName>HASHBANG Productions</docset:publisherName>
     <docset:publisherID>ws.hbang.documentation</docset:publisherID>
-    <updated>2015-11-07T16:59:59+10:30</updated>
+    <updated>2015-12-06T04:59:04+10:30</updated>
     <entry>
-        <id>tag:hbang.github.io,2015-11-7:ws.hbang.Cephei/1.2.0</id>
+        <id>tag:hbang.github.io,2015-12-6:ws.hbang.Cephei/1.2.0</id>
         <title type="text">Cephei Documentation</title>
-        <updated>2015-11-07T16:59:59+10:30</updated>
+        <updated>2015-12-06T04:59:04+10:30</updated>
         <content type="text">Cephei Documentation (v1.2.0)</content>
-        <link rel="enclosure" type="application/octet-stream" href="https://hbang.github.io/libcephei/docset.xar" length="198279"></link>
+        <link rel="enclosure" type="application/octet-stream" href="https://hbang.github.io/libcephei/docset.xar" length="210735"></link>
         <docset:identifier>ws.hbang.Cephei</docset:identifier>
         <docset:version>1.2.0</docset:version>
         <docset:minimumXcodeVersion>3.0.0</docset:minimumXcodeVersion>
