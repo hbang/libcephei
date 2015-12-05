@@ -75,7 +75,7 @@
  * 		<key>packageIdentifier</key>
  * 		<string>ws.hbang.common</string>
  * 	</dict>
-
+ *
  * 	<!-- Standard size with custom colors: -->
  * 	<dict>
  * 		<key>cell</key>
@@ -93,7 +93,7 @@
  * 			<integer>230</integer>
  * 		</array>
  * 	</dict>
-
+ *
  * 	<!-- Standard size with gradient background: -->
  * 	<dict>
  * 		<key>cell</key>
