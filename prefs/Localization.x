@@ -26,12 +26,20 @@
 %hook PSListController
 
 - (NSArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target {
+	static NSArray <NSString *> *PropertiesToLocalize;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		PropertiesToLocalize = [@[ @"singularLabel", @"subtitle" ] retain];
+	});
+
 	NSArray *specifiers = %orig;
 	NSBundle *bundle = [NSBundle bundleForClass:self.class];
 
 	for (PSSpecifier *specifier in specifiers) {
-		if (specifier.properties[@"singularLabel"]) {
-			specifier.properties[@"singularLabel"] = [bundle localizedStringForKey:specifier.properties[@"singularLabel"] value:@"" table:plistName];
+		for (NSString *key in PropertiesToLocalize) {
+			if (specifier.properties[key]) {
+				specifier.properties[key] = [bundle localizedStringForKey:specifier.properties[key] value:@"" table:plistName];
+			}
 		}
 	}
 
