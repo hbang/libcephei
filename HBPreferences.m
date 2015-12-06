@@ -193,10 +193,20 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	if (HAS_CFPREFSD) {
 		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+
+		if (!allKeys) {
+			return @{};
+		}
+
 		result = [(NSDictionary *)_CFPreferencesCopyMultipleWithContainer(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
 		CFRelease(allKeys);
 	} else {
 		CFArrayRef allKeys = CFPreferencesCopyKeyList((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+
+		if (!allKeys) {
+			return @{};
+		}
+
 		result = [(NSDictionary *)CFPreferencesCopyMultiple(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
 		CFRelease(allKeys);
 	}
@@ -315,7 +325,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Register preferences
 
 - (void)_registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key type:(HBPreferencesType)type {
-	_defaults[key] = defaultValue;
+	if (defaultValue) {
+		_defaults[key] = defaultValue;
+	}
+
 	_pointers[key] = @[ @(type), [NSValue valueWithPointer:object] ];
 
 	[self _updateRegisteredObjects];
