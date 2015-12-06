@@ -8,10 +8,10 @@ Documentation is available at **[hbang.github.io/libcephei](https://hbang.github
 ## Integrating Cephei into your Theos projects
 It’s really easy to integrate Cephei into a Theos project. First, install Cephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it – try TypeStatus – or just install it with `apt-get install ws.hbang.common` at the command line. 
 
-Now, copy the dynamic libraries and headers into the location you cloned Theos to. (Hopefully you have `$THEOS`, `$THEOS_DEVICE_IP`, and `$THEOS_DEVICE_PORT` set and exported in your shell.)
+Now, copy the frameworks and headers into the location you cloned Theos to. (Hopefully you have `$THEOS`, `$THEOS_DEVICE_IP`, and `$THEOS_DEVICE_PORT` set and exported in your shell.)
 
 ```
-scp -rP $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/Library/Frameworks/Cephei\*.framework $THEOS/lib
+scp -rP $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/Library/Frameworks/{Cephei,CepheiPrefs,TechSupport}.framework $THEOS/lib
 ```
 
 Next, for all projects that will be using Cephei, add it to the instance’s libraries:
