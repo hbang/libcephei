@@ -90,11 +90,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * The email address to use in the support email composer form. Override this
- * method to return your own email address.
+ * method to return an email address.
  *
- * @returns By default, "HASHBANG Productions Support \<support@hbang.ws\>".
+ * If this method returns nil, the package’s author email address is used.
+ *
+ * @returns By default, nil.
  */
-+ (NSString *)hb_supportEmailAddress;
++ (nullable NSString *)hb_supportEmailAddress;
 
 /**
  * The instructions to provide to the TechSupport framework, in addition to the
@@ -102,9 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
  * instructions, refer to the TechSupport project’s GitHub repo:
  * https://github.com/ashikase/TechSupport/tree/master/Demo
  *
- * @returns By default, an empty array.
+ * @returns By default, nil.
+ * @see HBSupportController
  */
-+ (NSArray *)hb_supportInstructions;
++ (nullable NSArray *)hb_supportInstructions;
 
 /**
  * @name Preference Specifier Actions
@@ -112,26 +115,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Opens the user's browser to the URL specified by hb_websiteURL.
+ *
+ * Deprecated. It is encouraged to use an HBLinkTableCell instead.
  */
-- (void)hb_openWebsite;
+- (void)hb_openWebsite __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /**
  * Opens the user's browser to the URL specified by hb_donateURL.
+ *
+ * Deprecated. It is encouraged to use an HBLinkTableCell instead.
  */
-- (void)hb_openDonate;
+- (void)hb_openDonate __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /**
- * Displays a Mail composer form, configured to send an email to the developer.
+ * Displays a support composer form.
  *
- * The Mail composer is configured with the "To" field set to the developer's
- * email address - the return value of hb_supportEmailAddress - along with the
- * subject "Package x.y.z Support", the user's device model and iOS
- * version/build number in the body, and a package listing (output of
- * `dpkg -l`) attached as "dpkgl.txt".
+ * The hb_supportEmailAddress and hb_supportInstructions methods are used to
+ * provide the appropriate parameters to `HBSupportController`.
  *
- * If `HBPackageIdentifier` is set in the Info.plist of the preference bundle,
- * this will be used to query the package version from dpkg. Otherwise, Cephei
- * queries which package the preference bundle's binary was installed from.
+ * @see HBSupportController
  */
 - (void)hb_sendSupportEmail;
 

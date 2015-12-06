@@ -22,13 +22,13 @@
 	return [NSURL URLWithString:@"https://www.hbang.ws/donate/"];
 }
 
-+ (NSString *)hb_supportEmailAddress {
++ (nullable NSString *)hb_supportEmailAddress {
 	return nil;
 }
 
 + (nullable TSLinkInstruction *)hb_linkInstruction {
 	if ([self hb_supportEmailAddress]) {
-		return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", [self hb_supportEmailAddress], LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+		return [HBSupportController linkInstructionForEmailAddress:[self hb_supportEmailAddress]];
 	}
 
 	return nil;
@@ -38,8 +38,8 @@
  TODO: eventually after xcode 7 has been out for a while, this more strict
  type should be used in the header
 */
-+ (NSArray <TSInstruction *> *)hb_supportInstructions {
-	return @[];
++ (nullable NSArray <TSInstruction *> *)hb_supportInstructions {
+	return nil;
 }
 
 #pragma mark - Callbacks

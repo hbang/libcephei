@@ -3,7 +3,13 @@
 
 @implementation HBSupportController
 
-+ (TSPackage *)packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
++ (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress {
+	NSParameterAssert(emailAddress);
+
+	return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", emailAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+}
+
++ (TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
 	NSParameterAssert(identifier ?: file);
 
 	if (identifier) {
@@ -13,13 +19,25 @@
 	}
 }
 
-+ (nullable NSData *)xmlPlistForPreferencesIdentifier:(NSString *)identifier {
++ (nullable NSData *)_xmlPlistForPreferencesIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
 
-	CFDictionaryRef prefs = CFPreferencesCopyMultiple(CFPreferencesCopyKeyList((CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost), (CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	// get the keys in the plist
+	CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 
+	// if there are no keys, return nil
+	if (!keyList) {
+		return nil;
+	}
+
+	// now we can get the values for the keys
+	CFDictionaryRef prefs = CFPreferencesCopyMultiple(keyList, (CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	CFRelease(keyList);
+
+	// and now we get the data representing an XML plist of the dictionary
 	CFErrorRef error = nil;
-	NSData *data = (NSData *)CFPropertyListCreateData(kCFAllocatorDefault, prefs, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
+	NSData *data = [(NSData *)CFPropertyListCreateData(kCFAllocatorDefault, prefs, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error) autorelease];
+	CFRelease(prefs);
 
 	if (error) {
 		HBLogError(@"error serializing prefs for %@: %@", identifier, error);
@@ -29,28 +47,46 @@
 	return data;
 }
 
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(TSLinkInstruction *)linkInstruction supportInstructions:(NSArray *)supportInstructions {
++ (TSContactViewController *)supportViewControllerForBundle:(NSBundle *)bundle {
+	return [self supportViewControllerForBundle:bundle preferencesIdentifier:nil linkInstruction:nil supportInstructions:nil];
+}
+
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(NSString *)preferencesIdentifier {
+	return [self supportViewControllerForBundle:bundle preferencesIdentifier:preferencesIdentifier linkInstruction:nil supportInstructions:nil];
+}
+
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(TSLinkInstruction *)linkInstruction supportInstructions:(NSArray <TSInstruction *> *)supportInstructions {
 	NSParameterAssert(preferencesIdentifier ?: bundle);
-	NSParameterAssert(supportInstructions);
 
 	/*
 	 get the TSPackage for either the custom package id in Info.plist, falling
 	 back to the bundle id. if neither provide a package, the containing package
 	 is used. if there's still no TSPackage, throw an assertion.
 	*/
-	TSPackage *package = [self packageForIdentifier:bundle.infoDictionary[@"HBPackageIdentifier"] ?: bundle.bundleIdentifier orFile:bundle.executablePath];
+	TSPackage *package = [self _packageForIdentifier:bundle.infoDictionary[@"HBPackageIdentifier"] ?: bundle.bundleIdentifier orFile:bundle.executablePath];
 	NSAssert(package, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 
+	// write a plist of the preferences using the identifier we think it may be
 	NSString *prefsPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"libcephei-preferences.plist"];
 
-	NSData *plistData = [self xmlPlistForPreferencesIdentifier:preferencesIdentifier ?: bundle.bundleIdentifier];
+	NSData *plistData = [self _xmlPlistForPreferencesIdentifier:preferencesIdentifier ?: bundle.bundleIdentifier];
 	[plistData writeToFile:prefsPath atomically:YES];
 
-	NSArray *includeInstructions = [@[
+	// construct the support instructions
+	NSArray *builtInInstructions = @[
 		[TSIncludeInstruction instructionWithString:@"include as \"Package List\" command /usr/bin/dpkg -l"],
 		[TSIncludeInstruction instructionWithString:[NSString stringWithFormat:@"include as Preferences plist \"%@\"", prefsPath]]
-	] arrayByAddingObjectsFromArray:supportInstructions];
+	];
 
+	NSArray *includeInstructions = supportInstructions ? [builtInInstructions arrayByAddingObjectsFromArray:supportInstructions] : builtInInstructions;
+
+	// if we don’t have a link instruction, make one using the package’s defined
+	// author email
+	if (!linkInstruction) {
+		linkInstruction = [self linkInstructionForEmailAddress:package.author];
+	}
+
+	// set up the view controller
 	TSContactViewController *viewController = [[TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions];
 	viewController.title = LOCALIZE(@"SUPPORT_TITLE", @"Support", @"Title displayed in the navigation bar of the support page.");
 	viewController.subject = [NSString stringWithFormat:LOCALIZE(@"SUPPORT_EMAIL_SUBJECT", @"Support", @"The subject used when sending a support email. %@ %@ is the package name and version respectively."), package.name, package.version];
