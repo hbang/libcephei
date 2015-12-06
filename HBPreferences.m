@@ -1,6 +1,7 @@
 #import "HBPreferences.h"
 #import <version.h>
 #include <dlfcn.h>
+#include <notify.h>
 
 #define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
 
@@ -30,8 +31,6 @@ typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
 NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNotification";
 
-static NSMutableDictionary *KnownIdentifiers;
-
 #pragma mark - Darwin notification callback
 
 @interface HBPreferences ()
@@ -39,14 +38,6 @@ static NSMutableDictionary *KnownIdentifiers;
 - (void)_didReceiveDarwinNotification;
 
 @end
-
-void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-	HBLogDebug(@"received change notification - reloading preferences");
-
-	for (NSString *key in KnownIdentifiers) {
-		[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
-	}
-}
 
 #pragma mark - Class implementation
 
@@ -56,6 +47,8 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	NSMutableDictionary *_preferenceChangeBlocks;
 	NSMutableArray *_preferenceChangeBlocksGlobal;
+
+	NSMutableDictionary *KnownIdentifiers;
 }
 
 #pragma mark - Initialization
@@ -90,7 +83,14 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 		KnownIdentifiers[_identifier] = self;
 
-		CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBPreferencesDarwinNotifyCallback, (CFStringRef)[_identifier stringByAppendingPathComponent:@"ReloadPrefs"], NULL, kNilOptions);
+		int token, status;
+		status = notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &token, dispatch_get_main_queue(), ^(int t) {
+			HBLogDebug(@"received change notification - reloading preferences");
+
+	        for (NSString *key in KnownIdentifiers) {
+		        [(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
+	        }
+		});
 	}
 
 	return self;
