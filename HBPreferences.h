@@ -184,7 +184,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * value.
  * @see objectForKey:default:
  */
-- (NSInteger)integerForKey:(NSString *)key default:(nullable NSInteger)defaultValue;
+- (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue;
 
 /**
  * Returns the floating-point value associated with the specified key, or if no
@@ -196,7 +196,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * default value.
  * @see objectForKey:default:
  */
-- (CGFloat)floatForKey:(NSString *)key default:(nullable CGFloat)defaultValue;
+- (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue;
 
 /**
  * Returns the double value associated with the specified key, or if no
@@ -208,7 +208,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * value.
  * @see objectForKey:default:
  */
-- (double)doubleForKey:(NSString *)key default:(nullable double)defaultValue;
+- (double)doubleForKey:(NSString *)key default:(double)defaultValue;
 
 /**
  * Returns the Boolean value associated with the specified key, or if no
@@ -220,7 +220,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * value.
  * @see objectForKey:default:
  */
-- (BOOL)boolForKey:(NSString *)key default:(nullable BOOL)defaultValue;
+- (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue;
 
 /**
  * @name Setting Preference Values
@@ -342,7 +342,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerInteger:(NSInteger *)object default:(nullable NSInteger)defaultValue forKey:(NSString *)key;
+- (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key;
 
 /**
  * Register a floating-point value to be automatically set to the user's
@@ -356,7 +356,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerFloat:(CGFloat *)object default:(nullable CGFloat)defaultValue forKey:(NSString *)key;
+- (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key;
 
 /**
  * Register a double value to be automatically set to the user's preference.
@@ -369,7 +369,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerDouble:(double *)object default:(nullable double)defaultValue forKey:(NSString *)key;
+- (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key;
 
 /**
  * Register a Boolean value to be automatically set to the user's preference.
@@ -382,7 +382,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key in the preferences property list.
  * @see registerObject:default:forKey:
  */
-- (void)registerBool:(BOOL *)object default:(nullable BOOL)defaultValue forKey:(NSString *)key;
+- (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
 
 /**
  * Adds the contents of the specified dictionary to the defaults property.
