@@ -2,7 +2,7 @@
 #import <version.h>
 #include <dlfcn.h>
 
-#define HAS_CFPREFSD (IS_IOS_OR_NEWER(iOS_8_0))
+#define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
 
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
 
@@ -98,7 +98,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	if (HAS_CFPREFSD) {
+	if (USE_CONTAINER_FUNCTIONS) {
 		return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
 		return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
@@ -191,7 +191,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 - (NSDictionary *)dictionaryRepresentation {
 	NSDictionary *result;
 
-	if (HAS_CFPREFSD) {
+	if (USE_CONTAINER_FUNCTIONS) {
 		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 
 		if (!allKeys) {
@@ -217,7 +217,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 - (id)_objectForKey:(NSString *)key {
 	id value;
 
-	if (HAS_CFPREFSD) {
+	if (USE_CONTAINER_FUNCTIONS) {
 		value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
 	} else {
 		value = [(id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
@@ -293,7 +293,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 		[_lastSeenValues removeObjectForKey:key];
 	}
 
-	if (HAS_CFPREFSD) {
+	if (USE_CONTAINER_FUNCTIONS) {
 		_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
 		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
