@@ -1,7 +1,7 @@
 Package: ws.hbang.common
 Name: Cephei
 Depends: preferenceloader, jp.ashikase.techsupport
-Version: 1.5
+Version: 1.6
 Architecture: iphoneos-arm
 Description: Support library for tweak settings
 Maintainer: HASHBANG Productions <support@hbang.ws>
