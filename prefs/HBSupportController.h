@@ -1,5 +1,3 @@
-#import <TechSupport/TSContactViewController.h>
-
 /**
  * The `HBSupportController` class in `CepheiPrefs` provides a factory that
  * configures a `TSContactViewController` for immediate use. The
@@ -19,6 +17,8 @@
  * A `TSContactViewController` should be pushed on your view controller stack;
  * it should not be presented modally.
  */
+
+@class TSContactViewController, TSLinkInstruction;
 
 NS_ASSUME_NONNULL_BEGIN
 
