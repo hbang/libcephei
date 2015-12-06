@@ -73,20 +73,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 /**
- * The website URL to open when tapping the "visit website" cell. Override this
+ * The website URL to open when tapping the “visit website” cell. Override this
  * method to return your own URL.
+ *
+ * Deprecated. It is encouraged to use an HBLinkTableCell instead.
  *
  * @returns By default, https://www.hbang.ws/.
  */
-+ (NSURL *)hb_websiteURL;
++ (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));;
 
 /**
  * The website URL to open when tapping the "donate" cell. Override this method
  * to return your own URL.
  *
+ * Deprecated. It is encouraged to use an HBLinkTableCell instead.
+ *
  * @returns By default, https://www.hbang.ws/donate/.
  */
-+ (NSURL *)hb_donateURL;
++ (NSURL *)hb_donateURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /**
  * The email address to use in the support email composer form. Override this
