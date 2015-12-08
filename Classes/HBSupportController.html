@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>HBSupportController Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2 (build 963)">
+</head>
+<body>
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Cephei </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">HASHBANG Productions</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/linkInstructionForEmailAddress:">+ linkInstructionForEmailAddress:</option>
+		
+		<option value="//api/name/supportViewControllerForBundle:">+ supportViewControllerForBundle:</option>
+		
+		<option value="//api/name/supportViewControllerForBundle:preferencesIdentifier:">+ supportViewControllerForBundle:preferencesIdentifier:</option>
+		
+		<option value="//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">+ supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</option>
+		
+	</optgroup>
+	
+
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">HBSupportController Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>HBSupportController.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBSupportController</code> class in <code>CepheiPrefs</code> provides a factory that
+configures a <code>TSContactViewController</code> for immediate use. The
+<code>TSContactViewController</code> class, from
+<a href="https://github.com/ashikase/TechSupport">TechSupport</a> by ashikase, provides
+a text box for entering a message, as well as the ability to view or remove
+pre-defined attachments. After tapping the submit button, the information is
+provided to the next step, which most commonly is an email composer.</p>
+
+<p>By providing a link instruction, you can have the message sent to a different
+email address or posted to a website. You can also provide one or more
+support instructions, which allow more files to be attached. For more
+information and for examples of <code>TSContactViewController</code> usage, refer to the
+<a href="https://github.com/ashikase/TechSupport/tree/master/Demo">demos directory</a>
+in the TechSupport source.</p>
+
+<p>A <code>TSContactViewController</code> should be pushed on your view controller stack;
+it should not be presented modally.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/linkInstructionForEmailAddress:" title="linkInstructionForEmailAddress:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/linkInstructionForEmailAddress:">+&nbsp;linkInstructionForEmailAddress:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialises a <code>TSLinkInstruction</code> for the provided email address.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)<em>emailAddress</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>emailAddress</code></th>
+						<td><p>The email address to send an email to.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>A pre-configured instance of <code>TSLinkInstruction</code>.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBSupportController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/supportViewControllerForBundle:" title="supportViewControllerForBundle:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/supportViewControllerForBundle:">+&nbsp;supportViewControllerForBundle:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialises a <code>TSContactViewController</code> by using information provided by a
+bundle.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (TSContactViewController *)supportViewControllerForBundle:(NSBundle *)<em>bundle</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>bundle</code></th>
+						<td><p>A bundle included with the package.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>A pre-configured instance of <code>TSContactViewController</code>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Refer to <a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</a>
+for information on how the bundle is used.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">+ supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBSupportController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/supportViewControllerForBundle:preferencesIdentifier:" title="supportViewControllerForBundle:preferencesIdentifier:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:">+&nbsp;supportViewControllerForBundle:preferencesIdentifier:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialises a <code>TSContactViewController</code> by using information provided by a
+bundle and references identifier.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)<em>bundle</em> preferencesIdentifier:(NSString *)<em>preferencesIdentifier</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>bundle</code></th>
+						<td><p>A bundle included with the package.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>preferencesIdentifier</code></th>
+						<td><p>A preferences identifier that is used by the
+package.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>A pre-configured instance of <code>TSContactViewController</code>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Refer to <a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</a>
+for information on how the bundle and preferences identifier are used.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">+ supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBSupportController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:" title="supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:">+&nbsp;supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initialises a <code>TSContactViewController</code> by using information provided by
+either a bundle or a preferences identifier, and providing it a custom link
+instruction and support instructions.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)<em>bundle</em> preferencesIdentifier:(nullable NSString *)<em>preferencesIdentifier</em> linkInstruction:(nullable TSLinkInstruction *)<em>linkInstruction</em> supportInstructions:(nullable NSArray *)<em>supportInstructions</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>bundle</code></th>
+						<td><p>A bundle included with the package.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>preferencesIdentifier</code></th>
+						<td><p>The preferences identifier of the package, if
+it’s different from the package identifier that contains the bundle.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>linkInstruction</code></th>
+						<td><p>The link instruction to use, or nil.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>supportInstructions</code></th>
+						<td><p>Support instructions to use in combination with
+the built-in ones defined by HBSupportController, or nil.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>A pre-configured instance of <code>TSContactViewController</code>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>The bundle may set the key <code>HBPackageIdentifier</code> in its Info.plist,
+containing the package identifier to gather information from. Otherwise, the
+dpkg file lists are searched to find the package that contains the bundle.
+The package’s name, identifier, and author will be used to fill out fields in
+the information that the user will submit.</p>
+
+<p>Either a bundle or preferences identifier is required. If both are nil, an
+exception will be thrown. If the <code>linkInstruction</code> argument is nil, a
+<code>TSLinkInstruction</code> is derived from the <code>Author</code> field of the package’s
+control file. <code>HBSupportController</code> implicitly adds the user’s package
+listing (output of <code>dpkg -l</code>) and the preferences plist as attachments. To
+add more, provide an array of <code>TSSupportInstruction</code>s to the
+<code>supportInstructions</code> argument.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBSupportController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-12-08</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

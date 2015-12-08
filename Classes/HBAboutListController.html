@@ -203,7 +203,7 @@ preferences. See the Cephei readme for details.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The website URL to open when tapping the &ldquo;visit website&rdquo; cell. Override this
+				<p>The website URL to open when tapping the “visit website” cell. Override this
 method to return your own URL.</p>
 			</div>
 			
@@ -223,6 +223,11 @@ method to return your own URL.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
 			
 
 			
@@ -271,6 +276,11 @@ to return your own URL.</p>
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
 
 			
 
@@ -298,12 +308,12 @@ to return your own URL.</p>
 			
 			<div class="method-subsection brief-description">
 				<p>The email address to use in the support email composer form. Override this
-method to return your own email address.</p>
+method to return an email address.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (NSString *)hb_supportEmailAddress</code></div>
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)hb_supportEmailAddress</code></div>
 
 		    
 			
@@ -311,12 +321,17 @@ method to return your own email address.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, &ldquo;HASHBANG Productions Support &lt;support@hbang.ws>&rdquo;.</p>
+				<p>By default, nil.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If this method returns nil, the package’s author email address is used.</p>
+			</div>
 			
 
 			
@@ -352,7 +367,7 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (NSArray *)hb_supportInstructions</code></div>
+			<div class="method-subsection method-declaration"><code>+ (nullable NSArray *)hb_supportInstructions</code></div>
 
 		    
 			
@@ -360,7 +375,7 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, an empty array.</p>
+				<p>By default, nil.</p>
 			</div>
 			
 
@@ -370,6 +385,15 @@ instructions, refer to the TechSupport project’s GitHub repo:
 
 			
 
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="../Classes/HBSupportController.html">HBSupportController</a></p></code></li>
+					
+				</ul>
+			</div>
 			
 
 			
@@ -416,6 +440,11 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
 
 			
 
@@ -457,6 +486,11 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 
 			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
 
 			
 
@@ -483,7 +517,7 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Displays a Mail composer form, configured to send an email to the developer.</p>
+				<p>Displays a support composer form.</p>
 			</div>
 			
 		    
@@ -500,20 +534,22 @@ instructions, refer to the TechSupport project’s GitHub repo:
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>The Mail composer is configured with the &ldquo;To&rdquo; field set to the developer&rsquo;s
-email address - the return value of <a href="#//api/name/hb_supportEmailAddress">hb_supportEmailAddress</a> - along with the
-subject &ldquo;Package x.y.z Support&rdquo;, the user&rsquo;s device model and iOS
-version/build number in the body, and a package listing (output of
-<code>dpkg -l</code>) attached as &ldquo;dpkgl.txt&rdquo;.</p>
-
-<p>If <code>HBPackageIdentifier</code> is set in the Info.plist of the preference bundle,
-this will be used to query the package version from dpkg. Otherwise, Cephei
-queries which package the preference bundle&rsquo;s binary was installed from.</p>
+				<p>The hb_supportEmailAddress and hb_supportInstructions methods are used to
+provide the appropriate parameters to <a href="../Classes/HBSupportController.html"><code>HBSupportController</code></a>.</p>
 			</div>
 			
 
 			
 
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="../Classes/HBSupportController.html">HBSupportController</a></p></code></li>
+					
+				</ul>
+			</div>
 			
 
 			
@@ -538,7 +574,7 @@ queries which package the preference bundle&rsquo;s binary was installed from.</
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-12-06</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-12-08</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
