@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -14,7 +14,7 @@
 
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
-	<string>Posjeti Web Stranicu/string>
+	<string>Posjeti Web Stranicu</string>
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
