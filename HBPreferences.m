@@ -30,14 +30,6 @@ typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
 NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNotification";
 
-#pragma mark - Darwin notification callback
-
-@interface HBPreferences ()
-
-- (void)_didReceiveDarwinNotification;
-
-@end
-
 #pragma mark - Class implementation
 
 @implementation HBPreferences {
@@ -46,8 +38,6 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 	NSMutableDictionary *_preferenceChangeBlocks;
 	NSMutableArray *_preferenceChangeBlocksGlobal;
-
-	NSMutableDictionary *KnownIdentifiers;
 }
 
 #pragma mark - Initialization
@@ -57,6 +47,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
+	static NSMutableDictionary *KnownIdentifiers;
 	if (KnownIdentifiers[identifier]) {
 		return [KnownIdentifiers[identifier] retain];
 	}
@@ -82,13 +73,12 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 		KnownIdentifiers[_identifier] = self;
 
-		int token, status;
-		status = notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &token, dispatch_get_main_queue(), ^(int t) {
+			notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, NULL, dispatch_get_main_queue(), ^(int t) {
 			HBLogDebug(@"received change notification - reloading preferences");
 
-	        for (NSString *key in KnownIdentifiers) {
-		        [(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
-	        }
+			for (NSString *key in KnownIdentifiers) {
+				[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
+			}
 		});
 	}
 
