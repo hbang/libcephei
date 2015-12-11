@@ -93,7 +93,7 @@
 	}
 
 	// set up the view controller
-	TSContactViewController *viewController = [[TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions];
+	TSContactViewController *viewController = [[[TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions] autorelease];
 	viewController.title = LOCALIZE(@"SUPPORT_TITLE", @"Support", @"Title displayed in the navigation bar of the support page.");
 	viewController.subject = [NSString stringWithFormat:LOCALIZE(@"SUPPORT_EMAIL_SUBJECT", @"Support", @"The subject used when sending a support email. %@ %@ is the package name and version respectively."), package.name, package.version];
 	viewController.requiresDetailsFromUser = YES;
