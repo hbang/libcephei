@@ -12,11 +12,17 @@
 + (TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
 	NSParameterAssert(identifier ?: file);
 
+	TSPackage *package = nil;
+
 	if (identifier) {
-		return [TSPackage packageWithIdentifier:identifier];
-	} else {
-		return [TSPackage packageForFile:file];
+		package = [TSPackage packageWithIdentifier:identifier];
 	}
+
+	if (!package) {
+		package = [TSPackage packageForFile:file];
+	}
+
+	return package;
 }
 
 + (nullable NSData *)_xmlPlistForPreferencesIdentifier:(NSString *)identifier {
