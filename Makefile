@@ -7,9 +7,13 @@ DOCS_OUTPUT_PATH = docs
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
-Cephei_FILES = $(wildcard *.m) Global.x
+Cephei_FILES = $(wildcard *.m) Global.x $(wildcard CompactConstraint/*.m)
+Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_CFLAGS = -include Global.h
+
+CompactConstraint/NSLayoutConstraint+CompactConstraint.m_CFLAGS = -fobjc-arc
+CompactConstraint/UIView+CompactConstraint.m_CFLAGS = -fobjc-arc
 
 SUBPROJECTS = prefs
 
@@ -21,7 +25,7 @@ after-Cephei-all::
 	mkdir -p $(THEOS_OBJ_DIR)/Cephei.framework/Headers
 
 	# copy headers
-	rsync -ra *.h $(THEOS_OBJ_DIR)/Cephei.framework/Headers --exclude Global.h
+	rsync -ra $(Cephei_PUBLIC_HEADERS) $(THEOS_OBJ_DIR)/Cephei.framework/Headers
 
 	# copy to theos lib dir
 	rsync -ra $(THEOS_OBJ_DIR)/Cephei.framework $(THEOS)/lib
