@@ -194,7 +194,7 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	}
 }
 
-#pragma mark - Getters
+#pragma mark - Dictionary representation
 
 - (NSDictionary *)dictionaryRepresentation {
 	NSDictionary *result;
@@ -221,6 +221,14 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 	return result;
 }
+
+#pragma mark - Register defaults
+
+- (void)registerDefaults:(NSDictionary *)defaults {
+	[_defaults addEntriesFromDictionary:defaults];
+}
+
+#pragma mark - Getters
 
 - (id)_objectForKey:(NSString *)key {
 	id value;
@@ -344,6 +352,12 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	[self setObject:value forKey:key];
 }
 
+#pragma mark - Remove
+
+- (void)removeObjectForKey:(NSString *)key {
+	[self setObject:nil forKey:key];
+}
+
 #pragma mark - Register preferences
 
 - (void)_registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key type:(HBPreferencesType)type {
@@ -378,16 +392,6 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key {
 	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeBoolean];
-}
-
-- (void)registerDefaults:(NSDictionary *)defaults {
-	[_defaults addEntriesFromDictionary:defaults];
-}
-
-#pragma mark - Remove
-
-- (void)removeObjectForKey:(NSString *)key {
-	[self setObject:nil forKey:key];
 }
 
 #pragma mark - Register block

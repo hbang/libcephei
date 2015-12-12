@@ -6,10 +6,10 @@
  * `HBPreferences` is very similar to `NSUserDefaults`, however it is
  * specifically tailored to iOS tweak development, since tweaks may be loaded
  * into a sandboxed app (for instance, App Store apps), or one that runs as
- * the `root` user (for instance, Cydia). In both of these cases, using
- * `NSUserDefaults` will result in reading from preferences inside the
- * sandbox, or inside `root`'s home directory; both of which are not what is
- * expected.
+ * the `root` user (for instance, iFile, although these apps are slowly changing
+ * their model so they now run as mobile). In both of these cases, using
+ * `NSUserDefaults` will result in reading from preferences inside the sandbox,
+ * or inside `root`’s home directory; both of which are not what is expected.
  *
  * Advantages `HBPreferences` has over `NSUserDefaults` are:
  *
@@ -19,13 +19,14 @@
  * - Updating of the app/tweak's variables when preferences are changed.
  * - Keyed subscripting is allowed, which enables simple array syntax.
  * - Values in the preferences plist are called preferences, not defaults, to
- * avoid ambiguity - `NSUserDefaults` uses "defaults" to refer to both
- * preferences themselves and the defaults if a key doesn't exist.
+ * avoid ambiguity - `NSUserDefaults` uses “defaults” to refer to both
+ * preferences themselves and the fallback values if a key doesn’t exist.
  *
- * Ensure you read the discussion for registerObject:default:forKey: before
- * using the automatic updating mechanism. objectForKey: does not update as
- * another process updates the preferences on iOS 7 or older; if you need to
- * support older iOS versions, use the registration methods instead.
+ * Ensure you read the discussion for
+ * -[HBPreferences registerObject:default:forKey:] before using the automatic
+ * updating mechanism. -[HBPreferences objectForKey:] does not update as another
+ * process updates the preferences on iOS 7 or older; if you need to support
+ * older iOS versions, use the registration methods instead.
  *
  * ### Example usage:
  *
@@ -81,6 +82,23 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 @property (nonatomic, retain, readonly) NSString *identifier;
 
 /**
+ * @name Synchronizing Preferences
+ */
+
+/**
+ * Writes all pending changes to preference data to permanent storage, and
+ * reads latest preference data from permanent storage.
+ *
+ * Do not use this method directly unless you have a specific need.
+ * Synchronization is automatically invoked at periodic intervals. Use this
+ * method if you cannot wait for automatic synchronization (for example, if the
+ * process is about to exit).
+ *
+ * @returns `YES` if synchronization was successful, `NO` if an error occurred.
+ */
+- (BOOL)synchronize;
+
+/**
  * @name Getting Preference Values
  */
 
@@ -90,6 +108,29 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @returns A dictionary containing all keys and values.
  */
 - (NSDictionary *)dictionaryRepresentation;
+
+/**
+ * @name Registering Default Preference Values
+ */
+
+/**
+ * The default preferences to be used when no value has been set by the user.
+ *
+ * You may modify the values of this dictionary directly.
+ */
+@property (nonatomic, copy, readonly) NSMutableDictionary *defaults;
+
+/**
+ * Adds the contents of the specified dictionary to the defaults property.
+ *
+ * Merges the provided dictionary with the mutable dictionary found on the
+ * defaults property. Provided as a convenience for converting code from using
+ * `NSUserDefaults`.
+ *
+ * @param defaultValues The dictionary of keys and values you want to register.
+ * @see defaults
+ */
+- (void)registerDefaults:(NSDictionary *)defaultValues;
 
 /**
  * Returns the object associated with the specified key.
@@ -332,15 +373,23 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 - (void)setObject:(nullable id)object forKeyedSubscript:(id)key;
 
 /**
- * @name Registering Default Preferences
+ * @name Removing Preference Values
  */
 
 /**
- * The default preferences to be used when no value has been set by the user.
+ * Removes a given key and its associated value from the dictionary.
  *
- * You may modify the values of this dictionary directly.
+ * Blocks are called after HBPreferences’ cache of values is updated. The block
+ * will also be called immediately after calling this method. See
+ * registerObject:default:forKey: for details on how to set up callbacks.
+ *
+ * @param key The key to remove.
  */
-@property (nonatomic, copy, readonly) NSMutableDictionary *defaults;
+- (void)removeObjectForKey:(NSString *)key;
+
+/**
+ * @name Registering Variables
+ */
 
 /**
  * Register an object to be automatically set to the user's preference.
@@ -435,31 +484,6 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
 
 /**
- * Adds the contents of the specified dictionary to the defaults property.
- *
- * Provided as a convenience for converting code from using `NSUserDefaults`.
- *
- * @param defaultValues The dictionary of keys and values you want to register.
- * @see defaults
- */
-- (void)registerDefaults:(NSDictionary *)defaultValues;
-
-/**
- * @name Removing Preference Values
- */
-
-/**
- * Removes a given key and its associated value from the dictionary.
- *
- * Blocks are called after HBPreferences’ cache of values is updated. The block
- * will also be called immediately after calling this method. See
- * registerObject:default:forKey: for details on how to set up callbacks.
- *
- * @param key The key to remove.
- */
-- (void)removeObjectForKey:(NSString *)key;
-
-/**
  * @name Preference Change Callbacks
  */
 
@@ -489,23 +513,6 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @see registerObject:default:forKey:
  */
 - (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key;
-
-/**
- * @name Synchronizing Preferences
- */
-
-/**
- * Writes all pending changes to preference data to permanent storage, and
- * reads latest preference data from permanent storage.
- *
- * Do not use this method directly unless you have a specific need.
- * Synchronization is automatically invoked at periodic intervals. Use this
- * method if you cannot wait for automatic synchronization (for example, if the
- * process is about to exit).
- *
- * @returns `YES` if synchronization was successful, `NO` if an error occurred.
- */
-- (BOOL)synchronize;
 
 @end
 
