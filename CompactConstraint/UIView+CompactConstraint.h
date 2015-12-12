@@ -5,13 +5,7 @@
 
 #import "NSLayoutConstraint+CompactConstraint.h"
 
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-    #define CCView UIView
-#elif TARGET_OS_MAC
-    #define CCView NSView
-#endif
-
-@interface CCView (CompactConstraint)
+@interface UIView (CompactConstraint)
 
 // Add a single constraint with the compact syntax
 - (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary *)metrics views:(NSDictionary *)views;

@@ -5,7 +5,7 @@
 
 #import "UIView+CompactConstraint.h"
 
-@implementation CCView (CompactConstraint)
+@implementation UIView (CompactConstraint)
 
 - (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary *)metrics views:(NSDictionary *)views
 {
