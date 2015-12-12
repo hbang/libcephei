@@ -21,6 +21,7 @@ _CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContai
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 	HBPreferencesTypeObjectiveC,
 	HBPreferencesTypeInteger,
+	HBPreferencesTypeUnsignedInteger,
 	HBPreferencesTypeFloat,
 	HBPreferencesTypeDouble,
 	HBPreferencesTypeBoolean
@@ -162,6 +163,13 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 				break;
 			}
 
+			case HBPreferencesTypeUnsignedInteger:
+			{
+				NSInteger *pointer_ = pointer;
+				*pointer_ = [self unsignedIntegerForKey:key];
+				break;
+			}
+
 			case HBPreferencesTypeFloat:
 			{
 				CGFloat *pointer_ = pointer;
@@ -237,6 +245,11 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
 }
 
+- (NSUInteger)unsignedIntegerForKey:(NSString *)key {
+	NSNumber *value = [self objectForKey:key];
+	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
+}
+
 - (CGFloat)floatForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
 	return [value isKindOfClass:NSNumber.class] ? value.floatValue : 0;
@@ -263,6 +276,11 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
 	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
+}
+
+- (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue {
+	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
+	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
 }
 
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue {
@@ -306,6 +324,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 	[self setObject:@(value) forKey:key];
 }
 
+- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key {
+	[self setObject:@(value) forKey:key];
+}
+
 - (void)setFloat:(CGFloat)value forKey:(NSString *)key {
 	[self setObject:@(value) forKey:key];
 }
@@ -340,6 +362,10 @@ void HBPreferencesDarwinNotifyCallback(CFNotificationCenterRef center, void *obs
 
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key {
 	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeInteger];
+}
+
+- (void)registerUnsignedInteger:(NSUInteger *)object default:(NSUInteger)defaultValue forKey:(NSString *)key {
+	[self _registerObject:object default:@(defaultValue) forKey:key type:HBPreferencesTypeUnsignedInteger];
 }
 
 - (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key {

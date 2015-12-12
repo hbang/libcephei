@@ -118,6 +118,18 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 - (NSInteger)integerForKey:(NSString *)key;
 
 /**
+ * Returns the unsigned integer value associated with the specified key.
+ *
+ * If the preference is not yet set, returns the default. If no default is set,
+ * returns `nil`.
+ *
+ * @param key The key for which to return the corresponding value.
+ * @returns The unsigned integer value associated with the specified key.
+ * @see objectForKey:
+ */
+- (NSUInteger)unsignedIntegerForKey:(NSString *)key;
+
+/**
  * Returns the floating-point value associated with the specified key.
  *
  * If the preference is not yet set, returns the default. If no default is set,
@@ -187,6 +199,18 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue;
 
 /**
+ * Returns the unsigned integer value associated with the specified key, or if
+ * no user preference is set, the provided default.
+ *
+ * @param key The key for which to return the corresponding value.
+ * @param defaultValue The default value to use when no user preference is set.
+ * @returns The unsigned integer value associated with the specified key, or the
+ * default value.
+ * @see objectForKey:default:
+ */
+- (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue;
+
+/**
  * Returns the floating-point value associated with the specified key, or if no
  * user preference is set, the provided default.
  *
@@ -250,6 +274,18 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @see setObject:forKey:
  */
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key;
+
+/**
+ * Sets the value of the specified key to the specified unsigned integer value.
+ *
+ * This is a convenience method that calls setObject:forKey:. See the discussion
+ * of that method for more details.
+ *
+ * @param value The unsigned integer value to store in the preferences.
+ * @param key The key with which to associate with the value.
+ * @see setObject:forKey:
+ */
+- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key;
 
 /**
  * Sets the value of the specified key to the specified floating-point value.
@@ -343,6 +379,20 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @see registerObject:default:forKey:
  */
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key;
+
+/**
+ * Register an unsigned integer value to be automatically set to the user's
+ * preference.
+ *
+ * If the preference is not yet set, the object will be set to the provided
+ * default.
+ *
+ * @param object The pointer to the unsigned integer.
+ * @param defaultValue The default value to be used if no user preference is set.
+ * @param key The key in the preferences property list.
+ * @see registerObject:default:forKey:
+ */
+- (void)registerUnsignedInteger:(NSUInteger *)object default:(NSUInteger)defaultValue forKey:(NSString *)key;
 
 /**
  * Register a floating-point value to be automatically set to the user's
