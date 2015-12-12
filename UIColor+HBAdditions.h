@@ -1,5 +1,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * UIColor (HBAdditions) is a class category in `Cephei` that provides some
+ * convenience methods.
+ */
 @interface UIColor (HBAdditions)
 
 /**
