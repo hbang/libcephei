@@ -1,9 +1,5 @@
 TARGET = iphone:clang:latest:5.0
 
-APPLEDOCFILES = $(wildcard *.h) $(wildcard prefs/*.h)
-DOCS_STAGING_DIR = _docs
-DOCS_OUTPUT_PATH = docs
-
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
@@ -19,6 +15,16 @@ SUBPROJECTS = prefs
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
+
+ifeq ($(DOCS),1)
+# ugly hack so we get CepheiPrefs_PUBLIC_HEADERS :/
+include prefs/Makefile
+
+APPLEDOCFILES = $(Cephei_PUBLIC_HEADERS) $(foreach header,$(CepheiPrefs_PUBLIC_HEADERS),prefs/$(header))
+
+DOCS_STAGING_DIR = _docs
+DOCS_OUTPUT_PATH = docs
+endif
 
 after-Cephei-all::
 	# create directories
@@ -57,6 +63,10 @@ endif
 docs::
 	# eventually, this should probably be in theos.
 	# for now, this is good enough :p
+
+ifneq ($(DOCS),1)
+$(error Please set DOCS=1 (sorry))
+endif
 
 	[[ -d "$(DOCS_STAGING_DIR)" ]] && rm -r "$(DOCS_STAGING_DIR)" || true
 

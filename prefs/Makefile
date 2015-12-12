@@ -2,6 +2,7 @@ include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = CepheiPrefs
 CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m) ../Global.x
+CepheiPrefs_PUBLIC_HEADERS = HBSupportController.h HBAboutListController.h HBPackageNameHeaderCell.h HBLinkTableCell.h HBInitialsLinkTableCell.h HBListController.h HBListItemsController.h HBDiscreteSliderTableCell.h HBImageTableCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBTintedTableCell.h HBTwitterCell.h
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
@@ -16,7 +17,7 @@ after-CepheiPrefs-all::
 	mkdir -p $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
 
 	# copy headers
-	rsync -ra *.h $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
+	rsync -ra $(CepheiPrefs_PUBLIC_HEADERS) $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
 
 	# copy to theos lib dir
 	rsync -ra $(THEOS_OBJ_DIR)/CepheiPrefs.framework $(THEOS)/lib
