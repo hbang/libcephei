@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>HBImageTableCell Class Reference</title>
+	<title>NSLayoutConstraint(CompactConstraint) Category Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
@@ -69,19 +69,13 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title">HBImageTableCell Class Reference</h1>
+					<h1 class="title">NSLayoutConstraint(CompactConstraint) Category Reference</h1>
 
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<th>Inherits from</th>
-	<td>PSTableCell</td>
-</tr><tr>
-	<th>Conforms to</th>
-	<td>PSHeaderFooterView</td>
-</tr><tr>
 	<th>Declared in</th>
-	<td>HBImageTableCell.h</td>
+	<td>NSLayoutConstraint+CompactConstraint.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -91,48 +85,19 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBImageTableCell</code> class in <code>CepheiPrefs</code> provides a simple way to
-display an image as a table cell, or a header or footer.</p>
+						<p>NSLayoutConstraint (CompactConstraint), a class category from Marco Arment’s
+<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a>
+library, is integrated with Cephei. CompactConstraint provides an Auto Layout
+grammar and methods that are easier to use and understand than UIKit’s built
+in functions for programmatically adding constraints.</p>
 
-<h3>Specifier Parameters</h3>
+<p>Refer to
+<a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a>
+to learn how to use it. There are two changes to note: most importantly, the
+methods have an <code>hb_</code> prefix, and two methods that are marked as deprecated
+in the original project have been removed.</p>
 
-<table>
-<tr>
-<th>icon</th> <td>Required. The file name of the image to display in the
-cell.</td>
-</tr>
-</table>
-
-
-<p>If you use <code>HBImageTableCell</code> as a header or footer with <code>headerCellClass</code>
-or <code>footerCellClass</code>, it will size automatically to fit the image. If you
-use it as a cell with <code>cellClass</code>, you must set the height yourself using
-the <code>height</code> key.</p>
-
-<h3>Example Usage</h3>
-
-<pre><code>&lt;!-- As a header (or footer): --&gt;
-&lt;dict&gt;
-    &lt;key&gt;cell&lt;/key&gt;
-    &lt;string&gt;PSGroupCell&lt;/string&gt;
-    &lt;key&gt;headerCellClass&lt;/key&gt;
-    &lt;string&gt;HBImageTableCell&lt;/string&gt;
-    &lt;key&gt;height&lt;/key&gt;
-    &lt;integer&gt;100&lt;/integer&gt;
-    &lt;key&gt;icon&lt;/key&gt;
-    &lt;string&gt;logo.png&lt;/string&gt;
-&lt;/dict&gt;
-
-&lt;!-- As a cell: --&gt;
-&lt;dict&gt;
-    &lt;key&gt;cellClass&lt;/key&gt;
-    &lt;string&gt;HBImageTableCell&lt;/string&gt;
-    &lt;key&gt;height&lt;/key&gt;
-    &lt;integer&gt;100&lt;/integer&gt;
-    &lt;key&gt;icon&lt;/key&gt;
-    &lt;string&gt;logo.png&lt;/string&gt;
-&lt;/dict&gt;
-</code></pre>
+<p>CompactConstraint is licensed under the MIT License.</p>
 					</div>
 					
 					

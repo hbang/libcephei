@@ -116,6 +116,8 @@
 		
 		<option value="//api/name/registerPreferenceChangeBlock:forKey:">- registerPreferenceChangeBlock:forKey:</option>
 		
+		<option value="//api/name/registerUnsignedInteger:default:forKey:">- registerUnsignedInteger:default:forKey:</option>
+		
 		<option value="//api/name/removeObjectForKey:">- removeObjectForKey:</option>
 		
 		<option value="//api/name/setBool:forKey:">- setBool:forKey:</option>
@@ -130,7 +132,13 @@
 		
 		<option value="//api/name/setObject:forKeyedSubscript:">- setObject:forKeyedSubscript:</option>
 		
+		<option value="//api/name/setUnsignedInteger:forKey:">- setUnsignedInteger:forKey:</option>
+		
 		<option value="//api/name/synchronize">- synchronize</option>
+		
+		<option value="//api/name/unsignedIntegerForKey:">- unsignedIntegerForKey:</option>
+		
+		<option value="//api/name/unsignedIntegerForKey:default:">- unsignedIntegerForKey:default:</option>
 		
 	</optgroup>
 	
@@ -173,10 +181,10 @@ user has not yet changed a value.</p>
 <p><code>HBPreferences</code> is very similar to <code>NSUserDefaults</code>, however it is
 specifically tailored to iOS tweak development, since tweaks may be loaded
 into a sandboxed app (for instance, App Store apps), or one that runs as
-the <code>root</code> user (for instance, Cydia). In both of these cases, using
-<code>NSUserDefaults</code> will result in reading from preferences inside the
-sandbox, or inside <code>root</code>&rsquo;s home directory; both of which are not what is
-expected.</p>
+the <code>root</code> user (for instance, iFile, although these apps are slowly changing
+their model so they now run as mobile). In both of these cases, using
+<code>NSUserDefaults</code> will result in reading from preferences inside the sandbox,
+or inside <code>root</code>’s home directory; both of which are not what is expected.</p>
 
 <p>Advantages <code>HBPreferences</code> has over <code>NSUserDefaults</code> are:</p>
 
@@ -187,15 +195,16 @@ directory, to support sandboxed apps and apps running as <code>root</code>.</li>
 <li>Updating of the app/tweak&rsquo;s variables when preferences are changed.</li>
 <li>Keyed subscripting is allowed, which enables simple array syntax.</li>
 <li>Values in the preferences plist are called preferences, not <a href="#//api/name/defaults">defaults</a>, to
-avoid ambiguity - <code>NSUserDefaults</code> uses &ldquo;defaults&rdquo; to refer to both
-preferences themselves and the defaults if a key doesn&rsquo;t exist.</li>
+avoid ambiguity - <code>NSUserDefaults</code> uses “defaults” to refer to both
+preferences themselves and the fallback values if a key doesn’t exist.</li>
 </ul>
 
 
-<p>Ensure you read the discussion for registerObject:default:forKey: before
-using the automatic updating mechanism. objectForKey: does not update as
-another process updates the preferences on iOS 7 or older; if you need to
-support older iOS versions, use the registration methods instead.</p>
+<p>Ensure you read the discussion for
+<a href="#//api/name/registerObject:default:forKey:">[HBPreferences registerObject:default:forKey:]</a> before using the automatic
+updating mechanism. <a href="#//api/name/objectForKey:">[HBPreferences objectForKey:]</a> does not update as another
+process updates the preferences on iOS 7 or older; if you need to support
+older iOS versions, use the registration methods instead.</p>
 
 <h3>Example usage:</h3>
 
@@ -392,6 +401,69 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 						</div>
 						
 
+						<a title="Synchronizing Preferences" name="task_Synchronizing Preferences"></a>
+						<h2 class="task-title">Synchronizing Preferences</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/synchronize" title="synchronize"></a>
+	<h3 class="method-title"><code><a href="#//api/name/synchronize">&ndash;&nbsp;synchronize</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Writes all pending changes to preference data to permanent storage, and
+reads latest preference data from permanent storage.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)synchronize</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p><code>YES</code> if synchronization was successful, <code>NO</code> if an error occurred.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Do not use this method directly unless you have a specific need.
+Synchronization is automatically invoked at periodic intervals. Use this
+method if you cannot wait for automatic synchronization (for example, if the
+process is about to exit).</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
 						<a title="Getting Preference Values" name="task_Getting Preference Values"></a>
 						<h2 class="task-title">Getting Preference Values</h2>
 
@@ -431,6 +503,129 @@ package <a href="#//api/name/identifier">identifier</a> of the tweak.</p></td>
 
 			
 
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Registering Default Preference Values" name="task_Registering Default Preference Values"></a>
+						<h2 class="task-title">Registering Default Preference Values</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/defaults" title="defaults"></a>
+	<h3 class="method-title"><code><a href="#//api/name/defaults">&nbsp;&nbsp;defaults</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The default preferences to be used when no value has been set by the user.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSMutableDictionary *defaults</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>You may modify the values of this dictionary directly.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerDefaults:" title="registerDefaults:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerDefaults:">&ndash;&nbsp;registerDefaults:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds the contents of the specified dictionary to the <a href="#//api/name/defaults">defaults</a> property.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerDefaults:(NSDictionary *)<em>defaultValues</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValues</code></th>
+						<td><p>The dictionary of keys and values you want to register.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Merges the provided dictionary with the mutable dictionary found on the
+<a href="#//api/name/defaults">defaults</a> property. Provided as a convenience for converting code from using
+<code>NSUserDefaults</code>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/defaults">@property defaults</a></p></code></li>
+					
+				</ul>
+			</div>
 			
 
 			
@@ -546,6 +741,79 @@ iOS 7 or older.</p></div>
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
 				<p>The integer value associated with the specified key.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, returns the default. If no default is set,
+returns <code>nil</code>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/objectForKey:">- objectForKey:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/unsignedIntegerForKey:" title="unsignedIntegerForKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/unsignedIntegerForKey:">&ndash;&nbsp;unsignedIntegerForKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the unsigned integer value associated with the specified key.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSUInteger)unsignedIntegerForKey:(NSString *)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The unsigned integer value associated with the specified key.</p>
 			</div>
 			
 
@@ -1011,6 +1279,80 @@ value.</p>
 		</div>
 	</div>
 </div><div class="section-method">
+	<a name="//api/name/unsignedIntegerForKey:default:" title="unsignedIntegerForKey:default:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/unsignedIntegerForKey:default:">&ndash;&nbsp;unsignedIntegerForKey:default:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns the unsigned integer value associated with the specified key, or if
+no user preference is set, the provided default.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSUInteger)unsignedIntegerForKey:(NSString *)<em>key</em> default:(NSUInteger)<em>defaultValue</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key for which to return the corresponding value.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to use when no user preference is set.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>The unsigned integer value associated with the specified key, or the
+default value.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/objectForKey:default:">- objectForKey:default:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
 	<a name="//api/name/floatForKey:default:" title="floatForKey:default:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/floatForKey:default:">&ndash;&nbsp;floatForKey:default:</a></code>
 </h3>
@@ -1391,6 +1733,79 @@ of that method for more details.</p>
 		</div>
 	</div>
 </div><div class="section-method">
+	<a name="//api/name/setUnsignedInteger:forKey:" title="setUnsignedInteger:forKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setUnsignedInteger:forKey:">&ndash;&nbsp;setUnsignedInteger:forKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Sets the value of the specified key to the specified unsigned integer value.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setUnsignedInteger:(NSUInteger)<em>value</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>value</code></th>
+						<td><p>The unsigned integer value to store in the preferences.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key with which to associate with the value.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is a convenience method that calls <a href="#//api/name/setObject:forKey:">setObject:forKey:</a>. See the discussion
+of that method for more details.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/setObject:forKey:">- setObject:forKey:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
 	<a name="//api/name/setFloat:forKey:" title="setFloat:forKey:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/setFloat:forKey:">&ndash;&nbsp;setFloat:forKey:</a></code>
 </h3>
@@ -1671,13 +2086,13 @@ of that method for more details.</p>
 						</div>
 						
 
-						<a title="Registering Default Preferences" name="task_Registering Default Preferences"></a>
-						<h2 class="task-title">Registering Default Preferences</h2>
+						<a title="Removing Preference Values" name="task_Removing Preference Values"></a>
+						<h2 class="task-title">Removing Preference Values</h2>
 
 						<div class="task-list">
 							<div class="section-method">
-	<a name="//api/name/defaults" title="defaults"></a>
-	<h3 class="method-title"><code><a href="#//api/name/defaults">&nbsp;&nbsp;defaults</a></code>
+	<a name="//api/name/removeObjectForKey:" title="removeObjectForKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeObjectForKey:">&ndash;&nbsp;removeObjectForKey:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -1687,14 +2102,26 @@ of that method for more details.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The default preferences to be used when no value has been set by the user.</p>
+				<p>Removes a given key and its associated value from the dictionary.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSMutableDictionary *defaults</code></div>
+			<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em></code></div>
 
 		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key to remove.</p></td>
+					</tr>
+				
+				</table>
+			</div>
 			
 
 			
@@ -1704,7 +2131,9 @@ of that method for more details.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>You may modify the values of this dictionary directly.</p>
+				<p>Blocks are called after HBPreferences’ cache of values is updated. The block
+will also be called immediately after calling this method. See
+<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for details on how to set up callbacks.</p>
 			</div>
 			
 
@@ -1721,7 +2150,15 @@ of that method for more details.</p>
 			
 		</div>
 	</div>
-</div><div class="section-method">
+</div>
+						</div>
+						
+
+						<a title="Registering Variables" name="task_Registering Variables"></a>
+						<h2 class="task-title">Registering Variables</h2>
+
+						<div class="task-list">
+							<div class="section-method">
 	<a name="//api/name/registerObject:default:forKey:" title="registerObject:default:forKey:"></a>
 	<h3 class="method-title"><code><a href="#//api/name/registerObject:default:forKey:">&ndash;&nbsp;registerObject:default:forKey:</a></code>
 </h3>
@@ -1840,6 +2277,85 @@ on your specifiers to achieve this:</p>
 					<tr>
 						<th scope="row" class="argument-name"><code>object</code></th>
 						<td><p>The pointer to the integer.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>defaultValue</code></th>
+						<td><p>The default value to be used if no user preference is set.</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>key</code></th>
+						<td><p>The key in the preferences property list.</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the preference is not yet set, the object will be set to the provided
+default.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="#//api/name/registerObject:default:forKey:">- registerObject:default:forKey:</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBPreferences.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/registerUnsignedInteger:default:forKey:" title="registerUnsignedInteger:default:forKey:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/registerUnsignedInteger:default:forKey:">&ndash;&nbsp;registerUnsignedInteger:default:forKey:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Register an unsigned integer value to be automatically set to the user&rsquo;s
+preference.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)registerUnsignedInteger:(NSUInteger *)<em>object</em> default:(NSUInteger)<em>defaultValue</em> forKey:(NSString *)<em>key</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>object</code></th>
+						<td><p>The pointer to the unsigned integer.</p></td>
 					</tr>
 				
 					<tr>
@@ -2125,141 +2641,6 @@ default.</p>
 			
 		</div>
 	</div>
-</div><div class="section-method">
-	<a name="//api/name/registerDefaults:" title="registerDefaults:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/registerDefaults:">&ndash;&nbsp;registerDefaults:</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Adds the contents of the specified dictionary to the <a href="#//api/name/defaults">defaults</a> property.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (void)registerDefaults:(NSDictionary *)<em>defaultValues</em></code></div>
-
-		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>defaultValues</code></th>
-						<td><p>The dictionary of keys and values you want to register.</p></td>
-					</tr>
-				
-				</table>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>Provided as a convenience for converting code from using <code>NSUserDefaults</code>.</p>
-			</div>
-			
-
-			
-
-			
-			<div class="method-subsection see-also-section">
-				<h4 class="method-subtitle">See Also</h4>
-				<ul>
-					
-					<li><code><p><a href="#//api/name/defaults">@property defaults</a></p></code></li>
-					
-				</ul>
-			</div>
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBPreferences.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div>
-						</div>
-						
-
-						<a title="Removing Preference Values" name="task_Removing Preference Values"></a>
-						<h2 class="task-title">Removing Preference Values</h2>
-
-						<div class="task-list">
-							<div class="section-method">
-	<a name="//api/name/removeObjectForKey:" title="removeObjectForKey:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/removeObjectForKey:">&ndash;&nbsp;removeObjectForKey:</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Removes a given key and its associated value from the dictionary.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (void)removeObjectForKey:(NSString *)<em>key</em></code></div>
-
-		    
-			
-			<div class="method-subsection arguments-section parameters">
-				<h4 class="method-subtitle parameter-title">Parameters</h4>
-				<table class="argument-def parameter-def">
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>key</code></th>
-						<td><p>The key to remove.</p></td>
-					</tr>
-				
-				</table>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>Blocks are called after HBPreferences’ cache of values is updated. The block
-will also be called immediately after calling this method. See
-<a href="#//api/name/registerObject:default:forKey:">registerObject:default:forKey:</a> for details on how to set up callbacks.</p>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBPreferences.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
 </div>
 						</div>
 						
@@ -2416,69 +2797,6 @@ will also be called immediately after calling this method. See
 </div>
 						</div>
 						
-
-						<a title="Synchronizing Preferences" name="task_Synchronizing Preferences"></a>
-						<h2 class="task-title">Synchronizing Preferences</h2>
-
-						<div class="task-list">
-							<div class="section-method">
-	<a name="//api/name/synchronize" title="synchronize"></a>
-	<h3 class="method-title"><code><a href="#//api/name/synchronize">&ndash;&nbsp;synchronize</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>Writes all pending changes to preference data to permanent storage, and
-reads latest preference data from permanent storage.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>- (BOOL)synchronize</code></div>
-
-		    
-			
-
-			
-			<div class="method-subsection return">
-				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p><code>YES</code> if synchronization was successful, <code>NO</code> if an error occurred.</p>
-			</div>
-			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>Do not use this method directly unless you have a specific need.
-Synchronization is automatically invoked at periodic intervals. Use this
-method if you cannot wait for automatic synchronization (for example, if the
-process is about to exit).</p>
-			</div>
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBPreferences.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div>
-						</div>
-						
 					</div>
 					
 					
@@ -2489,7 +2807,7 @@ process is about to exit).</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-12-08</p>
+						<p class="copyright">Copyright &copy; 2015 HASHBANG Productions. All rights reserved. Updated: 2015-12-12</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
