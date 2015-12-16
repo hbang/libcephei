@@ -5,10 +5,14 @@
 
 UIStatusBarStyle previousStatusBarStyle = -1;
 BOOL changedStatusBarStyle = NO;
+BOOL changedTranslucentNavigationBar = NO;
 
 @class HBRootListController;
 
-@implementation HBListController
+@implementation HBListController {
+	UIColor *tableViewCellTextColor;
+	UIColor *tableViewCellBackgroundColor;
+}
 
 #pragma mark - Constants
 
@@ -25,6 +29,26 @@ BOOL changedStatusBarStyle = NO;
 }
 
 + (BOOL)hb_invertedNavigationBar {
+	return NO;
+}
+
++ (UIColor *)hb_tableViewCellTextColor {
+	return nil;
+}
+
++ (UIColor *)hb_tableViewCellBackgroundColor {
+	return nil;
+}
+
++ (UIColor *)hb_tableViewCellSeparatorColor {
+	return nil;
+}
+
++ (UIColor *)hb_tableViewBackgroundColor {
+	return nil;
+}
+
++ (BOOL)hb_translucentNavigationBar {
 	return NO;
 }
 
@@ -64,30 +88,63 @@ BOOL changedStatusBarStyle = NO;
 
 	UIColor *tintColor = nil;
 
+	BOOL changeStatusBar = NO;
+
+	UIColor *tableViewCellSeparatorColor = nil;
+	UIColor *tableViewBackgroundColor = nil;
+
 	// enumerate backwards over the navigation stack
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
 		// if we have a tint color, grab it and stop there
 		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 			tintColor = [viewController.class hb_tintColor];
-			break;
 		}
+
+		// if we have a YES hb_translucentNavigationBar value, grab it and stop there
+		if ([viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)] && [viewController.class hb_translucentNavigationBar]) {
+			changedTranslucentNavigationBar = YES;
+		}
+
+		// if we have a YES hb_invertedNavigationBar value, grab it and stop there
+		if ([viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
+			changeStatusBar = YES;
+		}
+
+		if (!tableViewCellTextColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellTextColor)] && [viewController.class hb_tableViewCellTextColor]) {
+			tableViewCellTextColor = [viewController.class hb_tableViewCellTextColor];
+		}
+
+		if (!tableViewCellBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellBackgroundColor)] && [viewController.class hb_tableViewCellBackgroundColor]) {
+			tableViewCellBackgroundColor = [viewController.class hb_tableViewCellBackgroundColor];
+		}
+
+		if (!tableViewCellSeparatorColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSeparatorColor)] && [viewController.class hb_tableViewCellSeparatorColor]) {
+			tableViewCellSeparatorColor = [viewController.class hb_tableViewCellSeparatorColor];
+		}
+
+		if (!tableViewBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewBackgroundColor)] && [viewController.class hb_tableViewBackgroundColor]) {
+			tableViewBackgroundColor = [viewController.class hb_tableViewBackgroundColor];
+		}
+	}
+
+	if (tableViewCellSeparatorColor) {
+		self.table.separatorColor = tableViewCellSeparatorColor;
+	}
+
+	if (tableViewBackgroundColor) {
+		self.table.backgroundColor = tableViewBackgroundColor;
+	}
+
+	if (changedTranslucentNavigationBar) {
+		self.realNavigationController.navigationBar.translucent = NO;
+
+		self.edgesForExtendedLayout = UIRectEdgeNone;
 	}
 
 	// if we have a tint color, apply it
 	if (tintColor) {
 		self.view.tintColor = tintColor;
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
-	}
-
-	BOOL changeStatusBar = NO;
-
-	// enumerate the stack *again*
-	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		// if we have a YES hb_invertedNavigationBar value, grab it and stop there
-		if ([viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
-			changeStatusBar = YES;
-			break;
-		}
 	}
 
 	// if the status bar is about to change to something custom, or we don’t
@@ -115,6 +172,12 @@ BOOL changedStatusBarStyle = NO;
 	// set the status bar style accordingly
 	if (changedStatusBarStyle) {
 		[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
+	}
+
+	if (changedTranslucentNavigationBar) {
+		self.realNavigationController.navigationBar.translucent = YES;
+
+		self.edgesForExtendedLayout = UIRectEdgeAll;
 	}
 }
 
@@ -144,6 +207,20 @@ BOOL changedStatusBarStyle = NO;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+	if (tableViewCellTextColor) {
+		cell.textLabel.textColor = tableViewCellTextColor;
+	}
+
+	if (tableViewCellBackgroundColor) {
+		cell.backgroundColor = tableViewCellBackgroundColor;
+	}
+
+	return cell;
 }
 
 @end

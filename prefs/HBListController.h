@@ -69,6 +69,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)hb_invertedNavigationBar;
 
+// TODO: document this
+
++ (BOOL)hb_translucentNavigationBar;
+
++ (UIColor *)hb_tableViewCellTextColor;
+
++ (UIColor *)hb_tableViewCellBackgroundColor;
+
++ (UIColor *)hb_tableViewCellSeparatorColor;
+
++ (UIColor *)hb_tableViewBackgroundColor;
 
 /**
  * @name Related View Controllers
