@@ -96,7 +96,7 @@ BOOL changedTranslucentNavigationBar = NO;
 	// enumerate backwards over the navigation stack
 	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
 		// if we have a tint color, grab it and stop there
-		if ([viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
+		if (!tintColor && [viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
 			tintColor = [viewController.class hb_tintColor];
 		}
 
