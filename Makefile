@@ -11,7 +11,7 @@ Cephei_CFLAGS = -include Global.h
 CompactConstraint/NSLayoutConstraint+CompactConstraint.m_CFLAGS = -fobjc-arc
 CompactConstraint/UIView+CompactConstraint.m_CFLAGS = -fobjc-arc
 
-SUBPROJECTS = prefs
+SUBPROJECTS = prefs containersupport
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
@@ -28,7 +28,7 @@ after-Cephei-all::
 
 after-Cephei-stage::
 	# create directories
-	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib}
+	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN
 
 	# libhbangcommon.dylib -> libcephei.dylib
 	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
@@ -38,6 +38,10 @@ after-Cephei-stage::
 
 	# Cephei -> Cephei.framework/Headers
 	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
+
+	# postinst -> DEBIAN/post{inst,rm}
+	cp postinst $(THEOS_STAGING_DIR)/DEBIAN
+	cp postinst $(THEOS_STAGING_DIR)/DEBIAN/postrm
 
 after-install::
 ifeq ($(RESPRING),0)
