@@ -7,6 +7,10 @@
 	<string>Про нас</string>
 	<key>CREDITS</key>
 	<string>Подяка</string>
+	<key>GENERAL</key>
+	<string>Загальні</string>
+	<key>SUPPORT</key>
+	<string>Служба підтримки</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

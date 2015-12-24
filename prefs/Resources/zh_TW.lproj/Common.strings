@@ -7,6 +7,10 @@
 	<string>關於</string>
 	<key>CREDITS</key>
 	<string>參與人員</string>
+	<key>GENERAL</key>
+	<string>一般</string>
+	<key>SUPPORT</key>
+	<string>支援</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

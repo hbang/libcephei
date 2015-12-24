@@ -7,6 +7,10 @@
 	<string>के बारे में</string>
 	<key>CREDITS</key>
 	<string>क्रेडिट्स</string>
+	<key>GENERAL</key>
+	<string>सामान्य</string>
+	<key>SUPPORT</key>
+	<string>समर्थन</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

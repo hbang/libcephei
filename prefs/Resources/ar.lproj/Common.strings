@@ -7,6 +7,10 @@
 	<string>حول</string>
 	<key>CREDITS</key>
 	<string>الشُكر والتقدير</string>
+	<key>GENERAL</key>
+	<string>عام</string>
+	<key>SUPPORT</key>
+	<string>الدعم</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

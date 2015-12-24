@@ -7,6 +7,10 @@
 	<string>정보</string>
 	<key>CREDITS</key>
 	<string>제작진</string>
+	<key>GENERAL</key>
+	<string>일반</string>
+	<key>SUPPORT</key>
+	<string>문의</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

@@ -7,6 +7,10 @@
 	<string>Over</string>
 	<key>CREDITS</key>
 	<string>Credits</string>
+	<key>GENERAL</key>
+	<string>Algemeen</string>
+	<key>SUPPORT</key>
+	<string>Ondersteuning</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

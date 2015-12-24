@@ -7,6 +7,10 @@
 	<string>O aplikaci</string>
 	<key>CREDITS</key>
 	<string>Podìkování</string>
+	<key>GENERAL</key>
+	<string>Obecné</string>
+	<key>SUPPORT</key>
+	<string>Podpora</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

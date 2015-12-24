@@ -7,6 +7,10 @@
 	<string>เกี่ยวกับ</string>
 	<key>CREDITS</key>
 	<string>เครดิต</string>
+	<key>GENERAL</key>
+	<string>ทั่วไป</string>
+	<key>SUPPORT</key>
+	<string>การช่วยเหลือ</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

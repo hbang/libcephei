@@ -7,6 +7,10 @@
 	<string>אודות</string>
 	<key>CREDITS</key>
 	<string>קרדיטים</string>
+	<key>GENERAL</key>
+	<string>כללי</string>
+	<key>SUPPORT</key>
+	<string>תמיכה</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

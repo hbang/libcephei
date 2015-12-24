@@ -7,6 +7,10 @@
 	<string>Despre</string>
 	<key>CREDITS</key>
 	<string>Credite</string>
+	<key>GENERAL</key>
+	<string>General</string>
+	<key>SUPPORT</key>
+	<string>Suport</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

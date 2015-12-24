@@ -7,6 +7,10 @@
 	<string>O Nama</string>
 	<key>CREDITS</key>
 	<string>Zasluge</string>
+	<key>GENERAL</key>
+	<string>Općenito</string>
+	<key>SUPPORT</key>
+	<string>Podrška</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

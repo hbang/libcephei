@@ -7,6 +7,10 @@
 	<string>Om</string>
 	<key>CREDITS</key>
 	<string>Medverkande</string>
+	<key>GENERAL</key>
+	<string>Allmänt</string>
+	<key>SUPPORT</key>
+	<string>Support</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

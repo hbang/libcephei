@@ -7,6 +7,10 @@
 	<string>Về cái tweak này</string>
 	<key>CREDITS</key>
 	<string>Khen Ngợi</string>
+	<key>GENERAL</key>
+	<string>Cài đặt chung</string>
+	<key>SUPPORT</key>
+	<string>Hỗ Trợ</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

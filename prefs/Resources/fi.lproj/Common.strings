@@ -7,6 +7,10 @@
 	<string>Tietoja</string>
 	<key>CREDITS</key>
 	<string>Kiitokset</string>
+	<key>GENERAL</key>
+	<string>Yleiset</string>
+	<key>SUPPORT</key>
+	<string>Tuki</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

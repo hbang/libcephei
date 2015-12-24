@@ -7,6 +7,10 @@
 	<string>O</string>
 	<key>CREDITS</key>
 	<string>Credits</string>
+	<key>GENERAL</key>
+	<string>Všeobecné</string>
+	<key>SUPPORT</key>
+	<string>Podpora</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

@@ -7,6 +7,10 @@
 	<string>关于</string>
 	<key>CREDITS</key>
 	<string>参予人员</string>
+	<key>GENERAL</key>
+	<string>通用</string>
+	<key>SUPPORT</key>
+	<string>支援</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

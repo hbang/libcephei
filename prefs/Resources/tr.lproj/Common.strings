@@ -7,6 +7,10 @@
 	<string>Hakkında</string>
 	<key>CREDITS</key>
 	<string>Katkıda Bulunanlar</string>
+	<key>GENERAL</key>
+	<string>Genel</string>
+	<key>SUPPORT</key>
+	<string>Destek</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>
