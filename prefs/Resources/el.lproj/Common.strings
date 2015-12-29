@@ -7,6 +7,10 @@
 	<string>Σχετικά</string>
 	<key>CREDITS</key>
 	<string>Έπαινοι</string>
+	<key>GENERAL</key>
+	<string>Γενικά</string>
+	<key>SUPPORT</key>
+	<string>Υποστήριξη</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>
