@@ -7,6 +7,10 @@
 	<string>Sobre</string>
 	<key>CREDITS</key>
 	<string>Créditos</string>
+	<key>GENERAL</key>
+	<string>Geral</string>
+	<key>SUPPORT</key>
+	<string>Suporte</string>
 
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>

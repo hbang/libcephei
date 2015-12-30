@@ -7,6 +7,10 @@
     <string>О программе</string>
     <key>CREDITS</key>
     <string>Титры</string>
+    <key>GENERAL</key>
+    <string>Основные</string>
+    <key>SUPPORT</key>
+    <string>поддержка</string>
 
     <!-- Label for switch to enable or disable the tweak. -->
     <key>ENABLED</key>
