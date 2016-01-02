@@ -5,7 +5,7 @@
 
 UIStatusBarStyle previousStatusBarStyle = -1;
 BOOL changedStatusBarStyle = NO;
-BOOL changedTranslucentNavigationBar = NO;
+BOOL translucentNavigationBar = YES;
 
 @class HBRootListController;
 
@@ -49,7 +49,7 @@ BOOL changedTranslucentNavigationBar = NO;
 }
 
 + (BOOL)hb_translucentNavigationBar {
-	return NO;
+	return YES;
 }
 
 #pragma mark - Loading specifiers
@@ -83,8 +83,8 @@ BOOL changedTranslucentNavigationBar = NO;
 	return self;
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 
 	UIColor *tintColor = nil;
 
@@ -100,9 +100,9 @@ BOOL changedTranslucentNavigationBar = NO;
 			tintColor = [viewController.class hb_tintColor];
 		}
 
-		// if we have a YES hb_translucentNavigationBar value, grab it and stop there
-		if ([viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)] && [viewController.class hb_translucentNavigationBar]) {
-			changedTranslucentNavigationBar = YES;
+		// if we have a hb_translucentNavigationBar value, grab it
+		if (translucentNavigationBar && [viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)]) {
+			translucentNavigationBar = [viewController.class hb_translucentNavigationBar];
 		}
 
 		// if we have a YES hb_invertedNavigationBar value, grab it and stop there
@@ -135,11 +135,8 @@ BOOL changedTranslucentNavigationBar = NO;
 		self.table.backgroundColor = tableViewBackgroundColor;
 	}
 
-	if (changedTranslucentNavigationBar) {
-		self.realNavigationController.navigationBar.translucent = NO;
-
-		self.edgesForExtendedLayout = UIRectEdgeNone;
-	}
+	self.realNavigationController.navigationBar.translucent = translucentNavigationBar;
+	self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
 
 	// if we have a tint color, apply it
 	if (tintColor) {
@@ -149,19 +146,10 @@ BOOL changedTranslucentNavigationBar = NO;
 
 	// if the status bar is about to change to something custom, or we don’t
 	// already know the previous status bar style, set it here
-	if (changeStatusBar || previousStatusBarStyle == (UIStatusBarStyle)-1) {
-		previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-	}
-
-	// this will come in handy for later
-	changedStatusBarStyle = changeStatusBar;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+	previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
 
 	// set the status bar style accordingly
-	if (changedStatusBarStyle) {
+	if (changeStatusBar) {
 		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 	}
 }
@@ -169,14 +157,10 @@ BOOL changedTranslucentNavigationBar = NO;
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
-	// set the status bar style accordingly
-	if (changedStatusBarStyle) {
-		[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
-	}
+	[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
 
-	if (changedTranslucentNavigationBar) {
+	if (!translucentNavigationBar) {
 		self.realNavigationController.navigationBar.translucent = YES;
-
 		self.edgesForExtendedLayout = UIRectEdgeAll;
 	}
 }
