@@ -101,8 +101,8 @@ BOOL translucentNavigationBar = YES;
 		}
 
 		// if we have a hb_translucentNavigationBar value, grab it
-		if (translucentNavigationBar && [viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)]) {
-			translucentNavigationBar = [viewController.class hb_translucentNavigationBar];
+		if ([viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)] && ![viewController.class hb_translucentNavigationBar]) {
+			translucentNavigationBar = NO;
 		}
 
 		// if we have a YES hb_invertedNavigationBar value, grab it and stop there
