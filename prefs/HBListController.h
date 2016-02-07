@@ -79,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIColor *)hb_tableViewCellSeparatorColor;
 
++ (UIColor *)hb_tableViewCellSelectionColor;
+
 + (UIColor *)hb_tableViewBackgroundColor;
 
 /**

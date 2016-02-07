@@ -12,6 +12,7 @@ BOOL translucentNavigationBar = YES;
 @implementation HBListController {
 	UIColor *tableViewCellTextColor;
 	UIColor *tableViewCellBackgroundColor;
+	UIColor *tableViewCellSelectionColor;
 }
 
 #pragma mark - Constants
@@ -41,6 +42,10 @@ BOOL translucentNavigationBar = YES;
 }
 
 + (UIColor *)hb_tableViewCellSeparatorColor {
+	return nil;
+}
+
++ (UIColor *)hb_tableViewCellSelectionColor {
 	return nil;
 }
 
@@ -122,6 +127,10 @@ BOOL translucentNavigationBar = YES;
 			tableViewCellSeparatorColor = [viewController.class hb_tableViewCellSeparatorColor];
 		}
 
+		if (!tableViewCellSelectionColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSelectionColor)] && [viewController.class hb_tableViewCellSelectionColor]) {
+			tableViewCellSelectionColor = [viewController.class hb_tableViewCellSelectionColor];
+		}
+
 		if (!tableViewBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewBackgroundColor)] && [viewController.class hb_tableViewBackgroundColor]) {
 			tableViewBackgroundColor = [viewController.class hb_tableViewBackgroundColor];
 		}
@@ -195,6 +204,12 @@ BOOL translucentNavigationBar = YES;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+	if (tableViewCellSelectionColor) {
+		UIView *selectionView = [[UIView alloc] init];
+		selectionView.backgroundColor = tableViewCellSelectionColor;
+		cell.selectedBackgroundView = selectionView;
+	}
 
 	if (tableViewCellTextColor) {
 		cell.textLabel.textColor = tableViewCellTextColor;
