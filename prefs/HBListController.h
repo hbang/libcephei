@@ -69,17 +69,59 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)hb_invertedNavigationBar;
 
-// TODO: document this
+/**
+ * Whether to use a translucent navigation bar. Override this method if you want
+ * this behavior.
+ *
+ * @returns By default, YES.
+ */
 
 + (BOOL)hb_translucentNavigationBar;
 
+/**
+ * The color to be used for the text color of table view cells.
+ * Override this method to return a UIColor to use.
+ *
+ * @returns By default, nil.
+ */
+
 + (UIColor *)hb_tableViewCellTextColor;
+
+/**
+ * The color to be used for the background color of table view cells.
+ * Override this method to return a UIColor to use.
+ *
+ * @returns By default, nil.
+ */
 
 + (UIColor *)hb_tableViewCellBackgroundColor;
 
+/**
+ * The color to be used for the separator between table view cells.
+ * Override this method to return a UIColor to use.
+ *
+ * @returns By default, nil.
+ */
+
 + (UIColor *)hb_tableViewCellSeparatorColor;
 
+/**
+ * The color to be used when a table view cell is selected.
+ * This color will be shown when the cell is in the 'highlighted' state.
+ *
+ * Override this method to return a UIColor to use.
+ *
+ * @returns By default, nil.
+ */
+
 + (UIColor *)hb_tableViewCellSelectionColor;
+
+/**
+ * The color to be used for the overall background of the table view.
+ * Override this method to return a UIColor to use.
+ *
+ * @returns By default, nil.
+ */
 
 + (UIColor *)hb_tableViewBackgroundColor;
 
