@@ -1,0 +1,3 @@
+#!/bin/bash
+# restart installd so container support is (re)loaded
+launchctl stop com.apple.mobile.installd

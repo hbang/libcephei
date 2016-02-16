@@ -1,2 +1,18 @@
 #!/bin/bash
+# restart installd so container support is (re)loaded
 launchctl stop com.apple.mobile.installd
+
+# due to some sort of unfortunate permission error created by an older build of
+# cephei, and dpkg not really fixing them, we need to fix this ourselves
+paths=(
+	"/Library/Frameworks/Cephei{,Prefs}.framework"
+	"/Library/PreferenceBundles/Cephei.bundle"
+)
+
+chown -R root:wheel ${paths[@]}
+
+# and this somehow became a directory instead of a symlink
+if [[ -d /Library/PreferenceBundles/Cephei.bundle ]]; then
+	rm -r /Library/PreferenceBundles/Cephei.bundle
+	ln -s /Library/Frameworks/CepheiPrefs.framework /Library/PreferenceBundles/Cephei.bundle
+fi

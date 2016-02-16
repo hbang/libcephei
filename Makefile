@@ -40,8 +40,7 @@ after-Cephei-stage::
 	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
 
 	# postinst -> DEBIAN/post{inst,rm}
-	cp postinst $(THEOS_STAGING_DIR)/DEBIAN
-	cp postinst $(THEOS_STAGING_DIR)/DEBIAN/postrm
+	cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN
 
 after-install::
 ifeq ($(RESPRING),0)
