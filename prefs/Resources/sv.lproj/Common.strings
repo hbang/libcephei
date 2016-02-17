@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Aktiverad</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Av</string>
+	<key>ON</key>
+	<string>På</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Besök webbsidan</string>

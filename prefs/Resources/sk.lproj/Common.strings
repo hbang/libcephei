@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Povolené</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Vyp.</string>
+	<key>ON</key>
+	<string>Zap.</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Navšíviť stránku</string>

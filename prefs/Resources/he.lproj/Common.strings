@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>מופעל</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>כבוי</string>
+	<key>ON</key>
+	<string>פעיל</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>בקר/י באתר</string>

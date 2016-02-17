@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>เปิด</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>ปิดอยู่</string>
+	<key>ON</key>
+	<string>เปิดอยู่</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>ชมเว็บไซต์</string>

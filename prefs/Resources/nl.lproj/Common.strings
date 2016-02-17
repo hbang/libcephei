@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Ingeschakeld</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Uit</string>
+	<key>ON</key>
+	<string>Aan</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Bezoek website</string>

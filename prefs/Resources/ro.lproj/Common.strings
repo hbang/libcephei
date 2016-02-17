@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Activat</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Dezactivat</string>
+	<key>ON</key>
+	<string>Activat</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Viziteaza Website</string>

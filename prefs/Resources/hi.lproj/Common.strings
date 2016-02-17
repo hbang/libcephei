@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>सक्षम किया</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>बंद</string>
+	<key>ON</key>
+	<string>चालू</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>बेवसाइट देखना</string>

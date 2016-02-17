@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>تشغيل</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>إيقاف</string>
+	<key>ON</key>
+	<string>تشغيل</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>زيارة موقعنا</string>

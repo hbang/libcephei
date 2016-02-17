@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>激活</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>关闭</string>
+	<key>ON</key>
+	<string>打开</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>访问网站</string>

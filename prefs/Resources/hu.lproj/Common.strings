@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Engedélyezés</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Ki</string>
+	<key>ON</key>
+	<string>Be</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Weboldal megtekintése</string>

@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Päällä</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Pois</string>
+	<key>ON</key>
+	<string>Päällä</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Vieraile verkkosivulla</string>
