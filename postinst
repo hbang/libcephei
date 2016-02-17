@@ -5,7 +5,8 @@ launchctl stop com.apple.mobile.installd
 # due to some sort of unfortunate permission error created by an older build of
 # cephei, and dpkg not really fixing them, we need to fix this ourselves
 paths=(
-	"/Library/Frameworks/Cephei{,Prefs}.framework"
+	"/Library/Frameworks/Cephei.framework"
+	"/Library/Frameworks/CepheiPrefs.framework"
 	"/Library/PreferenceBundles/Cephei.bundle"
 )
 
