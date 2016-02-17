@@ -10,9 +10,9 @@ BOOL translucentNavigationBar = YES;
 @class HBRootListController;
 
 @implementation HBListController {
-	UIColor *tableViewCellTextColor;
-	UIColor *tableViewCellBackgroundColor;
-	UIColor *tableViewCellSelectionColor;
+	UIColor *_tableViewCellTextColor;
+	UIColor *_tableViewCellBackgroundColor;
+	UIColor *_tableViewCellSelectionColor;
 }
 
 #pragma mark - Constants
@@ -115,23 +115,23 @@ BOOL translucentNavigationBar = YES;
 			changeStatusBar = YES;
 		}
 
-		if (!tableViewCellTextColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellTextColor)] && [viewController.class hb_tableViewCellTextColor]) {
-			tableViewCellTextColor = [viewController.class hb_tableViewCellTextColor];
+		if (!_tableViewCellTextColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellTextColor)] && [viewController.class hb_tableViewCellTextColor]) {
+			_tableViewCellTextColor = [viewController.class hb_tableViewCellTextColor];
 		}
 
-		if (!tableViewCellBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellBackgroundColor)] && [viewController.class hb_tableViewCellBackgroundColor]) {
-			tableViewCellBackgroundColor = [viewController.class hb_tableViewCellBackgroundColor];
+		if (!_tableViewCellBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellBackgroundColor)] && [viewController.class hb_tableViewCellBackgroundColor]) {
+			_tableViewCellBackgroundColor = [viewController.class hb_tableViewCellBackgroundColor];
 		}
 
-		if (!tableViewCellSeparatorColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSeparatorColor)] && [viewController.class hb_tableViewCellSeparatorColor]) {
+		if (!_tableViewCellSelectionColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSelectionColor)] && [viewController.class hb_tableViewCellSelectionColor]) {
+			_tableViewCellSelectionColor = [viewController.class hb_tableViewCellSelectionColor];
+		}
+
+		if ([viewController.class respondsToSelector:@selector(hb_tableViewCellSeparatorColor)] && [viewController.class hb_tableViewCellSeparatorColor]) {
 			tableViewCellSeparatorColor = [viewController.class hb_tableViewCellSeparatorColor];
 		}
 
-		if (!tableViewCellSelectionColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSelectionColor)] && [viewController.class hb_tableViewCellSelectionColor]) {
-			tableViewCellSelectionColor = [viewController.class hb_tableViewCellSelectionColor];
-		}
-
-		if (!tableViewBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewBackgroundColor)] && [viewController.class hb_tableViewBackgroundColor]) {
+		if ([viewController.class respondsToSelector:@selector(hb_tableViewBackgroundColor)] && [viewController.class hb_tableViewBackgroundColor]) {
 			tableViewBackgroundColor = [viewController.class hb_tableViewBackgroundColor];
 		}
 	}
@@ -205,21 +205,31 @@ BOOL translucentNavigationBar = YES;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-	if (tableViewCellSelectionColor) {
-		UIView *selectionView = [[UIView alloc] init];
-		selectionView.backgroundColor = tableViewCellSelectionColor;
+	if (_tableViewCellSelectionColor) {
+		UIView *selectionView = [[[UIView alloc] init] autorelease];
+		selectionView.backgroundColor = _tableViewCellSelectionColor;
 		cell.selectedBackgroundView = selectionView;
 	}
 
-	if (tableViewCellTextColor) {
-		cell.textLabel.textColor = tableViewCellTextColor;
+	if (_tableViewCellTextColor) {
+		cell.textLabel.textColor = _tableViewCellTextColor;
 	}
 
-	if (tableViewCellBackgroundColor) {
-		cell.backgroundColor = tableViewCellBackgroundColor;
+	if (_tableViewCellBackgroundColor) {
+		cell.backgroundColor = _tableViewCellBackgroundColor;
 	}
 
 	return cell;
+}
+
+#pragma mark - Memory management
+
+- (void)dealloc {
+	[_tableViewCellTextColor release];
+	[_tableViewCellBackgroundColor release];
+	[_tableViewCellSelectionColor release];
+
+	[super dealloc];
 }
 
 @end
