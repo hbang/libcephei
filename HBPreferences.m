@@ -74,9 +74,12 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 		KnownIdentifiers[_identifier] = self;
 
-		notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, NULL, dispatch_get_main_queue(), ^(int t) {
+		int notifyToken;
+		notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &notifyToken, dispatch_get_main_queue(), ^(int token) {
 			HBLogDebug(@"received change notification - reloading preferences");
 
+			// TODO: we reload all preferences, rather than just the prefs affected
+			// which is horribly inefficient
 			for (NSString *key in KnownIdentifiers) {
 				[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
 			}
