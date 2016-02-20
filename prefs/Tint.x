@@ -1,13 +1,11 @@
+#import "HBAppearanceSettings.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UINavigationBar+Private.h>
 #import <version.h>
 
 @interface UINavigationBar (HBTintAdditions)
 
-@property (nonatomic, copy) UIColor *hb_tintColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarTintColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarTextColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarBackgroundColor;
+@property (nonatomic, copy) HBAppearanceSettings *hb_appearanceSettings;
 
 - (void)_hb_updateTintColorsAnimated:(BOOL)animated;
 
@@ -17,10 +15,7 @@ BOOL animateBarTintColor = NO;
 
 %hook UINavigationBar
 
-%property (nonatomic, copy) UIColor *hb_tintColor;
-%property (nonatomic, copy) UIColor *hb_navigationBarTintColor;
-%property (nonatomic, copy) UIColor *hb_navigationBarTextColor;
-%property (nonatomic, copy) UIColor *hb_navigationBarBackgroundColor;
+%property (nonatomic, copy) HBAppearanceSettings *hb_appearanceSettings;
 
 #pragma mark - Tint color
 
@@ -57,59 +52,52 @@ BOOL animateBarTintColor = NO;
 %end
 
 - (UIColor *)_titleTextColor {
-	return self.hb_navigationBarTextColor ?: %orig;
+	// if the navigation bar is inverted then we use white, otherwise fallback to
+	// orig
+	return self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : %orig;
 }
 
-/*
- If needed, and possible, runs through every navigation item on the current
- navigation stack, pulling the libcephei tintColor from the previous
- HBListController.
-*/
 %new - (void)_hb_updateTintColorsAnimated:(BOOL)animated {
-	[self.hb_tintColor release];
-	self.hb_tintColor = nil;
-	[self.hb_navigationBarTintColor release];
-	self.hb_navigationBarTintColor = nil;
-	[self.hb_navigationBarTextColor release];
-	self.hb_navigationBarTextColor = nil;
-	[self.hb_navigationBarBackgroundColor release];
-	self.hb_navigationBarBackgroundColor = nil;
+	// get rid of the previous appearance settings
+	[self.hb_appearanceSettings release];
 
-	NSArray *items = self.navigationItems;
+	// get the appearance settings from the top item on the stack. if it’s nil,
+	// use a standard HBAppearanceSettings with the defaults
+	HBAppearanceSettings *appearanceSettings = ((UINavigationItem *)self.navigationItems.lastObject).hb_appearanceSettings ?: [[HBAppearanceSettings alloc] init];
 
-	if (items.count == 0) {
-		return;
+	// set it on ourselves in case other things need it
+	self.hb_appearanceSettings = appearanceSettings;
+
+	UIColor *backgroundColor = nil;
+
+	// if the navigation bar is inverted
+	if (appearanceSettings.invertedNavigationBar) {
+		// use a shade of grey for tint color
+		self.tintColor = [UIColor colorWithWhite:247.f / 255.f alpha:1];
+
+		// we also want the background color to be the navigation bar tint color or
+		// standard tint color if that’s nil
+		backgroundColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
+	} else {
+		// try the navigation bar tint color. if nil, use the standard tint color
+		// (which could also be nil)
+		self.tintColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
 	}
-
-	for (UINavigationItem *item in items.reverseObjectEnumerator) {
-		if (item.hb_tintColor) {
-			self.hb_tintColor = [item.hb_tintColor copy];
-			self.hb_navigationBarTintColor = [item.hb_navigationBarTintColor copy];
-			self.hb_navigationBarTextColor = [item.hb_navigationBarTextColor copy];
-			self.hb_navigationBarBackgroundColor = [item.hb_navigationBarBackgroundColor copy];
-
-			break;
-		}
-	}
-
-	self.tintColor = self.hb_navigationBarTintColor;
 
 	// if we have a custom tint color, or we no longer have a custom tint color,
 	// but one is currently set, and it should be animated, ask for it to be
-	if ((self.hb_navigationBarBackgroundColor || self.barTintColor) && animated) {
+	if ((backgroundColor || self.barTintColor) && animated) {
 		animateBarTintColor = YES;
 	}
 
-	self.barTintColor = self.hb_navigationBarBackgroundColor;
+	// set the bar tint color
+	self.barTintColor = backgroundColor;
 }
 
 #pragma mark - Memory management
 
 - (void)dealloc {
-	[self.hb_tintColor release];
-	[self.hb_navigationBarTintColor release];
-	[self.hb_navigationBarTextColor release];
-	[self.hb_navigationBarBackgroundColor release];
+	[self.hb_appearanceSettings release];
 
 	%orig;
 }
@@ -137,7 +125,7 @@ BOOL animateBarTintColor = NO;
 #pragma mark - Constructor
 
 %ctor {
-	// this entire thing isn't particularly useful if the OS doesn't support it
+	// this entire thing isn't particularly useful if the OS doesn’t support it
 	if (IS_MODERN) {
 		%init;
 	}

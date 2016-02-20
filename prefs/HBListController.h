@@ -10,8 +10,8 @@
  * a cell may stay highlighted after being tapped.
  *
  * It includes two class methods you can override to return the name of a
- * Preferences specifier property list, and a tint color for the interactable
- * elements within the list controller.
+ * Preferences specifier property list, and various methods to set custom colors
+ * in the list controller interface.
  */
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HBListController : PSListController
 
 /**
- * @name Constants
+ * @name Specifiers
  */
 
 /**
@@ -37,12 +37,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSString *)hb_specifierPlist;
 
 /**
+ * @name Colors
+ */
+
+/**
  * The tint color to use for interactable elements within the list controller.
  * Override this method to return a UIColor to use.
  *
- * A nil value will cause no modification of the tint to occur.
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
 + (nullable UIColor *)hb_tintColor;
 
@@ -52,9 +62,15 @@ NS_ASSUME_NONNULL_BEGIN
  * Override this method to return a UIColor to use, if you don’t want to use the
  * same color as hb_tintColor.
  *
- * A nil value will cause no modification of the navigation bar tint to occur.
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, the return value of hb_tintColor.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
 + (nullable UIColor *)hb_navigationBarTintColor;
 
@@ -65,7 +81,15 @@ NS_ASSUME_NONNULL_BEGIN
  * An inverted navigation bar has a tinted background, rather than the buttons
  * being tinted. All other interface elements will be tinted the same.
  *
+ * A NO value will cause prior view controllers on the stack to be consulted for
+ * a value. If a value is found, that will be used.
+ *
  * @returns By default, NO.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
 + (BOOL)hb_invertedNavigationBar;
 
@@ -73,57 +97,97 @@ NS_ASSUME_NONNULL_BEGIN
  * Whether to use a translucent navigation bar. Override this method if you want
  * this behavior.
  *
+ * A NO value will cause prior view controllers on the stack to be consulted for
+ * a value. If a value is found, that will be used.
+ *
  * @returns By default, YES.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
-
 + (BOOL)hb_translucentNavigationBar;
 
 /**
- * The color to be used for the text color of table view cells.
- * Override this method to return a UIColor to use.
+ * The color to be used for the overall background of the table view. Override
+ * this method to return a UIColor to use.
+ *
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
++ (UIColor *)hb_tableViewBackgroundColor;
 
+/**
+ * The color to be used for the text color of table view cells. Override this
+ * method to return a UIColor to use.
+ *
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
+ *
+ * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
+ */
 + (UIColor *)hb_tableViewCellTextColor;
 
 /**
- * The color to be used for the background color of table view cells.
- * Override this method to return a UIColor to use.
+ * The color to be used for the background color of table view cells. Override
+ * this method to return a UIColor to use.
+ *
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
-
 + (UIColor *)hb_tableViewCellBackgroundColor;
 
 /**
- * The color to be used for the separator between table view cells.
- * Override this method to return a UIColor to use.
+ * The color to be used for the separator between table view cells. Override
+ * this method to return a UIColor to use.
+ *
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
-
 + (UIColor *)hb_tableViewCellSeparatorColor;
 
 /**
- * The color to be used when a table view cell is selected.
- * This color will be shown when the cell is in the 'highlighted' state.
+ * The color to be used when a table view cell is selected. This color will be
+ * used when the cell is in the 'highlighted' state.
  *
- * Override this method to return a UIColor to use.
+ * A nil value will cause prior view controllers on the stack to be consulted
+ * for a value. If a value is found, that will be used.
  *
  * @returns By default, nil.
+ * @warning Appearance methods on HBListController are deprecated. Use of these
+ * methods will result in a warning being logged. Additionally, if any of these
+ * methods return nil, previous view controllers on the stack are consulted.
+ * This can cause an undesired mix of color schemes. It is advised to switch to
+ * using HBAppearanceSettings.
  */
-
 + (UIColor *)hb_tableViewCellSelectionColor;
-
-/**
- * The color to be used for the overall background of the table view.
- * Override this method to return a UIColor to use.
- *
- * @returns By default, nil.
- */
-
-+ (UIColor *)hb_tableViewBackgroundColor;
 
 /**
  * @name Related View Controllers

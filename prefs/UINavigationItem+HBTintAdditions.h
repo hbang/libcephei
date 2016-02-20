@@ -1,8 +1,7 @@
+#import "HBAppearanceSettings.h"
+
 @interface UINavigationItem (HBTintAdditions)
 
-@property (nonatomic, copy) UIColor *hb_tintColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarTintColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarTextColor;
-@property (nonatomic, copy) UIColor *hb_navigationBarBackgroundColor;
+@property (nonatomic, retain) HBAppearanceSettings *hb_appearanceSettings;
 
 @end
