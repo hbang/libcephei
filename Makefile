@@ -47,7 +47,8 @@ ifeq ($(RESPRING),0)
 	install.exec "killall Preferences" || true
 
 ifneq ($(DEBUG),0)
-	install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
+	# sbopenurl doesn’t even work on iOS 9…
+	# install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
 endif
 else
 	install.exec spring
