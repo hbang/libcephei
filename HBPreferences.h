@@ -105,6 +105,8 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 /**
  * Returns a dictionary that contains all preferences that are set.
  *
+ * This does not include default values.
+ *
  * @returns A dictionary containing all keys and values.
  */
 - (NSDictionary *)dictionaryRepresentation;
