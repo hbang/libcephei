@@ -15,14 +15,3 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 }
 
 %end
-
-#pragma mark - Version-specific runtime changes
-
-%ctor {
-	if (IS_IOS_OR_NEWER(iOS_7_0)) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
-		class_setSuperclass(HBDiscreteSliderTableCell.class, %c(PSSliderTableCell));
-#pragma clang diagnostic pop
-	}
-}
