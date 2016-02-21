@@ -15,9 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The appearance settings for the view controller.
  *
- * This should only be set in an init method of the view controller. The result
- * when this property or its properties are changed after the view has appeared
- * is undefined.
+ * This should only be set in an init or viewDidLoad method of the view
+ * controller. The result when this property or its properties are changed after
+ * the view has appeared is undefined.
  */
 @property (nonatomic, copy, nullable, setter=hb_setAppearanceSettings:) HBAppearanceSettings *hb_appearanceSettings;
 
