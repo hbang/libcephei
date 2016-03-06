@@ -6,7 +6,7 @@ CepheiPrefs_PUBLIC_HEADERS = HBSupportController.h HBAboutListController.h HBPac
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
-CepheiPrefs_LIBRARIES = substrate
+CepheiPrefs_LIBRARIES = prefs substrate
 CepheiPrefs_CFLAGS = -include ../Global.h
 
 include $(THEOS_MAKE_PATH)/bundle.mk
