@@ -6,10 +6,9 @@ FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) Global.x $(wildcard CompactConstraint/*.m)
 Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 Cephei_FRAMEWORKS = CoreGraphics UIKit
-Cephei_CFLAGS = -include Global.h
+Cephei_CFLAGS = -include Global.h -fobjc-arc
 
-CompactConstraint/NSLayoutConstraint+CompactConstraint.m_CFLAGS = -fobjc-arc
-CompactConstraint/UIView+CompactConstraint.m_CFLAGS = -fobjc-arc
+HBPreferences.m_CFLAGS = -fno-objc-arc
 
 SUBPROJECTS = prefs containersupport
 

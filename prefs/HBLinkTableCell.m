@@ -26,7 +26,7 @@
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
 			UIGraphicsEndImageContext();
 
-			UIView *avatarView = [[[UIView alloc] initWithFrame:self.imageView.bounds] autorelease];
+			UIView *avatarView = [[UIView alloc] initWithFrame:self.imageView.bounds];
 			avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
 			avatarView.userInteractionEnabled = NO;
@@ -34,7 +34,7 @@
 			avatarView.layer.cornerRadius = size / 2;
 			[self.imageView addSubview:avatarView];
 
-			UILabel *label = [[[UILabel alloc] initWithFrame:avatarView.bounds] autorelease];
+			UILabel *label = [[UILabel alloc] initWithFrame:avatarView.bounds];
 			label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 			label.font = [UIFont systemFontOfSize:13.f];
 			label.textAlignment = NSTextAlignmentCenter;
@@ -76,13 +76,6 @@
 	if (self.type == PSButtonCell) {
 		self.textLabel.textColor = self.tintColor;
 	}
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_url release];
-	[super dealloc];
 }
 
 @end

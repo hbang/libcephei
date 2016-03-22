@@ -29,7 +29,7 @@
 	NSParameterAssert(identifier);
 
 	// get the keys in the plist
-	CFArrayRef keyList = CFPreferencesCopyKeyList((CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	CFArrayRef keyList = CFPreferencesCopyKeyList((__bridge CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 
 	// if there are no keys, return nil
 	if (!keyList) {
@@ -37,12 +37,12 @@
 	}
 
 	// now we can get the values for the keys
-	CFDictionaryRef prefs = CFPreferencesCopyMultiple(keyList, (CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+	CFDictionaryRef prefs = CFPreferencesCopyMultiple(keyList, (__bridge CFStringRef)identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	CFRelease(keyList);
 
 	// and now we get the data representing an XML plist of the dictionary
 	CFErrorRef error = nil;
-	NSData *data = [(NSData *)CFPropertyListCreateData(kCFAllocatorDefault, prefs, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error) autorelease];
+	NSData *data = (__bridge NSData *)CFPropertyListCreateData(kCFAllocatorDefault, prefs, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
 	CFRelease(prefs);
 
 	if (error) {
@@ -93,7 +93,7 @@
 	}
 
 	// set up the view controller
-	TSContactViewController *viewController = [[[TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions] autorelease];
+	TSContactViewController *viewController = [[TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions];
 	viewController.title = LOCALIZE(@"SUPPORT_TITLE", @"Support", @"Title displayed in the navigation bar of the support page.");
 	viewController.subject = [NSString stringWithFormat:LOCALIZE(@"SUPPORT_EMAIL_SUBJECT", @"Support", @"The subject used when sending a support email. %@ %@ is the package name and version respectively."), package.name, package.version];
 	viewController.requiresDetailsFromUser = YES;

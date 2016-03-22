@@ -25,11 +25,4 @@
 	}
 }
 
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_activityIndicator release];
-	[super dealloc];
-}
-
 @end

@@ -27,10 +27,10 @@
 	if (self) {
 		_isBig = isBig;
 		_user = [specifier.properties[@"user"] isEqualToString:@"thekirbylover"] ? @"hbkirb" : [specifier.properties[@"user"] copy];
-		_defaultImage = [[UIImage imageNamed:@"twitter" inBundle:globalBundle] retain];
+		_defaultImage = [UIImage imageNamed:@"twitter" inBundle:globalBundle];
 
 		if (!IS_MODERN) {
-			_highlightedImage = [[UIImage imageNamed:@"twitter_selected" inBundle:globalBundle] retain];
+			_highlightedImage = [UIImage imageNamed:@"twitter_selected" inBundle:globalBundle];
 		}
 
 		self.detailTextLabel.text = [@"@" stringByAppendingString:_user];
@@ -56,7 +56,7 @@
 			if (specifier.properties[@"initials"]) {
 				_avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
 
-				UILabel *label = [[[UILabel alloc] initWithFrame:_avatarView.bounds] autorelease];
+				UILabel *label = [[UILabel alloc] initWithFrame:_avatarView.bounds];
 				label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 				label.font = [UIFont systemFontOfSize:13.f];
 				label.textAlignment = NSTextAlignmentCenter;
@@ -142,18 +142,6 @@
 			}];
 		});
 	});
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_user release];
-	[_defaultImage release];
-	[_highlightedImage release];
-	[_avatarView release];
-	[_avatarImageView release];
-
-	[super dealloc];
 }
 
 @end

@@ -35,7 +35,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		NSParameterAssert(specifier.properties[@"packageIdentifier"]);
 
 		self.backgroundColor = [UIColor clearColor];
-		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
+		self.backgroundView = IS_MODERN ? nil : [[UIView alloc] init];
 
 		NSArray <id> *serializedColors = specifier.properties[@"backgroundGradientColors"];
 
@@ -73,7 +73,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
 		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
 		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
-		_icon = [specifier.properties[@"iconImage"] retain];
+		_icon = specifier.properties[@"iconImage"];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
 		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]];
@@ -145,21 +145,21 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _package.version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
-	NSMutableAttributedString *attributedString = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
 		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
-	}] autorelease];
+	}];
 
 	NSUInteger location = 0, length = 0;
 
 	if (_icon && _condensed) {
-		NSTextAttachment *textAttachment = [[[NSTextAttachment alloc] init] autorelease];
+		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 		textAttachment.image = _icon;
 		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
 	}
 
 	length = name.length;
 
-	NSMutableParagraphStyle *paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
+	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 	paragraphStyle.lineSpacing = _condensed ? 10.f : 4.f;
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
@@ -203,19 +203,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 	_label.numberOfLines = 0;
 	_label.attributedText = attributedString;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_titleColor release];
-	[_subtitleColor release];
-	[_package release];
-	[_nameOverride release];
-	[_icon release];
-	[_label release];
-
-	[super dealloc];
 }
 
 @end

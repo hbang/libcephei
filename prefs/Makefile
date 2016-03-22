@@ -7,7 +7,12 @@ CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
 CepheiPrefs_LIBRARIES = prefs substrate
-CepheiPrefs_CFLAGS = -include ../Global.h
+CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
+
+Fixes.x_CFLAGS = -fno-objc-arc
+Localization.x_CFLAGS = -fno-objc-arc
+Tint.x_CFLAGS = -fno-objc-arc
+UINavigationItem+HBTintAdditions.x_CFLAGS = -fno-objc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/framework.mk

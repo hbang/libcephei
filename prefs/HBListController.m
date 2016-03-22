@@ -65,7 +65,7 @@ BOOL translucentNavigationBar = YES;
 		return;
 	}
 
-	_specifiers = [[self loadSpecifiersFromPlistName:[self.class hb_specifierPlist] target:self] retain];
+	_specifiers = [self loadSpecifiersFromPlistName:[self.class hb_specifierPlist] target:self];
 }
 
 - (NSArray *)specifiers {
@@ -88,7 +88,7 @@ BOOL translucentNavigationBar = YES;
 	// if we have specifiers to remove
 	if (specifiersToRemove.count > 0) {
 		// make a mutable copy of the specifiers
-		NSMutableArray *newSpecifiers = [[specifiers mutableCopy] autorelease];
+		NSMutableArray *newSpecifiers = [specifiers mutableCopy];
 
 		// remove all the filtered specifiers
 		[newSpecifiers removeObjectsInArray:specifiersToRemove];
@@ -234,7 +234,7 @@ BOOL translucentNavigationBar = YES;
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
 	if (_tableViewCellSelectionColor) {
-		UIView *selectionView = [[[UIView alloc] init] autorelease];
+		UIView *selectionView = [[UIView alloc] init];
 		selectionView.backgroundColor = _tableViewCellSelectionColor;
 		cell.selectedBackgroundView = selectionView;
 	}
@@ -248,16 +248,6 @@ BOOL translucentNavigationBar = YES;
 	}
 
 	return cell;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_tableViewCellTextColor release];
-	[_tableViewCellBackgroundColor release];
-	[_tableViewCellSelectionColor release];
-
-	[super dealloc];
 }
 
 @end
