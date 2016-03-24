@@ -12,6 +12,7 @@ CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
 Fixes.x_CFLAGS = -fno-objc-arc
 Localization.x_CFLAGS = -fno-objc-arc
 Tint.x_CFLAGS = -fno-objc-arc
+PSListController+HBTintAdditions.x_CFLAGS = -fno-objc-arc
 UINavigationItem+HBTintAdditions.x_CFLAGS = -fno-objc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk

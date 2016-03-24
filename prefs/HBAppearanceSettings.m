@@ -32,18 +32,4 @@
 	return appearanceSettings;
 }
 
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_tintColor release];
-	[_navigationBarTintColor release];
-	[_tableViewBackgroundColor release];
-	[_tableViewCellTextColor release];
-	[_tableViewCellBackgroundColor release];
-	[_tableViewCellSeparatorColor release];
-	[_tableViewCellSelectionColor release];
-
-	[super dealloc];
-}
-
 @end

@@ -178,7 +178,7 @@ BOOL translucentNavigationBar = YES;
 	static NSArray *AppearanceDeprecations;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		AppearanceDeprecations = [@[
+		AppearanceDeprecations = @[
 			@"hb_tintColor",
 			@"hb_navigationBarTintColor",
 			@"hb_invertedNavigationBar",
@@ -187,7 +187,7 @@ BOOL translucentNavigationBar = YES;
 			@"hb_tableViewCellTextColor",
 			@"hb_tableViewCellBackgroundColor",
 			@"hb_tableViewCellSeparatorColor"
-		] retain];
+		];
 	});
 
 	NSMutableArray *methodsInUse = [NSMutableArray array];
@@ -195,9 +195,11 @@ BOOL translucentNavigationBar = YES;
 	// loop over deprecated appearance methods
 	for (NSString *selector in AppearanceDeprecations) {
 		SEL sel = NSSelectorFromString(selector);
+		id (*myMethod)() = (void *)[self.class methodForSelector:sel];
+		id (*defaultMethod)() = (void *)[HBListController methodForSelector:sel];
 
 		// if we get something different from the default, then add it to the list
-		if ([self.class performSelector:sel] != [HBListController performSelector:sel]) {
+		if (myMethod() != defaultMethod()) {
 			[methodsInUse addObject:selector];
 		}
 	}
