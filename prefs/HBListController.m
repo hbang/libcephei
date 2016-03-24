@@ -1,7 +1,9 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
-#import "UINavigationItem+HBTintAdditions.h"
 #import "PSListController+HBTintAdditions.h"
+#import "UINavigationItem+HBTintAdditions.h"
+#import <libprefs/prefs.h>
+#import <version.h>
 
 UIStatusBarStyle previousStatusBarStyle = -1;
 BOOL changedStatusBarStyle = NO;
@@ -34,12 +36,39 @@ BOOL translucentNavigationBar = YES;
 		return;
 	}
 
-	_specifiers = [[self loadSpecifiersFromPlistName:[self.class hb_specifierPlist] target:self] retain];
+	_specifiers = [self loadSpecifiersFromPlistName:[self.class hb_specifierPlist] target:self];
 }
 
 - (NSArray *)specifiers {
 	[self _loadSpecifiersFromPlistIfNeeded];
 	return _specifiers;
+}
+
+- (NSArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
+	// override the loading mechanism so we can add additional features
+	NSArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
+	NSMutableArray *specifiersToRemove = [NSMutableArray array];
+
+	for (PSSpecifier *specifier in specifiers) {
+		// libprefs defines some filters we can take advantage of
+		if (![PSSpecifier environmentPassesPreferenceLoaderFilter:specifier.properties[PLFilterKey]]) {
+			[specifiersToRemove addObject:specifier];
+		}
+	}
+
+	// if we have specifiers to remove
+	if (specifiersToRemove.count > 0) {
+		// make a mutable copy of the specifiers
+		NSMutableArray *newSpecifiers = [specifiers mutableCopy];
+
+		// remove all the filtered specifiers
+		[newSpecifiers removeObjectsInArray:specifiersToRemove];
+
+		// and assign it to specifiers again
+		specifiers = newSpecifiers;
+	}
+
+	return specifiers;
 }
 
 #pragma mark - UIViewController
@@ -244,7 +273,7 @@ BOOL translucentNavigationBar = YES;
 	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
 	if (self.hb_appearanceSettings.tableViewCellSelectionColor) {
-		UIView *selectionView = [[[UIView alloc] init] autorelease];
+		UIView *selectionView = [[UIView alloc] init];
 		selectionView.backgroundColor = self.hb_appearanceSettings.tableViewCellSelectionColor;
 		cell.selectedBackgroundView = selectionView;
 	}
@@ -258,12 +287,6 @@ BOOL translucentNavigationBar = YES;
 	}
 
 	return cell;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[super dealloc];
 }
 
 @end

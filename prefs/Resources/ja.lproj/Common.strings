@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>使用する</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>オフ</string>
+	<key>ON</key>
+	<string>オン</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>ウェブサイトを開く</string>

@@ -11,7 +11,7 @@
 
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
-		self.backgroundView = IS_MODERN ? nil : [[[UIView alloc] init] autorelease];
+		self.backgroundView = IS_MODERN ? nil : [[UIView alloc] init];
 
 		_bigImageView = [[UIImageView alloc] initWithImage:specifier.properties[@"iconImage"]];
 		_bigImageView.frame = self.contentView.bounds;
@@ -37,13 +37,6 @@
 
 - (CGFloat)preferredHeightForWidth:(CGFloat)width {
 	return _bigImageView.image.size.height;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[_bigImageView release];
-	[super dealloc];
 }
 
 @end

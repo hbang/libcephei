@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Uključeno</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Isključeno</string>
+	<key>ON</key>
+	<string>Uključeno</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Posjeti Web Stranicu</string>

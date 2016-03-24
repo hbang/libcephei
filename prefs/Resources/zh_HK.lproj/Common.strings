@@ -6,7 +6,7 @@
 	<key>ABOUT</key>
 	<string>關於</string>
 	<key>CREDITS</key>
-	<string>參予人員</string>
+	<string>參與人員</string>
 	<key>GENERAL</key>
 	<string>一般</string>
 	<key>SUPPORT</key>
@@ -15,6 +15,12 @@
 	<!-- Label for switch to enable or disable the tweak. -->
 	<key>ENABLED</key>
 	<string>啟用</string>
+
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>關閉</string>
+	<key>ON</key>
+	<string>開啟</string>
 
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>

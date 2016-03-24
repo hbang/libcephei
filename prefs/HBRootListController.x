@@ -19,7 +19,7 @@
 	[super loadView];
 
 	if ([self.class hb_shareText] && [self.class hb_shareURL]) {
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)] autorelease];
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)];
 	}
 }
 
@@ -27,7 +27,7 @@
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
 	if (%c(UIActivityViewController)) {
-		UIActivityViewController *viewController = [[[UIActivityViewController alloc] initWithActivityItems:@[ [self.class hb_shareText], [self.class hb_shareURL] ] applicationActivities:nil] autorelease];
+		UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[ [self.class hb_shareText], [self.class hb_shareURL] ] applicationActivities:nil];
 
 		if ([viewController respondsToSelector:@selector(presentationController)] && [viewController.presentationController respondsToSelector:@selector(barButtonItem)]) {
 			((UIPopoverPresentationController *)viewController.presentationController).barButtonItem = sender;
@@ -35,7 +35,7 @@
 
 		[self.navigationController presentViewController:viewController animated:YES completion:nil];
 	} else if ([TWTweetComposeViewController canSendTweet]) {
-		TWTweetComposeViewController *viewController = [[[TWTweetComposeViewController alloc] init] autorelease];
+		TWTweetComposeViewController *viewController = [[TWTweetComposeViewController alloc] init];
 		viewController.initialText = [self.class hb_shareText];
 		[viewController addURL:[self.class hb_shareURL]];
 		[self.navigationController presentViewController:viewController animated:YES completion:nil];

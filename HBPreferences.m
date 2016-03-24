@@ -3,6 +3,8 @@
 #include <dlfcn.h>
 #include <notify.h>
 
+// TODO: convert to ARC
+
 #define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
 
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")

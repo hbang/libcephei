@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Ενεργοποιημένο</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Όχι</string>
+	<key>ON</key>
+	<string>Ναι</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Επισκεφθείτε την ιστοσελίδα</string>

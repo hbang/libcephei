@@ -16,6 +16,12 @@
     <key>ENABLED</key>
     <string>Включить</string>
 
+    <!-- Label for the state of a switch.-->
+    <key>OFF</key>
+    <string>Выкл.</string>
+    <key>ON</key>
+    <string>Вкл.</string>
+
     <!-- Button leading to a website. -->
     <key>VISIT_WEBSITE</key>
     <string>Посетить сайт</string>

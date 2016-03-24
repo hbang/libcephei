@@ -16,6 +16,12 @@
     <key>ENABLED</key>
     <string>Aktiveret</string>
 
+    <!-- Label for the state of a switch.-->
+    <key>OFF</key>
+    <string>Fra</string>
+    <key>ON</key>
+    <string>Til</string>
+
     <!-- Button leading to a website. -->
     <key>VISIT_WEBSITE</key>
     <string>Besøg Hjemmesiden</string>

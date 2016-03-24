@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>Abilitato</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>Disattivato</string>
+	<key>ON</key>
+	<string>Attivata</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>Visita il sito</string>

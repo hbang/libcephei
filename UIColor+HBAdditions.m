@@ -3,7 +3,7 @@
 @implementation UIColor (HBAdditions)
 
 + (instancetype)hb_colorWithPropertyListValue:(id)value {
-	return [[[self alloc] hb_initWithPropertyListValue:value] autorelease];
+	return [[self alloc] hb_initWithPropertyListValue:value];
 }
 
 - (instancetype)hb_initWithPropertyListValue:(id)value {

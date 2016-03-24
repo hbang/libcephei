@@ -16,6 +16,12 @@
 	<key>ENABLED</key>
 	<string>사용</string>
 
+	<!-- Label for the state of a switch.-->
+	<key>OFF</key>
+	<string>끔</string>
+	<key>ON</key>
+	<string>켬</string>
+
 	<!-- Button leading to a website. -->
 	<key>VISIT_WEBSITE</key>
 	<string>웹사이트 방문</string>
