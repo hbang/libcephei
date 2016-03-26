@@ -1,4 +1,5 @@
 #import <Preferences/PSListController.h>
+#import "PSListController+HBTintAdditions.h"
 
 /**
  * The `HBListController` class in `CepheiPrefs` provides a list controller with
