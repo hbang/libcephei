@@ -15,16 +15,6 @@ SUBPROJECTS = prefs containersupport
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
-after-Cephei-all::
-	# create directories
-	mkdir -p $(THEOS_OBJ_DIR)/Cephei.framework/Headers
-
-	# copy headers
-	rsync -ra $(Cephei_PUBLIC_HEADERS) $(THEOS_OBJ_DIR)/Cephei.framework/Headers
-
-	# copy to theos lib dir
-	rsync -ra $(THEOS_OBJ_DIR)/Cephei.framework $(THEOS)/lib
-
 after-Cephei-stage::
 	# create directories
 	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN

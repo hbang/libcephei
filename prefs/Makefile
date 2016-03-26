@@ -12,16 +12,6 @@ CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
 include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/framework.mk
 
-after-CepheiPrefs-all::
-	# create directories
-	mkdir -p $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
-
-	# copy headers
-	rsync -ra $(CepheiPrefs_PUBLIC_HEADERS) $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
-
-	# copy to theos lib dir
-	rsync -ra $(THEOS_OBJ_DIR)/CepheiPrefs.framework $(THEOS)/lib
-
 after-CepheiPrefs-stage::
 	# create directories
 	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/PreferenceBundles
