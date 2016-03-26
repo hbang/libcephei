@@ -13,6 +13,8 @@ BOOL translucentNavigationBar = YES;
 	UIColor *_tableViewCellTextColor;
 	UIColor *_tableViewCellBackgroundColor;
 	UIColor *_tableViewCellSelectionColor;
+
+	NSArray *__deprecatedAppearanceMethodsInUse;
 }
 
 #pragma mark - Constants
@@ -190,21 +192,29 @@ BOOL translucentNavigationBar = YES;
 		];
 	});
 
-	NSMutableArray *methodsInUse = [NSMutableArray array];
+	if (!__deprecatedAppearanceMethodsInUse) {
+		NSMutableArray *methodsInUse = [NSMutableArray array];
 
-	// loop over deprecated appearance methods
-	for (NSString *selector in AppearanceDeprecations) {
-		SEL sel = NSSelectorFromString(selector);
-		id (*myMethod)() = (void *)[self.class methodForSelector:sel];
-		id (*defaultMethod)() = (void *)[HBListController methodForSelector:sel];
+		// loop over deprecated appearance methods
+		for (NSString *selector in AppearanceDeprecations) {
+			SEL sel = NSSelectorFromString(selector);
 
-		// if we get something different from the default, then add it to the list
-		if (myMethod() != defaultMethod()) {
-			[methodsInUse addObject:selector];
+			// if we get something different from the default, then add it to the list
+			// TODO: we probably should be doing it right™ with methodForSelector:,
+			// but that broke something and i don’t really have the time to look into
+			// it just yet – http://stackoverflow.com/a/20058585/709376
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+			if ([self.class performSelector:sel] != [HBListController performSelector:sel]) {
+#pragma clang diagnostic pop
+				[methodsInUse addObject:selector];
+			}
 		}
+
+		__deprecatedAppearanceMethodsInUse = [methodsInUse copy];
 	}
 
-	return methodsInUse;
+	return __deprecatedAppearanceMethodsInUse;
 }
 
 - (void)_getAppearance {
