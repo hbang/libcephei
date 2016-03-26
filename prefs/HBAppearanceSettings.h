@@ -4,7 +4,7 @@
  * interface.
  *
  * Appearance settings are typically set on a view controller, via the
- * -[PSListController+HBTintAdditions hb_appearanceSettings] method. This is
+ * -[PSListController+HBTintAdditions hb_appearanceSettings] property. This is
  * automatically managed by Cephei and provided to view controllers as they are
  * pushed onto the stack.
  *
@@ -16,6 +16,26 @@
  *
  * Use of the old properties on HBListController will cause a warning to be
  * logged.
+ *
+ * Most commonly, the API will be used by setting the hb_appearanceSettings
+ * property from the init method. The following example sets the tint color,
+ * table view background color, and enables an inverted navigation bar:
+ *
+ * ```
+ * - (instancetype)init {
+ * 	self = [super init];
+ *
+ * 	if (self) {
+ * 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+ * 		appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
+ * 		appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
+ * 		appearanceSettings.invertedNavigationBar = YES;
+ * 		self.hb_appearanceSettings = appearanceSettings;
+ * 	}
+ *
+ * 	return self;
+ * }
+ * ```
  */
 
 @interface HBAppearanceSettings : NSObject
