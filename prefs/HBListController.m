@@ -5,15 +5,14 @@
 #import <libprefs/prefs.h>
 #import <version.h>
 
-UIStatusBarStyle previousStatusBarStyle = -1;
-BOOL changedStatusBarStyle = NO;
-BOOL translucentNavigationBar = YES;
+@interface PSListController ()
+
+- (UINavigationController *)_hb_realNavigationController;
+- (void)_hb_getAppearance;
+
+@end
 
 @implementation HBListController {
-	UIColor *_tableViewCellTextColor;
-	UIColor *_tableViewCellBackgroundColor;
-	UIColor *_tableViewCellSelectionColor;
-
 	NSArray *__deprecatedAppearanceMethodsInUse;
 }
 
@@ -73,76 +72,6 @@ BOOL translucentNavigationBar = YES;
 	return specifiers;
 }
 
-#pragma mark - UIViewController
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-
-	[self _warnAboutDeprecatedMethods];
-	[self _getAppearance];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	UIColor *tintColor = nil;
-	BOOL changeStatusBar = NO;
-
-	// if we have a tint color, grab it
-	if (!tintColor && self.hb_appearanceSettings.tintColor) {
-		tintColor = [self.hb_appearanceSettings.tintColor copy];
-	}
-
-	// if we have a translucentNavigationBar value, grab it
-	if (!self.hb_appearanceSettings.translucentNavigationBar) {
-		translucentNavigationBar = NO;
-	}
-
-	// if we don’t already know that the status bar is going to change, and we
-	// have a YES invertedNavigationBar value, grab that
-	if (!changeStatusBar && self.hb_appearanceSettings.invertedNavigationBar) {
-		changeStatusBar = YES;
-	}
-
-	if (self.hb_appearanceSettings.tableViewCellSeparatorColor) {
-		self.table.separatorColor = self.hb_appearanceSettings.tableViewCellSeparatorColor;
-	}
-
-	if (self.hb_appearanceSettings.tableViewBackgroundColor) {
-		self.table.backgroundColor = self.hb_appearanceSettings.tableViewBackgroundColor;
-	}
-
-	BOOL translucentNavigationBar = self.hb_appearanceSettings.translucentNavigationBar;
-	self.realNavigationController.navigationBar.translucent = translucentNavigationBar;
-	self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
-
-	// if we have a tint color, apply it
-	if (tintColor) {
-		self.view.tintColor = tintColor;
-		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
-	}
-
-	// if the status bar is about to change to something custom, or we don’t
-	// already know the previous status bar style, set it here
-	previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-
-	// set the status bar style accordingly
-	if (changeStatusBar) {
-		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-	}
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-
-	[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
-
-	if (!translucentNavigationBar) {
-		self.realNavigationController.navigationBar.translucent = YES;
-		self.edgesForExtendedLayout = UIRectEdgeAll;
-	}
-}
-
 #pragma mark - Appearance
 
 - (NSArray *)_deprecatedAppearanceMethodsInUse {
@@ -186,14 +115,13 @@ BOOL translucentNavigationBar = YES;
 	return __deprecatedAppearanceMethodsInUse;
 }
 
-- (void)_getAppearance {
-	// if we already have appearance settings, we don’t need to worry about this
-	if (self.hb_appearanceSettings) {
-		return;
-	}
+- (void)_hb_getAppearance {
+	[super _hb_getAppearance];
 
 	// if at least one deprecated method is in use
 	if (self._deprecatedAppearanceMethodsInUse.count > 0) {
+		[self _warnAboutDeprecatedMethods];
+
 		// set up an HBAppearanceSettings using the values of the old methods
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
 		appearanceSettings.tintColor = [self.class hb_tintColor];
@@ -205,16 +133,6 @@ BOOL translucentNavigationBar = YES;
 		appearanceSettings.tableViewCellBackgroundColor = [self.class hb_tableViewCellBackgroundColor];
 		appearanceSettings.tableViewCellSeparatorColor = [self.class hb_tableViewCellSeparatorColor];
 		self.hb_appearanceSettings = appearanceSettings;
-	} else {
-		// enumerate backwards over the navigation stack
-		for (PSListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-			// if this view controller is definitely a PSListController and its
-			// appearance settings are non-nil, grab that and break
-			if ([viewController isKindOfClass:PSListController.class] && viewController.hb_appearanceSettings) {
-				self.hb_appearanceSettings = viewController.hb_appearanceSettings;
-				break;
-			}
-		}
 	}
 }
 
@@ -229,50 +147,17 @@ BOOL translucentNavigationBar = YES;
 
 #pragma mark - Navigation controller quirks
 
-/*
- The layout of Settings is weird on iOS 8. On iPhone, the actual navigation
- controller is the parent of self.navigationController. On iPad, it remains
- how it's always been.
-*/
 - (UINavigationController *)realNavigationController {
-	UINavigationController *navigationController = self.navigationController;
-
-	while (navigationController.navigationController) {
-		navigationController = navigationController.navigationController;
-	}
-
-	return navigationController;
+	return [super _hb_realNavigationController];
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - Table View
 
-/*
- Fixes weird iOS 7 glitch, a little neater than before, and ideally preventing
- crashes on iPads and older devices.
-*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	// fixes weird iOS 7 glitch, a little neater than before, and ideally preventing
+	// crashes on iPads and older devices.
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
-	if (self.hb_appearanceSettings.tableViewCellSelectionColor) {
-		UIView *selectionView = [[UIView alloc] init];
-		selectionView.backgroundColor = self.hb_appearanceSettings.tableViewCellSelectionColor;
-		cell.selectedBackgroundView = selectionView;
-	}
-
-	if (self.hb_appearanceSettings.tableViewCellTextColor) {
-		cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
-	}
-
-	if (self.hb_appearanceSettings.tableViewCellBackgroundColor) {
-		cell.backgroundColor = self.hb_appearanceSettings.tableViewCellBackgroundColor;
-	}
-
-	return cell;
 }
 
 @end
