@@ -36,27 +36,16 @@
 }
 
 %new - (void)hb_setAppearanceSettings:(HBAppearanceSettings *)appearanceSettings {
-	%log;
-
 	// if appearanceSettings is nil, instantiate a generic appearance object
 	if (!appearanceSettings) {
 		appearanceSettings = [[HBAppearanceSettings alloc] init];
 	}
 
 	// set the internal property
-	[self._hb_internalAppearanceSettings release];
 	self._hb_internalAppearanceSettings = [appearanceSettings copy];
 
 	// the navigation item also needs access to the appearance settings
-	[self.navigationItem.hb_appearanceSettings release];
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[self.hb_appearanceSettings release];
-	%orig;
 }
 
 %end

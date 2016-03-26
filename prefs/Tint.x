@@ -58,9 +58,6 @@ BOOL animateBarTintColor = NO;
 }
 
 %new - (void)_hb_updateTintColorsAnimated:(BOOL)animated {
-	// get rid of the previous appearance settings
-	[self.hb_appearanceSettings release];
-
 	// get the appearance settings from the top item on the stack. if it’s nil,
 	// use a standard HBAppearanceSettings with the defaults
 	HBAppearanceSettings *appearanceSettings = ((UINavigationItem *)self.navigationItems.lastObject).hb_appearanceSettings ?: [[HBAppearanceSettings alloc] init];
@@ -92,14 +89,6 @@ BOOL animateBarTintColor = NO;
 
 	// set the bar tint color
 	self.barTintColor = backgroundColor;
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[self.hb_appearanceSettings release];
-
-	%orig;
 }
 
 %end
