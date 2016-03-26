@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>HBListItemsController Class Reference</title>
+	<title>PSListController(HBTintAdditions) Category Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
@@ -48,9 +48,17 @@
 
 	
 	
+	<option value="tasks">Tasks</option>
+	
 	
 
 	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/hb_appearanceSettings">hb_appearanceSettings</option>
+		
+	</optgroup>
 	
 
 	
@@ -69,16 +77,13 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title">HBListItemsController Class Reference</h1>
+					<h1 class="title">PSListController(HBTintAdditions) Category Reference</h1>
 
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<th>Inherits from</th>
-	<td>PSListItemsController</td>
-</tr><tr>
 	<th>Declared in</th>
-	<td>HBListItemsController.h</td>
+	<td>PSListController+HBTintAdditions.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -88,15 +93,75 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBListItemsController</code> class in <code>CepheiPrefs</code> was used with previous
-versions to ensure that the tint color from the previous view controller is
-retained. As of Cephei 1.4, this is no longer needed, and this class is kept
-for backwards compatibility purposes.</p>
+						<p>The <code>PSListController+HBTintAdditions</code> class category in <code>CepheiPrefs</code>
+provides a property for setting the desired appearance settings of the view
+controller.</p>
 					</div>
 					
 					
 
 					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/hb_appearanceSettings" title="hb_appearanceSettings"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_appearanceSettings">&nbsp;&nbsp;hb_appearanceSettings</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The appearance settings for the view controller.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable, setter=hb_setAppearanceSettings:) HBAppearanceSettings *hb_appearanceSettings</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This should only be set in an init or viewDidLoad method of the view
+controller. The result when this property or its properties are changed after
+the view has appeared is undefined.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">PSListController+HBTintAdditions.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
 					
 					
 

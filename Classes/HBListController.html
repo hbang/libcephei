@@ -129,8 +129,8 @@ it again is worked around, as well as an issue on iOS 7 where in some cases
 a cell may stay highlighted after being tapped.</p>
 
 <p>It includes two class methods you can override to return the name of a
-Preferences specifier property list, and a tint color for the interactable
-elements within the list controller.</p>
+Preferences specifier property list, and various methods to set custom colors
+in the list controller interface.</p>
 					</div>
 					
 					
@@ -141,8 +141,8 @@ elements within the list controller.</p>
 						<a title="Tasks" name="tasks"></a>
 						
 
-						<a title="Constants" name="task_Constants"></a>
-						<h2 class="task-title">Constants</h2>
+						<a title="Specifiers" name="task_Specifiers"></a>
+						<h2 class="task-title">Specifiers</h2>
 
 						<div class="task-list">
 							<div class="section-method">
@@ -201,7 +201,15 @@ implementation.</p>
 			
 		</div>
 	</div>
-</div><div class="section-method">
+</div>
+						</div>
+						
+
+						<a title="Colors" name="task_Colors"></a>
+						<h2 class="task-title">Colors</h2>
+
+						<div class="task-list">
+							<div class="section-method">
 	<a name="//api/name/hb_tintColor" title="hb_tintColor"></a>
 	<h3 class="method-title"><code><a href="#//api/name/hb_tintColor">+&nbsp;hb_tintColor</a></code>
 </h3>
@@ -236,7 +244,12 @@ Override this method to return a UIColor to use.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>A nil value will cause no modification of the tint to occur.</p>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
 			</div>
 			
 
@@ -290,7 +303,12 @@ same color as hb_tintColor.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>A nil value will cause no modification of the navigation bar tint to occur.</p>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
 			</div>
 			
 
@@ -344,6 +362,13 @@ this behavior.</p>
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>An inverted navigation bar has a tinted background, rather than the buttons
 being tinted. All other interface elements will be tinted the same.</p>
+
+<p>A NO value will cause prior view controllers on the stack to be consulted for
+a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
 			</div>
 			
 
@@ -393,197 +418,14 @@ this behavior.</p>
 			
 
 			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBListController.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/hb_tableViewCellTextColor" title="hb_tableViewCellTextColor"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellTextColor">+&nbsp;hb_tableViewCellTextColor</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The color to be used for the text color of table view cells.
-Override this method to return a UIColor to use.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellTextColor</code></div>
-
-		    
-			
-
-			
-			<div class="method-subsection return">
-				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
-			</div>
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBListController.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/hb_tableViewCellBackgroundColor" title="hb_tableViewCellBackgroundColor"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellBackgroundColor">+&nbsp;hb_tableViewCellBackgroundColor</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The color to be used for the background color of table view cells.
-Override this method to return a UIColor to use.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellBackgroundColor</code></div>
-
-		    
-			
-
-			
-			<div class="method-subsection return">
-				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
-			</div>
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBListController.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/hb_tableViewCellSeparatorColor" title="hb_tableViewCellSeparatorColor"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellSeparatorColor">+&nbsp;hb_tableViewCellSeparatorColor</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The color to be used for the separator between table view cells.
-Override this method to return a UIColor to use.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellSeparatorColor</code></div>
-
-		    
-			
-
-			
-			<div class="method-subsection return">
-				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
-			</div>
-			
-
-			
-
-			
-
-			
-
-			
-
-			
-			<div class="method-subsection declared-in-section">
-				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBListController.h</code></p>
-			</div>
-			
-			
-		</div>
-	</div>
-</div><div class="section-method">
-	<a name="//api/name/hb_tableViewCellSelectionColor" title="hb_tableViewCellSelectionColor"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellSelectionColor">+&nbsp;hb_tableViewCellSelectionColor</a></code>
-</h3>
-
-	<div class="method-info">
-		<div class="pointy-thing"></div>
-
-		<div class="method-info-container">
-			
-			
-			<div class="method-subsection brief-description">
-				<p>The color to be used when a table view cell is selected.
-This color will be shown when the cell is in the &lsquo;highlighted&rsquo; state.</p>
-			</div>
-			
-		    
-
-			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellSelectionColor</code></div>
-
-		    
-			
-
-			
-			<div class="method-subsection return">
-				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
-			</div>
-			
-
-			
-
-			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>Override this method to return a UIColor to use.</p>
+				<p>A NO value will cause prior view controllers on the stack to be consulted for
+a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
 			</div>
 			
 
@@ -612,8 +454,8 @@ This color will be shown when the cell is in the &lsquo;highlighted&rsquo; state
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The color to be used for the overall background of the table view.
-Override this method to return a UIColor to use.</p>
+				<p>The color to be used for the overall background of the table view. Override
+this method to return a UIColor to use.</p>
 			</div>
 			
 		    
@@ -632,6 +474,244 @@ Override this method to return a UIColor to use.</p>
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_tableViewCellTextColor" title="hb_tableViewCellTextColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellTextColor">+&nbsp;hb_tableViewCellTextColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the text color of table view cells. Override this
+method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellTextColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_tableViewCellBackgroundColor" title="hb_tableViewCellBackgroundColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellBackgroundColor">+&nbsp;hb_tableViewCellBackgroundColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the background color of table view cells. Override
+this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellBackgroundColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_tableViewCellSeparatorColor" title="hb_tableViewCellSeparatorColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellSeparatorColor">+&nbsp;hb_tableViewCellSeparatorColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the separator between table view cells. Override
+this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellSeparatorColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_tableViewCellSelectionColor" title="hb_tableViewCellSelectionColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_tableViewCellSelectionColor">+&nbsp;hb_tableViewCellSelectionColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used when a table view cell is selected. This color will be
+used when the cell is in the &lsquo;highlighted&rsquo; state.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (UIColor *)hb_tableViewCellSelectionColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause prior view controllers on the stack to be consulted
+for a value. If a value is found, that will be used.</p><div class="warning"><p><strong>Warning:</strong> Appearance methods on HBListController are deprecated. Use of these
+methods will result in a warning being logged. Additionally, if any of these
+methods return nil, previous view controllers on the stack are consulted.
+This can cause an undesired mix of color schemes. It is advised to switch to
+using <a href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>.</p></div>
+			</div>
 			
 
 			
@@ -722,7 +802,7 @@ returns the correct navigation controller.</p>
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2016 HASHBANG Productions. All rights reserved. Updated: 2016-02-20</p>
+						<p class="copyright">Copyright &copy; 2016 HASHBANG Productions. All rights reserved. Updated: 2016-03-26</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</p>
