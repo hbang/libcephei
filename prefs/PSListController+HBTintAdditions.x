@@ -17,18 +17,6 @@
 
 %property (nonatomic, retain) HBAppearanceSettings *_hb_internalAppearanceSettings;
 
-#pragma mark - NSObject
-
-- (id)init {
-	self = %orig;
-
-	if (self) {
-		self.hb_appearanceSettings = [[HBAppearanceSettings alloc] init];
-	}
-
-	return self;
-}
-
 #pragma mark - Getter/setter
 
 %new - (HBAppearanceSettings *)hb_appearanceSettings {

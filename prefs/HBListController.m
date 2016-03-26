@@ -75,75 +75,44 @@ BOOL translucentNavigationBar = YES;
 
 #pragma mark - UIViewController
 
-- (instancetype)init {
-	self = [super init];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 
-	if (self) {
-		[self _warnAboutDeprecatedMethods];
-		[self _getAppearance];
-	}
-
-	return self;
+	[self _warnAboutDeprecatedMethods];
+	[self _getAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
 	UIColor *tintColor = nil;
-
 	BOOL changeStatusBar = NO;
 
-	UIColor *tableViewCellSeparatorColor = nil;
-	UIColor *tableViewBackgroundColor = nil;
-
-	// enumerate backwards over the navigation stack
-	for (HBListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		// if we have a tint color, grab it and stop there
-		if (!tintColor && [viewController.class respondsToSelector:@selector(hb_tintColor)] && [viewController.class hb_tintColor]) {
-			tintColor = [[viewController.class hb_tintColor] copy];
-		}
-
-		// if we have a hb_translucentNavigationBar value, grab it
-		if ([viewController.class respondsToSelector:@selector(hb_translucentNavigationBar)] && ![viewController.class hb_translucentNavigationBar]) {
-			translucentNavigationBar = NO;
-		}
-
-		// if we don’t already know that the status bar is going to change, and we
-		// have a YES hb_invertedNavigationBar value, grab that
-		if (!changeStatusBar && [viewController.class respondsToSelector:@selector(hb_invertedNavigationBar)] && [viewController.class hb_invertedNavigationBar]) {
-			changeStatusBar = YES;
-		}
-
-		// ditto all the table view color methods
-		if (!_tableViewCellTextColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellTextColor)] && [viewController.class hb_tableViewCellTextColor]) {
-			_tableViewCellTextColor = [[viewController.class hb_tableViewCellTextColor] copy];
-		}
-
-		if (!_tableViewCellBackgroundColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellBackgroundColor)] && [viewController.class hb_tableViewCellBackgroundColor]) {
-			_tableViewCellBackgroundColor = [[viewController.class hb_tableViewCellBackgroundColor] copy];
-		}
-
-		if (!_tableViewCellSelectionColor && [viewController.class respondsToSelector:@selector(hb_tableViewCellSelectionColor)] && [viewController.class hb_tableViewCellSelectionColor]) {
-			_tableViewCellSelectionColor = [[viewController.class hb_tableViewCellSelectionColor] copy];
-		}
-
-		if ([viewController.class respondsToSelector:@selector(hb_tableViewCellSeparatorColor)] && [viewController.class hb_tableViewCellSeparatorColor]) {
-			tableViewCellSeparatorColor = [[viewController.class hb_tableViewCellSeparatorColor] copy];
-		}
-
-		if ([viewController.class respondsToSelector:@selector(hb_tableViewBackgroundColor)] && [viewController.class hb_tableViewBackgroundColor]) {
-			tableViewBackgroundColor = [[viewController.class hb_tableViewBackgroundColor] copy];
-		}
+	// if we have a tint color, grab it
+	if (!tintColor && self.hb_appearanceSettings.tintColor) {
+		tintColor = [self.hb_appearanceSettings.tintColor copy];
 	}
 
-	if (tableViewCellSeparatorColor) {
-		self.table.separatorColor = tableViewCellSeparatorColor;
+	// if we have a translucentNavigationBar value, grab it
+	if (!self.hb_appearanceSettings.translucentNavigationBar) {
+		translucentNavigationBar = NO;
 	}
 
-	if (tableViewBackgroundColor) {
-		self.table.backgroundColor = tableViewBackgroundColor;
+	// if we don’t already know that the status bar is going to change, and we
+	// have a YES invertedNavigationBar value, grab that
+	if (!changeStatusBar && self.hb_appearanceSettings.invertedNavigationBar) {
+		changeStatusBar = YES;
 	}
 
+	if (self.hb_appearanceSettings.tableViewCellSeparatorColor) {
+		self.table.separatorColor = self.hb_appearanceSettings.tableViewCellSeparatorColor;
+	}
+
+	if (self.hb_appearanceSettings.tableViewBackgroundColor) {
+		self.table.backgroundColor = self.hb_appearanceSettings.tableViewBackgroundColor;
+	}
+
+	BOOL translucentNavigationBar = self.hb_appearanceSettings.translucentNavigationBar;
 	self.realNavigationController.navigationBar.translucent = translucentNavigationBar;
 	self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
 
@@ -218,6 +187,11 @@ BOOL translucentNavigationBar = YES;
 }
 
 - (void)_getAppearance {
+	// if we already have appearance settings, we don’t need to worry about this
+	if (self.hb_appearanceSettings) {
+		return;
+	}
+
 	// if at least one deprecated method is in use
 	if (self._deprecatedAppearanceMethodsInUse.count > 0) {
 		// set up an HBAppearanceSettings using the values of the old methods
