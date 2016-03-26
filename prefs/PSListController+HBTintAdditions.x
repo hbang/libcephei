@@ -64,6 +64,10 @@ BOOL translucentNavigationBar = YES;
 - (void)viewWillAppear:(BOOL)animated {
 	%orig;
 
+	// if we didn’t get an appearance settings object before, try again now that
+	// we’re definitely on a navigation controller
+	[self _hb_getAppearance];
+
 	UIColor *tintColor = nil;
 	BOOL changeStatusBar = NO;
 
