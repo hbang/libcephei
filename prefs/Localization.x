@@ -29,7 +29,7 @@
 	static NSArray <NSString *> *PropertiesToLocalize;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		PropertiesToLocalize = [@[ @"singularLabel", @"subtitle" ] retain];
+		PropertiesToLocalize = @[ @"singularLabel", @"subtitle" ];
 	});
 
 	NSArray *specifiers = %orig;
