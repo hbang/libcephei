@@ -7,12 +7,12 @@
 
 @implementation NSLayoutConstraint (CompactConstraint)
 
-+ (NSArray <NSLayoutConstraint *> *)hb_compactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
++ (NSArray <NSLayoutConstraint *> *)hb_compactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     return [self hb_compactConstraints:relationshipStrings metrics:metrics views:views self:nil];
 }
 
-+ (NSArray <NSLayoutConstraint *> *)hb_compactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView
++ (NSArray <NSLayoutConstraint *> *)hb_compactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView
 {
     NSMutableArray <NSLayoutConstraint *> *constraints = [NSMutableArray array];
     for (NSString *relationship in relationshipStrings) {
@@ -21,12 +21,12 @@
     return [constraints copy];
 }
 
-+ (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
++ (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     return [self hb_compactConstraint:relationship metrics:metrics views:views self:nil];
 }
 
-+ (NSArray <NSLayoutConstraint *> *)hb_identifiedConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
++ (NSArray <NSLayoutConstraint *> *)hb_identifiedConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     NSArray <NSLayoutConstraint *> *constraints = [self constraintsWithVisualFormat:format options:opts metrics:metrics views:views];
 
@@ -44,7 +44,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
 
-+ (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView
++ (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView
 {
     static NSCharacterSet *operatorCharacterSet = nil;
     static NSCharacterSet *multiplicationOperatorCharacterSet = nil;

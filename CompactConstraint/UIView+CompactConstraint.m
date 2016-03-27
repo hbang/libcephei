@@ -7,14 +7,14 @@
 
 @implementation UIView (CompactConstraint)
 
-- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
+- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     NSLayoutConstraint *constraint = [NSLayoutConstraint hb_compactConstraint:relationship metrics:metrics views:views self:self];
     [self addConstraint:constraint];
     return constraint;
 }
 
-- (NSArray <NSLayoutConstraint *> *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
+- (NSArray <NSLayoutConstraint *> *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 {
     NSMutableArray <NSLayoutConstraint *> *mConstraints = [NSMutableArray arrayWithCapacity:relationshipStrings.count];
     for (NSString *relationship in relationshipStrings) {
@@ -29,7 +29,7 @@
     return constraints;
 }
 
-- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
+- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     [self addConstraints:[NSLayoutConstraint hb_identifiedConstraintsWithVisualFormat:format options:opts metrics:metrics views:views]];
 }
