@@ -200,7 +200,6 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 		}
 
 		result = _CFPreferencesCopyMultipleWithContainer(allKeys, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
-		CFBridgingRelease(result);
 		CFBridgingRelease(allKeys);
 	} else {
 		CFArrayRef allKeys = CFPreferencesCopyKeyList((__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
@@ -210,7 +209,6 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 		}
 
 		result = CFPreferencesCopyMultiple(allKeys, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
-		CFBridgingRelease(result);
 		CFBridgingRelease(allKeys);
 	}
 
