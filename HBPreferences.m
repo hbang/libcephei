@@ -3,8 +3,6 @@
 #include <dlfcn.h>
 #include <notify.h>
 
-// TODO: convert to ARC
-
 #define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
 
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
@@ -46,13 +44,13 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 #pragma mark - Initialization
 
 + (instancetype)preferencesForIdentifier:(NSString *)identifier {
-	return [[[self alloc] initWithIdentifier:identifier] autorelease];
+	return [[self alloc] initWithIdentifier:identifier];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
 	static NSMutableDictionary *KnownIdentifiers;
 	if (KnownIdentifiers[identifier]) {
-		return [KnownIdentifiers[identifier] retain];
+		return KnownIdentifiers[identifier];
 	}
 
 	self = [self init];
@@ -95,9 +93,9 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 - (BOOL)synchronize {
 	if (USE_CONTAINER_FUNCTIONS) {
-		return _CFPreferencesSynchronizeWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		return _CFPreferencesSynchronizeWithContainer((__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
-		return CFPreferencesSynchronize((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		return CFPreferencesSynchronize((__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	}
 }
 
@@ -146,7 +144,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 		switch (type) {
 			case HBPreferencesTypeObjectiveC:
 			{
-				id *pointer_ = pointer;
+				__strong id *pointer_ = (__strong id *)pointer;
 				*pointer_ = [self objectForKey:key];
 				break;
 			}
@@ -192,29 +190,31 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 #pragma mark - Dictionary representation
 
 - (NSDictionary *)dictionaryRepresentation {
-	NSDictionary *result;
+	CFDictionaryRef result;
 
 	if (USE_CONTAINER_FUNCTIONS) {
-		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 
 		if (!allKeys) {
 			return @{};
 		}
 
-		result = [(NSDictionary *)_CFPreferencesCopyMultipleWithContainer(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
-		CFRelease(allKeys);
+		result = _CFPreferencesCopyMultipleWithContainer(allKeys, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		CFBridgingRelease(result);
+		CFBridgingRelease(allKeys);
 	} else {
-		CFArrayRef allKeys = CFPreferencesCopyKeyList((CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		CFArrayRef allKeys = CFPreferencesCopyKeyList((__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 
 		if (!allKeys) {
 			return @{};
 		}
 
-		result = [(NSDictionary *)CFPreferencesCopyMultiple(allKeys, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
-		CFRelease(allKeys);
+		result = CFPreferencesCopyMultiple(allKeys, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		CFBridgingRelease(result);
+		CFBridgingRelease(allKeys);
 	}
 
-	return result;
+	return (__bridge NSDictionary *)result;
 }
 
 #pragma mark - Register defaults
@@ -226,17 +226,21 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 #pragma mark - Getters
 
 - (id)_objectForKey:(NSString *)key {
-	id value;
+	CFTypeRef value;
 
 	if (USE_CONTAINER_FUNCTIONS) {
-		value = [(id)_CFPreferencesCopyValueWithContainer((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer) autorelease];
+		value = _CFPreferencesCopyValueWithContainer((__bridge CFStringRef)key, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		CFBridgingRelease(value);
 	} else {
-		value = [(id)CFPreferencesCopyValue((CFStringRef)key, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost) autorelease];
+		value = CFPreferencesCopyValue((__bridge CFStringRef)key, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		CFBridgingRelease(value);
 	}
 
-	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
+	id objcValue = (__bridge id)value;
 
-	return value;
+	_lastSeenValues[key] = objcValue ?: [[NSNull alloc] init];
+
+	return objcValue;
 }
 
 - (id)objectForKey:(NSString *)key {
@@ -315,9 +319,9 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 	}
 
 	if (USE_CONTAINER_FUNCTIONS) {
-		_CFPreferencesSetValueWithContainer((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
+		_CFPreferencesSetValueWithContainer((__bridge CFStringRef)key, (__bridge CFPropertyListRef)value, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost, kCFPreferencesNoContainer);
 	} else {
-		CFPreferencesSetValue((CFStringRef)key, (CFPropertyListRef)value, (CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
+		CFPreferencesSetValue((__bridge CFStringRef)key, (__bridge CFPropertyListRef)value, (__bridge CFStringRef)_identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
 	}
 
 	[self _preferencesChanged];
@@ -365,7 +369,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 	[self _updateRegisteredObjects];
 }
 
-- (void)registerObject:(id *)object default:(id)defaultValue forKey:(NSString *)key {
+- (void)registerObject:(id __strong *)object default:(id)defaultValue forKey:(NSString *)key {
 	[self _registerObject:object default:defaultValue forKey:key type:HBPreferencesTypeObjectiveC];
 }
 
@@ -395,7 +399,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		_preferenceChangeBlocksGlobal = [[NSMutableArray alloc] init];
-	});
+	});g
 
 	[_preferenceChangeBlocksGlobal addObject:[callback copy]];
 
@@ -421,16 +425,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 #pragma mark - Memory management
 
 - (void)dealloc {
-	[_identifier release];
-	[_defaults release];
-	[_pointers release];
-	[_preferenceChangeBlocks release];
-	[_preferenceChangeBlocksGlobal release];
-	[_lastSeenValues release];
-
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
-	[super dealloc];
 }
 
 @end

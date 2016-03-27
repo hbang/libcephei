@@ -8,8 +8,6 @@ Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h UIColor+HBAddi
 Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 
-HBPreferences.m_CFLAGS = -fno-objc-arc
-
 SUBPROJECTS = prefs containersupport
 
 include $(THEOS_MAKE_PATH)/framework.mk
