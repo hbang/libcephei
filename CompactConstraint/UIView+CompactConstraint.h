@@ -23,12 +23,12 @@
 @interface UIView (CompactConstraint)
 
 // Add a single constraint with the compact syntax
-- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary *)metrics views:(NSDictionary *)views;
+- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 
 // Add any number of constraints. Can also mix in Visual Format Language strings.
-- (NSArray *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary *)metrics views:(NSDictionary *)views;
+- (NSArray *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 
 // And a convenient shortcut for what we always end up doing with the visualFormat call.
-- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary *)metrics views:(NSDictionary *)views;
+- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 
 @end

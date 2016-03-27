@@ -7,16 +7,16 @@
 
 @implementation UIView (CompactConstraint)
 
-- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary *)metrics views:(NSDictionary *)views
+- (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     NSLayoutConstraint *constraint = [NSLayoutConstraint hb_compactConstraint:relationship metrics:metrics views:views self:self];
     [self addConstraint:constraint];
     return constraint;
 }
 
-- (NSArray *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary *)metrics views:(NSDictionary *)views;
+- (NSArray <NSLayoutConstraint *> *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 {
-    NSMutableArray *mConstraints = [NSMutableArray arrayWithCapacity:relationshipStrings.count];
+    NSMutableArray <NSLayoutConstraint *> *mConstraints = [NSMutableArray arrayWithCapacity:relationshipStrings.count];
     for (NSString *relationship in relationshipStrings) {
         if ([relationship hasPrefix:@"H:"] || [relationship hasPrefix:@"V:"] || [relationship hasPrefix:@"|"] || [relationship hasPrefix:@"["]) {
             [mConstraints addObjectsFromArray:[NSLayoutConstraint hb_identifiedConstraintsWithVisualFormat:relationship options:0 metrics:metrics views:views]];
@@ -29,7 +29,7 @@
     return constraints;
 }
 
-- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary *)metrics views:(NSDictionary *)views
+- (void)hb_addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts metrics:(NSDictionary <NSString *, NSString *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     [self addConstraints:[NSLayoutConstraint hb_identifiedConstraintsWithVisualFormat:format options:opts metrics:metrics views:views]];
 }
