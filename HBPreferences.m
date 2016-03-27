@@ -399,7 +399,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		_preferenceChangeBlocksGlobal = [[NSMutableArray alloc] init];
-	});g
+	});
 
 	[_preferenceChangeBlocksGlobal addObject:[callback copy]];
 
