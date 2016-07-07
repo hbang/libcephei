@@ -97,11 +97,17 @@ BOOL translucentNavigationBar = YES;
 
 	// if we have a translucent navigation bar, apply it
 	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
-	self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
+
+	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+		self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
+	}
 
 	// if we have a tint color, apply it
 	if (tintColor) {
-		self.view.tintColor = tintColor;
+		if ([self.view respondsToSelector:@selector(setTintColor:)]) {
+			self.view.tintColor = tintColor;
+		}
+		
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
 	}
 
@@ -131,7 +137,10 @@ BOOL translucentNavigationBar = YES;
 	// if the navigation bar wasn’t translucent, set it back
 	if (!translucentNavigationBar) {
 		self._hb_realNavigationController.navigationBar.translucent = YES;
-		self.edgesForExtendedLayout = UIRectEdgeAll;
+
+		if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+			self.edgesForExtendedLayout = UIRectEdgeAll;
+		}
 	}
 }
 
