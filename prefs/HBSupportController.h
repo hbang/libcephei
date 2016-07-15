@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the built-in ones defined by HBSupportController, or nil.
  * @returns A pre-configured instance of `TSContactViewController`.
  */
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray *)supportInstructions;
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray <TSInstruction *> *)supportInstructions;
 
 @end
 

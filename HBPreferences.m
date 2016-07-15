@@ -34,11 +34,11 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 #pragma mark - Class implementation
 
 @implementation HBPreferences {
-	NSMutableDictionary *_lastSeenValues;
-	NSMutableDictionary *_pointers;
+	NSMutableDictionary <NSString *, id> *_lastSeenValues;
+	NSMutableDictionary <NSString *, NSArray <id> *> *_pointers;
 
-	NSMutableDictionary *_preferenceChangeBlocks;
-	NSMutableArray *_preferenceChangeBlocksGlobal;
+	NSMutableDictionary <NSString *, NSArray <HBPreferencesChangeCallback> *> *_preferenceChangeBlocks;
+	NSMutableArray <HBPreferencesValueChangeCallback> *_preferenceChangeBlocksGlobal;
 }
 
 #pragma mark - Initialization
@@ -48,7 +48,8 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
-	static NSMutableDictionary *KnownIdentifiers;
+	static NSMutableDictionary <NSString *, HBPreferences *> *KnownIdentifiers;
+
 	if (KnownIdentifiers[identifier]) {
 		return KnownIdentifiers[identifier];
 	}
@@ -102,7 +103,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 - (void)_preferencesChanged {
 	[self synchronize];
 
-	NSDictionary *lastSeenValues = [_lastSeenValues copy];
+	NSDictionary <NSString *, id> *lastSeenValues = [_lastSeenValues copy];
 
 	[self _updateRegisteredObjects];
 
@@ -189,7 +190,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 #pragma mark - Dictionary representation
 
-- (NSDictionary *)dictionaryRepresentation {
+- (NSDictionary <NSString *, id> *)dictionaryRepresentation {
 	CFDictionaryRef result;
 
 	if (USE_CONTAINER_FUNCTIONS) {
@@ -217,7 +218,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 #pragma mark - Register defaults
 
-- (void)registerDefaults:(NSDictionary *)defaults {
+- (void)registerDefaults:(NSDictionary <NSString *, id> *)defaults {
 	[_defaults addEntriesFromDictionary:defaults];
 }
 

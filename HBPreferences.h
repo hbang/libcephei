@@ -109,7 +109,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  *
  * @returns A dictionary containing all keys and values.
  */
-- (NSDictionary *)dictionaryRepresentation;
+- (NSDictionary <NSString *, id> *)dictionaryRepresentation;
 
 /**
  * @name Registering Default Preference Values
@@ -120,7 +120,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  *
  * You may modify the values of this dictionary directly.
  */
-@property (nonatomic, copy, readonly) NSMutableDictionary *defaults;
+@property (nonatomic, copy, readonly) NSMutableDictionary <NSString *, id> *defaults;
 
 /**
  * Adds the contents of the specified dictionary to the defaults property.
@@ -132,7 +132,7 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param defaultValues The dictionary of keys and values you want to register.
  * @see defaults
  */
-- (void)registerDefaults:(NSDictionary *)defaultValues;
+- (void)registerDefaults:(NSDictionary <NSString *, id> *)defaultValues;
 
 /**
  * Returns the object associated with the specified key.

@@ -64,6 +64,8 @@
  * 	</dict>
  */
 
+@class TSInstruction;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HBAboutListController : HBListController <MFMailComposeViewControllerDelegate>
@@ -111,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @returns By default, nil.
  * @see HBSupportController
  */
-+ (nullable NSArray *)hb_supportInstructions;
++ (nullable NSArray <TSInstruction *> *)hb_supportInstructions;
 
 /**
  * @name Preference Specifier Actions

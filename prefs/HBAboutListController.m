@@ -4,8 +4,6 @@
 #import <TechSupport/TechSupport.h>
 #include <version.h>
 
-@class TSInstruction;
-
 @implementation HBAboutListController
 
 #pragma mark - Constants
@@ -34,10 +32,6 @@
 	return nil;
 }
 
-/*
- TODO: eventually after xcode 7 has been out for a while, this more strict
- type should be used in the header
-*/
 + (nullable NSArray <TSInstruction *> *)hb_supportInstructions {
 	return nil;
 }
