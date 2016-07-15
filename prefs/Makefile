@@ -5,8 +5,8 @@ CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m) ../Global.x
 CepheiPrefs_PUBLIC_HEADERS = HBAboutListController.h HBAppearanceSettings.h HBPackageNameHeaderCell.h HBLinkTableCell.h HBInitialsLinkTableCell.h HBListController.h HBListItemsController.h HBDiscreteSliderTableCell.h HBImageTableCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
-CepheiPrefs_EXTRA_FRAMEWORKS = Cephei TechSupport
-CepheiPrefs_LIBRARIES = prefs substrate
+CepheiPrefs_EXTRA_FRAMEWORKS = CydiaSubstrate Cephei TechSupport
+CepheiPrefs_LIBRARIES = prefs
 CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk
