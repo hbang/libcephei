@@ -73,7 +73,7 @@
 - (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
 	[super refreshCellContentsWithSpecifier:specifier];
 
-	if (self.type == PSButtonCell) {
+	if (self.type == PSButtonCell && [self respondsToSelector:@selector(setTintColor:)]) {
 		self.textLabel.textColor = self.tintColor;
 	}
 }
