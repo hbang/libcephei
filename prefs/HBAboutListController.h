@@ -64,7 +64,7 @@
  * 	</dict>
  */
 
-@class TSInstruction;
+@class TSIncludeInstruction;
 
 NS_ASSUME_NONNULL_BEGIN
 
