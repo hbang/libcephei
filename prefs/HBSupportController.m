@@ -79,7 +79,7 @@
 	[plistData writeToFile:prefsPath atomically:YES];
 
 	// construct the support instructions
-	NSArray *builtInInstructions = @[
+	NSArray <TSIncludeInstruction *> *builtInInstructions = @[
 		[TSIncludeInstruction instructionWithString:@"include as \"Package List\" command /usr/bin/dpkg -l"],
 		[TSIncludeInstruction instructionWithString:[NSString stringWithFormat:@"include as Preferences plist \"%@\"", prefsPath]]
 	];

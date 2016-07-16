@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @returns By default, nil.
  * @see HBSupportController
  */
-+ (nullable NSArray <TSInstruction *> *)hb_supportInstructions;
++ (nullable NSArray <TSIncludeInstruction *> *)hb_supportInstructions;
 
 /**
  * @name Preference Specifier Actions

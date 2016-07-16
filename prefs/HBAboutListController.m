@@ -32,7 +32,7 @@
 	return nil;
 }
 
-+ (nullable NSArray <TSInstruction *> *)hb_supportInstructions {
++ (nullable NSArray <TSIncludeInstruction *> *)hb_supportInstructions {
 	return nil;
 }
 
