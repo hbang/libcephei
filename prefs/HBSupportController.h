@@ -18,7 +18,7 @@
  * it should not be presented modally.
  */
 
-@class TSContactViewController, TSLinkInstruction;
+@class TSContactViewController, TSLinkInstruction, TSIncludeInstruction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
  * `TSLinkInstruction` is derived from the `Author` field of the package’s
  * control file. `HBSupportController` implicitly adds the user’s package
  * listing (output of `dpkg -l`) and the preferences plist as attachments. To
- * add more, provide an array of `TSSupportInstruction`s to the
+ * add more, provide an array of `TSIncludeInstruction`s to the
  * `supportInstructions` argument.
  *
  * @param bundle A bundle included with the package.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  * the built-in ones defined by HBSupportController, or nil.
  * @returns A pre-configured instance of `TSContactViewController`.
  */
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray <TSInstruction *> *)supportInstructions;
++ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray <TSIncludeInstruction *> *)supportInstructions;
 
 @end
 
