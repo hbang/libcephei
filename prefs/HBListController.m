@@ -2,6 +2,8 @@
 #import "HBAppearanceSettings.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import <Preferences/PSSpecifier.h>
+#import <Preferences/PSTableCell.h>
 #import <libprefs/prefs.h>
 #import <version.h>
 
@@ -149,6 +151,26 @@
 
 - (UINavigationController *)realNavigationController {
 	return [super _hb_realNavigationController];
+}
+
+#pragma mark - Conveniences
+
+- (void)hb_respring:(PSSpecifier *)specifier {
+	[self _hb_respringAndReturn:NO specifier:specifier];
+}
+
+- (void)hb_respringAndReturn:(PSSpecifier *)specifier {
+	[self _hb_respringAndReturn:YES specifier:specifier];
+}
+
+- (void)_hb_respringAndReturn:(BOOL)returnHere specifier:(PSSpecifier *)specifier {
+	PSTableCell *cell = [self cachedCellForSpecifier:specifier];
+
+	// disable the cell, in case it takes a moment
+	specifier.cellEnabled = NO;
+
+	// call the main method
+	[HBRespringController respringAndReturnTo:returnHere ? [HBRespringController _preferencesReturnURL] : nil];
 }
 
 #pragma mark - Table View
