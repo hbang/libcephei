@@ -1,5 +1,4 @@
 #import "HBListController.h"
-#import <MessageUI/MFMailComposeViewController.h>
 
 /**
  * The `HBAboutListController` class in `CepheiPrefs` provides a list controller
@@ -68,7 +67,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HBAboutListController : HBListController <MFMailComposeViewControllerDelegate>
+@interface HBAboutListController : HBListController
 
 /**
  * @name Constants
