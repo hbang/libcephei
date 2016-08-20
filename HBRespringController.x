@@ -4,6 +4,7 @@
 #import <SpringBoardServices/SBSRestartRenderServerAction.h>
 #import <FrontBoardServices/FBSSystemService.h>
 #import <Preferences/PreferencesAppController.h>
+#include <notify.h>
 
 @implementation HBRespringController
 
@@ -32,8 +33,9 @@
 	if (%c(SBSRestartRenderServerAction) && %c(FBSSystemService)) {
 		// ask for a render server (aka springboard) restart. if requested, provide
 		// our url so settings is opened right back up to here
-		SBSRestartRenderServerAction *restartAction = [SBSRestartRenderServerAction restartActionWithTargetRelaunchURL:returnURL];
-		[[FBSSystemService sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
+		// TODO: ??? why can't i link these? they're in the sdk
+		SBSRestartRenderServerAction *restartAction = [%c(SBSRestartRenderServerAction) restartActionWithTargetRelaunchURL:returnURL];
+		[[%c(FBSSystemService) sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
 	} else if (IN_SPRINGBOARD) {
 		// in springboard, use good ole _relaunchSpringBoardNow
 		SpringBoard *app = (SpringBoard *)[UIApplication sharedApplication];
@@ -59,10 +61,10 @@
 	%init;
 
 	// if we're in springboard without the FrontBoard restart action (iOS < 8)
-	if (IS_SPRINGBOARD && !%c(SBSRestartRenderServerAction)) {
+	if (IN_SPRINGBOARD && !%c(SBSRestartRenderServerAction)) {
 		// register our notification
 		int notifyToken;
-		notify_register_dispatch(CFSTR("ws.hbang.common/Respring"), &notifyToken, dispatch_get_main_queue(), ^(int token) {
+		notify_register_dispatch("ws.hbang.common/Respring", &notifyToken, dispatch_get_main_queue(), ^(int token) {
 			// call good ole _relaunchSpringBoardNow
 			SpringBoard *app = (SpringBoard *)[UIApplication sharedApplication];
 			[app _relaunchSpringBoardNow];

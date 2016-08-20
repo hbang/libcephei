@@ -6,6 +6,7 @@ FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
 Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 Cephei_FRAMEWORKS = CoreGraphics UIKit
+Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 

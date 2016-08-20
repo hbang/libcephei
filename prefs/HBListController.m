@@ -1,11 +1,18 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
+#import "../HBRespringController.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
 #import <libprefs/prefs.h>
 #import <version.h>
+
+@interface HBRespringController ()
+
++ (NSURL *)_preferencesReturnURL;
+
+@end
 
 @interface PSListController ()
 
@@ -167,7 +174,7 @@
 	PSTableCell *cell = [self cachedCellForSpecifier:specifier];
 
 	// disable the cell, in case it takes a moment
-	specifier.cellEnabled = NO;
+	cell.cellEnabled = NO;
 
 	// call the main method
 	[HBRespringController respringAndReturnTo:returnHere ? [HBRespringController _preferencesReturnURL] : nil];
