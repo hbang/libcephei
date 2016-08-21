@@ -75,14 +75,23 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 
 		KnownIdentifiers[_identifier] = self;
 
+		__block NSString *identifier = _identifier;
+
 		int notifyToken;
 		notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &notifyToken, dispatch_get_main_queue(), ^(int token) {
 			HBLogDebug(@"received change notification - reloading preferences");
 
-			// TODO: we reload all preferences, rather than just the prefs affected
-			// which is horribly inefficient
-			for (NSString *key in KnownIdentifiers) {
-				[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
+			// if we know this identifier
+			if (KnownIdentifiers[identifier]) {
+				// reload just that one
+				[(HBPreferences *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
+			} else {
+				HBLogWarn(@"identifier %@ is not know. reloading all known HBPreferences instances", identifier);
+
+				// just in case... reload all of them
+				for (NSString *key in KnownIdentifiers) {
+					[(HBPreferences *)KnownIdentifiers[key] _didReceiveDarwinNotification];
+				}
 			}
 		});
 	}

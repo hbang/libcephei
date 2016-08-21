@@ -3,6 +3,8 @@
 #import "../HBRespringController.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import <Preferences/PSSpecifier.h>
+#import <Preferences/PSTableCell.h>
 #import <libprefs/prefs.h>
 #import <version.h>
 
