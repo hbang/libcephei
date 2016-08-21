@@ -1,3 +1,9 @@
 #!/bin/bash
-# restart installd so container support is (re)loaded
-launchctl stop com.apple.mobile.installd
+# don’t run this in an upgrade, because postinst will do it again anyway
+if [[ $1 != upgrade ]]; then
+	# restart installd so container support is unloaded
+	launchctl stop com.apple.mobile.installd
+
+	# restart cfprefsd so cfprefsd support is unloaded
+	[[ -f /usr/sbin/cfprefsd ]] && launchctl stop com.apple.cfprefsd.xpc.daemon
+fi
