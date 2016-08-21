@@ -16,20 +16,20 @@ include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-Cephei-stage::
-	# create directories
-	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN
+	@# create directories
+	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
-	# libhbangcommon.dylib -> libcephei.dylib
-	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
+	@# libhbangcommon.dylib -> libcephei.dylib
+	$(ECHO_NOTHING)ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib$(ECHO_END)
 
-	# libcephei.dylib -> Cephei.framework
-	ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib
+	@# libcephei.dylib -> Cephei.framework
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib$(ECHO_END)
 
-	# Cephei -> Cephei.framework/Headers
-	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
+	@# Cephei -> Cephei.framework/Headers
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei$(ECHO_END)
 
-	# postinst -> DEBIAN/post{inst,rm}
-	cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN
+	@# postinst -> DEBIAN/post{inst,rm}
+	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 after-install::
 ifeq ($(RESPRING),0)
