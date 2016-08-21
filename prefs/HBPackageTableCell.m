@@ -27,7 +27,7 @@
 
 	[super refreshCellContentsWithSpecifier:specifier];
 
-	self.detailTextLabel.text = specifier.properties[@"subtitleText"];
+	self.detailTextLabel.text = specifier.properties[@"subtitle"];
 
 	if (_loadingPackageIcon || self.imageView.image != self.blankIcon) {
 		return;
