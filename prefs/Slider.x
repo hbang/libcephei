@@ -69,6 +69,10 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 %new - (void)_hb_showValueEntryPopup {
 	NSString *title = LOCALIZE(@"ENTER_VALUE", @"Common", @"Title of a prompt that allows typing in a value.");
 
+	NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
+	NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
+	NSString *cancel = [uikitBundle localizedStringForKey:@"Cancel" value:@"" table:@"Localizable"];
+
 	// set up the alert controller. if there is an accessibilityLabel, use that
 	// as the title and our title as subtitle. otherwise, just use our title
 	UIAlertController *alertController = [UIAlertController	alertControllerWithTitle:self.accessibilityLabel ?: title message:self.accessibilityLabel ? title : nil preferredStyle:UIAlertControllerStyleAlert];
@@ -83,13 +87,16 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 	}];
 
 	// insert our ok button
-	[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		// set the value, which will fire the value change callback
+	[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		// set the value
 		self.value = alertController.textFields[0].text.floatValue;
+
+		// fire the callback so it gets stored
+		[self sendActionsForControlEvents:UIControlEventValueChanged];
 	}]];
 
 	// same for cancel
-	[alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+	[alertController addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil]];
 
 	// grab the root window and display it
 	UIWindow *window = [UIApplication sharedApplication].keyWindow;
