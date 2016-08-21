@@ -18,7 +18,6 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 	if (showValue && IS_IOS_OR_NEWER(iOS_8_0)) {
 		UILabel *label = self._hb_valueLabel;
 		label.textColor = self.tintColor;
-		[label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_hb_gestureRecognizerChanged:)]];
 	}
 }
 
@@ -42,27 +41,13 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 	return [self viewWithTag:kUISliderLabelTag];
 }
 
-%new - (void)_hb_gestureRecognizerChanged:(UITapGestureRecognizer *)gestureRecognizer {
-	switch (gestureRecognizer.state) {
-		case UIGestureRecognizerStatePossible:
-		case UIGestureRecognizerStateChanged:
-			break;
+- (void)touchesEnded:(NSSet <UITouch *> *)touches withEvent:(UIEvent *)event {
+	%orig;
 
-		case UIGestureRecognizerStateBegan:
-			[UIView animateWithDuration:0.2 animations:^{
-				self._hb_valueLabel.alpha = 0.3f;
-			}];
-			break;
+	UITouch *touch = touches.anyObject;
 
-		case UIGestureRecognizerStateEnded:
-			[self _hb_showValueEntryPopup];
-
-		case UIGestureRecognizerStateCancelled:
-		case UIGestureRecognizerStateFailed:
-			[UIView animateWithDuration:0.2 animations:^{
-				self._hb_valueLabel.alpha = 1;
-			}];
-			break;
+	if (CGRectContainsPoint(CGRectInset(self._hb_valueLabel.frame, -10, -15), [touch locationInView:self])) {
+		[self _hb_showValueEntryPopup];
 	}
 }
 
