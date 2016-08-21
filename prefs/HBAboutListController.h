@@ -12,32 +12,26 @@
  *
  * ### Example Usage
  * 	<dict>
- * 		<key>action</key>
- * 		<string>hb_openWebsite</string>
  * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
+ * 		<string>PSLinkCell</string>
  * 		<key>cellClass</key>
- * 		<string>HBTintedTableCell</string>
+ * 		<string>HBLinkTableCell</string>
  * 		<key>label</key>
  * 		<string>Visit Website</string>
+ * 		<key>url</key>
+ * 		<string>https://hbang.ws/</string>
  * 	</dict>
  * 	<dict>
  * 		<key>cell</key>
  * 		<string>PSGroupCell</string>
- * 		<key>footerText</key>
- * 		<string>Experiencing issues? Send us an email and we’ll help you.</string>
- * 	</dict>
- * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
+ * 		<key>label</key>
+ * 		<string>Experiencing issues?</string>
  * 	</dict>
  * 	<dict>
  * 		<key>action</key>
  * 		<string>hb_sendSupportEmail</string>
  * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
- * 		<key>cellClass</key>
- * 		<string>HBTintedTableCell</string>
+ * 		<string>PSLinkCell</string>
  * 		<key>label</key>
  * 		<string>Email Support</string>
  * 	</dict>
@@ -49,17 +43,13 @@
  * 	</dict>
  * 	<dict>
  * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
- * 	</dict>
- * 	<dict>
- * 		<key>action</key>
- * 		<string>hb_openDonate</string>
- * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
+ * 		<string>PSLinkCell</string>
  * 		<key>cellClass</key>
- * 		<string>HBTintedTableCell</string>
+ * 		<string>HBLinkTableCell</string>
  * 		<key>label</key>
  * 		<string>Donate</string>
+ * 		<key>url</key>
+ * 		<string>https://hbang.ws/donate/</string>
  * 	</dict>
  */
 
