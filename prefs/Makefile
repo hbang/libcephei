@@ -6,6 +6,7 @@ CepheiPrefs_PUBLIC_HEADERS = HBAboutListController.h HBAppearanceSettings.h HBDi
 CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI Twitter UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = CydiaSubstrate Cephei TechSupport
+CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_LIBRARIES = prefs
 CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
 

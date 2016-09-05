@@ -2,9 +2,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 
-@implementation HBLinkTableCell {
-	NSURL *_url;
-}
+@implementation HBLinkTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
 	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
@@ -12,10 +10,6 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
-
-		_url = [[NSURL alloc] initWithString:specifier.properties[@"url"]];
-
-		NSAssert(_url, @"No URL was provided to HBLinkTableCell, or it is invalid.");
 
 		self.detailTextLabel.numberOfLines = 0;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
@@ -46,19 +40,6 @@
 	}
 
 	return self;
-}
-
-- (void)setSelectionStyle:(UITableViewCellSelectionStyle)style {
-	[super setSelectionStyle:UITableViewCellSelectionStyleDefault];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-	if (!selected) {
-		[super setSelected:selected animated:animated];
-		return;
-	}
-
-	[[UIApplication sharedApplication] openURL:_url];
 }
 
 #pragma mark - Tint color

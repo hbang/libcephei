@@ -1,5 +1,6 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
+#import "HBLinkTableCell.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
@@ -54,6 +55,16 @@
 		// libprefs defines some filters we can take advantage of
 		if (![PSSpecifier environmentPassesPreferenceLoaderFilter:specifier.properties[PLFilterKey]]) {
 			[specifiersToRemove addObject:specifier];
+		}
+
+		// grab the cell class
+		Class cellClass = specifier.properties[PSCellClassKey];
+
+		// if it’s HBLinkTableCell
+		if (cellClass == HBLinkTableCell.class) {
+			// override the type and action to our own
+			specifier.cellType = PSLinkCell;
+			specifier.buttonAction = @selector(hb_openURL:);
 		}
 	}
 
