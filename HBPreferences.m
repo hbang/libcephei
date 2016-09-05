@@ -86,7 +86,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 				// reload just that one
 				[(HBPreferences *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
 			} else {
-				HBLogWarn(@"identifier %@ is not know. reloading all known HBPreferences instances", identifier);
+				HBLogWarn(@"identifier %@ is not known. reloading all known HBPreferences instances", identifier);
 
 				// just in case... reload all of them
 				for (NSString *key in KnownIdentifiers) {
