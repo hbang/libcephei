@@ -24,7 +24,7 @@
 		self.avatarView.layer.cornerRadius = 4.f;
 
 		if (_repo) {
-			specifier.properties[@"url"] = [NSURL URLWithString:[NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(_repo), URL_ENCODE(_identifier)]];
+			specifier.properties[@"url"] = [NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(_repo), URL_ENCODE(_identifier)];
 		} else {
 			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:_identifier];
 		}
