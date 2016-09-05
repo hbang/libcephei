@@ -26,63 +26,44 @@
  * </table>
  *
  * ### Example Usage
- * 	<!-- Standard: -->
+ * 	<!-- Typical: -->
  * 	<dict>
  * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
+ * 		<string>PSButtonCell</string>
  * 		<key>headerCellClass</key>
- * 		<string>HBPackageNameHeaderCell</string>
+ * 		<string>HBPackageTableCell</string>
+ * 		<key>label</key>
+ * 		<string>Cephei</string>
  * 		<key>packageIdentifier</key>
  * 		<string>ws.hbang.common</string>
  * 	</dict>
  *
- * 	<!-- Condensed size: -->
+ * 	<!-- With subtitle: -->
  * 	<dict>
  * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
- * 		<key>condensed</key>
- * 		<true/>
+ * 		<string>PSButtonCell</string>
  * 		<key>headerCellClass</key>
- * 		<string>HBPackageNameHeaderCell</string>
- * 		<key>icon</key>
- * 		<string>icon.png</string>
+ * 		<string>HBPackageTableCell</string>
+ * 		<key>label</key>
+ * 		<string>Cephei</string>
  * 		<key>packageIdentifier</key>
  * 		<string>ws.hbang.common</string>
+ * 		<key>subtitleText</key>
+ * 		<string>Support library for tweaks</string>
  * 	</dict>
  *
- * 	<!-- Standard size with custom colors: -->
+ * 	<!-- From a repository: -->
  * 	<dict>
  * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
+ * 		<string>PSButtonCell</string>
  * 		<key>headerCellClass</key>
- * 		<string>HBPackageNameHeaderCell</string>
+ * 		<string>HBPackageTableCell</string>
+ * 		<key>label</key>
+ * 		<string>Cephei</string>
  * 		<key>packageIdentifier</key>
  * 		<string>ws.hbang.common</string>
- * 		<key>titleColor</key>
- * 		<string>#CC0000</string>
- * 		<key>subtitleColor</key>
- * 		<array>
- * 			<integer>55</integer>
- * 			<integer>147</integer>
- * 			<integer>230</integer>
- * 		</array>
- * 	</dict>
- *
- * 	<!-- Standard size with gradient background: -->
- * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSGroupCell</string>
- * 		<key>headerCellClass</key>
- * 		<string>HBPackageNameHeaderCell</string>
- * 		<key>packageIdentifier</key>
- * 		<string>ws.hbang.common</string>
- * 		<key>backgroundGradientColors</key>
- * 		<array>
- * 			<string>#5AD427</string>
- * 			<string>#FFDB4C</string>
- * 			<string>#EF4DB6</string>
- * 			<string>#898C90</string>
- * 		</array>
+ * 		<key>packageRepository</key>
+ * 		<string>https://cydia.hbang.ws</string>
  * 	</dict>
  */
 @interface HBPackageTableCell : PSTableCell
