@@ -3,40 +3,41 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 
-@implementation HBPackageTableCell {
-	BOOL _loadingPackageIcon;
-}
-
-+ (UITableViewCellStyle)cellStyle {
-	return UITableViewCellStyleSubtitle;
-}
+@implementation HBPackageTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
+	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"package" inBundle:globalBundle]];
+		((UIImageView *)self.accessoryView).image = [UIImage imageNamed:@"package" inBundle:globalBundle];
+		self.avatarView.layer.cornerRadius = 4.f;
+
+		NSString *identifier = self.specifier.properties[@"packageIdentifier"];
+		NSString *repo = self.specifier.properties[@"packageRepository"];
+
+		NSParameterAssert(identifier);
+
+		if (repo) {
+			specifier.properties[@"url"] = [NSURL URLWithString:[NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(repo), URL_ENCODE(identifier)]];
+		} else {
+			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:identifier];
+		}
 	}
 
 	return self;
 }
 
-- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
-	// forcefully enable icon lazy loading logic
-	specifier.properties[PSLazyIconLoading] = @YES;
+- (BOOL)shouldShowAvatar {
+	return YES;
+}
 
-	[super refreshCellContentsWithSpecifier:specifier];
-
-	self.detailTextLabel.text = specifier.properties[@"subtitle"];
-
-	if (_loadingPackageIcon || self.imageView.image != self.blankIcon) {
+- (void)loadAvatarIfNeeded {
+	if (self.avatarImage) {
 		return;
 	}
 
 	NSString *identifier = self.specifier.properties[@"packageIdentifier"];
 	NSString *repo = self.specifier.properties[@"packageRepository"];
-
-	NSParameterAssert(identifier);
 
 	void (^getIcon)(NSString *identifier, NSURL *url) = ^(NSString *identifier, NSURL *url) {
 		NSData *data = [NSData dataWithContentsOfURL:url];
@@ -54,8 +55,7 @@
 		}
 
 		dispatch_async(dispatch_get_main_queue(), ^{
-			specifier.properties[@"iconImage"] = image;
-			self.icon = image;
+			self.avatarImage = image;
 		});
 	};
 
@@ -74,12 +74,8 @@
 	}
 
 	if (!repo) {
-		_loadingPackageIcon = YES;
-
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			getIcon(identifier, [[[NSURL URLWithString:@"https://cydia.saurik.com/icon/"] URLByAppendingPathComponent:identifier] URLByAppendingPathExtension:@"png"]);
-
-			_loadingPackageIcon = NO;
 		});
 	}
 }

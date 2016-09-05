@@ -1,4 +1,4 @@
-#import <Preferences/PSTableCell.h>
+#import "HBLinkTableCell.h"
 
 /**
  * The `HBPackageTableCell` class in `CepheiPrefs` provides a cell containing
@@ -66,6 +66,6 @@
  * 		<string>https://cydia.hbang.ws</string>
  * 	</dict>
  */
-@interface HBPackageTableCell : PSTableCell
+@interface HBPackageTableCell : HBLinkTableCell
 
 @end
