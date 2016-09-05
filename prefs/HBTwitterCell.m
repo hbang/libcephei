@@ -39,7 +39,9 @@
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		((UIImageView *)self.accessoryView).image = [UIImage imageNamed:@"twitter" inBundle:globalBundle];
+		UIImageView *imageView = (UIImageView *)self.accessoryView;
+		imageView.image = [UIImage imageNamed:@"twitter" inBundle:globalBundle];
+		[imageView sizeToFit];
 
 		_user = [specifier.properties[@"user"] copy];
 		NSAssert(_user, @"User name not provided");

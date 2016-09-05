@@ -17,10 +17,11 @@
 	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		((UIImageView *)self.accessoryView).image = [UIImage imageNamed:@"package" inBundle:globalBundle];
-		self.avatarView.layer.cornerRadius = 4.f;
+		UIImageView *imageView = (UIImageView *)self.accessoryView;
+		imageView.image = [UIImage imageNamed:@"package" inBundle:globalBundle];
+		[imageView sizeToFit];
 
-		HBLogDebug(@"id %@ repo %@", _identifier, _repo);
+		self.avatarView.layer.cornerRadius = 4.f;
 
 		if (_repo) {
 			specifier.properties[@"url"] = [NSURL URLWithString:[NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(_repo), URL_ENCODE(_identifier)]];
