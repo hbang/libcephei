@@ -28,9 +28,7 @@
  * ### Example Usage
  * 	<!-- Typical: -->
  * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
- * 		<key>headerCellClass</key>
+ * 		<key>cellClass</key>
  * 		<string>HBPackageTableCell</string>
  * 		<key>label</key>
  * 		<string>Cephei</string>
@@ -40,9 +38,7 @@
  *
  * 	<!-- With subtitle: -->
  * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
- * 		<key>headerCellClass</key>
+ * 		<key>cellClass</key>
  * 		<string>HBPackageTableCell</string>
  * 		<key>label</key>
  * 		<string>Cephei</string>
@@ -54,9 +50,7 @@
  *
  * 	<!-- From a repository: -->
  * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
- * 		<key>headerCellClass</key>
+ * 		<key>cellClass</key>
  * 		<string>HBPackageTableCell</string>
  * 		<key>label</key>
  * 		<string>Cephei</string>
