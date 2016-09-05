@@ -3,24 +3,29 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 
-@implementation HBPackageTableCell
+@implementation HBPackageTableCell {
+	NSString *_identifier;
+	NSString *_repo;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
+	_identifier = [specifier.properties[@"packageIdentifier"] copy];
+	_repo = [specifier.properties[@"packageRepository"] copy];
+
+	NSParameterAssert(_identifier);
+
 	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
 		((UIImageView *)self.accessoryView).image = [UIImage imageNamed:@"package" inBundle:globalBundle];
 		self.avatarView.layer.cornerRadius = 4.f;
 
-		NSString *identifier = self.specifier.properties[@"packageIdentifier"];
-		NSString *repo = self.specifier.properties[@"packageRepository"];
+		HBLogDebug(@"id %@ repo %@", _identifier, _repo);
 
-		NSParameterAssert(identifier);
-
-		if (repo) {
-			specifier.properties[@"url"] = [NSURL URLWithString:[NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(repo), URL_ENCODE(identifier)]];
+		if (_repo) {
+			specifier.properties[@"url"] = [NSURL URLWithString:[NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(_repo), URL_ENCODE(_identifier)]];
 		} else {
-			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:identifier];
+			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:_identifier];
 		}
 	}
 
@@ -36,21 +41,18 @@
 		return;
 	}
 
-	NSString *identifier = self.specifier.properties[@"packageIdentifier"];
-	NSString *repo = self.specifier.properties[@"packageRepository"];
-
-	void (^getIcon)(NSString *identifier, NSURL *url) = ^(NSString *identifier, NSURL *url) {
+	void (^getIcon)(NSURL *url) = ^(NSURL *url) {
 		NSData *data = [NSData dataWithContentsOfURL:url];
 
 		if (!data) {
-			HBLogWarn(@"failed to get package icon for %@", identifier);
+			HBLogWarn(@"failed to get package icon for %@", _identifier);
 			return;
 		}
 
 		UIImage *image = [[UIImage alloc] initWithData:data scale:2];
 
 		if (!image) {
-			HBLogWarn(@"failed to read package icon for %@", identifier);
+			HBLogWarn(@"failed to read package icon for %@", _identifier);
 			return;
 		}
 
@@ -59,23 +61,23 @@
 		});
 	};
 
-	NSString *iconField = HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Icon}' -W '%@'", identifier]);
+	NSString *iconField = HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Icon}' -W '%@'", _identifier]);
 
 	if (iconField && ![iconField isEqualToString:@""]) {
 		NSURL *iconURL = [NSURL URLWithString:iconField];
 
 		if (!iconURL.isFileURL) {
-			HBLogWarn(@"icon url %@ for %@ isn't a file:// url", iconField, identifier);
+			HBLogWarn(@"icon url %@ for %@ isn't a file:// url", iconField, _identifier);
 			return;
 		}
 
-		getIcon(identifier, iconURL);
+		getIcon(iconURL);
 		return;
 	}
 
-	if (!repo) {
+	if (!_repo) {
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			getIcon(identifier, [[[NSURL URLWithString:@"https://cydia.saurik.com/icon/"] URLByAppendingPathComponent:identifier] URLByAppendingPathExtension:@"png"]);
+			getIcon([[[NSURL URLWithString:@"https://cydia.saurik.com/icon/"] URLByAppendingPathComponent:_identifier] URLByAppendingPathExtension:@"png"]);
 		});
 	}
 }
