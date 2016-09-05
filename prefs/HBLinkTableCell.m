@@ -17,6 +17,7 @@
 
 		NSAssert(_url, @"No URL was provided to HBLinkTableCell, or it is invalid.");
 
+		self.detailTextLabel.numberOfLines = 0;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 
 		if (specifier.properties[@"initials"]) {
