@@ -1,4 +1,4 @@
-#import <Preferences/PSTableCell.h>
+#import "HBTintedTableCell.h"
 
 /**
  * The `HBLinkTableCell` class in `CepheiPrefs` displays a button that, when
@@ -65,6 +65,6 @@
  * 	</dict>
  */
 
-@interface HBLinkTableCell : PSTableCell
+@interface HBLinkTableCell : HBTintedTableCell
 
 @end

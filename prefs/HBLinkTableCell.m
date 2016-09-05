@@ -42,22 +42,4 @@
 	return self;
 }
 
-#pragma mark - Tint color
-
-- (void)tintColorDidChange {
-	[super tintColorDidChange];
-
-	if (self.type == PSButtonCell) {
-		self.textLabel.textColor = self.tintColor;
-	}
-}
-
-- (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
-	[super refreshCellContentsWithSpecifier:specifier];
-
-	if (self.type == PSButtonCell && [self respondsToSelector:@selector(setTintColor:)]) {
-		self.textLabel.textColor = self.tintColor;
-	}
-}
-
 @end
