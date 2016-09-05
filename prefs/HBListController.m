@@ -61,7 +61,7 @@
 		Class cellClass = specifier.properties[PSCellClassKey];
 
 		// if it’s HBLinkTableCell
-		if (cellClass == HBLinkTableCell.class) {
+		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
 			// override the type and action to our own
 			specifier.cellType = PSLinkCell;
 			specifier.buttonAction = @selector(hb_openURL:);
