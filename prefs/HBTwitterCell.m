@@ -4,7 +4,7 @@
 
 @interface HBLinkTableCell ()
 
-- (BOOL)_shouldShowAvatar;
+- (BOOL)shouldShowAvatar;
 
 @end
 
@@ -54,10 +54,10 @@
 
 #pragma mark - Avatar
 
-- (BOOL)_shouldShowAvatar {
+- (BOOL)shouldShowAvatar {
 	// HBLinkTableCell doesn’t want avatars by default, but we do. override its
 	// check method so that if showAvatar is unset, we return YES
-	return self.specifier.properties[@"showAvatar"] ? [super _shouldShowAvatar] : YES;
+	return self.specifier.properties[@"showAvatar"] ? [super shouldShowAvatar] : YES;
 }
 
 - (void)loadAvatarIfNeeded {

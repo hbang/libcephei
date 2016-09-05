@@ -4,9 +4,7 @@
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
 
-@implementation HBLinkTableCell {
-	UIImageView *_avatarImageView;
-}
+@implementation HBLinkTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
 	// if we are big, we need to know right now so we can set the style
@@ -24,38 +22,38 @@
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
 
-		if (self._shouldShowAvatar) {
+		if (self.shouldShowAvatar) {
 			CGFloat size = isBig ? 38.f : 29.f;
 
 			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
 			UIGraphicsEndImageContext();
 
-			UIView *avatarView = [[UIView alloc] initWithFrame:self.imageView.bounds];
-			avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-			avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
-			avatarView.userInteractionEnabled = NO;
-			avatarView.clipsToBounds = YES;
-			avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
-			[self.imageView addSubview:avatarView];
+			_avatarView = [[UIView alloc] initWithFrame:self.imageView.bounds];
+			_avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
+			_avatarView.userInteractionEnabled = NO;
+			_avatarView.clipsToBounds = YES;
+			_avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
+			[self.imageView addSubview:_avatarView];
 
 			if (specifier.properties[@"initials"]) {
-				avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
+				_avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
 
-				UILabel *label = [[UILabel alloc] initWithFrame:avatarView.bounds];
+				UILabel *label = [[UILabel alloc] initWithFrame:_avatarView.bounds];
 				label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 				label.font = [UIFont systemFontOfSize:13.f];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.textColor = [UIColor whiteColor];
 				label.text = specifier.properties[@"initials"];
-				[avatarView addSubview:label];
+				[_avatarView addSubview:label];
 			} else {
-				_avatarImageView = [[UIImageView alloc] initWithFrame:avatarView.bounds];
+				_avatarImageView = [[UIImageView alloc] initWithFrame:_avatarView.bounds];
 				_avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 				_avatarImageView.alpha = 0;
 				_avatarImageView.userInteractionEnabled = NO;
 				_avatarImageView.layer.minificationFilter = kCAFilterTrilinear;
-				[avatarView addSubview:_avatarImageView];
+				[_avatarView addSubview:_avatarImageView];
 
 				[self loadAvatarIfNeeded];
 			}
@@ -84,7 +82,7 @@
 	}
 }
 
-- (BOOL)_shouldShowAvatar {
+- (BOOL)shouldShowAvatar {
 	// if showAvatar is non-nil and YES, use that value. otherwise, if initials
 	// is non-nil, return YES
 	return (self.specifier.properties[@"showAvatar"] && ((NSNumber *)self.specifier.properties[@"showAvatar"]).boolValue) ||
