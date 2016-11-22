@@ -1,5 +1,11 @@
-TARGET = iphone:clang:latest:5.0
+export TARGET = iphone:clang:latest:5.0
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
+
+INSTALL_TARGET_PROCESSES = Preferences
+
+ifeq ($(RESPRING),1)
+INSTALL_TARGET_PROCESSES += SpringBoard
+endif
 
 include $(THEOS)/makefiles/common.mk
 
@@ -33,12 +39,6 @@ after-Cephei-stage::
 	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 after-install::
-ifeq ($(RESPRING),0)
-	install.exec "killall Preferences" || true
-
-ifneq ($(DEBUG),0)
+ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
 	install.exec "uiopen prefs:"
-endif
-else
-	install.exec spring
 endif
