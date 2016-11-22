@@ -1,4 +1,5 @@
 TARGET = iphone:clang:latest:5.0
+export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
 
 include $(THEOS)/makefiles/common.mk
 
