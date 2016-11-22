@@ -17,7 +17,7 @@ Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 
-SUBPROJECTS = prefs containersupport
+SUBPROJECTS = prefs defaults containersupport
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
