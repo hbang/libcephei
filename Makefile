@@ -1,4 +1,11 @@
-TARGET = iphone:clang:latest:5.0
+export TARGET = iphone:clang:latest:5.0
+export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
+
+INSTALL_TARGET_PROCESSES = Preferences
+
+ifeq ($(RESPRING),1)
+INSTALL_TARGET_PROCESSES += SpringBoard
+endif
 
 include $(THEOS)/makefiles/common.mk
 
@@ -10,35 +17,28 @@ Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 
-SUBPROJECTS = prefs cfprefsdsupport containersupport
+SUBPROJECTS = cfprefsdsupport containersupport defaults prefs
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-Cephei-stage::
-	# create directories
-	mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN
+	@# create directories
+	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
-	# libhbangcommon.dylib -> libcephei.dylib
-	ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
+	@# libhbangcommon.dylib -> libcephei.dylib
+	$(ECHO_NOTHING)ln -s libcephei.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib$(ECHO_END)
 
-	# libcephei.dylib -> Cephei.framework
-	ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib
+	@# libcephei.dylib -> Cephei.framework
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib$(ECHO_END)
 
-	# Cephei -> Cephei.framework/Headers
-	ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei
+	@# Cephei -> Cephei.framework/Headers
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Headers $(THEOS_STAGING_DIR)/usr/include/Cephei$(ECHO_END)
 
-	# postinst -> DEBIAN/post{inst,rm}
-	cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN
+	@# postinst -> DEBIAN/post{inst,rm}
+	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 after-install::
-ifeq ($(RESPRING),0)
-	install.exec "killall Preferences" || true
-
-ifneq ($(DEBUG),0)
-	# sbopenurl doesn’t even work on iOS 9…
-	# install.exec "sleep 0.2; sbopenurl 'prefs:root=Cephei Demo'"
-endif
-else
-	install.exec spring
+ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
+	install.exec "uiopen prefs:"
 endif

@@ -1,8 +1,5 @@
 #import "HBStepperTableCell.h"
 #import <Preferences/PSSpecifier.h>
-#import <UIKit/UIColor+Private.h>
-#import <UIKit/UIImage+Private.h>
-#import <version.h>
 
 extern NSString *const PSControlMinimumKey;
 extern NSString *const PSControlMaximumKey;
