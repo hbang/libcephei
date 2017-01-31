@@ -65,7 +65,7 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 				// reload just that one
 				[(HBPreferencesCore *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
 			} else {
-				HBLogWarn(@"identifier %@ is not known. reloading all known HBPreferences instances", identifier);
+				HBLogWarn(@"Identifier %@ is not known. Reloading all known HBPreferences instances. This will throw an exception in a future release.", identifier);
 
 				// just in case... reload all of them
 				for (NSString *key in KnownIdentifiers) {
