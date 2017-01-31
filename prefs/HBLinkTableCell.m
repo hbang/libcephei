@@ -15,12 +15,12 @@
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
 
-		self.detailTextLabel.numberOfLines = isBig ? 0 : 1;
+		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
 
 		if (self.shouldShowAvatar) {
-			CGFloat size = isBig ? 38.f : 29.f;
+			CGFloat size = _isBig ? 38.f : 29.f;
 
 			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
