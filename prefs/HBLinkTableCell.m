@@ -7,23 +7,20 @@
 @implementation HBLinkTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	// if we are big, we need to know right now so we can set the style
-	BOOL isBig = specifier.properties[@"big"] && ((NSNumber *)specifier.properties[@"big"]).boolValue;
-
-	self = [super initWithStyle:isBig ? UITableViewCellStyleSubtitle : UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier specifier:specifier];
+	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		_isBig = isBig;
+		_isBig = specifier.properties[@"big"] && ((NSNumber *)specifier.properties[@"big"]).boolValue;
 
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
 
-		self.detailTextLabel.numberOfLines = isBig ? 0 : 1;
+		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
 
 		if (self.shouldShowAvatar) {
-			CGFloat size = isBig ? 38.f : 29.f;
+			CGFloat size = _isBig ? 38.f : 29.f;
 
 			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();

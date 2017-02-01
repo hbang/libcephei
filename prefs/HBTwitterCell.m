@@ -49,6 +49,8 @@
 		specifier.properties[@"url"] = [self.class _urlForUsername:_user];
 
 		self.detailTextLabel.text = [@"@" stringByAppendingString:_user];
+
+		[self loadAvatarIfNeeded];
 	}
 
 	return self;
@@ -63,6 +65,10 @@
 }
 
 - (void)loadAvatarIfNeeded {
+	if (!_user) {
+		return;
+	}
+
 	if (self.avatarImage) {
 		return;
 	}

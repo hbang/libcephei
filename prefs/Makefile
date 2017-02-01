@@ -17,14 +17,11 @@ after-CepheiPrefs-stage::
 	@# create directories
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/Library/PreferenceBundles$(ECHO_END)
 
-	@# libhbangprefs.dylib -> libcepheiprefs.dylib
-	$(ECHO_NOTHING)ln -s libcepheiprefs.dylib $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib$(ECHO_END)
+	@# libhbangprefs.dylib -> CepheiPrefs.framework
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib$(ECHO_END)
 
 	@# libcepheiprefs.dylib -> CepheiPrefs.framework
 	$(ECHO_NOTHING)ln -s /Library/Frameworks/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib$(ECHO_END)
-
-	@# CepheiPrefs -> CepheiPrefs.framework/Headers
-	$(ECHO_NOTHING)ln -s /Library/Frameworks/CepheiPrefs.framework/Headers $(THEOS_STAGING_DIR)/usr/include/CepheiPrefs$(ECHO_END)
 
 	@# libhbangprefs.bundle -> Cephei.bundle
 	$(ECHO_NOTHING)ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle$(ECHO_END)
