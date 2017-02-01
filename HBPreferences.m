@@ -111,7 +111,6 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	}
 
 	[self _storeValue:value forKey:key];
-	[self _preferencesChanged];
 }
 
 @end

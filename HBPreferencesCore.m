@@ -174,6 +174,12 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
 }
 
+#pragma mark - Dictionary representation
+
+- (NSDictionary <NSString *, id> *)dictionaryRepresentation {
+	return nil;
+}
+
 #pragma mark - Getters
 
 - (id)_objectForKey:(NSString *)key {
@@ -190,6 +196,7 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 - (void)setObject:(id)value forKey:(NSString *)key {
 	[self _setObject:value forKey:key];
+	[self _preferencesChanged];
 }
 
 #pragma mark - Register preferences

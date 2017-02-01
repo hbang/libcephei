@@ -390,6 +390,13 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
 - (void)removeObjectForKey:(NSString *)key;
 
 /**
+ * Removes all stored preferences.
+ *
+ * This method acts in the same way as discussed in removeObjectForKey:.
+ */
+- (void)removeAllObjects;
+
+/**
  * @name Registering Variables
  */
 

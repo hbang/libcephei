@@ -94,6 +94,14 @@
 	[self setObject:nil forKey:key];
 }
 
+- (void)removeAllObjects {
+	for (NSString *key in self.dictionaryRepresentation.allKeys) {
+		[self _setObject:nil forKey:key];
+	}
+
+	[self _preferencesChanged];
+}
+
 #pragma mark - Register defaults
 
 - (void)registerDefaults:(NSDictionary <NSString *, id> *)defaults {

@@ -26,6 +26,7 @@
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 
 - (void)removeObjectForKey:(NSString *)key;
+- (void)removeAllObjects;
 
 - (void)registerDefaults:(NSDictionary <NSString *, id> *)defaults;
 
