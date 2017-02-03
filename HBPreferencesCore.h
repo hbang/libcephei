@@ -6,6 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSMutableDictionary <NSString *, id> *defaults;
 
+- (instancetype)initWithIdentifier:(NSString *)identifier;
+
 - (NSDictionary <NSString *, id> *)dictionaryRepresentation;
 
 - (nullable id)_objectForKey:(NSString *)key;

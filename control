@@ -1,6 +1,6 @@
 Package: ws.hbang.common
 Name: Cephei
-Depends: mobilesubstrate, preferenceloader, jp.ashikase.techsupport
+Depends: mobilesubstrate, preferenceloader, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
 Version: 1.10
 Architecture: iphoneos-arm
 Description: Support library for tweaks

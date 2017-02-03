@@ -1,5 +1,7 @@
 #import "HBPreferences-Private.h"
+#import "HBPreferencesIPC.h"
 #import <version.h>
+#include <sandbox.h>
 #include <dlfcn.h>
 
 #define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
@@ -23,6 +25,19 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #pragma mark - Class implementation
 
 @implementation HBPreferences
+
+- (instancetype)initWithIdentifier:(NSString *)identifier {
+	// we may not have the appropriate sandbox rules to access the preferences from this process, so
+	// find out whether we do or not. if we don’t, swap the instance of this class out for an instance
+	// of the class that works around this by doing IPC with our springboard server
+	if (IN_SPRINGBOARD || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
+		self = [super initWithIdentifier:identifier];
+	} else {
+		self = (HBPreferences *)[[HBPreferencesIPC alloc] initWithIdentifier:identifier];
+	}
+
+	return self;
+}
 
 #pragma mark - Initialization
 
