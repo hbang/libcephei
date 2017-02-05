@@ -6,6 +6,7 @@ Architecture: iphoneos-arm
 Description: Support library for tweaks
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
-Support: https://www.hbang.ws/faq/
 Section: Development
+Depiction: https://cydia.hbang.ws/depiction/ws.hbang.common/
+Support: https://www.hbang.ws/support/
 Tag: role::developer
