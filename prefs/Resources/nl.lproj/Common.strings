@@ -28,7 +28,7 @@
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
-	<string>Ervaart u problemen?</string>
+	<string>Ervaar je problemen?</string>
 
 	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
@@ -40,7 +40,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Laat uw waardering voor deze tweak zien door middel van een donatie.</string>
+	<string>Laat je waardering voor deze tweak zien door middel van een donatie.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
