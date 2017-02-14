@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 
-	<title></title>
+	<title>HBLinkTableCell Class Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
-	
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
 </head>
 <body class="appledoc">
 	<header>
@@ -43,9 +43,33 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/avatarImage">avatarImage</option>
+		
+		<option value="//api/name/avatarImageView">avatarImageView</option>
+		
+		<option value="//api/name/avatarView">avatarView</option>
+		
+		<option value="//api/name/isBig">isBig</option>
+		
+	</optgroup>
+	
 
 	
 
+	
 	
 </select>
 						</label>
@@ -59,22 +83,308 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title"></h1>
+					<h1 class="title">HBLinkTableCell Class Reference</h1>
 
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td><a href="../Classes/HBTintedTableCell.html">HBTintedTableCell</a> : PSTableCell</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>HBLinkTableCell.h</td>
+</tr>
+						</tbody></table></div>
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBLinkTableCell</code> class in <code>CepheiPrefs</code> displays a button that, when
+tapped, opens the specified URL. A typical icon can be used, or the initials
+key can be set to one or two characters to show as the icon.</p>
 
+<p>This cell can either be used without setting any cell type, or by setting it
+to <code>PSButtonCell</code> to get a tinted button.</p>
+
+<p>Requires iOS 7.0 or later.</p>
+
+<h3>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>initials</th> <td>Optional. One or two characters to show as the
+icon.</td>
+</tr>
+<tr>
+<th>url</th> <td>Required. The URL to open.</td>
+</tr>
+<tr>
+<th>subtitle</th> <td>Optional. A subtitle to display below the label. The
+default is an empty string, hiding the subtitle.</td>
+</tr>
+</table>
+
+
+<h3>Example Usage</h3>
+
+<pre><code>&lt;!-- With icon: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;icon&lt;/key&gt;
+    &lt;string&gt;example.png&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Example&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;http://example.com/&lt;/string&gt;
+&lt;/dict&gt;
+
+&lt;!-- With initials: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;initials&lt;/key&gt;
+    &lt;string&gt;XX&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Example&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;http://example.com/&lt;/string&gt;
+&lt;/dict&gt;
+
+&lt;!-- With a subtitle: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Example&lt;/string&gt;
+    &lt;key&gt;subtitle&lt;/key&gt;
+    &lt;string&gt;Visit our amazing website&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;http://example.com/&lt;/string&gt;
+&lt;/dict&gt;
+
+&lt;!-- With a subtitle, in big mode: --&gt;
+&lt;dict&gt;
+    &lt;key&gt;big&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;height&lt;/key&gt;
+    &lt;integer&gt;64&lt;/integer&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Example&lt;/string&gt;
+    &lt;key&gt;subtitle&lt;/key&gt;
+    &lt;string&gt;Visit our amazing website&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;http://example.com/&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/isBig" title="isBig"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isBig">&nbsp;&nbsp;isBig</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether the cell is 64 pixels or more in height.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, readonly) BOOL isBig</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>This is not set automatically; the specifier for the cell must set the <code>big</code>
+property to true (see examples above).</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBLinkTableCell.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/avatarView" title="avatarView"></a>
+	<h3 class="method-title"><code><a href="#//api/name/avatarView">&nbsp;&nbsp;avatarView</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The view containing the avatar image view.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) UIView *avatarView</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBLinkTableCell.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/avatarImageView" title="avatarImageView"></a>
+	<h3 class="method-title"><code><a href="#//api/name/avatarImageView">&nbsp;&nbsp;avatarImageView</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The avatar image view.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain, readonly) UIImageView *avatarImageView</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBLinkTableCell.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/avatarImage" title="avatarImage"></a>
+	<h3 class="method-title"><code><a href="#//api/name/avatarImage">&nbsp;&nbsp;avatarImage</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The image to display as the avatar, if enabled.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) UIImage *avatarImage</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBLinkTableCell.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-13</p>
+						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
 						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
 						
 					</div>
 				</footer>

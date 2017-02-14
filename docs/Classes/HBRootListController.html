@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 
-	<title></title>
+	<title>HBRootListController Class Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
-	
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
 </head>
 <body class="appledoc">
 	<header>
@@ -43,9 +43,29 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
-
+	<option value="overview">Overview</option>
 	
 
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/hb_shareText">+ hb_shareText</option>
+		
+		<option value="//api/name/hb_shareURL">+ hb_shareURL</option>
+		
+	</optgroup>
+	
+
+	
 	
 </select>
 						</label>
@@ -59,22 +79,174 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title"></h1>
+					<h1 class="title">HBRootListController Class Reference</h1>
 
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td><a href="../Classes/HBListController.html">HBListController</a> : PSListController</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>HBRootListController.h</td>
+</tr>
+						</tbody></table></div>
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBRootListController</code> class in <code>CepheiPrefs</code> provides a list controller
+class that should be used as the root of the package&rsquo;s settings. It includes
+two class methods you can override to provide a default message and a URL
+that the user can share via a sharing button displayed to the right of the
+navigation bar.</p>
 
+<p>It is recommended that you use this class even if its current features
+aren&rsquo;t appealing in case of future improvements or code that relies on the
+presence of an HBRootListController.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="Constants" name="task_Constants"></a>
+						
+<h2 class="task-title">Constants</h2>
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/hb_shareText" title="hb_shareText"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_shareText">+&nbsp;hb_shareText</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>A string to be used as a default message when the user shares the package
+to a friend or social website. Override this method to return your own
+string.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)hb_shareText</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the return value of this method and <a href="#//api/name/hb_shareURL">hb_shareURL</a> are nil, the sharing
+button will not be displayed.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBRootListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_shareURL" title="hb_shareURL"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_shareURL">+&nbsp;hb_shareURL</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The URL to be shared when the user shares the package to a friend or social
+website. Override this method to return your own URL.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSURL *)hb_shareURL</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If the return value of this method and <a href="#//api/name/hb_shareText">hb_shareText</a> are nil, the sharing
+button will not be displayed.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBRootListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-13</p>
+						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
 						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
 						
 					</div>
 				</footer>

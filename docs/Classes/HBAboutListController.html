@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 
-	<title></title>
+	<title>HBAboutListController Class Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
-	
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
 </head>
 <body class="appledoc">
 	<header>
@@ -43,9 +43,43 @@
 							<select id="jump-to">
 	<option value="top">Jump To&#133;</option>
 	
-
+	<option value="overview">Overview</option>
 	
 
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+	<optgroup label="Class Methods">
+		
+		<option value="//api/name/hb_donateURL">+ hb_donateURL</option>
+		
+		<option value="//api/name/hb_supportEmailAddress">+ hb_supportEmailAddress</option>
+		
+		<option value="//api/name/hb_supportInstructions">+ hb_supportInstructions</option>
+		
+		<option value="//api/name/hb_websiteURL">+ hb_websiteURL</option>
+		
+	</optgroup>
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/hb_openDonate">- hb_openDonate</option>
+		
+		<option value="//api/name/hb_openWebsite">- hb_openWebsite</option>
+		
+		<option value="//api/name/hb_sendSupportEmail">- hb_sendSupportEmail</option>
+		
+	</optgroup>
+	
 	
 </select>
 						</label>
@@ -59,22 +93,480 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title"></h1>
+					<h1 class="title">HBAboutListController Class Reference</h1>
 
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td><a href="../Classes/HBListController.html">HBListController</a> : PSListController</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>HBAboutListController.h</td>
+</tr>
+						</tbody></table></div>
 					
 
                     
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBAboutListController</code> class in <code>CepheiPrefs</code> provides a list controller
+with functions that would typically be used on an &ldquo;about&rdquo; page. It includes
+two class methods you can override to provide a developer website and
+donation URL, and a class method to provide an email address so the user can
+send the developer an email right from the tweak&rsquo;s settings.</p>
 
+<p>There is a sample of an HBAboutListController implemented in the Cephei demo
+preferences. See the Cephei readme for details.</p>
+
+<h3>Example Usage</h3>
+
+<pre><code>&lt;dict&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSLinkCell&lt;/string&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Visit Website&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;https://hbang.ws/&lt;/string&gt;
+&lt;/dict&gt;
+&lt;dict&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSGroupCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Experiencing issues?&lt;/string&gt;
+&lt;/dict&gt;
+&lt;dict&gt;
+    &lt;key&gt;action&lt;/key&gt;
+    &lt;string&gt;hb_sendSupportEmail&lt;/string&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSLinkCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Email Support&lt;/string&gt;
+&lt;/dict&gt;
+&lt;dict&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSGroupCell&lt;/string&gt;
+    &lt;key&gt;footerText&lt;/key&gt;
+    &lt;string&gt;If you like this tweak, please consider a donation.&lt;/string&gt;
+&lt;/dict&gt;
+&lt;dict&gt;
+    &lt;key&gt;cell&lt;/key&gt;
+    &lt;string&gt;PSLinkCell&lt;/string&gt;
+    &lt;key&gt;cellClass&lt;/key&gt;
+    &lt;string&gt;HBLinkTableCell&lt;/string&gt;
+    &lt;key&gt;label&lt;/key&gt;
+    &lt;string&gt;Donate&lt;/string&gt;
+    &lt;key&gt;url&lt;/key&gt;
+    &lt;string&gt;https://hbang.ws/donate/&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="Constants" name="task_Constants"></a>
+						<h2 class="task-title">Constants</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/hb_websiteURL" title="hb_websiteURL"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_websiteURL">+&nbsp;hb_websiteURL</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The website URL to open when tapping the “visit website” cell. Override this
+method to return your own URL.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (NSURL *)hb_websiteURL</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, <a href="https://www.hbang.ws/.">https://www.hbang.ws/.</a></p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_donateURL" title="hb_donateURL"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_donateURL">+&nbsp;hb_donateURL</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The website URL to open when tapping the &ldquo;donate&rdquo; cell. Override this method
+to return your own URL.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (NSURL *)hb_donateURL</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, <a href="https://www.hbang.ws/donate/.">https://www.hbang.ws/donate/.</a></p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_supportEmailAddress" title="hb_supportEmailAddress"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_supportEmailAddress">+&nbsp;hb_supportEmailAddress</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The email address to use in the support email composer form. Override this
+method to return an email address.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)hb_supportEmailAddress</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>If this method returns nil, the package’s author email address is used.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_supportInstructions" title="hb_supportInstructions"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_supportInstructions">+&nbsp;hb_supportInstructions</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The instructions to provide to the TechSupport framework, in addition to the
+default ones provided by Cephei. For details and examples of support
+instructions, refer to the TechSupport project’s GitHub repo:
+<a href="https://github.com/ashikase/TechSupport/tree/master/Demo">https://github.com/ashikase/TechSupport/tree/master/Demo</a></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>+ (nullable NSArray&lt;TSIncludeInstruction*&gt; *)hb_supportInstructions</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="../Classes/HBSupportController.html">HBSupportController</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Preference Specifier Actions" name="task_Preference Specifier Actions"></a>
+						<h2 class="task-title">Preference Specifier Actions</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/hb_openWebsite" title="hb_openWebsite"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_openWebsite">&ndash;&nbsp;hb_openWebsite</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Opens the user&rsquo;s browser to the URL specified by <a href="#//api/name/hb_websiteURL">hb_websiteURL</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)hb_openWebsite</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_openDonate" title="hb_openDonate"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_openDonate">&ndash;&nbsp;hb_openDonate</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Opens the user&rsquo;s browser to the URL specified by <a href="#//api/name/hb_donateURL">hb_donateURL</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)hb_openDonate</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Deprecated. It is encouraged to use an <a href="../Classes/HBLinkTableCell.html">HBLinkTableCell</a> instead.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_sendSupportEmail" title="hb_sendSupportEmail"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_sendSupportEmail">&ndash;&nbsp;hb_sendSupportEmail</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Displays a support composer form.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)hb_sendSupportEmail</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>The hb_supportEmailAddress and hb_supportInstructions methods are used to
+provide the appropriate parameters to <a href="../Classes/HBSupportController.html"><code>HBSupportController</code></a>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection see-also-section">
+				<h4 class="method-subtitle">See Also</h4>
+				<ul>
+					
+					<li><code><p><a href="../Classes/HBSupportController.html">HBSupportController</a></p></code></li>
+					
+				</ul>
+			</div>
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAboutListController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
 					
 
                     
+                    
+          
 				</main>
 
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-13</p>
+						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
 						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
 						
 					</div>
 				</footer>
