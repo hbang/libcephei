@@ -59,5 +59,9 @@
 	<string>Icônes</string>
 	<key>TRANSLATORS</key>
 	<string>Traducteurs</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>Entrer une valeur</string>
 </dict>
 </plist>
