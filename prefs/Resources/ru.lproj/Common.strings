@@ -59,5 +59,9 @@
     <string>Графика</string>
     <key>TRANSLATORS</key>
     <string>Переводчики</string>
+
+    <!-- Title of a prompt that allows typing in a value. -->
+    <key>ENTER_VALUE</key>
+    <string>Введите значение</string>
 </dict>
 </plist>
