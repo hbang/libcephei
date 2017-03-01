@@ -59,5 +59,9 @@
 	<string>ทีมผู้สร้างไอคอน</string>
 	<key>TRANSLATORS</key>
 	<string>ทีมผู้แปล</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>ใส่ค่า</string>
 </dict>
 </plist>
