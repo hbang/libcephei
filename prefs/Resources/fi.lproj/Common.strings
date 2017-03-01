@@ -59,5 +59,9 @@
 	<string>Kuvakkeet</string>
 	<key>TRANSLATORS</key>
 	<string>Kääntäjät</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>Anna arvo</string>
 </dict>
 </plist>
