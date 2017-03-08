@@ -16,7 +16,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>footerText</key>
-			<string>This is a demo of libcephei features. Refer to https://hbang.github.io/libcephei for further details.</string>
+			<string>This is a demo of Cephei features. Refer to https://hbang.github.io/libcephei/ for further details.</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -173,6 +173,20 @@
 			<string>HBTintedTableCell</string>
 			<key>label</key>
 			<string>Do Something Else</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBLinkTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>url</key>
+			<string>https://hbang.ws/</string>
 		</dict>
 		<dict>
 			<key>cell</key>
