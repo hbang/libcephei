@@ -46,9 +46,9 @@
 	return _specifiers;
 }
 
-- (NSArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
+- (NSMutableArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
 	// override the loading mechanism so we can add additional features
-	NSArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
+	NSMutableArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
