@@ -1,7 +1,7 @@
 #import "HBDiscreteSliderTableCell.h"
 #import <version.h>
 
-static NSInteger const kUISliderLabelTag = 1986096245;
+static NSInteger const kUISliderLabelTag = 0x76616C75;
 
 @interface UISlider ()
 
