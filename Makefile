@@ -45,5 +45,5 @@ after-Cephei-stage::
 
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
-	install.exec "uiopen prefs:"
+	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
 endif
