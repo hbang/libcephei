@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Cephei</string>
+	<string>CepheiPrefs</string>
 	<key>CFBundleIdentifier</key>
 	<string>ws.hbang.common.prefs</string>
 	<key>CFBundleInfoDictionaryVersion</key>

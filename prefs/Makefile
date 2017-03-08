@@ -29,8 +29,8 @@ after-CepheiPrefs-stage::
 	@# Cephei.bundle -> CepheiPrefs.framework
 	$(ECHO_NOTHING)ln -s /Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle$(ECHO_END)
 
-ifeq ($(DEBUG),1)
+ifeq ($(PACKAGE_BUILDNAME),debug)
 	@# install demo entry plist
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences$(ECHO_END)
-	$(ECHO_NOTHING)mv $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist$(ECHO_END)
+	$(ECHO_NOTHING)ln -s /Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist$(ECHO_END)
 endif
