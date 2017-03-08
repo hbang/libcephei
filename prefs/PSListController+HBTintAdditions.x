@@ -191,6 +191,7 @@ BOOL translucentNavigationBar = YES;
 
 	if (self.hb_appearanceSettings.tableViewCellTextColor) {
 		cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
+		cell.detailTextLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellBackgroundColor) {
