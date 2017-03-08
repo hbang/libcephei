@@ -1,4 +1,5 @@
 #import "HBDemoRootListController.h"
+#import <CepheiPrefs/HBAppearanceSettings.h>
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
 
@@ -18,8 +19,21 @@
 	return [NSURL URLWithString:@"https://hbang.github.io/libcephei/"];
 }
 
-+ (UIColor *)hb_tintColor {
-	return [UIColor purpleColor];
+#pragma mark - PSListController
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
+	appearance.tintColor = [UIColor purpleColor];
+	appearance.navigationBarTintColor = [UIColor purpleColor];
+	appearance.invertedNavigationBar = YES;
+	appearance.tableViewCellTextColor = [UIColor whiteColor];
+	appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:15.f / 255.f alpha:1];
+	appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:30.f / 255.f alpha:1];
+	appearance.tableViewCellSelectionColor = [UIColor colorWithWhite:38.f / 255.f alpha:1];
+	appearance.tableViewBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];
+	self.hb_appearanceSettings = appearance;
 }
 
 #pragma mark - Actions
