@@ -44,8 +44,7 @@
 	// ensure SafariServices is loaded (if it exists)
 	[[NSBundle bundleWithPath:@"/System/Library/Frameworks/SafariServices.framework"] load];
 
-	// we can only use SFSafariViewController if it’s available (iOS 9), and the
-	// url’s scheme is http(s)
+	// we can only use SFSafariViewController if it’s available (iOS 9), and the url scheme is http(s)
 	if (%c(SFSafariViewController) && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
 		// initialise view controller
 		SFSafariViewController *viewController = [[%c(SFSafariViewController) alloc] initWithURL:url];

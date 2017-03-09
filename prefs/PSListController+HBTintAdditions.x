@@ -63,8 +63,8 @@ BOOL translucentNavigationBar = YES;
 - (void)viewWillAppear:(BOOL)animated {
 	%orig;
 
-	// if we didn’t get an appearance settings object before, try again now that
-	// we’re definitely on a navigation controller
+	// if we didn’t get an appearance settings object before, try again now that we’re definitely on a
+	// navigation controller
 	[self _hb_getAppearance];
 
 	UIColor *tintColor = nil;
@@ -168,8 +168,8 @@ BOOL translucentNavigationBar = YES;
 
 	// enumerate backwards over the navigation stack
 	for (PSListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		// if this view controller is definitely a PSListController and its
-		// appearance settings are non-nil, grab that and break
+		// if this view controller is definitely a PSListController and its appearance settings are
+		// non-nil, grab that and break
 		if ([viewController isKindOfClass:PSListController.class] && viewController.hb_appearanceSettings) {
 			self.hb_appearanceSettings = viewController.hb_appearanceSettings;
 			break;
