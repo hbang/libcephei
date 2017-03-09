@@ -1,4 +1,5 @@
 #import "UIStatusBarCustomItem.h"
+#import "_HBStatusBarClient.h"
 
 @interface UIStatusBarCustomItem ()
 
@@ -69,3 +70,9 @@
 }
 
 %end
+
+%ctor {
+	if (![_HBStatusBarClient hasLibstatusbar]) {
+		%init;
+	}
+}
