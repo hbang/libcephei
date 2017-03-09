@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -28,7 +28,7 @@
 
 	<!-- Heading above the "Email Support" button. -->
 	<key>EMAIL_SUPPORT_HEADER</key>
-	<string>Ervaart u problemen?</string>
+	<string>Ervaar je problemen?</string>
 
 	<!-- Button leading to a contact form. -->
 	<key>EMAIL_SUPPORT</key>
@@ -40,7 +40,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Laat uw waardering voor deze tweak zien door middel van een donatie.</string>
+	<string>Laat je waardering voor deze tweak zien door middel van een donatie.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
@@ -59,5 +59,9 @@
 	<string>Iconen</string>
 	<key>TRANSLATORS</key>
 	<string>Vertalers</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>Voer waarde in</string>
 </dict>
 </plist>

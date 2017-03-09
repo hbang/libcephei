@@ -115,9 +115,11 @@ BOOL animateBarTintColor = NO;
 
 %ctor {
 	// this entire thing isn't particularly useful if the OS doesn’t support it
-	if (IS_MODERN) {
-		%init;
+	if (!IS_IOS_OR_NEWER(iOS_7_0)) {
+		return;
 	}
+	
+	%init;
 
 	if (IS_IOS_OR_NEWER(iOS_9_0)) {
 		%init(EddyCue);

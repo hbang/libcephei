@@ -1,4 +1,4 @@
-#import <Preferences/PSTableCell.h>
+#import "HBLinkTableCell.h"
 
 /**
  * The `HBTwitterCell` class in `CepheiPrefs` displays a button containing a
@@ -67,6 +67,6 @@
  * 	</dict>
  */
 
-@interface HBTwitterCell : PSTableCell
+@interface HBTwitterCell : HBLinkTableCell
 
 @end

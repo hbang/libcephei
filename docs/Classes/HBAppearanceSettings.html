@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>HBAppearanceSettings Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container" class="hide-in-xcode">
+			
+			<h1 id="library-title">
+				<a href="../index.html">Cephei </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="../index.html">HASHBANG Productions</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/invertedNavigationBar">invertedNavigationBar</option>
+		
+		<option value="//api/name/navigationBarTintColor">navigationBarTintColor</option>
+		
+		<option value="//api/name/tableViewBackgroundColor">tableViewBackgroundColor</option>
+		
+		<option value="//api/name/tableViewCellBackgroundColor">tableViewCellBackgroundColor</option>
+		
+		<option value="//api/name/tableViewCellSelectionColor">tableViewCellSelectionColor</option>
+		
+		<option value="//api/name/tableViewCellSeparatorColor">tableViewCellSeparatorColor</option>
+		
+		<option value="//api/name/tableViewCellTextColor">tableViewCellTextColor</option>
+		
+		<option value="//api/name/tintColor">tintColor</option>
+		
+		<option value="//api/name/translucentNavigationBar">translucentNavigationBar</option>
+		
+	</optgroup>
+	
+
+	
+
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">HBAppearanceSettings Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>HBAppearanceSettings.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The <code>HBAppearanceSettings</code> class in <code>CepheiPrefs</code> provides a model object
+read by other components of Cephei to determine colors to use in the user
+interface.</p>
+
+<p>Appearance settings are typically set on a view controller, via the
+-[PSListController+HBTintAdditions hb_appearanceSettings] property. This is
+automatically managed by Cephei and provided to view controllers as they are
+pushed onto the stack.</p>
+
+<p>This interface replaces the previous method that worked in the opposite way –
+<a href="../Classes/HBListController.html">HBListController</a> would work backwards to find a view controller with
+appearance settings defined. This was not robust, created messy code within
+Cephei, and can cause a mix of colors if a view controller with different
+settings to the prior one is pushed.</p>
+
+<p>Use of the old properties on <a href="../Classes/HBListController.html">HBListController</a> will cause a warning to be
+logged.</p>
+
+<p>Most commonly, the API will be used by setting the hb_appearanceSettings
+property from the init method. The following example sets the tint color,
+table view background color, and enables an inverted navigation bar:</p>
+
+<p>```
+- (instancetype)init {
+    self = [super init];</p>
+
+<pre><code>if (self) {
+    HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+    appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
+    appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
+    appearanceSettings.invertedNavigationBar = YES;
+    self.hb_appearanceSettings = appearanceSettings;
+}
+
+return self;
+</code></pre>
+
+<p>}
+```</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						<a title="General" name="task_General"></a>
+						<h2 class="task-title">General</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/tintColor" title="tintColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tintColor">&nbsp;&nbsp;tintColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The tint color to use for interactable elements within the list controller.
+Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tintColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause no modification of the tint to occur.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Navigation Bar" name="task_Navigation Bar"></a>
+						<h2 class="task-title">Navigation Bar</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/navigationBarTintColor" title="navigationBarTintColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/navigationBarTintColor">&nbsp;&nbsp;navigationBarTintColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The tint color to use for the navigation bar buttons, or, if
+hb<em><a href="#//api/name/invertedNavigationBar">invertedNavigationBar</a> is set, the background of the navigation bar.
+Override this method to return a UIColor to use, if you don’t want to use the
+same color as hb</em><a href="#//api/name/tintColor">tintColor</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *navigationBarTintColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, the return value of hb_<a href="#//api/name/tintColor">tintColor</a>.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause no modification of the navigation bar tint to occur.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/invertedNavigationBar" title="invertedNavigationBar"></a>
+	<h3 class="method-title"><code><a href="#//api/name/invertedNavigationBar">&nbsp;&nbsp;invertedNavigationBar</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether to use an inverted navigation bar. Override this method if you want
+this behavior.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL invertedNavigationBar</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, NO.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>An inverted navigation bar has a tinted background, rather than the buttons
+being tinted. All other interface elements will be tinted the same.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/translucentNavigationBar" title="translucentNavigationBar"></a>
+	<h3 class="method-title"><code><a href="#//api/name/translucentNavigationBar">&nbsp;&nbsp;translucentNavigationBar</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether to use a translucent navigation bar. Override this method if you want
+this behavior.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL translucentNavigationBar</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, YES.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+
+						<a title="Table View" name="task_Table View"></a>
+						<h2 class="task-title">Table View</h2>
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/tableViewBackgroundColor" title="tableViewBackgroundColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tableViewBackgroundColor">&nbsp;&nbsp;tableViewBackgroundColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the overall background of the table view.
+Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tableViewBackgroundColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/tableViewCellTextColor" title="tableViewCellTextColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tableViewCellTextColor">&nbsp;&nbsp;tableViewCellTextColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the text color of table view cells.
+Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tableViewCellTextColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/tableViewCellBackgroundColor" title="tableViewCellBackgroundColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tableViewCellBackgroundColor">&nbsp;&nbsp;tableViewCellBackgroundColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the background color of table view cells.
+Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tableViewCellBackgroundColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/tableViewCellSeparatorColor" title="tableViewCellSeparatorColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tableViewCellSeparatorColor">&nbsp;&nbsp;tableViewCellSeparatorColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used for the separator between table view cells.
+Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tableViewCellSeparatorColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/tableViewCellSelectionColor" title="tableViewCellSelectionColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/tableViewCellSelectionColor">&nbsp;&nbsp;tableViewCellSelectionColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to be used when a table view cell is selected.
+This color will be shown when the cell is in the &lsquo;highlighted&rsquo; state.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *tableViewCellSelectionColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Override this method to return a UIColor to use.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

@@ -59,5 +59,9 @@
 	<string>אייקונים</string>
 	<key>TRANSLATORS</key>
 	<string>מתרגמים</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>הכנס ערך</string>
 </dict>
 </plist>

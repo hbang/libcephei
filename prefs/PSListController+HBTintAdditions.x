@@ -51,21 +51,20 @@ BOOL translucentNavigationBar = YES;
 
 #pragma mark - UIViewController
 
-- (instancetype)init {
-	self = %orig;
+- (void)viewDidLoad {
+	%orig;
 
-	if (self) {
-		[self _hb_getAppearance];
-	}
-
-	return self;
+	// try and get appearance settings. this might be too early in most situations, but probably will
+	// work for the initial view controler in the navigation stack, where for some reason
+	// viewWillAppear: isn’t called on iOS 10
+	[self _hb_getAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	%orig;
 
-	// if we didn’t get an appearance settings object before, try again now that
-	// we’re definitely on a navigation controller
+	// if we didn’t get an appearance settings object before, try again now that we’re definitely on a
+	// navigation controller
 	[self _hb_getAppearance];
 
 	UIColor *tintColor = nil;
@@ -169,8 +168,8 @@ BOOL translucentNavigationBar = YES;
 
 	// enumerate backwards over the navigation stack
 	for (PSListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		// if this view controller is definitely a PSListController and its
-		// appearance settings are non-nil, grab that and break
+		// if this view controller is definitely a PSListController and its appearance settings are
+		// non-nil, grab that and break
 		if ([viewController isKindOfClass:PSListController.class] && viewController.hb_appearanceSettings) {
 			self.hb_appearanceSettings = viewController.hb_appearanceSettings;
 			break;
@@ -191,6 +190,7 @@ BOOL translucentNavigationBar = YES;
 
 	if (self.hb_appearanceSettings.tableViewCellTextColor) {
 		cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
+		cell.detailTextLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellBackgroundColor) {

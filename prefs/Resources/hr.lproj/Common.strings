@@ -59,5 +59,9 @@
 	<string>Ikone</string>
 	<key>TRANSLATORS</key>
 	<string>Prevoditelji</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>Unesi vrijednost</string>
 </dict>
 </plist>

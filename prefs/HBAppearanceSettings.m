@@ -8,8 +8,7 @@
 	self = [super init];
 
 	if (self) {
-		// set defaults. everything else is either nil or NO, which are set
-		// implicitly by objc
+		// set defaults. everything else is either nil or NO, which are set implicitly by objc
 		_translucentNavigationBar = YES;
 	}
 

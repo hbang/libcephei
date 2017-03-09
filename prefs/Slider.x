@@ -1,7 +1,7 @@
 #import "HBDiscreteSliderTableCell.h"
 #import <version.h>
 
-static NSInteger const kUISliderLabelTag = 1986096245;
+static NSInteger const kUISliderLabelTag = 0x76616C75;
 
 @interface UISlider ()
 
@@ -30,8 +30,8 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 - (void)_layoutSubviewsForBoundsChange:(BOOL)something {
 	%orig;
 
-	// from iOS 2(?) to 6, the label is strangely positioned. the cause is just a
-	// missing autoresizeMask. fix that here
+	// from iOS 2(?) to 6, the label is strangely positioned. the cause is just a missing
+	// autoresizingMask. fix that here
 	if (!IS_IOS_OR_NEWER(iOS_7_0)) {
 		self._hb_valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	}
@@ -58,8 +58,8 @@ static NSInteger const kUISliderLabelTag = 1986096245;
 	NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
 	NSString *cancel = [uikitBundle localizedStringForKey:@"Cancel" value:@"" table:@"Localizable"];
 
-	// set up the alert controller. if there is an accessibilityLabel, use that
-	// as the title and our title as subtitle. otherwise, just use our title
+	// set up the alert controller. if there is an accessibilityLabel, use that as the title and our
+	// title as subtitle. otherwise, just use our title
 	UIAlertController *alertController = [UIAlertController	alertControllerWithTitle:self.accessibilityLabel ?: title message:self.accessibilityLabel ? title : nil preferredStyle:UIAlertControllerStyleAlert];
 
 	// insert our text box

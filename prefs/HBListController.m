@@ -1,18 +1,10 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
-#import "../HBRespringController.h"
+#import "HBLinkTableCell.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
-#import <Preferences/PSTableCell.h>
 #import <libprefs/prefs.h>
-#import <version.h>
-
-@interface HBRespringController ()
-
-+ (NSURL *)_preferencesReturnURL;
-
-@end
 
 @interface PSListController ()
 
@@ -54,15 +46,25 @@
 	return _specifiers;
 }
 
-- (NSArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
+- (NSMutableArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
 	// override the loading mechanism so we can add additional features
-	NSArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
+	NSMutableArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
 		// libprefs defines some filters we can take advantage of
 		if (![PSSpecifier environmentPassesPreferenceLoaderFilter:specifier.properties[PLFilterKey]]) {
 			[specifiersToRemove addObject:specifier];
+		}
+
+		// grab the cell class
+		Class cellClass = specifier.properties[PSCellClassKey];
+
+		// if it’s HBLinkTableCell
+		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
+			// override the type and action to our own
+			specifier.cellType = PSLinkCell;
+			specifier.buttonAction = @selector(hb_openURL:);
 		}
 	}
 
@@ -158,26 +160,6 @@
 
 - (UINavigationController *)realNavigationController {
 	return [super _hb_realNavigationController];
-}
-
-#pragma mark - Conveniences
-
-- (void)hb_respring:(PSSpecifier *)specifier {
-	[self _hb_respringAndReturn:NO specifier:specifier];
-}
-
-- (void)hb_respringAndReturn:(PSSpecifier *)specifier {
-	[self _hb_respringAndReturn:YES specifier:specifier];
-}
-
-- (void)_hb_respringAndReturn:(BOOL)returnHere specifier:(PSSpecifier *)specifier {
-	PSTableCell *cell = [self cachedCellForSpecifier:specifier];
-
-	// disable the cell, in case it takes a moment
-	cell.cellEnabled = NO;
-
-	// call the main method
-	[HBRespringController respringAndReturnTo:returnHere ? [HBRespringController _preferencesReturnURL] : nil];
 }
 
 #pragma mark - Table View

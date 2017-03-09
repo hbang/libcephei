@@ -1,4 +1,4 @@
-#import <Preferences/PSTableCell.h>
+#import "HBTintedTableCell.h"
 
 /**
  * The `HBLinkTableCell` class in `CepheiPrefs` displays a button that, when
@@ -29,7 +29,7 @@
  * 	<!-- With icon: -->
  * 	<dict>
  * 		<key>cellClass</key>
- * 		<string>HBInitialsLinkTableCell</string>
+ * 		<string>HBLinkTableCell</string>
  * 		<key>icon</key>
  * 		<string>example.png</string>
  * 		<key>label</key>
@@ -41,7 +41,7 @@
  * 	<!-- With initials: -->
  * 	<dict>
  * 		<key>cellClass</key>
- * 		<string>HBInitialsLinkTableCell</string>
+ * 		<string>HBLinkTableCell</string>
  * 		<key>initials</key>
  * 		<string>XX</string>
  * 		<key>label</key>
@@ -50,12 +50,26 @@
  * 		<string>http://example.com/</string>
  * 	</dict>
  *
- * 	<!-- With a subtitle, styled as a button: -->
+ * 	<!-- With a subtitle: -->
  * 	<dict>
- * 		<key>cell</key>
- * 		<string>PSButtonCell</string>
  * 		<key>cellClass</key>
- * 		<string>HBInitialsLinkTableCell</string>
+ * 		<string>HBLinkTableCell</string>
+ * 		<key>label</key>
+ * 		<string>Example</string>
+ * 		<key>subtitle</key>
+ * 		<string>Visit our amazing website</string>
+ * 		<key>url</key>
+ * 		<string>http://example.com/</string>
+ * 	</dict>
+ *
+ * 	<!-- With a subtitle, in big mode: -->
+ * 	<dict>
+ * 		<key>big</key>
+ * 		<true/>
+ * 		<key>cellClass</key>
+ * 		<string>HBLinkTableCell</string>
+ * 		<key>height</key>
+ * 		<integer>64</integer>
  * 		<key>label</key>
  * 		<string>Example</string>
  * 		<key>subtitle</key>
@@ -65,6 +79,29 @@
  * 	</dict>
  */
 
-@interface HBLinkTableCell : PSTableCell
+@interface HBLinkTableCell : HBTintedTableCell
+
+/**
+ * Whether the cell is 64 pixels or more in height.
+ *
+ * This is not set automatically; the specifier for the cell must set the `big`
+ * property to true (see examples above).
+ */
+@property (nonatomic, readonly) BOOL isBig;
+
+/**
+ * The view containing the avatar image view.
+ */
+@property (nonatomic, retain, readonly) UIView *avatarView;
+
+/**
+ * The avatar image view.
+ */
+@property (nonatomic, retain, readonly) UIImageView *avatarImageView;
+
+/**
+ * The image to display as the avatar, if enabled.
+ */
+@property (nonatomic, retain) UIImage *avatarImage;
 
 @end

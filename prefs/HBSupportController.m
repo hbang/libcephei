@@ -6,7 +6,21 @@
 + (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress {
 	NSParameterAssert(emailAddress);
 
-	return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", emailAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+	// work around what seems to possibly be a TechSupport bug – pinged ashikase about it; providing
+	// this workaround in the interim to release Cephei 1.10 ASAP which is already pretty late…
+	// 19:08:45 <kirb> ashikase: having an issue with TSLinkInstruction – so i have this logic here:
+	//   https://github.com/hbang/libcephei/blob/master/prefs/HBSupportController.m#L9
+	// 19:09:16 <kirb> it works if emailAddress is of form `Blah <a@b.c>`, but not `a@b.c` alone
+	// 19:09:47 <kirb> removing quotes solves the second form, but breaks the first form
+	// 19:15:37 <kirb> i'll just work around it by injecting `Support <%@>` for the moment
+	NSString *cleanedAddress = emailAddress;
+	NSCharacterSet *workaroundCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" <>"];
+
+	if ([emailAddress rangeOfCharacterFromSet:workaroundCharacterSet].location == NSNotFound) {
+		cleanedAddress = [NSString stringWithFormat:@"Support <%@>", emailAddress];
+	}
+
+	return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", cleanedAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
 }
 
 + (TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {

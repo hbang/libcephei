@@ -28,7 +28,7 @@
  * process updates the preferences on iOS 7 or older; if you need to support
  * older iOS versions, use the registration methods instead.
  *
- * ### Example usage:
+ * ### Example usage
  *
  * 	HBPreferences *preferences;
  * 	BOOL doThing;
@@ -45,6 +45,9 @@
  * 		NSLog(@"Am I enabled? %i", [preferences boolForKey:@"Enabled"]);
  * 		NSLog(@"Can I do thing? %i", doThing);
  * 	}
+ *
+ * ### References
+ * * [NSUserDefaults in Practice](http://dscoder.com/defaults.html)
  */
 
 NS_ASSUME_NONNULL_BEGIN
@@ -86,13 +89,19 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  */
 
 /**
- * Writes all pending changes to preference data to permanent storage, and
- * reads latest preference data from permanent storage.
+ * Synchronizes preferences data to prevent race conditions.
+ *
+ * On iOS 8.0 and later, waits until all communications between the `cfprefsd`
+ * daemon and the current process have completed, preventing race conditions
+ * and guaranteeing no data will be lost. Prior to iOS 8.0, writes all pending
+ * changes to preference data to permanent storage, and reads latest preference
+ * data from permanent storage.
  *
  * Do not use this method directly unless you have a specific need.
- * Synchronization is automatically invoked at periodic intervals. Use this
- * method if you cannot wait for automatic synchronization (for example, if the
- * process is about to exit).
+ * HBPreferences will synchronize automatically when needed. For further
+ * information on what this method does and when to use it, refer to
+ * [NSUserDefaults in Practice](http://dscoder.com/defaults.html) § “Sharing
+ * Defaults Between Programs”.
  *
  * @returns `YES` if synchronization was successful, `NO` if an error occurred.
  */
@@ -388,6 +397,13 @@ typedef void(^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nu
  * @param key The key to remove.
  */
 - (void)removeObjectForKey:(NSString *)key;
+
+/**
+ * Removes all stored preferences.
+ *
+ * This method acts in the same way as discussed in removeObjectForKey:.
+ */
+- (void)removeAllObjects;
 
 /**
  * @name Registering Variables

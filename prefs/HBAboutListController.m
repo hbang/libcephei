@@ -60,10 +60,4 @@
 	[self.realNavigationController pushViewController:viewController animated:YES];
 }
 
-#pragma mark - MFMailComposeViewControllerDelegate
-
-- (void)mailComposeController:(MFMailComposeViewController *)viewController didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-	[viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
 @end
