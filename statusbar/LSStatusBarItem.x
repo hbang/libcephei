@@ -42,11 +42,12 @@ static NSMutableDictionary *KnownItems;
 		NSParameterAssert(alignment);
 
 		self._hb_identifier = [identifier copy];
+		self._hb_imageName = [identifier copy];
 		self._hb_alignment = alignment;
 
-		KnownItems[self._hb_identifier] = self;
+		KnownItems[identifier] = self;
 
-		self.imageName = self._hb_identifier;
+		[self update];
 	}
 
 	return self;
