@@ -46,7 +46,8 @@
 %hook UIStatusBarForegroundView
 
 - (id)_computeVisibleItemsPreservingHistory:(BOOL)preserveHistory {
-	%orig;
+	%log;
+	return %orig;
 }
 
 %end
