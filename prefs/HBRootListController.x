@@ -27,21 +27,33 @@
 #pragma mark - Callbacks
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
+	// if we have UIActivityViewController (ios 6+)
 	if (%c(UIActivityViewController)) {
-		UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[ [self.class hb_shareText], [self.class hb_shareURL] ] applicationActivities:nil];
+		// instantiate one with the share text and url as items
+		UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[
+			[self.class hb_shareText],
+			[self.class hb_shareURL]
+		] applicationActivities:nil];
 
 		if ([viewController respondsToSelector:@selector(presentationController)] && [viewController.presentationController respondsToSelector:@selector(barButtonItem)]) {
 			((UIPopoverPresentationController *)viewController.presentationController).barButtonItem = sender;
 		}
 
 		[self.navigationController presentViewController:viewController animated:YES completion:nil];
-	} else if ([TWTweetComposeViewController canSendTweet]) {
-		TWTweetComposeViewController *viewController = [[TWTweetComposeViewController alloc] init];
-		viewController.initialText = [self.class hb_shareText];
-		[viewController addURL:[self.class hb_shareURL]];
-		[self.navigationController presentViewController:viewController animated:YES completion:nil];
 	} else {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@%%20%@", URL_ENCODE([self.class hb_shareText]), URL_ENCODE([self.class hb_shareURL].absoluteString)]]];
+		// for ios 5: lazy load Twitter.framework
+		[[NSBundle bundleWithPath:@"/System/Library/Frameworks/Twitter.framework"] load];
+		
+		// if it loaded and we have a twitter account, instantiate a tweet composer. otherwise, just
+		// open the twitter website
+		if (%c(TWTweetComposeViewController) && [%c(TWTweetComposeViewController) canSendTweet]) {
+			TWTweetComposeViewController *viewController = [[%c(TWTweetComposeViewController) alloc] init];
+			viewController.initialText = [self.class hb_shareText];
+			[viewController addURL:[self.class hb_shareURL]];
+			[self.navigationController presentViewController:viewController animated:YES completion:nil];
+		} else {
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@%%20%@", URL_ENCODE([self.class hb_shareText]), URL_ENCODE([self.class hb_shareURL].absoluteString)]]];
+		}
 	}
 }
 
