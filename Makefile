@@ -37,11 +37,11 @@ after-Cephei-stage::
 	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 	@# TODO: this is kind of a bad idea. maybe it should be in its own daemon?
-	@# CepheiPreferencesSupport.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiPreferencesSupport.dylib$(ECHO_END)
+	@# CepheiSpringBoard.dylib -> Cephei.framework
+	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib$(ECHO_END)
 
-	@# copy CepheiPreferencesSupport.plist
-	$(ECHO_NOTHING)cp CepheiPreferencesSupport.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
+	@# copy CepheiSpringBoard.plist
+	$(ECHO_NOTHING)cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
 
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
