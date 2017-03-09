@@ -17,7 +17,7 @@
 
 		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
-		self.detailTextLabel.textColor = IS_MODERN ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
+		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
 
 		if (self.shouldShowAvatar) {
 			CGFloat size = _isBig ? 38.f : 29.f;
@@ -31,7 +31,7 @@
 			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
 			_avatarView.userInteractionEnabled = NO;
 			_avatarView.clipsToBounds = YES;
-			_avatarView.layer.cornerRadius = IS_MODERN ? size / 2 : 4.f;
+			_avatarView.layer.cornerRadius = IS_IOS_OR_NEWER(iOS_7_0) ? size / 2 : 4.f;
 			[self.imageView addSubview:_avatarView];
 
 			if (specifier.properties[@"initials"]) {
