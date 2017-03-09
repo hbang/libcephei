@@ -1,9 +1,7 @@
 Package: ws.hbang.common
 Name: Cephei
 Depends: mobilesubstrate, preferenceloader, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
-Conflits: libstatusbar, libmoorecon
-Replaces: libstatusbar, libmoorecon
-Provides: libstatusbar, libmoorecon
+Provides: libstatusbar, libstatusbar8, libmoorecon, org.thebigboss.libstatus9
 Version: 1.10
 Architecture: iphoneos-arm
 Description: Support library for tweaks
