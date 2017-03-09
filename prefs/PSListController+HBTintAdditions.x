@@ -51,14 +51,13 @@ BOOL translucentNavigationBar = YES;
 
 #pragma mark - UIViewController
 
-- (instancetype)init {
-	self = %orig;
+- (void)viewDidLoad {
+	%orig;
 
-	if (self) {
-		[self _hb_getAppearance];
-	}
-
-	return self;
+	// try and get appearance settings. this might be too early in most situations, but probably will
+	// work for the initial view controler in the navigation stack, where for some reason
+	// viewWillAppear: isn’t called on iOS 10
+	[self _hb_getAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
