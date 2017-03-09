@@ -11,7 +11,7 @@ include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
-Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h HBRespringController.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h) statusbar/LSStatusBarItem.h statusbar/UIStatusBarCustomItem.h statusbar/UIStatusBarCustomItemView.h
+Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h HBRespringController.h HBStatusBarItem.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h) statusbar/LSStatusBarItem.h statusbar/UIStatusBarCustomItem.h statusbar/UIStatusBarCustomItemView.h
 Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
