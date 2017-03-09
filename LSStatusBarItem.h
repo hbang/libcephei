@@ -2,7 +2,7 @@
 
 @interface LSStatusBarItem : NSObject
 
-- (instancetype)initWithIdentifier:(NSString *)identifier alignment:(UIStatusBarCustomItemAlignment)alignment NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithIdentifier:(NSString *)identifier alignment:(UIStatusBarCustomItemAlignment)alignment;
 
 @property (nonatomic, strong, readonly) NSString *identifier;
 @property (nonatomic, readonly) UIStatusBarCustomItemAlignment alignment;

@@ -16,7 +16,7 @@ Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
 Cephei_LIBRARIES = rocketbootstrap
-Cephei_CFLAGS = -include Global.h -fobjc-arc
+Cephei_CFLAGS = -include Global.h -Istatusbar -fobjc-arc
 
 SUBPROJECTS = prefs statusbar defaults containersupport
 

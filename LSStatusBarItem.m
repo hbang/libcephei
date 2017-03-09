@@ -74,11 +74,6 @@ static NSMutableDictionary *KnownItems;
 
 - (void)dealloc {
 	[KnownItems removeObjectForKey:_identifier];
-
-	[_identifier release];
-	[_imageName release];
-
-	[super dealloc];
 }
 
 @end
