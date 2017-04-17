@@ -4,6 +4,7 @@
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
+#include <dlfcn.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -163,23 +164,44 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	paragraphStyle.lineSpacing = _condensed ? 10.f : 4.f;
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
-	NSString *lightFontName = [UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]
-		? [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1].fontName
-		: @"HelveticaNeue-Light";
+	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
+
+	// the Title1 and Title2 styles were added in iOS 9. get their symbols dynamically so we can fall
+	// back to older styles on older iOS
+	NSString * __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
+	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
+
+	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
+		UIFont *systemTitleFont = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle1];
+		UIFont *systemTitle2Font = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle2];
+		UIFont *systemSubtitleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+
+		// use the specified font names, with either the font sizes we want, or the sizes the user
+		// wants, whichever is larger
+		headerFont = [UIFont fontWithName:systemTitleFont.fontName size:MAX(systemTitleFont.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
+		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFont.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
+		condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2Font.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
+		condensedLightFont = [UIFont fontWithName:systemTitleFont.fontName size:condensedFont.pointSize];
+	} else {
+		headerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize];
+		subtitleFont = [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize];
+		condensedFont = [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize];
+		condensedLightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize];
+	}
 
 	if (_condensed) {
 		location++;
 		length++;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
+			NSFontAttributeName: condensedFont,
 			NSBaselineOffsetAttributeName: @(6.f),
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont fontWithName:lightFontName size:kHBPackageNameTableCellHeaderFontSize],
+			NSFontAttributeName: headerFont,
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length)];
@@ -190,7 +212,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		length = version.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: _condensed ? [UIFont fontWithName:lightFontName size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSFontAttributeName: _condensed ? condensedLightFont : subtitleFont,
 			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
@@ -200,7 +222,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		length = author.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSFontAttributeName: subtitleFont,
 			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
