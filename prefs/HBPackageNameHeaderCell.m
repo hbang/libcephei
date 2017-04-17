@@ -70,9 +70,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_label.adjustsLetterSpacingToFitWidth = NO;
 		[self.contentView addSubview:_label];
 
-		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
-		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
-		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
+		_condensed = specifier.properties[@"condensed"] ? ((NSNumber *)specifier.properties[@"condensed"]).boolValue : NO;
+		_showAuthor = specifier.properties[@"showAuthor"] ? ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue : YES;
+		_showVersion = specifier.properties[@"showVersion"] ? ((NSNumber *)specifier.properties[@"showVersion"]).boolValue : YES;
 		_icon = specifier.properties[@"iconImage"];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
