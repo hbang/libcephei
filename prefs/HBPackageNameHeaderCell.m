@@ -163,6 +163,10 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	paragraphStyle.lineSpacing = _condensed ? 10.f : 4.f;
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
+	NSString *lightFontName = [UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]
+		? [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1].fontName
+		: @"HelveticaNeue-Light";
+
 	if (_condensed) {
 		location++;
 		length++;
@@ -175,7 +179,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize],
+			NSFontAttributeName: [UIFont fontWithName:lightFontName size:kHBPackageNameTableCellHeaderFontSize],
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length)];
@@ -186,7 +190,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		length = version.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: _condensed ? [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSFontAttributeName: _condensed ? [UIFont fontWithName:lightFontName size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
 			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
