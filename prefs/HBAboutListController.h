@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @returns By default, https://www.hbang.ws/.
  */
-+ (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));;
++ (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /**
  * The website URL to open when tapping the "donate" cell. Override this method
