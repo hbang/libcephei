@@ -159,7 +159,10 @@
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
 		appearanceSettings.tintColor = [self.class hb_tintColor];
 		appearanceSettings.navigationBarTintColor = [self.class hb_navigationBarTintColor];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		appearanceSettings.invertedNavigationBar = [self.class hb_invertedNavigationBar];
+#pragma clang diagnostic pop
 		appearanceSettings.translucentNavigationBar = [self.class hb_translucentNavigationBar];
 		appearanceSettings.tableViewBackgroundColor = [self.class hb_tableViewBackgroundColor];
 		appearanceSettings.tableViewCellTextColor = [self.class hb_tableViewCellTextColor];

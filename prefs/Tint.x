@@ -52,14 +52,22 @@ BOOL animateBarTintColor = NO;
 %end
 
 - (UIColor *)_titleTextColor {
-	// if the navigation bar is inverted then we use white, otherwise fallback to
-	// orig
-	return self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : %orig;
+	// if the navigation bar is inverted then we use white, otherwise we use the provided title color,
+	// and if that is nil then fall back to orig
+	// shush clang i know the thing i deprecated is deprecated
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	if (self.hb_appearanceSettings.invertedNavigationBar) {
+#pragma clang diagnostic pop
+		return [UIColor whiteColor];
+	}
+	
+	return self.hb_appearanceSettings.navigationBarTitleColor ?: %orig;
 }
 
 %new - (void)_hb_updateTintColorsAnimated:(BOOL)animated {
-	// get the appearance settings from the top item on the stack. if it’s nil,
-	// use a standard HBAppearanceSettings with the defaults
+	// get the appearance settings from the top item on the stack. if it’s nil, use a standard
+	// HBAppearanceSettings with the defaults
 	HBAppearanceSettings *appearanceSettings = ((UINavigationItem *)self.navigationItems.lastObject).hb_appearanceSettings ?: [[HBAppearanceSettings alloc] init];
 
 	// set it on ourselves in case other things need it
@@ -67,22 +75,28 @@ BOOL animateBarTintColor = NO;
 
 	UIColor *backgroundColor = nil;
 
-	// if the navigation bar is inverted
-	if (appearanceSettings.invertedNavigationBar) {
+	// if the navigation bar is inverted (deprecated)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	if (self.hb_appearanceSettings.invertedNavigationBar) {
+#pragma clang diagnostic pop
 		// use a shade of grey for tint color
 		self.tintColor = [UIColor colorWithWhite:247.f / 255.f alpha:1];
 
-		// we also want the background color to be the navigation bar tint color or
-		// standard tint color if that’s nil
+		// we also want the background color to be the navigation bar tint color or standard tint color
+		// if that’s nil
 		backgroundColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
 	} else {
-		// try the navigation bar tint color. if nil, use the standard tint color
-		// (which could also be nil)
+		// try the navigation bar tint color. if nil, use the standard tint color (which could also
+		// be nil)
 		self.tintColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
+
+		// use the specified background color if one has been set, otherwise leave it unchanged (nil)
+		backgroundColor = appearanceSettings.navigationBarBackgroundColor;
 	}
 
-	// if we have a custom tint color, or we no longer have a custom tint color,
-	// but one is currently set, and it should be animated, ask for it to be
+	// if we have a custom tint color, or we no longer have a custom tint color, but one is currently
+	// set, and it should be animated, ask for it to be
 	if ((backgroundColor || self.barTintColor) && animated) {
 		animateBarTintColor = YES;
 	}
@@ -98,6 +112,7 @@ BOOL animateBarTintColor = NO;
 %hook _UIBackdropView
 
 - (void)applySettings:(id)settings {
+	// hackishly make the backdrop change be animated by wrapping it in a UIView animation block
 	if (animateBarTintColor) {
 		animateBarTintColor = NO;
 

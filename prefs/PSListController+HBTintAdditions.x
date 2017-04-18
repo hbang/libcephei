@@ -1,8 +1,8 @@
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import <UIKit/UIApplication+Private.h>
+#import <UIKit/UIStatusBar.h>
 
-UIStatusBarStyle previousStatusBarStyle = -1;
-BOOL changedStatusBarStyle = NO;
 BOOL translucentNavigationBar = YES;
 
 @interface PSListController ()
@@ -68,7 +68,6 @@ BOOL translucentNavigationBar = YES;
 	[self _hb_getAppearance];
 
 	UIColor *tintColor = nil;
-	BOOL changeStatusBar = NO;
 
 	// if we have a tint color, grab it
 	if (!tintColor && self.hb_appearanceSettings.tintColor) {
@@ -78,11 +77,6 @@ BOOL translucentNavigationBar = YES;
 	// if we have a translucentNavigationBar value, grab it
 	if (!self.hb_appearanceSettings.translucentNavigationBar) {
 		translucentNavigationBar = NO;
-	}
-
-	// if we have a YES invertedNavigationBar value, remember that
-	if (self.hb_appearanceSettings.invertedNavigationBar) {
-		changeStatusBar = YES;
 	}
 
 	// set the table view background and cell separator colors
@@ -102,35 +96,42 @@ BOOL translucentNavigationBar = YES;
 	}
 
 	// if we have a tint color, apply it
-	if (tintColor) {
-		if ([self.view respondsToSelector:@selector(setTintColor:)]) {
+	if ([self.view respondsToSelector:@selector(setTintColor:)]) {
+		UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+		if (tintColor) {
 			self.view.tintColor = tintColor;
+			keyWindow.tintColor = tintColor;
+		} else if (keyWindow.tintColor) {
+			keyWindow.tintColor = nil;
 		}
-		
+	}
+
+	if (tintColor) {
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
 	}
 
-	// if the status bar is about to change to something custom, or we don’t
-	// already know the previous status bar style, set it here
-	if ((changeStatusBar && !changedStatusBarStyle) || previousStatusBarStyle == (UIStatusBarStyle)-1) {
-		previousStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-	}
+	// if we have a status bar tint color, apply it
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	UIColor *statusBarTintColor = self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : self.hb_appearanceSettings.statusBarTintColor;
+#pragma clang diagnostic pop
 
-	// set the status bar style accordingly
-	if (changeStatusBar) {
-		changedStatusBarStyle = YES;
-		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+	if (statusBarTintColor && [UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
+		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
+		statusBar.foregroundColor = statusBarTintColor;
 	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	%orig;
 
-	// if we have a cached previous status bar style, and the style has changed,
-	// set it back
-	if (changedStatusBarStyle && previousStatusBarStyle != (UIStatusBarStyle)-1) {
-		changedStatusBarStyle = NO;
-		[UIApplication sharedApplication].statusBarStyle = previousStatusBarStyle;
+	// if we changed the status bar tint color, unset it
+	if ([UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
+		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
+
+		if (statusBar.foregroundColor) {
+			statusBar.foregroundColor = nil;
+		}
 	}
 
 	// if the navigation bar wasn’t translucent, set it back
