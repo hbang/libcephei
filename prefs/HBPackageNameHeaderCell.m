@@ -88,8 +88,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			_subtitleColor = _hasGradient ? [[UIColor alloc] initWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
 		}
 
-		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
-
 		_package = [[TSPackage alloc] initWithIdentifier:specifier.properties[@"packageIdentifier"]];
 
 		[self updateData];
@@ -139,30 +137,12 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		return;
 	}
 
-	NSUInteger cleanedAuthorLocation = [(NSString *)_package.author rangeOfString:@" <"].location;
+	NSUInteger cleanedAuthorLocation = [_package.author rangeOfString:@" <"].location;
 	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _package.author : [_package.author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
-	NSString *icon = _icon && _condensed ? @"ICON " : @""; // note: there's a zero width space here
+	NSString *icon = _icon ? @"ICON " : @"";
 	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _package.version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
-
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
-		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
-	}];
-
-	NSUInteger location = 0, length = 0;
-
-	if (_icon && _condensed) {
-		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-		textAttachment.image = _icon;
-		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-	}
-
-	length = name.length;
-
-	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-	paragraphStyle.lineSpacing = _condensed ? 10.f : 4.f;
-	paragraphStyle.alignment = NSTextAlignmentCenter;
 
 	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
 
@@ -189,13 +169,37 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		condensedLightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize];
 	}
 
-	if (_condensed) {
-		location++;
-		length++;
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
+		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
+	}];
 
+	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	paragraphStyle.lineSpacing = _condensed ? 4.f : 2.f;
+	paragraphStyle.alignment = NSTextAlignmentCenter;
+
+	NSUInteger location = 0, length = 0;
+	CGFloat offset = 0;
+
+	if (_icon) {
+		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+		textAttachment.image = _icon;
+		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+
+		location += 1;
+		length += 1;
+		offset = 6.f;
+
+		if (_condensed) {
+			paragraphStyle.lineSpacing += offset;
+		}
+	}
+
+	length += name.length;
+
+	if (_condensed) {
 		[attributedString addAttributes:@{
 			NSFontAttributeName: condensedFont,
-			NSBaselineOffsetAttributeName: @(6.f),
+			NSBaselineOffsetAttributeName: @(offset),
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length + version.length + 1)];
