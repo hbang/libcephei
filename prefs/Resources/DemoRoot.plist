@@ -86,7 +86,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
-			<string>HBListItemsController</string>
+			<string>PSListItemsController</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -96,7 +96,7 @@
 			<key>defaults</key>
 			<string>ws.hbang.common.demo</string>
 			<key>detail</key>
-			<string>HBListItemsController</string>
+			<string>PSListItemsController</string>
 			<key>key</key>
 			<string>Region</string>
 			<key>label</key>

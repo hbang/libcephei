@@ -33,7 +33,7 @@
  *		<key>default</key>
  *		<real>5</real>
  *		<key>defaults</key>
- *		<string>ws.hbang.libcephei.demo</string>
+ *		<string>ws.hbang.common.demo</string>
  *		<key>key</key>
  *		<string>Stepper</string>
  *		<key>label</key>
