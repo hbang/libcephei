@@ -7,6 +7,11 @@
  * Additionally, when dragging the slider, it jumps to these lines so the user’s
  * preference will always be a whole number.
  *
+ * It is no longer necessary to use this as of iOS 8.2, which has built in
+ * `isSegmented` and `segmentCount` parameters on PSSliderCell. This class is
+ * kept for backwards compatibility, and will use the built-in implementation on
+ * iOS 8.2 and newer.
+ *
  * Requires iOS 7.0 or later. A normal slider is shown for older versions.
  *
  * ### Specifier Parameters
@@ -16,12 +21,14 @@
  *
  * ### Example Usage
  *	<dict>
+ *		<key>cell</key>
+ *		<string>PSSliderCell</string>
  *		<key>cellClass</key>
  *		<string>HBDiscreteSliderTableCell</string>
  *		<key>default</key>
  *		<real>5</real>
  *		<key>defaults</key>
- *		<string>ws.hbang.libcephei.demo</string>
+ *		<string>ws.hbang.common.demo</string>
  *		<key>key</key>
  *		<string>Discrete</string>
  *		<key>label</key>

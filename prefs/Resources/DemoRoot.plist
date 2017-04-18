@@ -79,6 +79,8 @@
 			<real>15</real>
 			<key>min</key>
 			<real>1</real>
+			<key>showValue</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>cell</key>
