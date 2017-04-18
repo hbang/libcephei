@@ -21,21 +21,19 @@
  * property from the init method. The following example sets the tint color,
  * table view background color, and enables an inverted navigation bar:
  *
- * ```
- * - (instancetype)init {
- * 	self = [super init];
+ * 	- (instancetype)init {
+ * 		self = [super init];
  *
- * 	if (self) {
- * 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
- * 		appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
- * 		appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
- * 		appearanceSettings.invertedNavigationBar = YES;
- * 		self.hb_appearanceSettings = appearanceSettings;
+ * 		if (self) {
+ * 			HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+ * 			appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
+ * 			appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
+ * 			appearanceSettings.invertedNavigationBar = YES;
+ * 			self.hb_appearanceSettings = appearanceSettings;
+ * 		}
+ *
+ * 		return self;
  * 	}
- *
- * 	return self;
- * }
- * ```
  */
 
 @interface HBAppearanceSettings : NSObject
