@@ -1,4 +1,5 @@
 #import "HBAppearanceSettings.h"
+#import <version.h>
 
 @implementation HBAppearanceSettings
 
@@ -9,7 +10,7 @@
 
 	if (self) {
 		// set defaults. everything else is either nil or NO, which are set implicitly by objc
-		_translucentNavigationBar = YES;
+		_translucentNavigationBar = IS_IOS_OR_NEWER(iOS_7_0);
 	}
 
 	return self;

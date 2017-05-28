@@ -58,17 +58,23 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		}
 
 		// hack to resolve odd margins being set on ipad
+		CGFloat marginWidth = [self respondsToSelector:@selector(_marginWidth)] ? self._marginWidth : 0;
+
 		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= IS_IPAD ? self._marginWidth : 0;
+		labelFrame.origin.x -= IS_IPAD ? marginWidth : 0;
 		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
-		labelFrame.size.width -= IS_IPAD ? self._marginWidth * 2 : 0;
+		labelFrame.size.width -= IS_IPAD ? marginWidth * 2 : 0;
 		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
 		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_label.textAlignment = NSTextAlignmentCenter;
 		_label.adjustsFontSizeToFitWidth = NO;
-		_label.adjustsLetterSpacingToFitWidth = NO;
+
+		if ([_label respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)]) {
+			_label.adjustsLetterSpacingToFitWidth = NO;
+		}
+		
 		[self.contentView addSubview:_label];
 
 		_condensed = specifier.properties[@"condensed"] ? ((NSNumber *)specifier.properties[@"condensed"]).boolValue : NO;

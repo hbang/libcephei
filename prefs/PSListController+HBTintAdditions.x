@@ -2,8 +2,9 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
+#import <version.h>
 
-BOOL translucentNavigationBar = YES;
+BOOL translucentNavigationBar = NO;
 
 @interface PSListController ()
 
@@ -74,11 +75,6 @@ BOOL translucentNavigationBar = YES;
 		tintColor = [self.hb_appearanceSettings.tintColor copy];
 	}
 
-	// if we have a translucentNavigationBar value, grab it
-	if (!self.hb_appearanceSettings.translucentNavigationBar) {
-		translucentNavigationBar = NO;
-	}
-
 	// set the table view background and cell separator colors
 	if (self.hb_appearanceSettings.tableViewBackgroundColor) {
 		self.table.backgroundColor = self.hb_appearanceSettings.tableViewBackgroundColor;
@@ -89,6 +85,7 @@ BOOL translucentNavigationBar = YES;
 	}
 
 	// if we have a translucent navigation bar, apply it
+	translucentNavigationBar = self.hb_appearanceSettings.translucentNavigationBar;
 	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
 
 	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
@@ -136,7 +133,7 @@ BOOL translucentNavigationBar = YES;
 
 	// if the navigation bar wasn’t translucent, set it back
 	if (!translucentNavigationBar) {
-		self._hb_realNavigationController.navigationBar.translucent = YES;
+		self._hb_realNavigationController.navigationBar.translucent = IS_IOS_OR_NEWER(iOS_7_0);
 
 		if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
 			self.edgesForExtendedLayout = UIRectEdgeAll;
