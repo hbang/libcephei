@@ -1,6 +1,7 @@
 #import "HBRootListController.h"
 #import <Twitter/Twitter.h>
 #import <UIKit/UIImage+Private.h>
+#import <version.h>
 
 @implementation HBRootListController
 
@@ -20,7 +21,9 @@
 	[super loadView];
 
 	if ([self.class hb_shareText] && [self.class hb_shareURL]) {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"heart" inBundle:globalBundle] style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)];
+		self.navigationItem.rightBarButtonItem = IS_IOS_OR_NEWER(iOS_7_0)
+			? [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"heart" inBundle:globalBundle] style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)]
+			: [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)];
 	}
 }
 
