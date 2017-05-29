@@ -1,5 +1,7 @@
 #import "HBPackageTableCell.h"
 #import "../HBOutputForShellCommand.h"
+#import "../NSDictionary+HBAdditions.h"
+#import "../NSString+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 
@@ -24,9 +26,12 @@
 		self.avatarView.layer.cornerRadius = 4.f;
 
 		if (_repo) {
-			specifier.properties[@"url"] = [NSString stringWithFormat:@"cydia://url/https://cydia.saurik.com/api/share#?source=%@&package=%@", URL_ENCODE(_repo), URL_ENCODE(_identifier)];
+			specifier.properties[@"url"] = [@"cydia://url/https://cydia.saurik.com/api/share#?" stringByAppendingString:@{
+				@"source": _repo,
+				@"package": _identifier
+			}.hb_queryString];
 		} else {
-			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:_identifier];
+			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:_identifier.hb_stringByEncodingQueryPercentEscapes];
 		}
 	}
 

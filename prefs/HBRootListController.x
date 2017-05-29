@@ -1,4 +1,5 @@
 #import "HBRootListController.h"
+#import "../NSString+HBAdditions.h"
 #import <Twitter/Twitter.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
@@ -55,7 +56,7 @@
 			[viewController addURL:[self.class hb_shareURL]];
 			[self.navigationController presentViewController:viewController animated:YES completion:nil];
 		} else {
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@%%20%@", URL_ENCODE([self.class hb_shareText]), URL_ENCODE([self.class hb_shareURL].absoluteString)]]];
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@%%20%@", [self.class hb_shareText].hb_stringByEncodingQueryPercentEscapes, [self.class hb_shareURL].absoluteString.hb_stringByEncodingQueryPercentEscapes]]];
 		}
 	}
 }
