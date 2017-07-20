@@ -18,6 +18,9 @@ Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
 Cephei_LIBRARIES = rocketbootstrap
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 
+# link arclite to polyfill some features iOS 5 lacks
+armv7_LDFLAGS = -fobjc-arc
+
 SUBPROJECTS = prefs defaults containersupport
 
 include $(THEOS_MAKE_PATH)/framework.mk
