@@ -31,7 +31,7 @@
 				@"package": _identifier
 			}.hb_queryString];
 		} else {
-			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingPathComponent:_identifier.hb_stringByEncodingQueryPercentEscapes];
+			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingString:_identifier.hb_stringByEncodingQueryPercentEscapes];
 		}
 	}
 
