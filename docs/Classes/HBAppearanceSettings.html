@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
-	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
 </head>
 <body class="appledoc">
 	<header>
@@ -56,9 +56,15 @@
 	
 	<optgroup label="Properties">
 		
-		<option value="//api/name/invertedNavigationBar">invertedNavigationBar</option>
+		<option value="//api/name/)">)</option>
+		
+		<option value="//api/name/navigationBarBackgroundColor">navigationBarBackgroundColor</option>
 		
 		<option value="//api/name/navigationBarTintColor">navigationBarTintColor</option>
+		
+		<option value="//api/name/navigationBarTitleColor">navigationBarTitleColor</option>
+		
+		<option value="//api/name/statusBarTintColor">statusBarTintColor</option>
 		
 		<option value="//api/name/tableViewBackgroundColor">tableViewBackgroundColor</option>
 		
@@ -134,23 +140,20 @@ logged.</p>
 property from the init method. The following example sets the tint color,
 table view background color, and enables an inverted navigation bar:</p>
 
-<p>```
-- (instancetype)init {
-    self = [super init];</p>
+<pre><code>- (instancetype)init {
+    self = [super init];
 
-<pre><code>if (self) {
-    HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
-    appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
-    appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
-    appearanceSettings.invertedNavigationBar = YES;
-    self.hb_appearanceSettings = appearanceSettings;
+    if (self) {
+        HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+        appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
+        appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
+        appearanceSettings.invertedNavigationBar = YES;
+        self.hb_appearanceSettings = appearanceSettings;
+    }
+
+    return self;
 }
-
-return self;
 </code></pre>
-
-<p>}
-```</p>
 					</div>
 					
 					
@@ -238,9 +241,9 @@ Override this method to return a UIColor to use.</p>
 			
 			<div class="method-subsection brief-description">
 				<p>The tint color to use for the navigation bar buttons, or, if
-hb<em><a href="#//api/name/invertedNavigationBar">invertedNavigationBar</a> is set, the background of the navigation bar.
+hb_invertedNavigationBar is set, the background of the navigation bar.
 Override this method to return a UIColor to use, if you don’t want to use the
-same color as hb</em><a href="#//api/name/tintColor">tintColor</a>.</p>
+same color as hb_<a href="#//api/name/tintColor">tintColor</a>.</p>
 			</div>
 			
 		    
@@ -280,8 +283,8 @@ same color as hb</em><a href="#//api/name/tintColor">tintColor</a>.</p>
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/invertedNavigationBar" title="invertedNavigationBar"></a>
-	<h3 class="method-title"><code><a href="#//api/name/invertedNavigationBar">&nbsp;&nbsp;invertedNavigationBar</a></code>
+	<a name="//api/name/navigationBarTitleColor" title="navigationBarTitleColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/navigationBarTitleColor">&nbsp;&nbsp;navigationBarTitleColor</a></code>
 </h3>
 
 	<div class="method-info">
@@ -291,13 +294,168 @@ same color as hb</em><a href="#//api/name/tintColor">tintColor</a>.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>Whether to use an inverted navigation bar. Override this method if you want
-this behavior.</p>
+				<p>The color to use for the navigation bar title label. Override this method to
+return a UIColor to use.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL invertedNavigationBar</code></div>
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *navigationBarTitleColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause no modification of the navigation bar title color to occur.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/navigationBarBackgroundColor" title="navigationBarBackgroundColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/navigationBarBackgroundColor">&nbsp;&nbsp;navigationBarBackgroundColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The background color to use for the navigation bar. Override this method to
+return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *navigationBarBackgroundColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause no modification of the navigation bar background to
+occur.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/statusBarTintColor" title="statusBarTintColor"></a>
+	<h3 class="method-title"><code><a href="#//api/name/statusBarTintColor">&nbsp;&nbsp;statusBarTintColor</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The color to use for the status bar icons. Override this method to return a UIColor to use.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, nullable) UIColor *statusBarTintColor</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>By default, nil.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>A nil value will cause no modification of the status bar color to occur.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">HBAppearanceSettings.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/)" title=")"></a>
+	<h3 class="method-title"><code><a href="#//api/name/)">&nbsp;&nbsp;)</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Whether to use an inverted navigation bar.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL invertedNavigationBar __attribute ( ( deprecated ( &quot;Set navigationBarBackgroundColor and navigationBarTitleColor instead.&quot; )</code></div>
 
 		    
 			
@@ -314,7 +472,10 @@ this behavior.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>An inverted navigation bar has a tinted background, rather than the buttons
+				<p>Deprecated. Set <a href="#//api/name/navigationBarBackgroundColor">navigationBarBackgroundColor</a> and <a href="#//api/name/navigationBarTitleColor">navigationBarTitleColor</a>
+instead.</p>
+
+<p>An inverted navigation bar has a tinted background, rather than the buttons
 being tinted. All other interface elements will be tinted the same.</p>
 			</div>
 			
@@ -642,10 +803,10 @@ This color will be shown when the cell is in the &lsquo;highlighted&rsquo; state
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
+						<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-07-25</p>
 						
 						
-						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
 						
 					</div>
 				</footer>

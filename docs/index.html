@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
-	<meta name="generator" content="appledoc 2.2.1 (build 1334)">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
 </head>
 <body class="appledoc">
 	<header>
@@ -52,41 +52,37 @@
 
 <p>Documentation is available at <strong><a href="https://hbang.github.io/libcephei/">hbang.github.io/libcephei</a></strong>.</p>
 
-<h2>Integrating Cephei into your Theos projects</h2>
+<h2>Integrating Cephei into a Theos project</h2>
 
-<p>It’s really easy to integrate Cephei into a Theos project. First, install Cephei on your device. It’s a hidden package in Cydia, so you’ll need to either install something that uses it – try TypeStatus – or just install it with <code>apt-get install ws.hbang.common</code> at the command line.</p>
+<p>Cephei is a hidden package in Cydia, so if it’s not already installed, you’ll need to either install something that uses it – try TypeStatus – or use <code>apt-get install ws.hbang.common</code> at the command line.</p>
 
-<p>Now, copy the frameworks and headers into the location you cloned Theos to. (Hopefully you have <code>$THEOS</code>, <code>$THEOS_DEVICE_IP</code>, and <code>$THEOS_DEVICE_PORT</code> set and exported in your shell.)</p>
+<p>Theos includes headers and linkable frameworks for Cephei, so you don’t need to worry about copying files over from your device.</p>
 
-<p><code>
-scp -rP $THEOS_DEVICE_PORT root@$THEOS_DEVICE_IP:/Library/Frameworks/{Cephei,CepheiPrefs,TechSupport}.framework $THEOS/lib
-</code></p>
+<p>For all projects that will be using Cephei, add it to the instance’s frameworks list:</p>
 
-<p>Next, for all projects that will be using Cephei, add it to the instance’s libraries:</p>
-
-<p><code>
-MyAwesomeTweak_EXTRA_FRAMEWORKS += Cephei
-</code></p>
+<pre><code>MyAwesomeTweak_EXTRA_FRAMEWORKS += Cephei
+</code></pre>
 
 <p>For all projects that will be using preferences components of Cephei, make sure you also link against <code>CepheiPrefs</code>.</p>
 
 <p>You can now use Cephei components in your project.</p>
 
-<p>You must also add <code>ws.hbang.common</code> to your <code>Depends:</code> list in your control file. If Cephei isn’t present on the device, your binary will fail to load. For example:</p>
+<p>You must also add <code>ws.hbang.common</code> to the <code>Depends:</code> list in your control file. If Cephei isn’t present on the device, your binaries will fail to load. For example:</p>
 
-<p><code>
-Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common
-</code></p>
+<pre><code>Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common (&gt;= 1.11)
+</code></pre>
 
-<p>Please note that Cephei is now a framework, instead of a library. Frameworks are only properly supported with <a href="https://github.com/kirb/theos">kirb/theos</a>; other variants of Theos may or may not support it. For backwards compatibility, libcephei.dylib and libcepheiprefs.dylib (and even libhbangcommon.dylib and libhbangprefs.dylib) are symlinks to the corresponding binaries.</p>
+<p>You should specify the current version of Cephei as the minimum requirement, so you can guarantee all features you use are available.</p>
+
+<p>Please note that Cephei is now a framework (<code>/Library/Frameworks/Cephei.framework</code>), instead of a library (<code>/usr/lib/libcephei.dylib</code>). Frameworks are only properly supported with recent versions of <a href="https://github.com/theos/theos">Theos</a>. For backwards compatibility, libcephei.dylib and libcepheiprefs.dylib (and even libhbangcommon.dylib and libhbangprefs.dylib) are symlinks to the corresponding binaries. Do not use these in new code.</p>
 
 <h2>Trying it out</h2>
 
-<p>You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying <code>/Library/PreferenceBundles/Cephei.bundle/entry.plist</code> to <code>/Library/PreferenceLoader/Preferences/Cephei.plist</code> – quit and relaunch Settings if it&rsquo;s open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app as long as you have <a href="http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=sbutilsDp">sbutils</a> installed.</p>
+<p>You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying <code>/Library/PreferenceBundles/Cephei.bundle/entry.plist</code> to <code>/Library/PreferenceLoader/Preferences/Cephei.plist</code> – quit and relaunch Settings if it’s open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app.</p>
 
 <h2>License</h2>
 
-<p>Licensed under <a href="https://github.com/hbang/libcephei/blob/master/LICENSE.md">Apache License, version 2.0</a>.</p>
+<p>Licensed under the Apache License, version 2.0. Refer to <a href="LICENSE.md">LICENSE.md</a>.</p>
 						
 						
 					</div>
@@ -95,8 +91,10 @@ Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common
 					<div class="index-container">
 						
 						<div class="index-column">
-							<h2 class="index-title">Programming Guides</h2>
+							<h2 class="index-title"></h2>
 							<ul>
+								
+								<li><a href="docs/info/CepheiPrefs Annoying Warning.html">CepheiPrefs Annoying Warning</a></li>
 								
 								<li><a href="docs/info/ContainerSupport.html">ContainerSupport</a></li>
 								
@@ -159,7 +157,11 @@ Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common
 							<h2 class="index-title">Category References</h2>
 							<ul>
 								
+								<li><a href="Categories/NSDictionary+HBAdditions.html">NSDictionary(HBAdditions)</a></li>
+								
 								<li><a href="Categories/NSLayoutConstraint+CompactConstraint.html">NSLayoutConstraint(CompactConstraint)</a></li>
+								
+								<li><a href="Categories/NSString+HBAdditions.html">NSString(HBAdditions)</a></li>
 								
 								<li><a href="Categories/PSListController+HBTintAdditions.html">PSListController(HBTintAdditions)</a></li>
 								
@@ -176,10 +178,10 @@ Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common
 					<footer>
 						<div class="footer-copyright">
 							
-							<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-02-14</p>
+							<p class="copyright">Copyright &copy; 2017 HASHBANG Productions. All rights reserved. Updated: 2017-07-25</p>
 							
 							
-							<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
+							<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
 							
 						</div>
 					</footer>

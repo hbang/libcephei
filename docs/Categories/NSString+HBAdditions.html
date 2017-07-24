@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>HBRootListController Class Reference</title>
+	<title>NSString(HBAdditions) Category Reference</title>
 
 	<link rel="stylesheet" href="../css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
@@ -56,15 +56,17 @@
 	
 
 	
-	<optgroup label="Class Methods">
+
+	
+	<optgroup label="Instance Methods">
 		
-		<option value="//api/name/hb_shareText">+ hb_shareText</option>
+		<option value="//api/name/hb_queryStringComponents">- hb_queryStringComponents</option>
 		
-		<option value="//api/name/hb_shareURL">+ hb_shareURL</option>
+		<option value="//api/name/hb_stringByDecodingQueryPercentEscapes">- hb_stringByDecodingQueryPercentEscapes</option>
+		
+		<option value="//api/name/hb_stringByEncodingQueryPercentEscapes">- hb_stringByEncodingQueryPercentEscapes</option>
 		
 	</optgroup>
-	
-
 	
 	
 </select>
@@ -79,16 +81,13 @@
 		<div id="overview_contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title">HBRootListController Class Reference</h1>
+					<h1 class="title">NSString(HBAdditions) Category Reference</h1>
 
 					
 					<div class="section section-specification"><table cellspacing="0"><tbody>
 						<tr>
-	<th>Inherits from</th>
-	<td><a href="../Classes/HBListController.html">HBListController</a> : PSListController</td>
-</tr><tr>
 	<th>Declared in</th>
-	<td>HBRootListController.h</td>
+	<td>NSString+HBAdditions.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -98,15 +97,7 @@
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
 						<h2 class="subtitle subtitle-overview">Overview</h2>
-						<p>The <code>HBRootListController</code> class in <code>CepheiPrefs</code> provides a list controller
-class that should be used as the root of the package&rsquo;s settings. It includes
-two class methods you can override to provide a default message and a URL
-that the user can share via a sharing button displayed to the right of the
-navigation bar.</p>
-
-<p>It is recommended that you use this class even if its current features
-aren&rsquo;t appealing in case of future improvements or code that relies on the
-presence of an HBRootListController.</p>
+						<p>NSString (HBAdditions) is a class category in <code>Cephei</code> that provides some convenience methods.</p>
 					</div>
 					
 					
@@ -117,13 +108,13 @@ presence of an HBRootListController.</p>
 						<a title="Tasks" name="tasks"></a>
 						
 
-						<a title="Constants" name="task_Constants"></a>
 						
-<h2 class="task-title">Constants</h2>
+						
+
 						<div class="task-list">
 							<div class="section-method">
-	<a name="//api/name/hb_shareText" title="hb_shareText"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_shareText">+&nbsp;hb_shareText</a></code>
+	<a name="//api/name/hb_stringByEncodingQueryPercentEscapes" title="hb_stringByEncodingQueryPercentEscapes"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_stringByEncodingQueryPercentEscapes">&ndash;&nbsp;hb_stringByEncodingQueryPercentEscapes</a></code>
 </h3>
 
 	<div class="method-info">
@@ -133,14 +124,12 @@ presence of an HBRootListController.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>A string to be used as a default message when the user shares the package
-to a friend or social website. Override this method to return your own
-string.</p>
+				<p>Returns a string encoded for an HTTP query parameter.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (nullable NSString *)hb_shareText</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSString *)hb_stringByEncodingQueryPercentEscapes</code></div>
 
 		    
 			
@@ -148,7 +137,7 @@ string.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
+				<p>A string encoded for an HTTP query parameter.</p>
 			</div>
 			
 
@@ -157,8 +146,9 @@ string.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>If the return value of this method and <a href="#//api/name/hb_shareURL">hb_shareURL</a> are nil, the sharing
-button will not be displayed.</p>
+				<p>This method encodes a variety of symbols that can conflict with other portions of a URL, such as
+<code>&amp;</code> and <code>=</code>, and other similar symbols that could otherwise be misinterpreted by some
+implementations.</p>
 			</div>
 			
 
@@ -169,15 +159,15 @@ button will not be displayed.</p>
 			
 			<div class="method-subsection declared-in-section">
 				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBRootListController.h</code></p>
+				<p><code class="declared-in-ref">NSString+HBAdditions.h</code></p>
 			</div>
 			
 			
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/hb_shareURL" title="hb_shareURL"></a>
-	<h3 class="method-title"><code><a href="#//api/name/hb_shareURL">+&nbsp;hb_shareURL</a></code>
+	<a name="//api/name/hb_stringByDecodingQueryPercentEscapes" title="hb_stringByDecodingQueryPercentEscapes"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_stringByDecodingQueryPercentEscapes">&ndash;&nbsp;hb_stringByDecodingQueryPercentEscapes</a></code>
 </h3>
 
 	<div class="method-info">
@@ -187,13 +177,12 @@ button will not be displayed.</p>
 			
 			
 			<div class="method-subsection brief-description">
-				<p>The URL to be shared when the user shares the package to a friend or social
-website. Override this method to return your own URL.</p>
+				<p>Returns a string decoded from an HTTP query parameter.</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>+ (nullable NSURL *)hb_shareURL</code></div>
+			<div class="method-subsection method-declaration"><code>- (NSString *)hb_stringByDecodingQueryPercentEscapes</code></div>
 
 		    
 			
@@ -201,7 +190,7 @@ website. Override this method to return your own URL.</p>
 			
 			<div class="method-subsection return">
 				<h4 class="method-subtitle parameter-title">Return Value</h4>
-				<p>By default, nil.</p>
+				<p>A string decoded from an HTTP query parameter.</p>
 			</div>
 			
 
@@ -210,8 +199,7 @@ website. Override this method to return your own URL.</p>
 			
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
-				<p>If the return value of this method and <a href="#//api/name/hb_shareText">hb_shareText</a> are nil, the sharing
-button will not be displayed.</p>
+				<p>This method decodes percent escapes, as well as spaces encoded with a <code>+</code>.</p>
 			</div>
 			
 
@@ -222,7 +210,59 @@ button will not be displayed.</p>
 			
 			<div class="method-subsection declared-in-section">
 				<h4 class="method-subtitle">Declared In</h4>
-				<p><code class="declared-in-ref">HBRootListController.h</code></p>
+				<p><code class="declared-in-ref">NSString+HBAdditions.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/hb_queryStringComponents" title="hb_queryStringComponents"></a>
+	<h3 class="method-title"><code><a href="#//api/name/hb_queryStringComponents">&ndash;&nbsp;hb_queryStringComponents</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns a dictionary containing the HTTP query parameters in the string.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (NSDictionary *)hb_queryStringComponents</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>An NSDictionary object containing the keys and values from the query string.</p>
+			</div>
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>The string is expected to be in the format <code>key=value&amp;key=value</code>, with both keys and values
+encoded where necessary.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">NSString+HBAdditions.h</code></p>
 			</div>
 			
 			
