@@ -29,7 +29,7 @@
 	}
 
 	// “improperly utilizes the high level preferences API” —wilson
-	HBLogWarn(@"CepheiPrefs has been loaded into a process other than Preferences! Are you sure I’m meant to be here? Crash is likely.");
+	HBLogWarn(@"CepheiPrefs has been loaded into a process other than Preferences! Are you sure I’m meant to be here? Crash is possible.");
 
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
 		// if we’ve been told to shut up, don’t be annoying
