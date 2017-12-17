@@ -20,7 +20,12 @@
 		NSMutableArray <NSString *> *queryItems = [NSMutableArray array];
 
 		for (NSString *key in self.allKeys) {
-			[queryItems addObject:[NSString stringWithFormat:@"%@=%@", key.hb_stringByEncodingQueryPercentEscapes, ((NSObject *)self[key]).description.hb_stringByEncodingQueryPercentEscapes]];
+			BOOL hasValue = ![self[key] isKindOfClass:NSNull.class];
+
+			[queryItems addObject:[NSString stringWithFormat:@"%@%@%@",
+				key.hb_stringByEncodingQueryPercentEscapes,
+				hasValue ? @"=" : @"",
+				hasValue ? ((NSObject *)self[key]).description.hb_stringByEncodingQueryPercentEscapes : @""]];
 		}
 
 		return [queryItems componentsJoinedByString:@"&"];
