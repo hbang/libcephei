@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)hb_stringByDecodingQueryPercentEscapes;
 
-
 /**
  * Returns a dictionary containing the HTTP query parameters in the string.
  *
