@@ -1,5 +1,6 @@
 export TARGET = iphone:clang:latest:5.0
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
+export CEPHEI_EMBEDDED
 
 INSTALL_TARGET_PROCESSES = Preferences
 
@@ -14,19 +15,31 @@ Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
 Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
-Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
-Cephei_LIBRARIES = rocketbootstrap
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 
 # link arclite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
 
-SUBPROJECTS = prefs defaults containersupport
+SUBPROJECTS = prefs
+
+ifeq ($(CEPHEI_EMBEDDED),1)
+PACKAGE_BUILDNAME += embedded
+ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=1
+Cephei_INSTALL_PATH = @rpath
+Cephei_LOGOSFLAGS = -c generator=internal
+else
+ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
+Cephei_LIBRARIES += rocketbootstrap
+Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
+
+SUBPROJECTS += defaults containersupport
+endif
 
 include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-Cephei-stage::
+ifneq ($(CEPHEI_EMBEDDED),1)
 	@# create directories
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
 
@@ -45,6 +58,7 @@ after-Cephei-stage::
 
 	@# copy CepheiSpringBoard.plist
 	$(ECHO_NOTHING)cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
+endif
 
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)

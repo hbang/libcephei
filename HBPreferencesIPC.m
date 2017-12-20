@@ -4,6 +4,10 @@
 @implementation HBPreferencesIPC
 
 - (id)_sendMessageType:(HBPreferencesIPCMessageType)type key:(nullable NSString *)key value:(nullable NSString *)value {
+#if CEPHEI_EMBEDDED
+	[NSException raise:NSInternalInconsistencyException format:@"HBPreferencesIPC is not available in embedded mode."];
+	return nil;
+#else
 	// construct our message dictionary with the basics
 	NSMutableDictionary <NSString *, id> *data = [@{
 		@"Type": @(type),
@@ -32,6 +36,7 @@
 
 	// return what we got back
 	return LMResponseConsumePropertyList(&buffer);
+#endif
 }
 
 #pragma mark - Reloading

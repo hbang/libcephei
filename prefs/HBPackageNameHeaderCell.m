@@ -94,7 +94,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			_subtitleColor = _hasGradient ? [[UIColor alloc] initWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
 		}
 
+#if !CEPHEI_EMBEDDED
 		_package = [[TSPackage alloc] initWithIdentifier:specifier.properties[@"packageIdentifier"]];
+#endif
 
 		[self updateData];
 	}

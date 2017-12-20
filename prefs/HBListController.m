@@ -42,12 +42,14 @@
 		// really noticeable momentary freeze, which we really don’t want. work around this by warming
 		// PIDebianPackage on a background queue (with throttled I/O), reducing subsequent calls to a
 		// more tolerable duration (~70ms).
+#if !CEPHEI_EMBEDDED
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 				__unused TSPackage *package = [TSPackage packageWithIdentifier:@"ws.hbang.common"];
 			});
 		});
+#endif
 	}
 
 	return self;

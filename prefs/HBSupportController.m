@@ -6,6 +6,9 @@
 + (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress {
 	NSParameterAssert(emailAddress);
 
+#if CEPHEI_EMBEDDED
+	return nil;
+#else
 	// work around what seems to possibly be a TechSupport bug – pinged ashikase about it; providing
 	// this workaround in the interim to release Cephei 1.10 ASAP which is already pretty late…
 	// 19:08:45 <kirb> ashikase: having an issue with TSLinkInstruction – so i have this logic here:
@@ -21,11 +24,15 @@
 	}
 
 	return [TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", cleanedAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+#endif
 }
 
 + (TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
 	NSParameterAssert(identifier ?: file);
 
+#if CEPHEI_EMBEDDED
+	return nil;
+#else
 	TSPackage *package = nil;
 
 	if (identifier) {
@@ -37,6 +44,7 @@
 	}
 
 	return package;
+#endif
 }
 
 + (nullable NSData *)_xmlPlistForPreferencesIdentifier:(NSString *)identifier {
@@ -78,11 +86,12 @@
 + (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(TSLinkInstruction *)linkInstruction supportInstructions:(NSArray <TSIncludeInstruction *> *)supportInstructions {
 	NSParameterAssert(preferencesIdentifier ?: bundle);
 
-	/*
-	 get the TSPackage for either the custom package id in Info.plist, falling
-	 back to the bundle id. if neither provide a package, the containing package
-	 is used. if there's still no TSPackage, throw an assertion.
-	*/
+#if CEPHEI_EMBEDDED
+	return nil;
+#else
+	// get the TSPackage for either the custom package id in Info.plist, falling back to the bundle
+	// id. if neither provide a package, the containing package is used. if there’s still no
+	// TSPackage, throw an assertion.
 	TSPackage *package = [self _packageForIdentifier:bundle.infoDictionary[@"HBPackageIdentifier"] ?: bundle.bundleIdentifier orFile:bundle.executablePath];
 	NSAssert(package, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 
@@ -113,6 +122,7 @@
 	viewController.requiresDetailsFromUser = YES;
 
 	return viewController;
+#endif
 }
 
 @end

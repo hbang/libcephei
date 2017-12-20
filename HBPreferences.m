@@ -30,11 +30,15 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	// we may not have the appropriate sandbox rules to access the preferences from this process, so
 	// find out whether we do or not. if we don’t, swap the instance of this class out for an instance
 	// of the class that works around this by doing IPC with our springboard server
+#if CEPHEI_EMBEDDED
+	self = [super initWithIdentifier:identifier];
+#else
 	if (IN_SPRINGBOARD || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
 		self = [super initWithIdentifier:identifier];
 	} else {
 		self = (HBPreferences *)[[HBPreferencesIPC alloc] initWithIdentifier:identifier];
 	}
+#endif
 
 	return self;
 }

@@ -1,6 +1,8 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
 
+#if !CEPHEI_EMBEDDED
+
 #pragma mark - IPC
 
 static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size, void *info) {
@@ -76,3 +78,5 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 		HBLogError(@"Failed to start preferences IPC service! (Error %i)", result);
 	}
 }
+
+#endif
