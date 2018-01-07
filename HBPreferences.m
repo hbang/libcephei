@@ -52,6 +52,8 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
+	NSParameterAssert(identifier);
+
 #if CEPHEI_EMBEDDED
 	self = [super initWithIdentifier:identifier];
 
@@ -70,7 +72,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		// id, and it’s not an apple app, it probably wants its own preferences inside its container
 		// TODO: is there a better way to guess this? should we not guess at all except for the exact
 		// main bundle id?
-		if (![[identifier stringByAppendingString:@"."] hasPrefix:[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."]]) {
+		if (![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]]) {
 			_container = kCFPreferencesNoContainer;
 		}
 	} else {
