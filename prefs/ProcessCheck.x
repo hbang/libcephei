@@ -9,7 +9,8 @@
 @implementation HBForceCepheiPrefs
 
 + (BOOL)forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear {
-	return NO;
+	// YES now but will become NO in a later release
+	return YES;
 }
 
 @end
@@ -17,9 +18,9 @@
 #pragma mark - Constructor
 
 %ctor {
-	if ([HBForceCepheiPrefs forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear]) {
-		return;
-	}
+	// if ([HBForceCepheiPrefs forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear]) {
+	// 	return;
+	// }
 
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *info = bundle.infoDictionary;
