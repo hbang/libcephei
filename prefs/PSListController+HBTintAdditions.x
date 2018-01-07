@@ -78,10 +78,17 @@ BOOL translucentNavigationBar = NO;
 	// set the table view background and cell separator colors
 	if (self.hb_appearanceSettings.tableViewBackgroundColor) {
 		self.table.backgroundColor = self.hb_appearanceSettings.tableViewBackgroundColor;
+		self.table.backgroundView = nil;
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellSeparatorColor) {
 		self.table.separatorColor = self.hb_appearanceSettings.tableViewCellSeparatorColor;
+
+		// it seems on old iOS you need to set the separator style to none for your custom separator
+		// color to apply
+		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
+			self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
+		}
 	}
 
 	// if we have a translucent navigation bar, apply it
@@ -183,6 +190,12 @@ BOOL translucentNavigationBar = NO;
 	if (self.hb_appearanceSettings.tableViewCellSelectionColor) {
 		UIView *selectionView = [[UIView alloc] init];
 		selectionView.backgroundColor = self.hb_appearanceSettings.tableViewCellSelectionColor;
+
+		// hacky workaround to avoid ugly corners
+		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
+			selectionView.layer.cornerRadius = 8.f;
+		}
+
 		cell.selectedBackgroundView = selectionView;
 	}
 
