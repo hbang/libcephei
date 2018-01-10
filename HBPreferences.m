@@ -6,11 +6,7 @@
 
 // ensure private symbols don’t get included if we’re in embedded mode. any empty code paths will be
 // optimised out by the compiler
-#if CEPHEI_EMBEDDED
-#define USE_CONTAINER_FUNCTIONS NO
-#else
-#define USE_CONTAINER_FUNCTIONS (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0)
-
+#if !CEPHEI_EMBEDDED
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
 
 typedef CFPropertyListRef (*_CFPreferencesCopyValueWithContainerType)(CFStringRef key, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
@@ -67,12 +63,15 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	if (IN_SPRINGBOARD || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
 		self = [super initWithIdentifier:identifier];
 
+		// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found
+		// within the container’s directory. we also assume no container is in use if the process is
+		// running as root.
 		// a nil container indicates to use the current container. kCFPreferencesNoContainer forces the
 		// user’s home directory to be used. we assume that if the identifier starts with the app bundle
 		// id, and it’s not an apple app, it probably wants its own preferences inside its container
 		// TODO: is there a better way to guess this? should we not guess at all except for the exact
 		// main bundle id?
-		if (![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]]) {
+		if (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]]) {
 			_container = kCFPreferencesNoContainer;
 		}
 	} else {
@@ -86,7 +85,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #pragma mark - Reloading
 
 - (BOOL)synchronize {
-	if (USE_CONTAINER_FUNCTIONS) {
+	if (_container) {
 #if !CEPHEI_EMBEDDED
 		return _CFPreferencesSynchronizeWithContainer((__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
 #endif
@@ -100,7 +99,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 - (NSDictionary <NSString *, id> *)dictionaryRepresentation {
 	CFDictionaryRef result;
 
-	if (USE_CONTAINER_FUNCTIONS) {
+	if (_container) {
 #if !CEPHEI_EMBEDDED
 		CFArrayRef allKeys = _CFPreferencesCopyKeyListWithContainer((__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
 
@@ -132,7 +131,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 - (id)_objectForKey:(NSString *)key {
 	CFTypeRef value;
 
-	if (USE_CONTAINER_FUNCTIONS) {
+	if (_container) {
 #if !CEPHEI_EMBEDDED
 		value = _CFPreferencesCopyValueWithContainer((__bridge CFStringRef)key, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
 		CFBridgingRelease(value);
@@ -152,11 +151,14 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #pragma mark - Setters
 
 - (void)_setObject:(id)value forKey:(NSString *)key {
+#if !CEPHEI_EMBEDDED
+	// TODO: we might be able to lift this restriction on iOS 9.3+?
 	if (getuid() != 501) {
 		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
 	}
+#endif
 
-	if (USE_CONTAINER_FUNCTIONS) {
+	if (_container) {
 #if !CEPHEI_EMBEDDED
 		_CFPreferencesSetValueWithContainer((__bridge CFStringRef)key, (__bridge CFPropertyListRef)value, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
 #endif
