@@ -108,8 +108,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		}
 
 		result = _CFPreferencesCopyMultipleWithContainer(allKeys, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
-		CFBridgingRelease(allKeys);
-		CFBridgingRelease(result);
+		CFRelease(allKeys);
 #endif
 	} else {
 		CFArrayRef allKeys = CFPreferencesCopyKeyList((__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
@@ -119,11 +118,10 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		}
 
 		result = CFPreferencesCopyMultiple(allKeys, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
-		CFBridgingRelease(allKeys);
-		CFBridgingRelease(result);
+		CFRelease(allKeys);
 	}
 
-	return (__bridge NSDictionary *)result;
+	return (__bridge_transfer NSDictionary *)result;
 }
 
 #pragma mark - Getters
@@ -141,7 +139,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		CFBridgingRelease(value);
 	}
 
-	id objcValue = (__bridge id)value;
+	id objcValue = (__bridge_transfer id)value;
 
 	[self _storeValue:objcValue forKey:key];
 
