@@ -264,10 +264,4 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	callback(key, [self objectForKey:key]);
 }
 
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 @end
