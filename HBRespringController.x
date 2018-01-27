@@ -36,7 +36,7 @@
 		SBSRelaunchAction *restartAction;
 
 		if (%c(SBSRelaunchAction)) { // 9.3+
-			restartAction = [%c(SBSRelaunchAction) actionWithReason:@"RestartRenderServer" options:SBSRelaunchActionStyleRestartRenderServer | SBSRelaunchActionStyleFadeToBlack targetURL:returnURL];
+			restartAction = [%c(SBSRelaunchAction) actionWithReason:@"RestartRenderServer" options:SBSRelaunchActionOptionsRestartRenderServer | SBSRelaunchActionOptionsFadeToBlackTransition targetURL:returnURL];
 		} else if (%c(SBSRestartRenderServerAction)) { // 8.0 – 9.3
 			restartAction = [%c(SBSRestartRenderServerAction) restartActionWithTargetRelaunchURL:returnURL];
 		}
