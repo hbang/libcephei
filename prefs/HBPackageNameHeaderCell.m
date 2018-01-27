@@ -1,4 +1,5 @@
 #import "HBPackageNameHeaderCell.h"
+#import "HBSupportController+Private.h"
 #import <Cephei/UIColor+HBAdditions.h>
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
@@ -83,19 +84,19 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_icon = specifier.properties[@"iconImage"];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
-		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]];
-		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]];
+		_titleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"titleColor"]];
+		_subtitleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"subtitleColor"]];
 
 		if (!_titleColor) {
-			_titleColor = _hasGradient ? [[UIColor alloc] initWithWhite:1.f alpha:0.95f] : [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1];
+			_titleColor = _hasGradient ? [UIColor colorWithWhite:1.f alpha:0.95f] : [UIColor colorWithWhite:17.f / 255.f alpha:1];
 		}
 
 		if (!_subtitleColor) {
-			_subtitleColor = _hasGradient ? [[UIColor alloc] initWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
+			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [UIColor colorWithWhite:68.f / 255.f alpha:1];
 		}
 
 #if !CEPHEI_EMBEDDED
-		_package = [[TSPackage alloc] initWithIdentifier:specifier.properties[@"packageIdentifier"]];
+		_package = [HBSupportController _packageForIdentifier:specifier.properties[@"packageIdentifier"] orFile:nil];
 #endif
 
 		[self updateData];

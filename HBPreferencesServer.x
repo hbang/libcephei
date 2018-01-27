@@ -1,7 +1,8 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
+#include <dlfcn.h>
 
-#if !CEPHEI_EMBEDDED
+#if !CEPHEI_EMBEDDED && !TARGET_OS_SIMULATOR
 
 #pragma mark - IPC
 
@@ -67,6 +68,11 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 %ctor {
 	// don’t do anything unless we’re in springboard
 	if (!IN_SPRINGBOARD) {
+		return;
+	}
+
+	if (!dlopen("/usr/lib/librocketbootstrap.dylib", RTLD_LAZY)) {
+		// welp?
 		return;
 	}
 

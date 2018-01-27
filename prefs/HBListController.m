@@ -1,6 +1,7 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
+#import "HBSupportController+Private.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
@@ -46,7 +47,7 @@
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-				__unused TSPackage *package = [TSPackage packageWithIdentifier:@"ws.hbang.common"];
+				__unused TSPackage *package = [HBSupportController _packageForIdentifier:@"ws.hbang.common" orFile:nil];
 			});
 		});
 #endif

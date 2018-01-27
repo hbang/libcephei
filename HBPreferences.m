@@ -50,7 +50,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 - (instancetype)initWithIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
 
-#if CEPHEI_EMBEDDED
+#if CEPHEI_EMBEDDED || TARGET_OS_SIMULATOR
 	self = [super initWithIdentifier:identifier];
 
 	// always use a nil container when embedded. there’s no point trying to support reading/writing

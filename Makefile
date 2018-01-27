@@ -1,4 +1,9 @@
-export TARGET = iphone:clang:latest:5.0
+ifeq ($(SIMULATOR),1)
+export TARGET = simulator:latest:5.0
+else
+export TARGET = iphone:latest:5.0
+endif
+
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
 export CEPHEI_EMBEDDED
 
@@ -29,10 +34,12 @@ Cephei_INSTALL_PATH = @rpath
 Cephei_LOGOSFLAGS = -c generator=internal
 else
 ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
-Cephei_LIBRARIES += rocketbootstrap
+Cephei_WEAK_LIBRARIES = $(THEOS_VENDOR_LIBRARY_PATH)/librocketbootstrap.dylib
 Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
 
+ifneq ($(SIMULATOR),1)
 SUBPROJECTS += defaults containersupport
+endif
 endif
 
 include $(THEOS_MAKE_PATH)/framework.mk
