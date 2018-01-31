@@ -6,7 +6,6 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
-#import <libprefs/prefs.h>
 
 @interface PSListController ()
 
@@ -77,17 +76,28 @@
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
-		// libprefs defines some filters we can take advantage of
-		if (![PSSpecifier environmentPassesPreferenceLoaderFilter:specifier.properties[PLFilterKey]]) {
-			[specifiersToRemove addObject:specifier];
+		// we provide a CF version filter here, originally by calling through to libprefs, but meh. it’s
+		// simple enough i might as well provide it myself
+		NSDictionary *filters = specifier.properties[@"pl_filter"];
+
+		if (filters && filters[@"CoreFoundationVersion"]) {
+			NSArray <NSNumber *> *versionFilter = filters[@"CoreFoundationVersion"];
+
+			// array with 1 item means there’s only a minimum bounds. array with 2 items means there’s a
+			// min and max bounds
+			double min = versionFilter[0] ? ((NSNumber *)versionFilter[0]).doubleValue : DBL_MIN;
+			double max = versionFilter.count > 1 && versionFilter[1] ? ((NSNumber *)versionFilter[1]).doubleValue : DBL_MAX;
+
+			if (min < kCFCoreFoundationVersionNumber || max >= kCFCoreFoundationVersionNumber) {
+				[specifiersToRemove addObject:specifier];
+			}
 		}
 
 		// grab the cell class
 		Class cellClass = specifier.properties[PSCellClassKey];
 
-		// if it’s HBLinkTableCell
+		// if it’s HBLinkTableCell, override the type and action to our own
 		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
-			// override the type and action to our own
 			specifier.cellType = PSLinkCell;
 			specifier.buttonAction = @selector(hb_openURL:);
 		}

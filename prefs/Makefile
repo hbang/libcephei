@@ -7,7 +7,6 @@ CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
-CepheiPrefs_LIBRARIES = prefs
 CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
 CepheiPrefs_LDFLAGS = -weak_framework TechSupport
 
