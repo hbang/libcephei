@@ -1,11 +1,11 @@
-ifeq ($(SIMULATOR),1)
+ifeq ($(CEPHEI_SIMULATOR),1)
 export TARGET = simulator:latest:5.0
 else
 export TARGET = iphone:latest:5.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
-export CEPHEI_EMBEDDED
+export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
 INSTALL_TARGET_PROCESSES = Preferences
 
@@ -35,10 +35,12 @@ Cephei_LOGOSFLAGS = -c generator=internal
 else
 ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
 Cephei_WEAK_LIBRARIES = $(THEOS_VENDOR_LIBRARY_PATH)/librocketbootstrap.dylib
-Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
 
-ifneq ($(SIMULATOR),1)
+ifeq ($(CEPHEI_SIMULATOR),1)
+Cephei_LOGOSFLAGS = -c generator=internal
+else
 SUBPROJECTS += defaults containersupport
+Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 endif
 

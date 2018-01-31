@@ -14,6 +14,8 @@ CepheiPrefs_LDFLAGS = -weak_framework TechSupport
 ifeq ($(CEPHEI_EMBEDDED),1)
 CepheiPrefs_INSTALL_PATH = @rpath
 CepheiPrefs_LOGOSFLAGS = -c generator=internal
+else ifeq ($(CEPHEI_SIMULATOR),1)
+CepheiPrefs_LOGOSFLAGS = -c generator=internal
 else
 CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
