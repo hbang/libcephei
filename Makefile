@@ -21,6 +21,7 @@ Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h HBRespringCont
 Cephei_FRAMEWORKS = CoreGraphics UIKit
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_CFLAGS = -include Global.h -fobjc-arc
+Cephei_INSTALL_PATH = /usr/lib
 
 # link arclite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
@@ -50,20 +51,26 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 after-Cephei-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@# create directories
-	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/usr/{include,lib} $(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
-
-	@# libhbangcommon.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib$(ECHO_END)
-
-	@# libcephei.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib$(ECHO_END)
+	$(ECHO_NOTHING)mkdir -p \
+		$(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/usr/{include,lib} \
+		$(THEOS_STAGING_DIR)/Library/Frameworks \
+		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
 
 	@# postinst -> DEBIAN/post{inst,rm}
 	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
+	@# /usr/lib/Cephei.framework -> /Library/Frameworks/Cephei.framework
+	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework$(ECHO_END)
+
+	@# libhbangcommon.dylib -> Cephei.framework
+	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib$(ECHO_END)
+
+	@# libcephei.dylib -> Cephei.framework
+	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib$(ECHO_END)
+
 	@# TODO: this is kind of a bad idea. maybe it should be in its own daemon?
 	@# CepheiSpringBoard.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib$(ECHO_END)
+	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib$(ECHO_END)
 
 	@# copy CepheiSpringBoard.plist
 	$(ECHO_NOTHING)cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
