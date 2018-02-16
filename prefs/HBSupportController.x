@@ -4,12 +4,14 @@
 
 @implementation HBSupportController
 
+#if !CEPHEI_EMBEDDED
 + (void)initialize {
 	[super initialize];
 
 	// lazy load TechSupport.framework
 	[[NSBundle bundleWithPath:@"/Library/Frameworks/TechSupport.framework"] load];
 }
+#endif
 
 + (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress {
 	NSParameterAssert(emailAddress);
@@ -35,12 +37,17 @@
 #endif
 }
 
-+ (TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
++ (nullable TSPackage *)_packageForIdentifier:(nullable NSString *)identifier orFile:(nullable NSString *)file {
 	NSParameterAssert(identifier ?: file);
 
 #if CEPHEI_EMBEDDED
 	return nil;
 #else
+	if (!%c(TSPackage)) {
+		HBLogDebug(@"returning nil package as TechSupport.framework isn’t loaded or failed to load");
+		return nil;
+	}
+
 	TSPackage *package = nil;
 
 	if (identifier) {
@@ -93,6 +100,10 @@
 #if CEPHEI_EMBEDDED
 	return nil;
 #else
+	if (!%c(TSContactViewController)) {
+		HBLogDebug(@"returning empty view controller as TechSupport.framework isn’t loaded or failed to load");
+	}
+
 	// get the TSPackage for either the custom package id in Info.plist, falling back to the bundle
 	// id. if neither provide a package, the containing package is used. if there’s still no
 	// TSPackage, throw an assertion.

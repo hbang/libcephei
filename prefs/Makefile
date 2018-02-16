@@ -8,7 +8,6 @@ CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
-CepheiPrefs_LDFLAGS = -weak_framework TechSupport
 CepheiPrefs_INSTALL_PATH = /usr/lib
 
 ifeq ($(CEPHEI_EMBEDDED),1)
