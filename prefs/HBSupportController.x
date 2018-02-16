@@ -19,21 +19,14 @@
 #if CEPHEI_EMBEDDED
 	return nil;
 #else
-	// work around what seems to possibly be a TechSupport bug – pinged ashikase about it; providing
-	// this workaround in the interim to release Cephei 1.10 ASAP which is already pretty late…
-	// 19:08:45 <kirb> ashikase: having an issue with TSLinkInstruction – so i have this logic here:
-	//   https://github.com/hbang/libcephei/blob/master/prefs/HBSupportController.m#L9
-	// 19:09:16 <kirb> it works if emailAddress is of form `Blah <a@b.c>`, but not `a@b.c` alone
-	// 19:09:47 <kirb> removing quotes solves the second form, but breaks the first form
-	// 19:15:37 <kirb> i'll just work around it by injecting `Support <%@>` for the moment
-	NSString *cleanedAddress = emailAddress;
-	NSCharacterSet *workaroundCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@" <>"];
-
-	if ([emailAddress rangeOfCharacterFromSet:workaroundCharacterSet].location == NSNotFound) {
-		cleanedAddress = [NSString stringWithFormat:@"Support <%@>", emailAddress];
+	// work around what seems to be a TechSupport bug — the link instruction fails to be parsed if in
+	// quotes but without spaces. this can happen if we’re just given a bare email address. we work
+	// around it by changing it to the format "Support <jappleseed@example.com>" if no space is found
+	if ([emailAddress rangeOfString:@" "].location == NSNotFound) {
+		emailAddress = [NSString stringWithFormat:@"Support <%@>", emailAddress];
 	}
 
-	return [%c(TSLinkInstruction) instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", cleanedAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+	return [%c(TSLinkInstruction) instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", emailAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
 #endif
 }
 
@@ -44,7 +37,7 @@
 	return nil;
 #else
 	if (!%c(TSPackage)) {
-		HBLogDebug(@"returning nil package as TechSupport.framework isn’t loaded or failed to load");
+		HBLogWarn(@"returning nil package as TechSupport.framework isn’t loaded or failed to load");
 		return nil;
 	}
 
@@ -101,7 +94,7 @@
 	return nil;
 #else
 	if (!%c(TSContactViewController)) {
-		HBLogDebug(@"returning empty view controller as TechSupport.framework isn’t loaded or failed to load");
+		HBLogWarn(@"returning empty view controller as TechSupport.framework isn’t loaded or failed to load");
 	}
 
 	// get the TSPackage for either the custom package id in Info.plist, falling back to the bundle
