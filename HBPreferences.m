@@ -132,14 +132,12 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	if (_container) {
 #if !CEPHEI_EMBEDDED
 		value = _CFPreferencesCopyValueWithContainer((__bridge CFStringRef)key, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
-		CFBridgingRelease(value);
 #endif
 	} else {
 		value = CFPreferencesCopyValue((__bridge CFStringRef)key, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
-		CFBridgingRelease(value);
 	}
 
-	id objcValue = (__bridge_transfer id)value;
+	id objcValue = CFBridgingRelease(value);
 
 	[self _storeValue:objcValue forKey:key];
 
