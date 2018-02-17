@@ -4,11 +4,19 @@ launchctl stop com.apple.mobile.installd
 
 # due to some sort of unfortunate permission error created by an older build of cephei, and dpkg not
 # really fixing them, we need to fix this ourselves
-chown -R root:wheel /Library/Frameworks/Cephei.framework \
-	/Library/Frameworks/CepheiPrefs.framework \
-	/Library/PreferenceBundles/Cephei.bundle
+chown -R root:wheel /Library/PreferenceBundles/Cephei.bundle
 
-# and this somehow became a directory instead of a symlink
+# and these somehow became a directory instead of a symlink
+if [[ -d /Library/Frameworks/Cephei.framework ]]; then
+	rm -r /Library/Frameworks/Cephei.framework
+	ln -s /usr/lib/Cephei.framework /Library/Frameworks/Cephei.framework
+fi
+
+if [[ -d /Library/Frameworks/CepheiPrefs.framework ]]; then
+	rm -r /Library/Frameworks/CepheiPrefs.framework
+	ln -s /usr/lib/CepheiPrefs.framework /Library/Frameworks/CepheiPrefs.framework
+fi
+
 if [[ -d /Library/PreferenceBundles/Cephei.bundle ]]; then
 	rm -r /Library/PreferenceBundles/Cephei.bundle
 	ln -s /Library/Frameworks/CepheiPrefs.framework /Library/PreferenceBundles/Cephei.bundle
