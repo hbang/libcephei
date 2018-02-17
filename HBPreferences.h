@@ -51,6 +51,24 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
  *
  * ### References
  * * [NSUserDefaults in Practice](http://dscoder.com/defaults.html)
+ *
+ * ### Security
+ * As of Cephei 1.12, HBPreferences restricts most Apple preferences (identifiers starting with
+ * `com.apple.…`) from being read/written from a sandboxed process. This protects against a
+ * malicious app using HBPreferences as a way to gather sensitive information or change system 
+ * preferences without the user’s knowledge. For instance, an App Store app could
+ * [phish for the user’s Apple ID login](https://krausefx.com/blog/ios-privacy-stealpassword-easily-get-the-users-apple-id-password-just-by-asking),
+ * creating a very real-looking login prompt by pre-filling their email address in the username box,
+ * or gain access to the numbers/email addresses of people the user has recently contacted.
+ *
+ * There is currently no way to avoid this restriction while still using HBPreferences. If you need
+ * access to Apple preferences, design your code to not need to do this from within the sandbox.
+ * This could be done [using IPC](http://iphonedevwiki.net/index.php/IPC) from an unsandboxed
+ * process such as SpringBoard. Avoid sending sensitive information via IPC to sandboxed apps, as
+ * they can still get access to data you send through various ways.
+ *
+ * If this is an inconvenience for you and you believe an exception should be made, please
+ * [file an issue](https://github.com/hbang/libcephei/issues) to discuss it.
  */
 @interface HBPreferences : NSObject
 

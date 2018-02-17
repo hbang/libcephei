@@ -3,6 +3,18 @@
 
 @implementation HBPreferencesIPC
 
+- (instancetype)initWithIdentifier:(NSString *)identifier {
+	// block apple preferences from being read/written via IPC for security. these are also blocked at
+	// the server side. see HBPreferences.h for an explanation
+	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
+		HBLogWarn(@"An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
+		return nil;
+	}
+
+	self = [super initWithIdentifier:identifier];
+	return self;
+}
+
 - (id)_sendMessageType:(HBPreferencesIPCMessageType)type key:(nullable NSString *)key value:(nullable NSString *)value {
 #if CEPHEI_EMBEDDED
 	[NSException raise:NSInternalInconsistencyException format:@"HBPreferencesIPC is not available in embedded mode."];
