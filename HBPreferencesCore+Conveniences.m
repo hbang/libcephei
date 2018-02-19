@@ -6,27 +6,27 @@
 
 - (NSInteger)integerForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
+	return [value respondsToSelector:@selector(integerValue)] ? value.integerValue : 0;
 }
 
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
+	return [value respondsToSelector:@selector(unsignedIntegerValue)] ? value.unsignedIntegerValue : 0;
 }
 
 - (CGFloat)floatForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.floatValue : 0;
+	return [value respondsToSelector:@selector(floatValue)] ? value.floatValue : 0;
 }
 
 - (double)doubleForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.doubleValue : 0;
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
 }
 
 - (BOOL)boolForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.boolValue : NO;
+	return [value respondsToSelector:@selector(boolValue)] ? value.boolValue : NO;
 }
 
 - (id)objectForKeyedSubscript:(NSString *)key {
