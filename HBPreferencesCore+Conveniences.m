@@ -16,7 +16,11 @@
 
 - (CGFloat)floatForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
+#if __LP64__
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
+#else
 	return [value respondsToSelector:@selector(floatValue)] ? value.floatValue : 0;
+#endif
 }
 
 - (double)doubleForKey:(NSString *)key {
@@ -49,7 +53,11 @@
 
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.floatValue : 0;
+#if __LP64__
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
+#else
+	return [value respondsToSelector:@selector(floatValue)] ? value.floatValue : 0;
+#endif
 }
 
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue {
