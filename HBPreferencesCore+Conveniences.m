@@ -43,12 +43,12 @@
 
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
+	return [value respondsToSelector:@selector(integerValue)] ? value.integerValue : 0;
 }
 
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
+	return [value respondsToSelector:@selector(unsignedIntegerValue)] ? value.unsignedIntegerValue : 0;
 }
 
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue {
@@ -62,12 +62,12 @@
 
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.doubleValue : 0;
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
 }
 
 - (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.boolValue : NO;
+	return [value respondsToSelector:@selector(boolValue)] ? value.boolValue : NO;
 }
 
 #pragma mark - Setters
