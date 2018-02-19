@@ -105,6 +105,8 @@
 #pragma mark - Register defaults
 
 - (void)registerDefaults:(NSDictionary <NSString *, id> *)defaults {
+	NSParameterAssert(defaults);
+
 	[self.defaults addEntriesFromDictionary:defaults];
 }
 

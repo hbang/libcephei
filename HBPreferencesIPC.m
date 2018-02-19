@@ -4,6 +4,8 @@
 @implementation HBPreferencesIPC
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
+	NSParameterAssert(identifier);
+
 	// block apple preferences from being read/written via IPC for security. these are also blocked at
 	// the server side. see HBPreferences.h for an explanation
 	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
@@ -76,6 +78,9 @@
 #pragma mark - Setters
 
 - (void)_setObject:(id)value forKey:(NSString *)key {
+	NSParameterAssert(value);
+	NSParameterAssert(key);
+
 	[self _sendMessageType:HBPreferencesIPCMessageTypeSet key:key value:value];
 	[self _storeValue:value forKey:key];
 }
