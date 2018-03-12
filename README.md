@@ -34,4 +34,4 @@ Please note that Cephei is now a framework (`/Library/Frameworks/Cephei.framewor
 You can take a look at a demo of the Preferences framework-specific features of Cephei simply by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` – quit and relaunch Settings if it’s open. Alternatively, you can compile Cephei yourself – when compiling a debug build, it will also automatically kill and relaunch the Settings app.
 
 ## License
-Licensed under the Apache License, version 2.0. Refer to [LICENSE.md](LICENSE.md).
+Licensed under the Apache License, version 2.0. Refer to [LICENSE.md](https://github.com/hbang/libcephei/blob/master/LICENSE.md).

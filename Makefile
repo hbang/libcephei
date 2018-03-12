@@ -1,12 +1,13 @@
 ifeq ($(CEPHEI_SIMULATOR),1)
 export TARGET = simulator:latest:5.0
 else
-export TARGET = iphone:latest:5.0
+export TARGET = iphone:11.2:5.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
+RESPRING ?= 1
 INSTALL_TARGET_PROCESSES = Preferences
 
 ifeq ($(RESPRING),1)
@@ -17,8 +18,7 @@ include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
-Cephei_PUBLIC_HEADERS = HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
-Cephei_FRAMEWORKS = CoreGraphics UIKit
+Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 Cephei_INSTALL_PATH = /usr/lib
@@ -79,4 +79,17 @@ endif
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
 	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
+endif
+
+docs: stage
+ifeq ($(wildcard docs),)
+	git clone -b gh-pages git@github.com:hbang/libcephei.git docs
+endif
+
+	$(ECHO_NOTHING)ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
+	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(PACKAGE_VERSION)$(ECHO_END)
+	$(ECHO_NOTHING)rm $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
+
+ifeq ($(FINALPACKAGE),1)
+before-package:: docs
 endif

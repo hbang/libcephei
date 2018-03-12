@@ -7,8 +7,10 @@ Enabling a container for your app is highly recommended if the app may be submit
 
 To have your app use a container, simply add a key to the app’s Info.plist.
 
-    <key>HBAppRequiresContainer</key>
-    <true/>
+```xml
+<key>HBAppRequiresContainer</key>
+<true/>
+```
 
 After reloading the Launch Services application cache (by running `uicache`), the app will be in a container.
 

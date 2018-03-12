@@ -3,8 +3,17 @@
 #import <Twitter/Twitter.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#include <objc/runtime.h>
+
+Class $UIActivityViewController, $TWTweetComposeViewController;
 
 @implementation HBRootListController
+
++ (void)initialize {
+	[super initialize];
+
+	$UIActivityViewController = objc_getClass("UIActivityViewController");
+}
 
 #pragma mark - Constants
 
@@ -32,9 +41,9 @@
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
 	// if we have UIActivityViewController (ios 6+)
-	if (%c(UIActivityViewController)) {
+	if ($UIActivityViewController) {
 		// instantiate one with the share text and url as items
-		UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[
+		UIActivityViewController *viewController = [[$UIActivityViewController alloc] initWithActivityItems:@[
 			[self.class hb_shareText],
 			[self.class hb_shareURL]
 		] applicationActivities:nil];
@@ -47,16 +56,22 @@
 	} else {
 		// for ios 5: lazy load Twitter.framework
 		[[NSBundle bundleWithPath:@"/System/Library/Frameworks/Twitter.framework"] load];
+
+		if (!$TWTweetComposeViewController) {
+			$TWTweetComposeViewController = objc_getClass("TWTweetComposeViewController");
+		}
 		
 		// if it loaded and we have a twitter account, instantiate a tweet composer. otherwise, just
 		// open the twitter website
-		if (%c(TWTweetComposeViewController) && [%c(TWTweetComposeViewController) canSendTweet]) {
-			TWTweetComposeViewController *viewController = [[%c(TWTweetComposeViewController) alloc] init];
+		if ($TWTweetComposeViewController && [$TWTweetComposeViewController canSendTweet]) {
+			TWTweetComposeViewController *viewController = [[$TWTweetComposeViewController alloc] init];
 			viewController.initialText = [self.class hb_shareText];
 			[viewController addURL:[self.class hb_shareURL]];
 			[self.navigationController presentViewController:viewController animated:YES completion:nil];
 		} else {
+#ifdef THEOS
 			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/intent/tweet?text=%@%%20%@", [self.class hb_shareText].hb_stringByEncodingQueryPercentEscapes, [self.class hb_shareURL].absoluteString.hb_stringByEncodingQueryPercentEscapes]]];
+#endif
 		}
 	}
 }

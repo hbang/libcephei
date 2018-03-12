@@ -1,6 +1,9 @@
 #import "HBSupportController.h"
 #import "../HBPreferences.h"
 #import <TechSupport/TechSupport.h>
+#include <objc/runtime.h>
+
+Class $TSPackage, $TSLinkInstruction, $TSIncludeInstruction, $TSContactViewController;
 
 @implementation HBSupportController
 
@@ -10,6 +13,11 @@
 
 	// lazy load TechSupport.framework
 	[[NSBundle bundleWithPath:@"/Library/Frameworks/TechSupport.framework"] load];
+	
+	$TSPackage = objc_getClass("TSPackage");
+	$TSLinkInstruction = objc_getClass("TSLinkInstruction");
+	$TSIncludeInstruction = objc_getClass("TSIncludeInstruction");
+	$TSContactViewController = objc_getClass("TSContactViewController");
 }
 #endif
 
@@ -26,7 +34,7 @@
 		emailAddress = [NSString stringWithFormat:@"Support <%@>", emailAddress];
 	}
 
-	return [%c(TSLinkInstruction) instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", emailAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
+	return [$TSLinkInstruction instructionWithString:[NSString stringWithFormat:@"link email \"%@\" as \"%@\" is_support", emailAddress, LOCALIZE(@"EMAIL_SUPPORT", @"About", @"Label for a button that allows the user to email the developer.")]];
 #endif
 }
 
@@ -36,7 +44,7 @@
 #if CEPHEI_EMBEDDED
 	return nil;
 #else
-	if (!%c(TSPackage)) {
+	if (!$TSPackage) {
 		HBLogWarn(@"returning nil package as TechSupport.framework isn’t loaded or failed to load");
 		return nil;
 	}
@@ -44,11 +52,11 @@
 	TSPackage *package = nil;
 
 	if (identifier) {
-		package = [%c(TSPackage) packageWithIdentifier:identifier];
+		package = [$TSPackage packageWithIdentifier:identifier];
 	}
 
 	if (!package) {
-		package = [%c(TSPackage) packageForFile:file];
+		package = [$TSPackage packageForFile:file];
 	}
 
 	return package;
@@ -93,7 +101,7 @@
 #if CEPHEI_EMBEDDED
 	return nil;
 #else
-	if (!%c(TSContactViewController)) {
+	if (!$TSContactViewController) {
 		HBLogWarn(@"returning empty view controller as TechSupport.framework isn’t loaded or failed to load");
 	}
 
@@ -113,8 +121,8 @@
 
 	// construct the support instructions
 	NSArray <TSIncludeInstruction *> *builtInInstructions = @[
-		[%c(TSIncludeInstruction) instructionWithString:@"include as \"Package List\" command /usr/bin/dpkg -l"],
-		[%c(TSIncludeInstruction) instructionWithString:[NSString stringWithFormat:@"include as Preferences plist \"%@\"", prefsPath]]
+		[$TSIncludeInstruction instructionWithString:@"include as \"Package List\" command /usr/bin/dpkg -l"],
+		[$TSIncludeInstruction instructionWithString:[NSString stringWithFormat:@"include as Preferences plist \"%@\"", prefsPath]]
 	];
 
 	NSArray *includeInstructions = supportInstructions ? [builtInInstructions arrayByAddingObjectsFromArray:supportInstructions] : builtInInstructions;
@@ -126,7 +134,7 @@
 	}
 
 	// set up the view controller
-	TSContactViewController *viewController = [[%c(TSContactViewController) alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions];
+	TSContactViewController *viewController = [[$TSContactViewController alloc] initWithPackage:package linkInstruction:linkInstruction includeInstructions:includeInstructions];
 	viewController.title = LOCALIZE(@"SUPPORT_TITLE", @"Support", @"Title displayed in the navigation bar of the support page.");
 	viewController.subject = [NSString stringWithFormat:LOCALIZE(@"SUPPORT_EMAIL_SUBJECT", @"Support", @"The subject used when sending a support email. %@ %@ is the package name and version respectively."), package.name, package.version];
 	viewController.requiresDetailsFromUser = YES;

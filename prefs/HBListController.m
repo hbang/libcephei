@@ -99,7 +99,10 @@
 		// if it’s HBLinkTableCell, override the type and action to our own
 		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
 			specifier.cellType = PSLinkCell;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 			specifier.buttonAction = @selector(hb_openURL:);
+#pragma clang diagnostic pop
 		}
 	}
 
@@ -170,17 +173,17 @@
 
 		// set up an HBAppearanceSettings using the values of the old methods
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
-		appearanceSettings.tintColor = [self.class hb_tintColor];
-		appearanceSettings.navigationBarTintColor = [self.class hb_navigationBarTintColor];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		appearanceSettings.tintColor = [self.class hb_tintColor];
+		appearanceSettings.navigationBarTintColor = [self.class hb_navigationBarTintColor];
 		appearanceSettings.invertedNavigationBar = [self.class hb_invertedNavigationBar];
-#pragma clang diagnostic pop
 		appearanceSettings.translucentNavigationBar = [self.class hb_translucentNavigationBar];
 		appearanceSettings.tableViewBackgroundColor = [self.class hb_tableViewBackgroundColor];
 		appearanceSettings.tableViewCellTextColor = [self.class hb_tableViewCellTextColor];
 		appearanceSettings.tableViewCellBackgroundColor = [self.class hb_tableViewCellBackgroundColor];
 		appearanceSettings.tableViewCellSeparatorColor = [self.class hb_tableViewCellSeparatorColor];
+#pragma clang diagnostic pop
 		self.hb_appearanceSettings = appearanceSettings;
 	}
 }

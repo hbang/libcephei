@@ -99,7 +99,7 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 			id newValue = [self _objectForKey:key];
 
 			if (newValue != lastValue || (newValue == nil && [lastValue isKindOfClass:NSNull.class]) || ![newValue isEqual:lastValue]) {
-				for (HBPreferencesChangeCallback callback in _preferenceChangeBlocks[key]) {
+				for (HBPreferencesValueChangeCallback callback in _preferenceChangeBlocks[key]) {
 					callback(key, [self objectForKey:key]);
 				}
 			}

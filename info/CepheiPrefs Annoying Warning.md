@@ -3,17 +3,21 @@ The Preferences framework, and by extension, CepheiPrefs, can be used in apps ot
 
 If you are legitimately using CepheiPrefs in an app other than Settings (Preferences) or Watch (Bridge), you can add a key to your Info.plist to allow it to be used.
 
-    <key>HBUsesCepheiPrefs</key>
-    <true/>
+```xml
+<key>HBUsesCepheiPrefs</key>
+<true/>
+```
 
 If CepheiPrefs is being used from a tweak, you can override like so:
 
-    %hook HBForceCepheiPrefs
-    
-    + (BOOL)forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear {
-      return YES;
-    }
+```logos
+%hook HBForceCepheiPrefs
 
-    %end
++ (BOOL)forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear {
+    return YES;
+}
+
+%end
+```
 
 This may still log a warning, but will not display the annoying alert as long as the hook is in place before `UIApplicationDidFinishLaunchingNotification`.

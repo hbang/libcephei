@@ -1,0 +1,16 @@
+clean: true
+output: docs
+theme: fullwidth
+objc: true
+sdk: iphonesimulator
+module: Cephei
+umbrella_header: JazzyUmbrella.h
+framework_root: .theos/_/usr/lib
+author: HASHBANG Productions
+author_url: https://hbang.github.io/
+github_url: https://github.com/hbang/libcephei
+root_url: https://hbang.github.io/libcephei/
+dash_url: https://hbang.github.io/libcephei/xcode-docset.atom
+readme: README.md
+documentation: info/*.md
+exclude: "*/include/*"

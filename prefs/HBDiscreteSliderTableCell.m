@@ -3,6 +3,9 @@
 #import <UIKit/UIColor+Private.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#include <objc/runtime.h>
+
+Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 
 @implementation HBDiscreteSliderTableCell
 
@@ -10,11 +13,15 @@
 
 + (void)initialize {
 	[super initialize];
+	
+	$PSSliderTableCell = objc_getClass("PSSliderTableCell");
+	$PSDiscreteSlider = objc_getClass("PSDiscreteSlider");
+	$PSSegmentableSlider = objc_getClass("PSSegmentableSlider");
 
-	if (%c(PSSliderTableCell)) {
+	if ($PSSliderTableCell) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
-		class_setSuperclass(self, %c(PSSliderTableCell));
+		class_setSuperclass(self, $PSSliderTableCell);
 #pragma clang diagnostic pop
 	}
 }
@@ -32,10 +39,10 @@
 - (PSDiscreteSlider *)newControl {
 	Class sliderClass = UISlider.class;
 
-	if (%c(PSDiscreteSlider)) {
-		sliderClass = %c(PSDiscreteSlider);
-	} else if (%c(PSSegmentableSlider)) {
-		sliderClass = %c(PSSegmentableSlider);
+	if ($PSDiscreteSlider) {
+		sliderClass = $PSDiscreteSlider;
+	} else if ($PSSegmentableSlider) {
+		sliderClass = $PSSegmentableSlider;
 	}
 
 	PSDiscreteSlider *slider = [[sliderClass alloc] initWithFrame:CGRectZero];

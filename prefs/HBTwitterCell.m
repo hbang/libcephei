@@ -18,6 +18,7 @@
 @implementation HBTwitterCell
 
 + (NSString *)_urlForUsername:(NSString *)user {
+#ifdef THEOS
 	// not really the right thing for this, but your usernames aren't meant to have weird ass
 	// characters in them anyway :p
 	user = user.hb_stringByEncodingQueryPercentEscapes;
@@ -36,6 +37,9 @@
 	} else {
 		return [@"https://mobile.twitter.com/" stringByAppendingString:user];
 	}
+#else
+	return nil;
+#endif
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
