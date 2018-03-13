@@ -1,11 +1,11 @@
-/// The `PSListController+HBTintAdditions` class category in `CepheiPrefs` provides a property for
-/// setting the desired appearance settings of the view controller.
-
 #import <Preferences/PSListController.h>
 
 @class HBAppearanceSettings;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// The `PSListController+HBTintAdditions` class category in `CepheiPrefs` provides a property for
+/// setting the desired appearance settings of the view controller.
 
 @interface PSListController (HBTintAdditions)
 

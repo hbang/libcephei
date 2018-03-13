@@ -1,6 +1,8 @@
 #import <Preferences/PSListController.h>
 #import "PSListController+HBTintAdditions.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// The `HBListController` class in `CepheiPrefs` provides a list controller with various
 /// conveniences such as a unique tint color for the list controllers within a preference bundle,
 /// and bug fixes for common issues within the Settings app and Preferences framework. In
@@ -10,8 +12,6 @@
 ///
 /// It includes two class methods you can override to return the name of a Preferences specifier
 /// property list, and various methods to set custom colors in the list controller interface.
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface HBListController : PSListController
 

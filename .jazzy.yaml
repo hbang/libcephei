@@ -14,3 +14,55 @@ dash_url: https://hbang.github.io/libcephei/xcode-docset.atom
 readme: README.md
 documentation: info/*.md
 exclude: "*/include/*"
+hide_documentation_coverage: true
+
+custom_categories:
+  - name: "Cephei — General"
+    children:
+      - "Container Support"
+      - HBOutputForShellCommand
+      - HBOutputForShellCommandWithReturnCode
+      - HBPreferences
+      - HBRespringController
+      - NSDictionary(HBAdditions)
+      - NSLayoutConstraint(CompactConstraint)
+      - NSString(HBAdditions)
+      - UIColor(HBAdditions)
+      - UIView(CompactConstraint)
+  
+  - name: "Cephei — Types/Constants"
+    children:
+      - HBPreferencesDidChangeNotification
+      - HBPreferencesNotMobileException
+      - HBPreferencesChangeCallback
+      - HBPreferencesValueChangeCallback
+
+  - name: "CepheiPrefs — General"
+    children:
+      - "CepheiPrefs Annoying Warning"
+      - HBAppearanceSettings
+      - HBSupportController
+
+  - name: "CepheiPrefs — List Controllers"
+    children:
+      - HBAboutListController
+      - HBListController
+      - HBRootListController
+      - PSListController(HBTintAdditions)
+
+  - name: "CepheiPrefs — Cells"
+    children:
+      - HBDiscreteSliderTableCell
+      - HBImageTableCell
+      - HBLinkTableCell
+      - HBPackageTableCell
+      - HBPackageNameHeaderCell
+      - HBSpinnerTableCell
+      - HBStepperTableCell
+      - HBTintedTableCell
+      - HBTwitterCell
+
+  - name: "CepheiPrefs — Deprecated"
+    children:
+      - HBListItemsController
+      - HBInitialsLinkTableCell

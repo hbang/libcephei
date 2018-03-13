@@ -89,6 +89,7 @@ endif
 	$(ECHO_NOTHING)ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
 	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(PACKAGE_VERSION)$(ECHO_END)
 	$(ECHO_NOTHING)rm $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
+	$(ECHO_NOTHING)rm docs/undocumented.json$(ECHO_END)
 
 ifeq ($(FINALPACKAGE),1)
 before-package:: docs
