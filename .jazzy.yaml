@@ -10,7 +10,7 @@ author: HASHBANG Productions
 author_url: https://hbang.github.io/
 github_url: https://github.com/hbang/libcephei
 root_url: https://hbang.github.io/libcephei/
-dash_url: https://hbang.github.io/libcephei/xcode-docset.atom
+dash_url: https://hbang.github.io/libcephei/docsets/Cephei.xml
 readme: README.md
 documentation: info/*.md
 exclude: "*/include/*"

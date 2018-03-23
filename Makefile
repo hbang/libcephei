@@ -82,12 +82,8 @@ ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
 endif
 
 docs: stage
-ifeq ($(wildcard docs),)
-	git clone -b gh-pages git@github.com:hbang/libcephei.git docs
-endif
-
 	$(ECHO_NOTHING)ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
-	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(PACKAGE_VERSION)$(ECHO_END)
+	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(THEOS_PACKAGE_BASE_VERSION)$(ECHO_END)
 	$(ECHO_NOTHING)rm $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
 	$(ECHO_NOTHING)rm docs/undocumented.json$(ECHO_END)
 
