@@ -4,7 +4,6 @@ else
 export TARGET = iphone:11.2:5.0
 endif
 
-export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
 RESPRING ?= 1
@@ -16,12 +15,14 @@ endif
 
 include $(THEOS)/makefiles/common.mk
 
+export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter -fobjc-arc -include $(THEOS_PROJECT_DIR)/Global.h -I$(THEOS_PROJECT_DIR) -I$(THEOS_PROJECT_DIR)/prefs -I$(THEOS_PROJECT_DIR)/statusbar
+export ADDITIONAL_LDFLAGS = -F$(THEOS_OBJ_DIR)
+
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h HBStatusBarItem.h NSDictionary+HBAdditions.h NSString+HBAdditions.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h) statusbar/LSStatusBarItem.h statusbar/UIStatusBarCustomItem.h statusbar/UIStatusBarCustomItemView.h
 Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
 Cephei_EXTRA_FRAMEWORKS = CydiaSubstrate
-Cephei_CFLAGS = -include Global.h -Istatusbar -fobjc-arc
 Cephei_INSTALL_PATH = /usr/lib
 
 # link arclite to polyfill some features iOS 5 lacks
@@ -35,7 +36,6 @@ ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=1
 Cephei_INSTALL_PATH = @rpath
 Cephei_LOGOSFLAGS = -c generator=internal
 else
-SUBPROJECTS += statusbar
 ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
 Cephei_WEAK_LIBRARIES = $(THEOS_VENDOR_LIBRARY_PATH)/librocketbootstrap.dylib
 
@@ -79,8 +79,10 @@ ifneq ($(CEPHEI_EMBEDDED),1)
 endif
 
 after-install::
-ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
+ifneq ($(RESPRING),1)
+ifneq ($(PACKAGE_BUILDNAME),)
 	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
+endif
 endif
 
 docs: stage

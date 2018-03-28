@@ -1,9 +1,12 @@
-Package: ws.hbang.common
-Name: Cephei
-Depends: mobilesubstrate, preferenceloader, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
-Version: 1.12
+Package: ws.hbang.cepheistatusbar
+Name: Cephei Status Bar
+Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, ws.hbang.common (>> 1.12)
+Conflicts: libstatusbar, libstatusbar8, libmoorecon, org.thebigboss.libstatus9
+Replaces: libstatusbar, libstatusbar8, libmoorecon, org.thebigboss.libstatus9
+Provides: libstatusbar, libstatusbar8, libmoorecon, org.thebigboss.libstatus9
+Version: 1.13
 Architecture: iphoneos-arm
-Description: Support library for tweaks
+Description: Support library for status bar icons
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Development

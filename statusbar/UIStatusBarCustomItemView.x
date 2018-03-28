@@ -1,5 +1,4 @@
 #import "UIStatusBarCustomItemView.h"
-#import "_HBStatusBarClient.h"
 #import <UIKit/_UILegibilityImageSet.h>
 #import <UIKit/UIImage+Private.h>
 #import <UIKit/UIStatusBarForegroundStyleAttributes.h>
@@ -34,9 +33,3 @@
 }
 
 %end
-
-%ctor {
-	if (![_HBStatusBarClient hasLibstatusbar]) {
-		%init;
-	}
-}

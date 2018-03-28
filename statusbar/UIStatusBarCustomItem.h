@@ -1,5 +1,8 @@
 #import <UIKit/UIStatusBarItem.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+/// Mappings to libstatusbar’s constants for item alignment.
 typedef NS_ENUM(NSInteger, UIStatusBarCustomItemAlignment) {
 	UIStatusBarCustomItemAlignmentLeft = 1,
 	UIStatusBarCustomItemAlignmentRight = 2,
@@ -13,6 +16,8 @@ typedef NS_ENUM(NSInteger, UIStatusBarCustomItemAlignment) {
 
 @class UIStatusBarItemView;
 
+/// `UIStatusBarCustomItem` from Cephei Status Bar is provided as a compatibility layer for
+/// libstatusbar. Items displayed using this API **will not** display on iPhone X.
 @interface UIStatusBarCustomItem : UIStatusBarItem
 
 - (UIStatusBarItemView *)viewForManager:(UIStatusBarLayoutManager *)layoutManager;
@@ -20,6 +25,8 @@ typedef NS_ENUM(NSInteger, UIStatusBarCustomItemAlignment) {
 - (void)removeAllViews;
 
 @property (nonatomic, retain) NSString *indicatorName;
-@property (nonatomic, retain) NSDictionary *properties;
+@property (nonatomic, assign, getter=isVisible) BOOL visible;
 
 @end
+
+NS_ASSUME_NONNULL_END

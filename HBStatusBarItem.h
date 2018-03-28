@@ -103,11 +103,11 @@ typedef NS_ENUM(NSUInteger, HBStatusBarItemTextPosition) {
  * @param identifier The identifier to be used. This should remain consistent and never change for
  * this particular icon.
  * @param imageName The image name to be used. Refer to above for the file naming convention.
- * @param bundle The bundle to search for the image in. When nil, the UIKit framework bundle will be
- * used.
+ * @param imageBundle The bundle to search for the image in. When nil, the UIKit framework bundle
+ * will be used.
  * @returns An autoreleased instance of HBStatusBarItem for the specified identifier.
  */
-- (instancetype)initWithIdentifier:(NSString *)identifier imageNamed:(nullable NSString *)imageName inBundle:(nullable NSBundle *)bundle;
+- (instancetype)initWithIdentifier:(NSString *)identifier imageNamed:(nullable NSString *)imageName inBundle:(nullable NSBundle *)imageBundle;
 
 /**
  * Initializes an instance of the class for the specified identifier.
