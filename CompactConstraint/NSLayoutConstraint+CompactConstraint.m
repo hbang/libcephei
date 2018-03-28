@@ -43,6 +43,7 @@
 // For release builds, where the asserted variables (leftOperandScanned, etc.) aren't used because the assertions are removed
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
+#pragma clang diagnostic ignored "-Wunused-value"
 
 + (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView
 {
@@ -69,6 +70,7 @@
             @".baseline" : @(NSLayoutAttributeBaseline),
             @".lastBaseline" : @(NSLayoutAttributeLastBaseline),
             @".firstBaseline" : @(NSLayoutAttributeFirstBaseline),
+#if TARGET_OS_IPHONE
             @".leftMargin" : @(NSLayoutAttributeLeftMargin),
             @".rightMargin" : @(NSLayoutAttributeRightMargin),
             @".topMargin" : @(NSLayoutAttributeTopMargin),
@@ -77,6 +79,7 @@
             @".trailingMargin" :@(NSLayoutAttributeTrailingMargin),
             @".centerXWithinMargins": @(NSLayoutAttributeCenterXWithinMargins),
             @".centerYWithinMargins": @(NSLayoutAttributeCenterYWithinMargins)
+#endif
         };
 
         multiplicationOperatorCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"*/"];
@@ -109,6 +112,7 @@
     NSString *identifier = relationship;
 
     BOOL leftOperandScanned = [scanner scanUpToCharactersFromSet:leftOperandTerminatingCharacterSet intoString:&leftOperandStr];
+    #pragma unused(leftOperandScanned)
     NSAssert(leftOperandScanned, @"No left operand given");
     leftOperandStr = [leftOperandStr stringByTrimmingCharactersInSet:leftOperandTerminatingCharacterSet];
     NSRange lastDot = [leftOperandStr rangeOfString:@"." options:NSBackwardsSearch];
@@ -127,6 +131,7 @@
     leftAttribute = (NSLayoutAttribute) [leftAttributeNumber integerValue];
 
     BOOL operatorScanned = [scanner scanCharactersFromSet:operatorCharacterSet intoString:&operatorStr];
+    #pragma unused(operatorScanned)
     NSAssert(operatorScanned, @"No operator given");
     NSLayoutRelation relation;
     if ([operatorStr isEqualToString:@"=="] || [operatorStr isEqualToString:@"="]) relation = NSLayoutRelationEqual;
@@ -142,6 +147,7 @@
         // right operand is a symbol. Either a metric or a view. Views have dot-properties, metrics don't.
         BOOL rightOperandScanned = [scanner scanUpToCharactersFromSet:rightOperandTerminatingCharacterSet intoString:&rightOperandStr];
         NSAssert(rightOperandScanned, @"No right operand given");
+        #pragma unused(rightOperandScanned)
 
         lastDot = [rightOperandStr rangeOfString:@"." options:NSBackwardsSearch];
         if (lastDot.location == NSNotFound) {
@@ -160,6 +166,17 @@
                 if ([rightOperandStr isEqualToString:@"super"]) {
                     rightOperand = [leftOperand superview];
                     NSAssert(rightOperand, @"Right operand is super, but superview of left operand is nil");
+                } else if ([rightOperandStr isEqualToString:@"safe"]) {
+                    NSObject *superview = [leftOperand superview];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                    if ([superview respondsToSelector:@selector(safeAreaLayoutGuide)]) {
+                        rightOperand = [superview performSelector:@selector(safeAreaLayoutGuide)];
+                        NSAssert(rightOperand, @"Right operand is safe, but superview of left operand is nil");
+#pragma clang diagnostic pop
+                    } else {
+                        NSAssert(0, @"safe operand used, but safeAreaLayoutGuide not supported on superview");
+                    }
                 } else if ([rightOperandStr isEqualToString:@"self"]) {
                     rightOperand = selfView;
                     NSAssert(rightOperand, @"Right operand is self, but self is nil or not supplied");
@@ -179,6 +196,8 @@
             // see if the scalar is a metric instead of a literal number
             BOOL scalarAfterMultiplication = [scanner scanUpToCharactersFromSet:rightOperandTerminatingCharacterSet intoString:&rightValueStr];
             NSAssert(scalarAfterMultiplication, @"No scalar given after '*' on right side");
+            #pragma unused(scalarAfterMultiplication)
+
             rightMetricNumber = metrics[rightValueStr];
             NSAssert1(rightMetricNumber, @"Right scalar '%@' not found in metrics dictionary", rightValueStr);
             rightScalar = [rightMetricNumber doubleValue];
@@ -192,6 +211,8 @@
             // see if the scalar is a metric instead of a literal number
             BOOL constantAfterAddition = [scanner scanUpToCharactersFromSet:rightOperandTerminatingCharacterSet intoString:&rightValueStr];
             NSAssert(constantAfterAddition, @"No constant given after '+' on right side");
+            #pragma unused(constantAfterAddition)
+
             rightMetricNumber = metrics[rightValueStr];
             NSAssert1(rightMetricNumber, @"Right constant '%@' not found in metrics dictionary", rightValueStr);
             rightConstant = [rightMetricNumber doubleValue];
@@ -204,18 +225,20 @@
         rightConstant = rightMetric * rightScalar + rightConstant;
         rightScalar = 1.0;
     }
-
+    
     if ([scanner scanCharactersFromSet:priorityOperatorCharacterSet intoString:NULL]) {
         if (! [scanner scanDouble:&priority]) {
             // see if the priority is a metric instead of a literal number
             BOOL priorityAfterAt = [scanner scanUpToCharactersFromSet:rightOperandTerminatingCharacterSet intoString:&rightValueStr];
             NSAssert(priorityAfterAt, @"No priority given after '@' on right side");
+            #pragma unused(priorityAfterAt)
+
             rightMetricNumber = metrics[rightValueStr];
             NSAssert1(rightMetricNumber, @"Right priority '%@' not found in metrics dictionary", rightValueStr);
             priority = [rightMetricNumber doubleValue];
         }
     }
-
+    
     if ([scanner scanCharactersFromSet:identifierMarkerCharacterSet intoString:NULL]) {
         // take the rest of the string as the identifier
         identifier = [relationship substringFromIndex:scanner.scanLocation];

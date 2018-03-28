@@ -30,10 +30,17 @@
 
 + (void)respringAndReturnTo:(nullable NSURL *)returnURL {
 	// if we have frontboard (iOS 8)
-	if (%c(SBSRestartRenderServerAction) && %c(FBSSystemService)) {
+	if (%c(FBSSystemService)) {
 		// ask for a render server (aka springboard) restart. if requested, provide our url so settings
 		// is opened right back up to here
-		SBSRestartRenderServerAction *restartAction = [%c(SBSRestartRenderServerAction) restartActionWithTargetRelaunchURL:returnURL];
+		SBSRelaunchAction *restartAction;
+
+		if (%c(SBSRelaunchAction)) { // 9.3+
+			restartAction = [%c(SBSRelaunchAction) actionWithReason:@"RestartRenderServer" options:SBSRelaunchActionOptionsFadeToBlackTransition targetURL:returnURL];
+		} else if (%c(SBSRestartRenderServerAction)) { // 8.0 – 9.3
+			restartAction = [%c(SBSRestartRenderServerAction) restartActionWithTargetRelaunchURL:returnURL];
+		}
+
 		[[%c(FBSSystemService) sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
 	} else if (IN_SPRINGBOARD) {
 		// in springboard, use good ole _relaunchSpringBoardNow
@@ -43,7 +50,7 @@
 		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("ws.hbang.common/Respring"), NULL, NULL, TRUE);
 
 		// wait half a second in case that fails
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC / 2)), dispatch_get_main_queue(), ^{
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC * 0.5)), dispatch_get_main_queue(), ^{
 			// manually execute killall (i'm lazy, sorry)
 			HBOutputForShellCommand(@"/bin/killall SpringBoard");
 		});

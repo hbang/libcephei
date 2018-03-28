@@ -59,5 +59,9 @@
 	<string>Ikonok</string>
 	<key>TRANSLATORS</key>
 	<string>Fordítók</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>Adj meg egy értéket</string>
 </dict>
 </plist>

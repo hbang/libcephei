@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CepheiPrefs — Cells  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="CepheiPrefs — Cells  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          Cephei Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/hbang/libcephei">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+            <img class="header-icon" src="img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">Cephei Reference</a>
+      <img class="carat" src="img/carat.png" />
+      CepheiPrefs — Cells  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Cephei — General.html">Cephei — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="container-support.html">Container Support</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — General.html#/c:@F@HBOutputForShellCommandWithReturnCode">HBOutputForShellCommandWithReturnCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBPreferences.html">HBPreferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBRespringController.html">HBRespringController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/UIView(CompactConstraint).html">UIView(CompactConstraint)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Cephei — Types/Constants.html">Cephei — Types/Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — Types/Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — Types/Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — Types/Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Cephei — Types/Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="CepheiPrefs — General.html">CepheiPrefs — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="cepheiprefs-annoying-warning.html">CepheiPrefs Annoying Warning</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBSupportController.html">HBSupportController</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="CepheiPrefs — List Controllers.html">CepheiPrefs — List Controllers</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBAboutListController.html">HBAboutListController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBListController.html">HBListController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBRootListController.html">HBRootListController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/PSListController(HBTintAdditions).html">PSListController(HBTintAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="CepheiPrefs — Cells.html">CepheiPrefs — Cells</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBDiscreteSliderTableCell.html">HBDiscreteSliderTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBImageTableCell">HBImageTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBLinkTableCell.html">HBLinkTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBPackageTableCell">HBPackageTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBPackageNameHeaderCell">HBPackageNameHeaderCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBSpinnerTableCell">HBSpinnerTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/HBStepperTableCell.html">HBStepperTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Cells.html#/c:objc(cs)HBTwitterCell">HBTwitterCell</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="CepheiPrefs — Deprecated.html">CepheiPrefs — Deprecated</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Deprecated.html#/c:objc(cs)HBListItemsController">HBListItemsController</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="CepheiPrefs — Deprecated.html#/c:objc(cs)HBInitialsLinkTableCell">HBInitialsLinkTableCell</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>CepheiPrefs — Cells</h1>
+            
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBDiscreteSliderTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBDiscreteSliderTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBDiscreteSliderTableCell">HBDiscreteSliderTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBDiscreteSliderTableCell</code> class in <code>CepheiPrefs</code> is a subclass of the standard slider
+cell, which displays a vertical line at every whole number. Additionally, when dragging the
+slider, it jumps to these lines so the user’s preference will always be a whole number.</p>
+
+<p>It is no longer necessary to use this as of iOS 8.2, which has built in <code>isSegmented</code> and
+<code>segmentCount</code> parameters on PSSliderCell. This class is kept for backwards compatibility, and
+will use the built-in implementation on iOS 8.2 and newer.</p>
+
+<p>Requires iOS 7.0 or later. A normal slider is shown for older versions.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<p>All parameters specific to
+<a href="http://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSliderCell">PSSliderCell</a>
+are applicable here. There are no custom parameters.</p>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSSliderCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBDiscreteSliderTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>5<span class="nt">&lt;/real&gt;</span>
+    <span class="nt">&lt;key&gt;</span>defaults<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common.demo<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>key<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Discrete<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Discrete<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>max<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>15<span class="nt">&lt;/real&gt;</span>
+    <span class="nt">&lt;key&gt;</span>min<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>1<span class="nt">&lt;/real&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                        <a href="Classes/HBDiscreteSliderTableCell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBDiscreteSliderTableCell</span> <span class="p">:</span> <span class="nc">PSControlTableCell</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBDiscreteSliderTableCell</span> <span class="p">:</span> <span class="kt">PSControlTableCell</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBImageTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBImageTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBImageTableCell">HBImageTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBImageTableCell</code> class in <code>CepheiPrefs</code> provides a simple way to display an image as a
+table cell, or a header or footer.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>icon</th> <td>Required. The file name of the image to display in the cell.</td>
+</tr>
+</table>
+
+<p>If you use <code>HBImageTableCell</code> as a header or footer with <code>headerCellClass</code> or <code>footerCellClass</code>,
+it will size automatically to fit the image. If you use it as a cell with <code>cellClass</code>, you must
+set the height yourself using the <code>height</code> key.</p>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="c">&lt;!-- As a header (or footer): --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSGroupCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>headerCellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBImageTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>height<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>100<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>icon<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>logo.png<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- As a cell: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBImageTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>height<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>100<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>icon<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>logo.png<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBImageTableCell</span> <span class="p">:</span> <span class="nc">PSTableCell</span> <span class="o">&lt;</span><span class="n">PSHeaderFooterView</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBImageTableCell</span> <span class="p">:</span> <span class="kt">PSTableCell</span><span class="p">,</span> <span class="kt">PSHeaderFooterView</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBLinkTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBLinkTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBLinkTableCell">HBLinkTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBLinkTableCell</code> class in <code>CepheiPrefs</code> displays a button that, when tapped, opens the
+specified URL. A typical icon can be used, or the initials key can be set to one or two
+characters to show as the icon.</p>
+
+<p>This cell can either be used without setting any cell type, or by setting it to <code>PSButtonCell</code>
+to get a tinted button.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
+</tr>
+<tr>
+<th>url</th> <td>Required. The URL to open.</td>
+</tr>
+<tr>
+<th>subtitle</th> <td>Optional. A subtitle to display below the label. The default is an empty
+string, hiding the subtitle.</td>
+</tr>
+</table>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="c">&lt;!-- With icon: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBLinkTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>icon<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>example.png<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Example<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>http://example.com/<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- With initials: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBLinkTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>initials<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>XX<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Example<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>http://example.com/<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- With a subtitle: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBLinkTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Example<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>subtitle<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Visit our amazing website<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>http://example.com/<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- With a subtitle, in big mode: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>big<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBLinkTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>height<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>64<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Example<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>subtitle<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Visit our amazing website<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>http://example.com/<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                        <a href="Classes/HBLinkTableCell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBLinkTableCell</span> <span class="p">:</span> <span class="nc"><a href="CepheiPrefs — Cells.html#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a></span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBLinkTableCell</span> <span class="p">:</span> <span class="kt"><a href="CepheiPrefs — Cells.html#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBPackageTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBPackageTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBPackageTableCell">HBPackageTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBPackageTableCell</code> class in <code>CepheiPrefs</code> provides a cell containing any package&rsquo;s icon,
+name, and description. Tapping it opens the package in Cydia.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>packageIdentifier</th> <td>Required. The package identifier to retrieve the required
+information from.</td>
+</tr>
+<tr>
+<th>packageRepository</th> <td>Optional. The URL to the repository the package is available on,
+if not one of the default repos.</td>
+</tr>
+<tr>
+<th>label</th> <td>Required. The name of the package.</td>
+</tr>
+<tr>
+<th>subtitleText</th> <td>Optional. Can be used for a description of the package.</td>
+</tr>
+</table>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="c">&lt;!-- Typical: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Cephei<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- With subtitle: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Cephei<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>subtitleText<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Support library for tweaks<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- From a repository: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Cephei<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageRepository<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>https://cydia.hbang.ws<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBPackageTableCell</span> <span class="p">:</span> <span class="nc"><a href="Classes/HBLinkTableCell.html">HBLinkTableCell</a></span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBPackageTableCell</span> <span class="p">:</span> <span class="kt"><a href="Classes/HBLinkTableCell.html">HBLinkTableCell</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBPackageNameHeaderCell"></a>
+                    <a name="//apple_ref/objc/Class/HBPackageNameHeaderCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBPackageNameHeaderCell">HBPackageNameHeaderCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBPackageNameHeaderCell</code> class in <code>CepheiPrefs</code> displays a header containing the package’s
+icon, name, version number, and author. It can be displayed in a subtle condensed design, or, by
+default, a tall header that might be displayed at the top of a preference bundle’s root list
+controller, for instance.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>condensed</th> <td>Optional. When true, displays an icon, the package name and version in
+one line, and on another displays the author name. When false, displays a large package name,
+and on two lines in small font the package version and author. The default is false.</td>
+</tr>
+<tr>
+<th>icon</th> <td>Required in condensed mode. Not used otherwise. The file name of the icon to
+use within the current preference bundle.</td>
+</tr>
+<tr>
+<th>packageIdentifier</th> <td>Required. The package identifier to retrieve the required
+information from.</td>
+</tr>
+<tr>
+<th>packageNameOverride</th> <td>Optional. A custom name to use instead of the package’s
+name.</td>
+</tr>
+<tr>
+<th>showAuthor</th> <td>Optional. Whether to show the `Author` field of the package. The default
+is true.</td>
+</tr>
+<tr>
+<th>showVersion</th> <td>Optional. Whether to show the `Version` field of the package. The
+default is true.</td>
+</tr>
+<tr>
+<th>titleColor</th> <td>Optional. The color to apply to the name of the package. The default is
+#111111.</td>
+</tr>
+<tr>
+<th>subtitleColor</th> <td>Optional. The color to apply to the subtitles. The default is
+#444444.</td>
+</tr>
+<tr>
+<th>backgroundGradientColors</th> <td>Optional. An array of color stops to use as a background
+gradient. At least one is required. The default is no background gradient.</td>
+</tr>
+</table>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="c">&lt;!-- Standard size: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSGroupCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>headerCellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageNameHeaderCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- Condensed size: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSGroupCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>condensed<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>headerCellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageNameHeaderCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>icon<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>icon.png<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- Standard size with custom colors: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSGroupCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>headerCellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageNameHeaderCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>titleColor<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>#CC0000<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>subtitleColor<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>55<span class="nt">&lt;/integer&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>147<span class="nt">&lt;/integer&gt;</span>
+        <span class="nt">&lt;integer&gt;</span>230<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- Standard size with gradient background: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSGroupCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>headerCellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBPackageNameHeaderCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>packageIdentifier<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>backgroundGradientColors<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="nt">&lt;string&gt;</span>#5AD427<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>#FFDB4C<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>#EF4DB6<span class="nt">&lt;/string&gt;</span>
+        <span class="nt">&lt;string&gt;</span>#898C90<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBPackageNameHeaderCell</span> <span class="p">:</span> <span class="nc">PSTableCell</span> <span class="o">&lt;</span><span class="n">PSHeaderFooterView</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBPackageNameHeaderCell</span> <span class="p">:</span> <span class="kt">PSTableCell</span><span class="p">,</span> <span class="kt">PSHeaderFooterView</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBSpinnerTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBSpinnerTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBSpinnerTableCell">HBSpinnerTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBSpinnerTableCell</code> class in <code>CepheiPrefs</code> displays an activity indicator when the cell is
+disabled.</p>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+
+<p>Specifier plist:</p>
+<pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>action<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>doStuffTapped:<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSButtonCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBSpinnerTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Do Stuff<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+<p>List controller implementation:</p>
+<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doStuffTapped</span><span class="p">:(</span><span class="n">PSSpecifier</span> <span class="o">*</span><span class="p">)</span><span class="nv">specifier</span> <span class="p">{</span>
+    <span class="n">PSTableCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">cachedCellForSpecifier</span><span class="p">:</span><span class="n">specifier</span><span class="p">];</span>
+    <span class="n">cell</span><span class="p">.</span><span class="n">cellEnabled</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+    <span class="c1">// do something in the background…
+</span>    <span class="n">cell</span><span class="p">.</span><span class="n">cellEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBSpinnerTableCell</span> <span class="p">:</span> <span class="nc"><a href="CepheiPrefs — Cells.html#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a></span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBSpinnerTableCell</span> <span class="p">:</span> <span class="kt"><a href="CepheiPrefs — Cells.html#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBStepperTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBStepperTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBStepperTableCell">HBStepperTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBStepperTableCell</code> class in <code>CepheiPrefs</code> allows setting a value using a stepper control
+(<q>minus</q> and <q>plus</q> buttons).</p>
+
+<p>Requires iOS 6.0 or later.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>label</th> <td>Required. The label displayed when the value is plural. Use <code>%i</code>
+to denote where the number should be displayed.</td>
+</tr>
+<tr>
+<th>max</th> <td>Required. The highest possible numeric value for the stepper.</td>
+</tr>
+<tr>
+<th>min</th> <td>Required. The lowest possible numeric value for the stepper.</td>
+</tr>
+<tr>
+<th>singularLabel</th> <td>Required. The label displayed when the value is singular.</td>
+</tr>
+</table>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBStepperTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>5<span class="nt">&lt;/real&gt;</span>
+    <span class="nt">&lt;key&gt;</span>defaults<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common.demo<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>key<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Stepper<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>%i Things<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>max<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>15<span class="nt">&lt;/real&gt;</span>
+    <span class="nt">&lt;key&gt;</span>min<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;real&gt;</span>1<span class="nt">&lt;/real&gt;</span>
+    <span class="nt">&lt;key&gt;</span>singularLabel<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>1 Thing<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                        <a href="Classes/HBStepperTableCell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBStepperTableCell</span> <span class="p">:</span> <span class="nc">PSControlTableCell</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBStepperTableCell</span> <span class="p">:</span> <span class="kt">PSControlTableCell</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBTintedTableCell"></a>
+                    <a name="//apple_ref/objc/Class/HBTintedTableCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBTintedTableCell">HBTintedTableCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBTintedTableCell</code> class in <code>CepheiPrefs</code> ensures that a tint set with HBAppearanceSettings
+will also be applied to the title label of a of a cell intended to be used as a button.</p>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>PSButtonCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBTintedTableCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>Do Something<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBTintedTableCell</span> <span class="p">:</span> <span class="nc">PSTableCell</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBTintedTableCell</span> <span class="p">:</span> <span class="kt">PSTableCell</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)HBTwitterCell"></a>
+                    <a name="//apple_ref/objc/Class/HBTwitterCell" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBTwitterCell">HBTwitterCell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>HBTwitterCell</code> class in <code>CepheiPrefs</code> displays a button containing a person’s name, along
+with their Twitter username and avatar. When tapped, a Twitter client installed on the user’s
+device or the Twitter website is opened to the person’s profile.</p>
+<h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
+
+<table>
+<tr>
+<th>big</th> <td>Optional. Whether to display the username below the name (true) or to the right
+of it (false). The default is false. If you set this to true, you should also set the cell’s
+height to 56pt.</td>
+</tr>
+<tr>
+<th>initials</th> <td>Optional. One or two characters to show instead of an avatar.</td>
+</tr>
+<tr>
+<th>label</th> <td>Required. The name of the person.</td>
+</tr>
+<tr>
+<th>showAvatar</th> <td>Optional. Whether to show the avatar of the user. The default is
+true.</td>
+</tr>
+<tr>
+<th>user</th> <td>Required. The Twitter username of the person.</td>
+</tr>
+</table>
+<h3 id='example-usage' class='heading'>Example Usage</h3>
+<pre class="highlight xml"><code><span class="c">&lt;!-- Standard size: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBTwitterCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HASHBANG Productions<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- Big size: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>big<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;true/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBTwitterCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>height<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;integer&gt;</span>56<span class="nt">&lt;/integer&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HASHBANG Productions<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+
+<span class="c">&lt;!-- Without an avatar: --&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>cellClass<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HBTwitterCell<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>HASHBANG Productions<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>showAvatar<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;false/&gt;</span>
+    <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBTwitterCell</span> <span class="p">:</span> <span class="nc"><a href="Classes/HBLinkTableCell.html">HBLinkTableCell</a></span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBTwitterCell</span> <span class="p">:</span> <span class="kt"><a href="Classes/HBLinkTableCell.html">HBLinkTableCell</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

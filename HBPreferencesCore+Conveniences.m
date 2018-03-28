@@ -6,27 +6,31 @@
 
 - (NSInteger)integerForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
+	return [value respondsToSelector:@selector(integerValue)] ? value.integerValue : 0;
 }
 
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
+	return [value respondsToSelector:@selector(unsignedIntegerValue)] ? value.unsignedIntegerValue : 0;
 }
 
 - (CGFloat)floatForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.floatValue : 0;
+#if __LP64__
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
+#else
+	return [value respondsToSelector:@selector(floatValue)] ? value.floatValue : 0;
+#endif
 }
 
 - (double)doubleForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.doubleValue : 0;
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
 }
 
 - (BOOL)boolForKey:(NSString *)key {
 	NSNumber *value = [self objectForKey:key];
-	return [value isKindOfClass:NSNumber.class] ? value.boolValue : NO;
+	return [value respondsToSelector:@selector(boolValue)] ? value.boolValue : NO;
 }
 
 - (id)objectForKeyedSubscript:(NSString *)key {
@@ -39,27 +43,31 @@
 
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.integerValue : 0;
+	return [value respondsToSelector:@selector(integerValue)] ? value.integerValue : 0;
 }
 
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.unsignedIntegerValue : 0;
+	return [value respondsToSelector:@selector(unsignedIntegerValue)] ? value.unsignedIntegerValue : 0;
 }
 
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.floatValue : 0;
+#if __LP64__
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
+#else
+	return [value respondsToSelector:@selector(floatValue)] ? value.floatValue : 0;
+#endif
 }
 
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.doubleValue : 0;
+	return [value respondsToSelector:@selector(doubleValue)] ? value.doubleValue : 0;
 }
 
 - (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue {
 	NSNumber *value = [self objectForKey:key default:@(defaultValue)];
-	return [value isKindOfClass:NSNumber.class] ? value.boolValue : NO;
+	return [value respondsToSelector:@selector(boolValue)] ? value.boolValue : NO;
 }
 
 #pragma mark - Setters
@@ -105,6 +113,8 @@
 #pragma mark - Register defaults
 
 - (void)registerDefaults:(NSDictionary <NSString *, id> *)defaults {
+	NSParameterAssert(defaults);
+
 	[self.defaults addEntriesFromDictionary:defaults];
 }
 

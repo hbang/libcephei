@@ -39,11 +39,15 @@
 #pragma mark - Callbacks
 
 - (void)hb_openWebsite {
+#ifdef THEOS
 	[[UIApplication sharedApplication] openURL:[self.class hb_websiteURL]];
+#endif
 }
 
 - (void)hb_openDonate {
+#ifdef THEOS
 	[[UIApplication sharedApplication] openURL:[self.class hb_donateURL]];
+#endif
 }
 
 - (void)hb_sendSupportEmail {

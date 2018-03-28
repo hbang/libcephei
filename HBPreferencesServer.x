@@ -1,5 +1,8 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
+#include <dlfcn.h>
+
+#if !CEPHEI_EMBEDDED && !TARGET_OS_SIMULATOR
 
 #pragma mark - IPC
 
@@ -26,14 +29,24 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	NSDictionary <NSString *, id> *userInfo = LMPropertyListForData((__bridge NSData *)data);
 	CFRelease(data);
 
-	// decode the type parameter to an enum value
+	// deserialize the parameters
+	NSString *identifier = userInfo[@"Identifier"];
 	HBPreferencesIPCMessageType type = (HBPreferencesIPCMessageType)((NSNumber *)userInfo[@"Type"]).unsignedIntegerValue;
+	id result;
+
+	// we block apple preferences from being read/written via IPC for security. this check is also on
+	// the client side; this code path will never be reached unless something sends a message over the
+	// port directly. see HBPreferences.h for an explanation
+	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
+		// send empty dictionary back, free the buffer, and return
+		LMSendPropertyListReply(request->head.msgh_remote_port, @{});
+		LMResponseBufferFree(bytes);
+		return;
+	}
 
 	// instantiate an HBPreferences instance for this identifier. this will be looked up from
 	// HBPreferences’ known identifiers cache, so this almost always won’t hurt performance
-	HBPreferences *preferences = [HBPreferences preferencesForIdentifier:userInfo[@"Identifier"]];
-
-	id result;
+	HBPreferences *preferences = [HBPreferences preferencesForIdentifier:identifier];
 
 	// do the appropriate thing for each message type
 	switch (type) {
@@ -68,6 +81,11 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 		return;
 	}
 
+	if (!dlopen("/usr/lib/librocketbootstrap.dylib", RTLD_LAZY)) {
+		// welp?
+		return;
+	}
+
 	// start the service
 	kern_return_t result = LMStartService(springboardService.serverName, CFRunLoopGetCurrent(), HandleReceivedMessage);
 
@@ -76,3 +94,5 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 		HBLogError(@"Failed to start preferences IPC service! (Error %i)", result);
 	}
 }
+
+#endif

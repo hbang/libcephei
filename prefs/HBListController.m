@@ -1,10 +1,11 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
+#import "HBSupportController+Private.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
-#import <libprefs/prefs.h>
+#import <TechSupport/TSPackage.h>
 
 @interface PSListController ()
 
@@ -31,6 +32,29 @@
 + (UIColor *)hb_tableViewBackgroundColor     { return nil; }
 + (BOOL)hb_translucentNavigationBar          { return YES; }
 
+- (instancetype)init {
+	self = [super init];
+
+	if (self) {
+		// when an HBPackageNameHeaderCell is instantiated, it grabs the package metadata via TSPackage.
+		// the first time it’s called, +[PIDebianPackage initialize] is invoked, which implements a long
+		// blocking operation (~200ms on iPhone 6s, definitely worse on older devices). this causes a
+		// really noticeable momentary freeze, which we really don’t want. work around this by warming
+		// PIDebianPackage on a background queue (with throttled I/O), reducing subsequent calls to a
+		// more tolerable duration (~70ms).
+#if !CEPHEI_EMBEDDED
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+				__unused TSPackage *package = [HBSupportController _packageForIdentifier:@"ws.hbang.common" orFile:nil];
+			});
+		});
+#endif
+	}
+
+	return self;
+}
+
 #pragma mark - Loading specifiers
 
 - (void)_loadSpecifiersFromPlistIfNeeded {
@@ -52,19 +76,33 @@
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
-		// libprefs defines some filters we can take advantage of
-		if (![PSSpecifier environmentPassesPreferenceLoaderFilter:specifier.properties[PLFilterKey]]) {
-			[specifiersToRemove addObject:specifier];
+		// we provide a CF version filter here, originally by calling through to libprefs, but meh. it’s
+		// simple enough i might as well provide it myself
+		NSDictionary *filters = specifier.properties[@"pl_filter"];
+
+		if (filters && filters[@"CoreFoundationVersion"]) {
+			NSArray <NSNumber *> *versionFilter = filters[@"CoreFoundationVersion"];
+
+			// array with 1 item means there’s only a minimum bounds. array with 2 items means there’s a
+			// min and max bounds
+			double min = versionFilter[0] ? ((NSNumber *)versionFilter[0]).doubleValue : DBL_MIN;
+			double max = versionFilter.count > 1 && versionFilter[1] ? ((NSNumber *)versionFilter[1]).doubleValue : DBL_MAX;
+
+			if (min < kCFCoreFoundationVersionNumber || max >= kCFCoreFoundationVersionNumber) {
+				[specifiersToRemove addObject:specifier];
+			}
 		}
 
 		// grab the cell class
 		Class cellClass = specifier.properties[PSCellClassKey];
 
-		// if it’s HBLinkTableCell
+		// if it’s HBLinkTableCell, override the type and action to our own
 		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
-			// override the type and action to our own
 			specifier.cellType = PSLinkCell;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
 			specifier.buttonAction = @selector(hb_openURL:);
+#pragma clang diagnostic pop
 		}
 	}
 
@@ -135,6 +173,8 @@
 
 		// set up an HBAppearanceSettings using the values of the old methods
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		appearanceSettings.tintColor = [self.class hb_tintColor];
 		appearanceSettings.navigationBarTintColor = [self.class hb_navigationBarTintColor];
 		appearanceSettings.invertedNavigationBar = [self.class hb_invertedNavigationBar];
@@ -143,6 +183,7 @@
 		appearanceSettings.tableViewCellTextColor = [self.class hb_tableViewCellTextColor];
 		appearanceSettings.tableViewCellBackgroundColor = [self.class hb_tableViewCellBackgroundColor];
 		appearanceSettings.tableViewCellSeparatorColor = [self.class hb_tableViewCellSeparatorColor];
+#pragma clang diagnostic pop
 		self.hb_appearanceSettings = appearanceSettings;
 	}
 }

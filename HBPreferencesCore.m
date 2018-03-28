@@ -40,6 +40,8 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
+	NSParameterAssert(identifier);
+
 	if (KnownIdentifiers[identifier]) {
 		return KnownIdentifiers[identifier];
 	}
@@ -97,7 +99,7 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 			id newValue = [self _objectForKey:key];
 
 			if (newValue != lastValue || (newValue == nil && [lastValue isKindOfClass:NSNull.class]) || ![newValue isEqual:lastValue]) {
-				for (HBPreferencesChangeCallback callback in _preferenceChangeBlocks[key]) {
+				for (HBPreferencesValueChangeCallback callback in _preferenceChangeBlocks[key]) {
 					callback(key, [self objectForKey:key]);
 				}
 			}
@@ -187,6 +189,7 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 }
 
 - (id)objectForKey:(NSString *)key {
+	NSParameterAssert(key);
 	return [self _objectForKey:key] ?: _defaults[key];
 }
 
@@ -195,6 +198,8 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 - (void)_setObject:(id)value forKey:(NSString *)key {}
 
 - (void)setObject:(id)value forKey:(NSString *)key {
+	NSParameterAssert(key);
+
 	[self _setObject:value forKey:key];
 	[self _preferencesChanged];
 }
@@ -202,6 +207,9 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 #pragma mark - Register preferences
 
 - (void)_registerObject:(void *)object default:(id)defaultValue forKey:(NSString *)key type:(HBPreferencesType)type {
+	NSParameterAssert(object);
+	NSParameterAssert(key);
+
 	if (defaultValue) {
 		_defaults[key] = defaultValue;
 	}
@@ -243,8 +251,9 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 		_preferenceChangeBlocksGlobal = [[NSMutableArray alloc] init];
 	});
 
-	[_preferenceChangeBlocksGlobal addObject:[callback copy]];
+	NSParameterAssert(callback);
 
+	[_preferenceChangeBlocksGlobal addObject:[callback copy]];
 	callback();
 }
 
@@ -254,6 +263,9 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 		_preferenceChangeBlocks = [[NSMutableDictionary alloc] init];
 	});
 
+	NSParameterAssert(callback);
+	NSParameterAssert(key);
+
 	if (!_preferenceChangeBlocks[key]) {
 		_preferenceChangeBlocks[key] = [[NSMutableArray alloc] init];
 	}
@@ -262,12 +274,6 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	[self _objectForKey:key];
 
 	callback(key, [self objectForKey:key]);
-}
-
-#pragma mark - Memory management
-
-- (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

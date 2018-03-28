@@ -3,7 +3,25 @@
 
 @implementation HBPreferencesIPC
 
+- (instancetype)initWithIdentifier:(NSString *)identifier {
+	NSParameterAssert(identifier);
+
+	// block apple preferences from being read/written via IPC for security. these are also blocked at
+	// the server side. see HBPreferences.h for an explanation
+	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
+		HBLogWarn(@"An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
+		return nil;
+	}
+
+	self = [super initWithIdentifier:identifier];
+	return self;
+}
+
 - (id)_sendMessageType:(HBPreferencesIPCMessageType)type key:(nullable NSString *)key value:(nullable NSString *)value {
+#if CEPHEI_EMBEDDED
+	[NSException raise:NSInternalInconsistencyException format:@"HBPreferencesIPC is not available in embedded mode."];
+	return nil;
+#else
 	// construct our message dictionary with the basics
 	NSMutableDictionary <NSString *, id> *data = [@{
 		@"Type": @(type),
@@ -32,6 +50,7 @@
 
 	// return what we got back
 	return LMResponseConsumePropertyList(&buffer);
+#endif
 }
 
 #pragma mark - Reloading
@@ -59,6 +78,9 @@
 #pragma mark - Setters
 
 - (void)_setObject:(id)value forKey:(NSString *)key {
+	NSParameterAssert(value);
+	NSParameterAssert(key);
+
 	[self _sendMessageType:HBPreferencesIPCMessageTypeSet key:key value:value];
 	[self _storeValue:value forKey:key];
 }

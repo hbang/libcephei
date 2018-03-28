@@ -1,9 +1,11 @@
 #import "HBPackageNameHeaderCell.h"
+#import "HBSupportController+Private.h"
 #import <Cephei/UIColor+HBAdditions.h>
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
+#include <dlfcn.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -57,39 +59,45 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		}
 
 		// hack to resolve odd margins being set on ipad
+		CGFloat marginWidth = [self respondsToSelector:@selector(_marginWidth)] ? self._marginWidth : 0;
+
 		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= IS_IPAD ? self._marginWidth : 0;
+		labelFrame.origin.x -= IS_IPAD ? marginWidth : 0;
 		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
-		labelFrame.size.width -= IS_IPAD ? self._marginWidth * 2 : 0;
+		labelFrame.size.width -= IS_IPAD ? marginWidth * 2 : 0;
 		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
 		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_label.textAlignment = NSTextAlignmentCenter;
 		_label.adjustsFontSizeToFitWidth = NO;
-		_label.adjustsLetterSpacingToFitWidth = NO;
+
+		if ([_label respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)]) {
+			_label.adjustsLetterSpacingToFitWidth = NO;
+		}
+		
 		[self.contentView addSubview:_label];
 
-		_condensed = specifier.properties[@"condensed"] && ((NSNumber *)specifier.properties[@"condensed"]).boolValue;
-		_showAuthor = !specifier.properties[@"showAuthor"] || ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue;
-		_showVersion = !specifier.properties[@"showVersion"] || ((NSNumber *)specifier.properties[@"showVersion"]).boolValue;
+		_condensed = specifier.properties[@"condensed"] ? ((NSNumber *)specifier.properties[@"condensed"]).boolValue : NO;
+		_showAuthor = specifier.properties[@"showAuthor"] ? ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue : YES;
+		_showVersion = specifier.properties[@"showVersion"] ? ((NSNumber *)specifier.properties[@"showVersion"]).boolValue : YES;
 		_icon = specifier.properties[@"iconImage"];
 		_nameOverride = [specifier.properties[@"packageNameOverride"] copy];
 
-		_titleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"titleColor"]];
-		_subtitleColor = [[UIColor alloc] hb_initWithPropertyListValue:specifier.properties[@"subtitleColor"]];
+		_titleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"titleColor"]];
+		_subtitleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"subtitleColor"]];
 
 		if (!_titleColor) {
-			_titleColor = _hasGradient ? [[UIColor alloc] initWithWhite:1.f alpha:0.95f] : [[UIColor alloc] initWithWhite:17.f / 255.f alpha:1];
+			_titleColor = _hasGradient ? [UIColor colorWithWhite:1.f alpha:0.95f] : [UIColor colorWithWhite:17.f / 255.f alpha:1];
 		}
 
 		if (!_subtitleColor) {
-			_subtitleColor = _hasGradient ? [[UIColor alloc] initWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor alloc] initWithWhite:68.f / 255.f alpha:1];
+			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [UIColor colorWithWhite:68.f / 255.f alpha:1];
 		}
 
-		NSAssert(!_condensed || _icon, @"An icon is required when using the condensed style.");
-
-		_package = [[TSPackage alloc] initWithIdentifier:specifier.properties[@"packageIdentifier"]];
+#if !CEPHEI_EMBEDDED
+		_package = [HBSupportController _packageForIdentifier:specifier.properties[@"packageIdentifier"] orFile:nil];
+#endif
 
 		[self updateData];
 	}
@@ -138,44 +146,75 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		return;
 	}
 
-	NSUInteger cleanedAuthorLocation = [(NSString *)_package.author rangeOfString:@" <"].location;
+	NSUInteger cleanedAuthorLocation = [_package.author rangeOfString:@" <"].location;
 	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _package.author : [_package.author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
-	NSString *icon = _icon && _condensed ? @"ICON " : @""; // note: there's a zero width space here
+	NSString *icon = _icon ? @"ICON " : @"";
 	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _package.version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
+
+	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
+
+	// the Title1 and Title2 styles were added in iOS 9. get their symbols dynamically so we can fall
+	// back to older styles on older iOS
+	NSString * __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
+	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
+
+	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
+		UIFont *systemTitleFont = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle1];
+		UIFont *systemTitle2Font = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle2];
+		UIFont *systemSubtitleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+
+		// use the specified font names, with either the font sizes we want, or the sizes the user
+		// wants, whichever is larger
+		headerFont = [UIFont fontWithName:systemTitleFont.fontName size:MAX(systemTitleFont.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
+		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFont.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
+		condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2Font.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
+		condensedLightFont = [UIFont fontWithName:systemTitleFont.fontName size:condensedFont.pointSize];
+	} else {
+		headerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize];
+		subtitleFont = [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize];
+		condensedFont = [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize];
+		condensedLightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize];
+	}
 
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
 		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
 	}];
 
-	NSUInteger location = 0, length = 0;
+	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	paragraphStyle.lineSpacing = _condensed ? 4.f : 2.f;
+	paragraphStyle.alignment = NSTextAlignmentCenter;
 
-	if (_icon && _condensed) {
+	NSUInteger location = 0, length = 0;
+	CGFloat offset = 0;
+
+	if (_icon) {
 		NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 		textAttachment.image = _icon;
 		[attributedString replaceCharactersInRange:NSMakeRange(0, 4) withAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+
+		location += 1;
+		length += 1;
+		offset = 6.f;
+
+		if (_condensed) {
+			paragraphStyle.lineSpacing += offset;
+		}
 	}
 
-	length = name.length;
-
-	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-	paragraphStyle.lineSpacing = _condensed ? 10.f : 4.f;
-	paragraphStyle.alignment = NSTextAlignmentCenter;
+	length += name.length;
 
 	if (_condensed) {
-		location++;
-		length++;
-
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize],
-			NSBaselineOffsetAttributeName: @(6.f),
+			NSFontAttributeName: condensedFont,
+			NSBaselineOffsetAttributeName: @(offset),
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length + version.length + 1)];
 	} else {
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize],
+			NSFontAttributeName: headerFont,
 			NSParagraphStyleAttributeName: paragraphStyle,
 			NSForegroundColorAttributeName: _titleColor
 		} range:NSMakeRange(location, length)];
@@ -186,7 +225,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		length = version.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: _condensed ? [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize] : [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSFontAttributeName: _condensed ? condensedLightFont : subtitleFont,
 			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}
@@ -196,7 +235,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		length = author.length;
 
 		[attributedString addAttributes:@{
-			NSFontAttributeName: [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize],
+			NSFontAttributeName: subtitleFont,
 			NSForegroundColorAttributeName: _subtitleColor
 		} range:NSMakeRange(location, length)];
 	}

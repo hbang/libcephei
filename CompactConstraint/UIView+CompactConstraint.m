@@ -14,7 +14,7 @@
     return constraint;
 }
 
-- (NSArray <NSLayoutConstraint *> *)hb_addCompactConstraints:(NSArray *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
+- (NSArray <NSLayoutConstraint *> *)hb_addCompactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views
 {
     NSMutableArray <NSLayoutConstraint *> *mConstraints = [NSMutableArray arrayWithCapacity:relationshipStrings.count];
     for (NSString *relationship in relationshipStrings) {

@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 		// synchronize is usually bad™, but in this case we're about to exit, and
 		// that means it might not get to cfprefsd in time. catfish man said it's
 		// right to do this, so we're doing it
-		return [preferences synchronize] == YES;
+		return [preferences synchronize] ? 0 : 1;
 	} else {
 		usage();
 		return 0;
