@@ -9,8 +9,7 @@
 @implementation HBForceCepheiPrefs
 
 + (BOOL)forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear {
-	// YES now but will become NO in a later release
-	return YES;
+	return NO;
 }
 
 @end
@@ -18,9 +17,9 @@
 #pragma mark - Constructor
 
 %ctor {
-	// if ([HBForceCepheiPrefs forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear]) {
-	// 	return;
-	// }
+	if ([HBForceCepheiPrefs forceCepheiPrefsWhichIReallyNeedToAccessAndIKnowWhatImDoingISwear]) {
+		return;
+	}
 
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *info = bundle.infoDictionary;
@@ -45,7 +44,8 @@
 		if (IN_SPRINGBOARD) {
 			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework loaded into a process other than Settings). This can cause %@ to crash to Safe Mode.\n\nIf you experience issues, try uninstalling recently installed or updated tweaks.", [UIDevice currentDevice].localizedModel];
 		} else {
-			NSString *appName = info[@"CFBundleDisplayName"] ?: info[@"CFBundleName"];
+			NSDictionary *localizedInfo = bundle.localizedInfoDictionary;
+			NSString *appName = localizedInfo[@"CFBundleDisplayName"] ?: info[@"CFBundleDisplayName"] ?: localizedInfo[@"CFBundleName"] ?: info[@"CFBundleName"] ?: info[@"CFBundleExecutable"];
 
 			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework loaded into a process other than Settings). This might cause %@ or other apps to crash.\n\nIf you experience issues, try uninstalling recently installed or updated tweaks.", appName];
 		}
