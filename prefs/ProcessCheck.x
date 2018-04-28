@@ -29,7 +29,7 @@
 	}
 
 	// “improperly utilizes the high level preferences API” —wilson
-	HBLogWarn(@"CepheiPrefs has been loaded into a process other than Preferences! Are you sure I’m meant to be here? Crash is possible.");
+	HBLogWarn(@"CepheiPrefs has possibly been incorrectly loaded into this process! To avoid an annoying warning message, please read the documentation at https://hbang.github.io/libcephei/cepheiprefs-annoying-warning.html.");
 
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *notification) {
 		// if we’ve been told to shut up, don’t be annoying
@@ -37,17 +37,41 @@
 			return;
 		}
 
+		// try to guess who it is
+		NSArray <NSURL *> *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:@"file:///usr/lib/TweakInject/"] includingPropertiesForKeys:nil options:kNilOptions error:nil];
+
+		if (!contents) {
+			contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:@"file:///Library/MobileSubstrate/DynamicLibraries/"] includingPropertiesForKeys:nil options:kNilOptions error:nil];
+		}
+
+		NSData *cepheiPrefsData = [@"CepheiPrefs.framework/CepheiPrefs" dataUsingEncoding:NSUTF8StringEncoding];
+		NSMutableArray *suspects = [NSMutableArray array];
+
+		for (NSURL *url in contents) {
+			NSData *data = [NSData dataWithContentsOfURL:url];
+			if (data && [data rangeOfData:cepheiPrefsData options:kNilOptions range:NSMakeRange(0, data.length)].location != NSNotFound) {
+				[suspects addObject:url.lastPathComponent.stringByDeletingPathExtension];
+			}
+		}
+
 		// eh, not really worth translating. it should be the case that nobody ever sees this!!
 		NSString *title = @"Cephei: Developer Error";
-		NSString *message;
-		
+		NSString *mayCrashMessage;
+
 		if (IN_SPRINGBOARD) {
-			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework loaded into a process other than Settings). This can cause %@ to crash to Safe Mode.\n\nIf you experience issues, try uninstalling recently installed or updated tweaks.", [UIDevice currentDevice].localizedModel];
+			mayCrashMessage = [NSString stringWithFormat:@"This can cause %@ to crash to Safe Mode.", [UIDevice currentDevice].localizedModel];
 		} else {
 			NSDictionary *localizedInfo = bundle.localizedInfoDictionary;
 			NSString *appName = localizedInfo[@"CFBundleDisplayName"] ?: info[@"CFBundleDisplayName"] ?: localizedInfo[@"CFBundleName"] ?: info[@"CFBundleName"] ?: info[@"CFBundleExecutable"];
+			mayCrashMessage = [NSString stringWithFormat:@"This might cause %@ or other apps to crash.", appName];
+		}
 
-			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework loaded into a process other than Settings). This might cause %@ or other apps to crash.\n\nIf you experience issues, try uninstalling recently installed or updated tweaks.", appName];
+		NSString *message;
+		
+		if (suspects.count > 0) {
+			message = [NSString stringWithFormat:@"The following tweak(s) contain a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings):\n\n%@\n\n%@ If you experience issues, try uninstalling these tweak(s) or other recently installed or updated tweaks.", [suspects componentsJoinedByString:@", "], mayCrashMessage];
+		} else {
+			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings).\n\n%@ If you experience issues, try uninstalling recently installed or updated tweaks.", mayCrashMessage];
 		}
 
 		// wow remember UIAlertView?!?!
