@@ -1,4 +1,5 @@
 #import "PSListController+HBTintAdditions.h"
+#import "HBTintedTableCell.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
@@ -200,7 +201,10 @@ BOOL translucentNavigationBar = NO;
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellTextColor) {
-		cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
+		if (![cell isKindOfClass:HBTintedTableCell.class]) {
+			cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
+		}
+
 		cell.detailTextLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
 	}
 
