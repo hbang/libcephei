@@ -8,8 +8,9 @@
 %hook NSBundle
 
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
-	// ignore our bundle, system bundles, and bundles not somewhere in a dir named PreferenceBundles
-	if (self == globalBundle || [self.bundleURL.pathComponents[0] isEqualToString:@"System"] || ![self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
+	// ignore system bundles, and bundles not somewhere in a dir named PreferenceBundles, unless it’s
+	// our own bundle
+	if (self != globalBundle || [self.bundleURL.pathComponents[0] isEqualToString:@"System"] || [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
 		return %orig;
 	}
 
@@ -17,8 +18,10 @@
 	NSString *string = %orig(key, kHBCepheiLocalizationFallbackString, tableName);
 
 	if ([string isEqualToString:kHBCepheiLocalizationFallbackString]) {
-		// try using our bundle and same table name
-		string = [globalBundle localizedStringForKey:key value:kHBCepheiLocalizationFallbackString table:tableName];
+		if (self != globalBundle) {
+			// try using our bundle and same table name
+			string = [globalBundle localizedStringForKey:key value:kHBCepheiLocalizationFallbackString table:tableName];
+		}
 
 		if ([string isEqualToString:kHBCepheiLocalizationFallbackString]) {
 			// try using our bundle in the Common table
