@@ -20,6 +20,7 @@ custom_categories:
   - name: "Cephei — General"
     children:
       - "Container Support"
+      - defaults
       - HBOutputForShellCommand
       - HBOutputForShellCommandWithReturnCode
       - HBPreferences
