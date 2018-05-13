@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 		identifier = @".GlobalPreferences";
 	}
 
-	HBPreferences *preferences = [HBPreferences preferencesForIdentifier:arguments[2]];
+	HBPreferences *preferences = [HBPreferences preferencesForIdentifier:identifier];
 	NSString *mode = arguments[1];
 
 	if ([mode isEqualToString:@"read"]) {
@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
 		NSString *key = arguments[3];
 		NSString *type = arguments.count == 5 ? @"-string" : arguments[4];
 		NSString *value = arguments.count == 5 ? arguments[4] : arguments[5];
-		}
 
 		// TODO: support date? arrays/dictionaries?!
 		if ([type isEqualToString:@"-int"] || [type isEqualToString:@"-integer"]) {
