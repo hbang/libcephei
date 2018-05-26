@@ -246,10 +246,9 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 #pragma mark - Register block
 
 - (void)registerPreferenceChangeBlock:(HBPreferencesChangeCallback)callback {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
+	if (!_preferenceChangeBlocksGlobal) {
 		_preferenceChangeBlocksGlobal = [[NSMutableArray alloc] init];
-	});
+	}
 
 	NSParameterAssert(callback);
 
@@ -258,10 +257,9 @@ NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 }
 
 - (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
+	if (_preferenceChangeBlocks) {
 		_preferenceChangeBlocks = [[NSMutableDictionary alloc] init];
-	});
+	}
 
 	NSParameterAssert(callback);
 	NSParameterAssert(key);
