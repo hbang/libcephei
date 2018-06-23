@@ -59,5 +59,9 @@
 	<string>アイコン</string>
 	<key>TRANSLATORS</key>
 	<string>翻訳者</string>
+	
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string>値を入力</string>
 </dict>
 </plist>
