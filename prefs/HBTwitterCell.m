@@ -23,7 +23,7 @@
 	// characters in them anyway :p
 	user = user.hb_stringByEncodingQueryPercentEscapes;
 
-	// lol, people still copy paste this shitty code
+	// wow, people still copy paste this code
 	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"aphelion://"]]) {
 		return [@"aphelion://profile/" stringByAppendingString:user];
 	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot://"]]) {
@@ -66,8 +66,8 @@
 #pragma mark - Avatar
 
 - (BOOL)shouldShowAvatar {
-	// HBLinkTableCell doesn’t want avatars by default, but we do. override its
-	// check method so that if showAvatar is unset, we return YES
+	// HBLinkTableCell doesn’t want avatars by default, but we do. override its check method so that
+	// if showAvatar is unset, we return YES
 	return self.specifier.properties[@"showAvatar"] ? [super shouldShowAvatar] : YES;
 }
 
@@ -80,9 +80,13 @@
 		return;
 	}
 
+	static dispatch_queue_t queue = dispatch_queue_create("ws.hbang.common.twitter-avatar-queue", DISPATCH_QUEUE_SERIAL);
+
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError *error = nil;
-		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@/profile_image?size=bigger", _user.hb_stringByEncodingQueryPercentEscapes]]] returningResponse:nil error:&error];
+		NSString *username = _user.hb_stringByEncodingQueryPercentEscapes;
+		NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
+		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@/profile_image?size=%@", username, size]]] returningResponse:nil error:&error];
 
 		if (error) {
 			HBLogError(@"error loading twitter avatar: %@", error);
