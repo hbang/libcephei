@@ -1,7 +1,7 @@
 ifeq ($(CEPHEI_SIMULATOR),1)
 export TARGET = simulator:latest:5.0
 else
-export TARGET = iphone:11.2:5.0
+export TARGET = iphone:11.1:5.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
@@ -17,16 +17,15 @@ endif
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
-Cephei_FILES = $(wildcard *.m) $(wildcard *.x) $(wildcard CompactConstraint/*.m)
-Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
-Cephei_WEAK_PRIVATE_FRAMEWORKS = FrontBoardServices SpringBoardServices
+Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
+Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
 Cephei_CFLAGS = -include Global.h -fobjc-arc
 Cephei_INSTALL_PATH = /usr/lib
 
 # link arclite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
 
-SUBPROJECTS = prefs
+SUBPROJECTS = ui prefs
 
 ifeq ($(CEPHEI_EMBEDDED),1)
 PACKAGE_BUILDNAME += embedded
@@ -78,7 +77,7 @@ endif
 
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
-	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
+#	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
 endif
 
 docs: stage

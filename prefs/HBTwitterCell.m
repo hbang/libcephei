@@ -80,7 +80,11 @@
 		return;
 	}
 
-	static dispatch_queue_t queue = dispatch_queue_create("ws.hbang.common.twitter-avatar-queue", DISPATCH_QUEUE_SERIAL);
+	static dispatch_queue_t queue;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		queue = dispatch_queue_create("ws.hbang.common.twitter-avatar-queue", DISPATCH_QUEUE_SERIAL);
+	});
 
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError *error = nil;

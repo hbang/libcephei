@@ -19,7 +19,6 @@ else
 CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 
-include $(THEOS_MAKE_PATH)/bundle.mk
 include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiPrefs-stage::

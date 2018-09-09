@@ -15,7 +15,7 @@
 	}
 
 	// ask for the url to be generated
-	[(PreferencesAppController *)[UIApplication sharedApplication] generateURL];
+	[(PreferencesAppController *)[%c(UIApplication) sharedApplication] generateURL];
 
 	// sadly, this is stored in the preferences…
 	NSString *position = (__bridge NSString *)CFPreferencesCopyAppValue(CFSTR("kPreferencePositionKey"), kCFPreferencesCurrentApplication);
@@ -30,6 +30,9 @@
 
 + (void)respringAndReturnTo:(nullable NSURL *)returnURL {
 	// if we have frontboard (iOS 8)
+	[[NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FrontBoardServices.framework"] load];
+	[[NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/SpringBoardServices.framework"] load];
+
 	if (%c(FBSSystemService)) {
 		// ask for a render server (aka springboard) restart. if requested, provide our url so settings
 		// is opened right back up to here
@@ -44,7 +47,7 @@
 		[[%c(FBSSystemService) sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
 	} else if (IN_SPRINGBOARD) {
 		// in springboard, use good ole _relaunchSpringBoardNow
-		[(SpringBoard *)[UIApplication sharedApplication] _relaunchSpringBoardNow];
+		[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
 	} else {
 		// send a notification to our little listener in springboard, which may or may not be there
 		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("ws.hbang.common/Respring"), NULL, NULL, TRUE);
@@ -70,7 +73,7 @@
 		int notifyToken;
 		notify_register_dispatch("ws.hbang.common/Respring", &notifyToken, dispatch_get_main_queue(), ^(int token) {
 			// call good ole _relaunchSpringBoardNow
-			[(SpringBoard *)[UIApplication sharedApplication] _relaunchSpringBoardNow];
+			[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
 		});
 	}
 }
