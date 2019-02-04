@@ -59,5 +59,9 @@
 	<string>प्रतीक</string>
 	<key>TRANSLATORS</key>
 	<string>अनुवादक</string>
+
+	<!-- Title of a prompt that allows typing in a value. -->
+	<key>ENTER_VALUE</key>
+	<string> मूल्य दर्ज करें</string>
 </dict>
 </plist>
