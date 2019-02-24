@@ -1,16 +1,4 @@
 #import "UIColor+HBAdditions.h"
-#import <_Prefix/IOSWebKitCompatHacks.h>
-#import <WebKit/WebView.h>
-#import <WebKit/WebFrame.h>
-#import <WebKit/DOMDocument.h>
-#import <WebKit/DOMHTMLDivElement.h>
-#import <WebKit/DOMCSSStyleDeclaration.h>
-#import <WebKit/DOMCSSPrimitiveValue.h>
-#import <WebKit/DOMRGBColor.h>
-
-@interface DOMCSSStyleDeclaration ()
-@property (nonatomic, strong) UIColor *color;
-@end
 
 @implementation UIColor (HBAdditions)
 
@@ -54,41 +42,7 @@
 				                    blue:((hex & 0x0000FF) >> 1)  / 255.f
 				                   alpha:1];
 			}
-		} else if ([string rangeOfString:@"("].location != NSNotFound) {
-			return [self _hb_initWithCSSValue:value];
 		}
-	}
-
-	return nil;
-}
-
-- (instancetype)_hb_initWithCSSValue:(id)value {
-	static dispatch_once_t onceToken;
-	static WebView *webView;
-	static DOMHTMLDivElement *div;
-	dispatch_once(&onceToken, ^{
-		webView = [[WebView alloc] init];
-		DOMDocument *document = webView.mainFrame.DOMDocument;
-		div = (DOMHTMLDivElement *)[document createElement:@"div"];
-		[document.body appendChild:div];
-	});
-
-	div.style.color = value;
-
-	DOMDocument *document = webView.mainFrame.DOMDocument;
-	DOMCSSStyleDeclaration *computedStyle = [document getComputedStyle:div pseudoElement:nil];
-	DOMCSSPrimitiveValue *cssValue = (DOMCSSPrimitiveValue *)[computedStyle getPropertyCSSValue:@"color"];
-
-	if (cssValue) {
-		DOMRGBColor *color = cssValue.getRGBColorValue;
-		CGFloat components[4] = {
-			[color.red getFloatValue:DOM_CSS_PRIMITIVE_VALUE] / 255.f,
-			[color.green getFloatValue:DOM_CSS_PRIMITIVE_VALUE] / 255.f,
-			[color.blue getFloatValue:DOM_CSS_PRIMITIVE_VALUE] / 255.f,
-			[color.alpha getFloatValue:DOM_CSS_PRIMITIVE_VALUE]
-		};
-
-		return [self initWithRed:components[0] green:components[1] blue:components[2] alpha:components[3]];
 	}
 
 	return nil;
