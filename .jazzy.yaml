@@ -26,11 +26,13 @@ custom_categories:
       - HBPreferences
       - HBRespringController
       - NSDictionary(HBAdditions)
-      - NSLayoutConstraint(CompactConstraint)
       - NSString(HBAdditions)
+
+  - name: "CepheiUI — General"
+      - NSLayoutConstraint(CompactConstraint)
       - UIColor(HBAdditions)
       - UIView(CompactConstraint)
-  
+
   - name: "Cephei — Types/Constants"
     children:
       - HBPreferencesDidChangeNotification
