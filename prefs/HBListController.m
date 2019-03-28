@@ -42,6 +42,10 @@
 		// really noticeable momentary freeze, which we really don’t want. work around this by warming
 		// PIDebianPackage on a background queue (with throttled I/O), reducing subsequent calls to a
 		// more tolerable duration (~70ms).
+		
+		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
+		self.hb_appearanceSettings = appearanceSettings;
+		
 #if !CEPHEI_EMBEDDED
 		static dispatch_once_t onceToken;
 		dispatch_once(&onceToken, ^{
