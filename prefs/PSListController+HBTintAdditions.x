@@ -93,7 +93,7 @@ BOOL translucentNavigationBar = NO;
 	}
 
 	// if we have a translucent navigation bar, apply it
-	translucentNavigationBar = self.hb_appearanceSettings.translucentNavigationBar;
+	translucentNavigationBar = self.hb_appearanceSettings ? self.hb_appearanceSettings.translucent : IS_IOS_OR_NEWER(iOS_7_0);
 	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
 
 	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
