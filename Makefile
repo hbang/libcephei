@@ -4,8 +4,9 @@ else
 export TARGET = iphone:11.1:5.0
 endif
 
-export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
-export ARCHS = armv7 arm64 arm64e
+export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter -DTHEOS
+export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
+export ARCHS = armv7 arm64
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
 RESPRING ?= 1
