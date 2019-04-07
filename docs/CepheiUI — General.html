@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CepheiPrefs — General  Reference</title>
+    <title>CepheiUI — General  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/objc/Section/CepheiPrefs — General" class="dashAnchor"></a>
+    <a name="//apple_ref/objc/Section/CepheiUI — General" class="dashAnchor"></a>
 
-    <a title="CepheiPrefs — General  Reference"></a>
+    <a title="CepheiUI — General  Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -50,7 +50,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="index.html">Cephei Reference</a>
       <img class="carat" src="img/carat.png" />
-      CepheiPrefs — General  Reference
+      CepheiUI — General  Reference
     </p>
 
     <div class="content-wrapper">
@@ -196,7 +196,7 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>CepheiPrefs — General</h1>
+            <h1>CepheiUI — General</h1>
             
           </div>
         </section>
@@ -208,22 +208,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/documentation.CepheiPrefs Annoying Warning"></a>
-                    <a name="//apple_ref/objc/Guide/CepheiPrefs Annoying Warning" class="dashAnchor"></a>
-                    <a class="direct-link" href="cepheiprefs-annoying-warning.html">CepheiPrefs Annoying Warning</a>
-                    </code>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)HBAppearanceSettings"></a>
-                    <a name="//apple_ref/objc/Class/HBAppearanceSettings" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAppearanceSettings">HBAppearanceSettings</a>
+                    <a name="/c:objc(cy)NSLayoutConstraint@CompactConstraint"></a>
+                    <a name="//apple_ref/objc/Extension/NSLayoutConstraint(CompactConstraint)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cy)NSLayoutConstraint@CompactConstraint">NSLayoutConstraint(CompactConstraint)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -231,50 +218,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBAppearanceSettings</code> class in <code>CepheiPrefs</code> provides a model object read by other
-components of Cephei to determine colors to use in the user interface.</p>
+                        <p>NSLayoutConstraint (CompactConstraint), a class category from Marco Arment’s
+<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a> library, is integrated
+with Cephei. CompactConstraint provides an Auto Layout grammar and methods that are easier to
+use and understand than UIKit’s built in functions for programmatically adding constraints.</p>
 
-<p>Appearance settings are typically set on a view controller, via the
--[PSListController(HBTintAdditions) hb_appearanceSettings] property. This is automatically
-managed by Cephei and provided to view controllers as they are pushed onto the stack.</p>
+<p>Refer to <a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a> to
+learn how to use it. There are two changes to note: most importantly, the methods have an <code>hb_</code>
+prefix, and two methods that are marked as deprecated in the original project have been removed.</p>
 
-<p>This interface replaces the previous method that worked in the opposite way – HBListController
-would work backwards to find a view controller with appearance settings defined. This was not
-robust, created messy code within Cephei, and can cause a mix of colors if a view controller
-with different settings to the prior one is pushed.</p>
+<p>CompactConstraint is licensed under the MIT License.</p>
 
-<p>Use of the old properties on HBListController will cause a warning to be logged.</p>
-
-<p>Most commonly, the API will be used by setting the hb_appearanceSettings property from the init
-method. The following example sets the tint color, table view background color, and enables an
-inverted navigation bar:</p>
-<pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="n">init</span> <span class="p">{</span>
-    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nf">init</span><span class="p">];</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">HBAppearanceSettings</span> <span class="o">*</span><span class="n">appearanceSettings</span> <span class="o">=</span> <span class="p">[[</span><span class="n">HBAppearanceSettings</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">init</span><span class="p">];</span>
-        <span class="n">appearanceSettings</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">colorWithRed</span><span class="p">:</span><span class="mi">66</span><span class="p">.</span><span class="n">f</span> <span class="o">/</span> <span class="mi">255</span><span class="p">.</span><span class="n">f</span> <span class="nf">green</span><span class="p">:</span><span class="mi">105</span><span class="p">.</span><span class="n">f</span> <span class="o">/</span> <span class="mi">255</span><span class="p">.</span><span class="n">f</span> <span class="n">blue</span><span class="o">:</span><span class="mi">154</span><span class="p">.</span><span class="n">f</span> <span class="o">/</span> <span class="mi">255</span><span class="p">.</span><span class="n">f</span> <span class="n">alpha</span><span class="o">:</span><span class="mi">1</span><span class="p">];</span>
-        <span class="n">appearanceSettings</span><span class="p">.</span><span class="n">tableViewBackgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">colorWithWhite</span><span class="p">:</span><span class="mi">242</span><span class="p">.</span><span class="n">f</span> <span class="o">/</span> <span class="mi">255</span><span class="p">.</span><span class="n">f</span> <span class="nf">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
-        <span class="n">appearanceSettings</span><span class="p">.</span><span class="n">invertedNavigationBar</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">hb_appearanceSettings</span> <span class="o">=</span> <span class="n">appearanceSettings</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
-
-                        <a href="Classes/HBAppearanceSettings.html" class="slightly-smaller">See more</a>
+                        <a href="Categories/NSLayoutConstraint(CompactConstraint).html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBAppearanceSettings</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBAppearanceSettings</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">NSLayoutConstraint</span> <span class="p">(</span><span class="nl">CompactConstraint</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -288,9 +249,9 @@ inverted navigation bar:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)HBSupportController"></a>
-                    <a name="//apple_ref/objc/Class/HBSupportController" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBSupportController">HBSupportController</a>
+                    <a name="/c:objc(cy)UIColor@HBAdditions"></a>
+                    <a name="//apple_ref/objc/Extension/UIColor(HBAdditions)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cy)UIColor@HBAdditions">UIColor(HBAdditions)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -298,34 +259,56 @@ inverted navigation bar:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBSupportController</code> class in <code>CepheiPrefs</code> provides a factory that configures a
-<code>TSContactViewController</code> for immediate use. The <code>TSContactViewController</code> class, from
-<a href="https://github.com/ashikase/TechSupport">TechSupport</a> by ashikase, provides a text box for
-entering a message, as well as the ability to view or remove pre-defined attachments. After
-tapping the submit button, the information is provided to the next step, which most commonly is
-an email composer.</p>
+                        <p>UIColor (HBAdditions) is a class category in <code>Cephei</code> that provides some convenience methods.</p>
 
-<p>By providing a link instruction, you can have the message sent to a different email address or
-posted to a website. You can also provide one or more support instructions, which allow more
-files to be attached. For more information and for examples of <code>TSContactViewController</code> usage,
-refer to the <a href="https://github.com/ashikase/TechSupport/tree/master/Demo">demos directory</a> in the
-TechSupport source.</p>
-
-<p>A <code>TSContactViewController</code> should be pushed on your view controller stack; it should not be 
-presented modally.</p>
-
-                        <a href="Classes/HBSupportController.html" class="slightly-smaller">See more</a>
+                        <a href="Categories/UIColor(HBAdditions).html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBSupportController</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">UIColor</span> <span class="p">(</span><span class="nl">HBAdditions</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cy)UIView@CompactConstraint"></a>
+                    <a name="//apple_ref/objc/Extension/UIView(CompactConstraint)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cy)UIView@CompactConstraint">UIView(CompactConstraint)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>UIView (CompactConstraint), a class category from Marco Arment’s
+<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a> library, is integrated
+with Cephei. CompactConstraint provides an Auto Layout grammar and methods that are easier to
+use and understand than UIKit’s built in functions for programmatically adding constraints.</p>
+
+<p>Refer to <a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a> to
+learn how to use it. There are two changes to note: most importantly, the methods have an <code>hb_</code>
+prefix, and two methods that are marked as deprecated in the original project have been removed.</p>
+
+<p>CompactConstraint is licensed under the MIT License.</p>
+
+                        <a href="Categories/UIView(CompactConstraint).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
                         <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBSupportController</span></code></pre>
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">UIView</span> <span class="p">(</span><span class="nl">CompactConstraint</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

@@ -63,6 +63,9 @@
                 <a class="nav-group-task-link" href="../container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -78,10 +81,15 @@
                 <a class="nav-group-task-link" href="../Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -259,8 +267,6 @@ to return a UIColor to use.</p>
 
 <p>A nil value will cause no modification of the tint to occur.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -274,6 +280,10 @@ to return a UIColor to use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">tintColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -308,8 +318,6 @@ don’t want to use the same color as hb_tintColor.</p>
 
 <p>A nil value will cause no modification of the navigation bar tint to occur.</p>
 
-<p>@returns By default, the return value of hb_tintColor.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -323,6 +331,10 @@ don’t want to use the same color as hb_tintColor.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">navigationBarTintColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, the return value of hb_tintColor.</p>
                       </div>
                     </section>
                   </div>
@@ -345,8 +357,6 @@ use.</p>
 
 <p>A nil value will cause no modification of the navigation bar title color to occur.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -361,6 +371,10 @@ use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">navigationBarTitleColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -383,8 +397,6 @@ use.</p>
 
 <p>A nil value will cause no modification of the navigation bar background to occur.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -399,6 +411,10 @@ use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">navigationBarBackgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -420,8 +436,6 @@ use.</p>
 
 <p>A nil value will cause no modification of the status bar color to occur.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -436,6 +450,10 @@ use.</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -444,13 +462,18 @@ use.</p>
                     <code>
                     <a name="/c:objc(cs)HBAppearanceSettings(py)invertedNavigationBar"></a>
                     <a name="//apple_ref/objc/Property/invertedNavigationBar" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAppearanceSettings(py)invertedNavigationBar">invertedNavigationBar</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBAppearanceSettings(py)invertedNavigationBar">invertedNavigationBar</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Set navigationBarBackgroundColor and navigationBarTitleColor instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>Whether to use an inverted navigation bar.</p>
 
@@ -458,8 +481,6 @@ use.</p>
 
 <p>An inverted navigation bar has a tinted background, rather than the buttons being tinted. All
 other interface elements will be tinted the same.</p>
-
-<p>@returns By default, NO.</p>
 
                       </div>
                       <div class="declaration">
@@ -474,6 +495,10 @@ other interface elements will be tinted the same.</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">invertedNavigationBar</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, NO.</p>
                       </div>
                     </section>
                   </div>
@@ -493,8 +518,6 @@ other interface elements will be tinted the same.</p>
                       <div class="abstract">
                         <p>Whether to use a translucent navigation bar. Override this method if you want this behavior.</p>
 
-<p>@returns By default, YES.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -508,6 +531,10 @@ other interface elements will be tinted the same.</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">translucentNavigationBar</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, YES.</p>
                       </div>
                     </section>
                   </div>
@@ -539,8 +566,6 @@ other interface elements will be tinted the same.</p>
                         <p>The color to be used for the overall background of the table view. Override this method to
 return a UIColor to use.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -555,6 +580,10 @@ return a UIColor to use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">tableViewBackgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -575,8 +604,6 @@ return a UIColor to use.</p>
                         <p>The color to be used for the text color of table view cells. Override this method to return a
 UIColor to use.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -590,6 +617,10 @@ UIColor to use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">tableViewCellTextColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -610,8 +641,6 @@ UIColor to use.</p>
                         <p>The color to be used for the background color of table view cells. Override this method to
 return a UIColor to use.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -626,6 +655,10 @@ return a UIColor to use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">tableViewCellBackgroundColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -646,8 +679,6 @@ return a UIColor to use.</p>
                         <p>The color to be used for the separator between table view cells. Override this method to return
 a UIColor to use.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -662,6 +693,10 @@ a UIColor to use.</p>
                           <pre class="highlight swift"><code><span class="kd">@NSCopying</span> <span class="k">var</span> <span class="nv">tableViewCellSeparatorColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -684,8 +719,6 @@ is in the highlighted state.</p>
 
 <p>Override this method to return a UIColor to use.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -701,6 +734,10 @@ is in the highlighted state.</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -712,8 +749,8 @@ is in the highlighted state.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

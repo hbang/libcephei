@@ -63,6 +63,9 @@
                 <a class="nav-group-task-link" href="../container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -78,10 +81,15 @@
                 <a class="nav-group-task-link" href="../Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -239,8 +247,6 @@ preference bundle, omitting the file extension.</p>
 <p>If you use this method and override the <code>specifiers</code> method, ensure you call the super method
 with <code>[super specifiers];</code> first in your <code>specifiers</code> implementation.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -254,6 +260,10 @@ with <code>[super specifiers];</code> first in your <code>specifiers</code> impl
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">hb_specifierPlist</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -274,21 +284,24 @@ with <code>[super specifiers];</code> first in your <code>specifiers</code> impl
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tintColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tintColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tintColor">+hb_tintColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tintColor">+hb_tintColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The tint color to use for interactable elements within the list controller. Override this method
 to return a UIColor to use.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -312,6 +325,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -320,13 +337,18 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_navigationBarTintColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_navigationBarTintColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_navigationBarTintColor">+hb_navigationBarTintColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_navigationBarTintColor">+hb_navigationBarTintColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The tint color to use for the navigation bar buttons, or, if hb_invertedNavigationBar is set,
 the background of the navigation bar. Override this method to return a UIColor to use, if you
@@ -334,8 +356,6 @@ don’t want to use the same color as hb_tintColor.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, the return value of hb_tintColor.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -359,6 +379,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, the return value of hb_tintColor.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -367,13 +391,18 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_invertedNavigationBar"></a>
                     <a name="//apple_ref/objc/Method/+hb_invertedNavigationBar" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_invertedNavigationBar">+hb_invertedNavigationBar</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_invertedNavigationBar">+hb_invertedNavigationBar</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>Whether to use an inverted navigation bar. Override this method if you want this behavior.</p>
 
@@ -382,8 +411,6 @@ other interface elements will be tinted the same.</p>
 
 <p>A NO value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, NO.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -407,6 +434,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, NO.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -415,21 +446,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_translucentNavigationBar"></a>
                     <a name="//apple_ref/objc/Method/+hb_translucentNavigationBar" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_translucentNavigationBar">+hb_translucentNavigationBar</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_translucentNavigationBar">+hb_translucentNavigationBar</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>Whether to use a translucent navigation bar. Override this method if you want
 this behavior.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, YES.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -453,6 +487,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, YES.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -461,21 +499,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tableViewBackgroundColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tableViewBackgroundColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tableViewBackgroundColor">+hb_tableViewBackgroundColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tableViewBackgroundColor">+hb_tableViewBackgroundColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The color to be used for the overall background of the table view. Override
 this method to return a UIColor to use.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -499,6 +540,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -507,21 +552,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tableViewCellTextColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tableViewCellTextColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellTextColor">+hb_tableViewCellTextColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellTextColor">+hb_tableViewCellTextColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The color to be used for the text color of table view cells. Override this
 method to return a UIColor to use.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -545,6 +593,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -553,21 +605,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tableViewCellBackgroundColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tableViewCellBackgroundColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellBackgroundColor">+hb_tableViewCellBackgroundColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellBackgroundColor">+hb_tableViewCellBackgroundColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The color to be used for the background color of table view cells. Override
 this method to return a UIColor to use.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -591,6 +646,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -599,21 +658,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tableViewCellSeparatorColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tableViewCellSeparatorColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellSeparatorColor">+hb_tableViewCellSeparatorColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellSeparatorColor">+hb_tableViewCellSeparatorColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The color to be used for the separator between table view cells. Override this method to
 return a UIColor to use.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -637,6 +699,10 @@ advised to switch to using HBAppearanceSettings.
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -645,21 +711,24 @@ advised to switch to using HBAppearanceSettings.
                     <code>
                     <a name="/c:objc(cs)HBListController(cm)hb_tableViewCellSelectionColor"></a>
                     <a name="//apple_ref/objc/Method/+hb_tableViewCellSelectionColor" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellSelectionColor">+hb_tableViewCellSelectionColor</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBListController(cm)hb_tableViewCellSelectionColor">+hb_tableViewCellSelectionColor</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use HBAppearance instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The color to be used when a table view cell is selected. This color will be used when the cell
 is in the highlighted state.</p>
 
 <p>A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 value is found, that will be used.</p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     Appearance methods on HBListController are deprecated. Use of these methods will result
@@ -682,6 +751,10 @@ advised to switch to using HBAppearanceSettings.
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">hb_tableViewCellSelectionColor</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIColor</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -716,8 +789,6 @@ advised to switch to using HBAppearanceSettings.
 is actually a parent of <code>self.navigationController</code> on iPhone, due to the larger Plus models.
 The realNavigationController method returns the correct navigation controller.</p>
 
-<p>@returns The real navigation controller.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -731,6 +802,10 @@ The realNavigationController method returns the correct navigation controller.</
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">realNavigationController</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UINavigationController</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The real navigation controller.</p>
                       </div>
                     </section>
                   </div>
@@ -850,8 +925,8 @@ The realNavigationController method returns the correct navigation controller.</
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

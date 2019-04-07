@@ -63,6 +63,9 @@
                 <a class="nav-group-task-link" href="../container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -78,10 +81,15 @@
                 <a class="nav-group-task-link" href="../Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -219,8 +227,12 @@
                       <div class="abstract">
                         <p>Creates and returns a color object using data from the specified object.</p>
 
-<p>The value is expected to either be an array of 3 or 4 integer RGB or RGBA color components
-(respectively), with values between 0 and 255, or a CSS hexadecimal color code string.</p>
+<p>The value is expected to be one of the types specified in hb_initWithPropertyListValue:.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    hb_initWithPropertyListValue:
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -249,14 +261,17 @@
                               <td>
                                 <div>
                                   <p>The object to retrieve data from. See the discussion for the supported object
-types.
-@returns The color object. The color information represented by this object is in the device RGB
-colorspace.</p>
+types.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The color object. The color information represented by this object is in the device RGB
+colorspace.</p>
                       </div>
                     </section>
                   </div>
@@ -276,8 +291,14 @@ colorspace.</p>
                       <div class="abstract">
                         <p>Initializes and returns a color object using data from the specified object.</p>
 
-<p>The value is expected to either be an array of 3 or 4 integer RGB or RGBA color components
-(respectively), with values between 0 and 255, or a CSS hexadecimal color code string.</p>
+<p>The value is expected to be one of:</p>
+
+<ul>
+<li>An array of 3 or 4 integer RGB or RGBA color components, with values between 0 and 255 (e.g.
+<code>@[ 218, 192, 222 ]</code>)</li>
+<li>A CSS-style hex string, with an optional alpha component (e.g. <code>#DAC0DE</code> or <code>#DACODE55</code>)</li>
+<li><p>A short CSS-style hex string, with an optional alpha component (e.g. <code>#DC0</code> or <code>#DC05</code>)</p></li>
+</ul>
 
                       </div>
                       <div class="declaration">
@@ -306,14 +327,17 @@ colorspace.</p>
                               <td>
                                 <div>
                                   <p>The object to retrieve data from. See the discussion for the supported object
-types.
-@returns An initialized color object. The color information represented by this object is in the
-device RGB colorspace.</p>
+types.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An initialized color object. The color information represented by this object is in the
+device RGB colorspace.</p>
                       </div>
                     </section>
                   </div>
@@ -326,8 +350,8 @@ device RGB colorspace.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

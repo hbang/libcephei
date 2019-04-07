@@ -14,6 +14,7 @@
   </head>
   <body>
 
+    <a name="//apple_ref/objc/Section/Cephei — General" class="dashAnchor"></a>
 
     <a title="Cephei — General  Reference"></a>
 
@@ -62,6 +63,9 @@
                 <a class="nav-group-task-link" href="container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -77,10 +81,15 @@
                 <a class="nav-group-task-link" href="Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -199,6 +208,32 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/documentation.Container Support"></a>
+                    <a name="//apple_ref/objc/Guide/Container Support" class="dashAnchor"></a>
+                    <a class="direct-link" href="container-support.html">Container Support</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/documentation.defaults"></a>
+                    <a name="//apple_ref/objc/Guide/defaults" class="dashAnchor"></a>
+                    <a class="direct-link" href="defaults.html">defaults</a>
+                    </code>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@F@HBOutputForShellCommand"></a>
                     <a name="//apple_ref/objc/Function/HBOutputForShellCommand" class="dashAnchor"></a>
                     <a class="token" href="#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
@@ -237,14 +272,17 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The shell command to run.
-@returns The output of the provided command, or nil if the command returned with a code other
-than 0.</p>
+                                  <p>The shell command to run.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The output of the provided command, or nil if the command returned with a code other
+than 0.</p>
                       </div>
                     </section>
                   </div>
@@ -303,13 +341,16 @@ than 0.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>A pointer to an integer that will contain the return code of the command.
-@returns The output of the provided command.</p>
+                                  <p>A pointer to an integer that will contain the return code of the command.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The output of the provided command.</p>
                       </div>
                     </section>
                   </div>
@@ -496,47 +537,6 @@ methods.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cy)NSLayoutConstraint@CompactConstraint"></a>
-                    <a name="//apple_ref/objc/Extension/NSLayoutConstraint(CompactConstraint)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cy)NSLayoutConstraint@CompactConstraint">NSLayoutConstraint(CompactConstraint)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>NSLayoutConstraint (CompactConstraint), a class category from Marco Arment’s
-<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a> library, is integrated
-with Cephei. CompactConstraint provides an Auto Layout grammar and methods that are easier to
-use and understand than UIKit’s built in functions for programmatically adding constraints.</p>
-
-<p>Refer to <a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a> to
-learn how to use it. There are two changes to note: most importantly, the methods have an <code>hb_</code>
-prefix, and two methods that are marked as deprecated in the original project have been removed.</p>
-
-<p>CompactConstraint is licensed under the MIT License.</p>
-
-                        <a href="Categories/NSLayoutConstraint(CompactConstraint).html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">NSLayoutConstraint</span> <span class="p">(</span><span class="nl">CompactConstraint</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/c:objc(cy)NSString@HBAdditions"></a>
                     <a name="//apple_ref/objc/Extension/NSString(HBAdditions)" class="dashAnchor"></a>
                     <a class="token" href="#/c:objc(cy)NSString@HBAdditions">NSString(HBAdditions)</a>
@@ -564,87 +564,14 @@ prefix, and two methods that are marked as deprecated in the original project ha
                 </li>
               </ul>
             </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cy)UIColor@HBAdditions"></a>
-                    <a name="//apple_ref/objc/Extension/UIColor(HBAdditions)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cy)UIColor@HBAdditions">UIColor(HBAdditions)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>UIColor (HBAdditions) is a class category in <code>Cephei</code> that provides some convenience methods.</p>
-
-                        <a href="Categories/UIColor(HBAdditions).html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">UIColor</span> <span class="p">(</span><span class="nl">HBAdditions</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cy)UIView@CompactConstraint"></a>
-                    <a name="//apple_ref/objc/Extension/UIView(CompactConstraint)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cy)UIView@CompactConstraint">UIView(CompactConstraint)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>UIView (CompactConstraint), a class category from Marco Arment’s
-<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a> library, is integrated
-with Cephei. CompactConstraint provides an Auto Layout grammar and methods that are easier to
-use and understand than UIKit’s built in functions for programmatically adding constraints.</p>
-
-<p>Refer to <a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a> to
-learn how to use it. There are two changes to note: most importantly, the methods have an <code>hb_</code>
-prefix, and two methods that are marked as deprecated in the original project have been removed.</p>
-
-<p>CompactConstraint is licensed under the MIT License.</p>
-
-                        <a href="Categories/UIView(CompactConstraint).html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">UIView</span> <span class="p">(</span><span class="nl">CompactConstraint</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

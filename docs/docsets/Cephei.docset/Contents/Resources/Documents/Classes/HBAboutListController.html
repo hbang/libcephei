@@ -63,6 +63,9 @@
                 <a class="nav-group-task-link" href="../container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -78,10 +81,15 @@
                 <a class="nav-group-task-link" href="../Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -211,7 +219,7 @@ the Cephei readme for details.</p>
     <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
     <span class="nt">&lt;string&gt;</span>Visit Website<span class="nt">&lt;/string&gt;</span>
     <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>https://hbang.ws/<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string&gt;</span>https://hashbang.productions/<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/dict&gt;</span>
 <span class="nt">&lt;dict&gt;</span>
     <span class="nt">&lt;key&gt;</span>cell<span class="nt">&lt;/key&gt;</span>
@@ -241,7 +249,7 @@ the Cephei readme for details.</p>
     <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
     <span class="nt">&lt;string&gt;</span>Donate<span class="nt">&lt;/string&gt;</span>
     <span class="nt">&lt;key&gt;</span>url<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>https://hbang.ws/donate/<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string&gt;</span>https://hashbang.productions/donate/<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/dict&gt;</span>
 </code></pre>
 
@@ -264,20 +272,23 @@ the Cephei readme for details.</p>
                     <code>
                     <a name="/c:objc(cs)HBAboutListController(cm)hb_websiteURL"></a>
                     <a name="//apple_ref/objc/Method/+hb_websiteURL" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAboutListController(cm)hb_websiteURL">+hb_websiteURL</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBAboutListController(cm)hb_websiteURL">+hb_websiteURL</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use an HBLinkTableCell instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The website URL to open when tapping the “visit website” cell. Override this
 method to return your own URL.</p>
 
 <p>Deprecated. It is encouraged to use an HBLinkTableCell instead.</p>
-
-<p>@returns By default, <a href="https://www.hbang.ws/">https://www.hbang.ws/</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -293,6 +304,10 @@ method to return your own URL.</p>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, <a href="https://hashbang.productions/">https://hashbang.productions/</a>.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -301,20 +316,23 @@ method to return your own URL.</p>
                     <code>
                     <a name="/c:objc(cs)HBAboutListController(cm)hb_donateURL"></a>
                     <a name="//apple_ref/objc/Method/+hb_donateURL" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAboutListController(cm)hb_donateURL">+hb_donateURL</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBAboutListController(cm)hb_donateURL">+hb_donateURL</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use an HBLinkTableCell instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>The website URL to open when tapping the <q>donate</q> cell. Override this method
 to return your own URL.</p>
 
 <p>Deprecated. It is encouraged to use an HBLinkTableCell instead.</p>
-
-<p>@returns By default, <a href="https://www.hbang.ws/donate/">https://www.hbang.ws/donate/</a>.</p>
 
                       </div>
                       <div class="declaration">
@@ -329,6 +347,10 @@ to return your own URL.</p>
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">hb_donateURL</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URL</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, <a href="https://hashbang.productions/donate/">https://hashbang.productions/donate/</a>.</p>
                       </div>
                     </section>
                   </div>
@@ -351,8 +373,6 @@ method to return an email address.</p>
 
 <p>If this method returns nil, the package’s author email address is used.</p>
 
-<p>@returns By default, nil.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -366,6 +386,10 @@ method to return an email address.</p>
                           <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">hb_supportEmailAddress</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
                       </div>
                     </section>
                   </div>
@@ -387,8 +411,6 @@ method to return an email address.</p>
 provided by Cephei. For details and examples of support instructions, refer to the TechSupport
 project’s GitHub repo:
 <a href="https://github.com/ashikase/TechSupport/tree/master/Demo">https://github.com/ashikase/TechSupport/tree/master/Demo</a></p>
-
-<p>@returns By default, nil.</p>
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     HBSupportController
@@ -409,6 +431,10 @@ project’s GitHub repo:
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, nil.</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -428,13 +454,18 @@ project’s GitHub repo:
                     <code>
                     <a name="/c:objc(cs)HBAboutListController(im)hb_openWebsite"></a>
                     <a name="//apple_ref/objc/Method/-hb_openWebsite" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAboutListController(im)hb_openWebsite">-hb_openWebsite</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBAboutListController(im)hb_openWebsite">-hb_openWebsite</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use an HBLinkTableCell instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>Opens the user&rsquo;s browser to the URL specified by hb_websiteURL.</p>
 
@@ -462,13 +493,18 @@ project’s GitHub repo:
                     <code>
                     <a name="/c:objc(cs)HBAboutListController(im)hb_openDonate"></a>
                     <a name="//apple_ref/objc/Method/-hb_openDonate" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)HBAboutListController(im)hb_openDonate">-hb_openDonate</a>
+                    <a class="token discouraged" href="#/c:objc(cs)HBAboutListController(im)hb_openDonate">-hb_openDonate</a>
                     </code>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
+                      <div class="aside aside-deprecated">
+                        <p class="aside-title">Deprecated</p>
+                        <p>Use an HBLinkTableCell instead.</p>
+
+                      </div>
                       <div class="abstract">
                         <p>Opens the user&rsquo;s browser to the URL specified by hb_donateURL.</p>
 
@@ -539,8 +575,8 @@ appropriate parameters to <code><a href="../Classes/HBSupportController.html">HB
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

@@ -63,6 +63,9 @@
                 <a class="nav-group-task-link" href="../container-support.html">Container Support</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../defaults.html">defaults</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Cephei — General.html#/c:@F@HBOutputForShellCommand">HBOutputForShellCommand</a>
               </li>
               <li class="nav-group-task">
@@ -78,10 +81,15 @@
                 <a class="nav-group-task-link" href="../Categories/NSDictionary(HBAdditions).html">NSDictionary(HBAdditions)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/NSString(HBAdditions).html">NSString(HBAdditions)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../CepheiUI — General.html">CepheiUI — General</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Categories/NSLayoutConstraint(CompactConstraint).html">NSLayoutConstraint(CompactConstraint)</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Categories/UIColor(HBAdditions).html">UIColor(HBAdditions)</a>
@@ -302,7 +310,7 @@ they can still get access to data you send through various ways.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">forIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">forIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -319,13 +327,16 @@ they can still get access to data you send through various ways.</p>
                               <td>
                                 <div>
                                   <p>The identifier to be used. This is usually the same as the package identifier
-of the tweak.
-@returns An autoreleased instance of HBPreferences for the specified identifier.</p>
+of the tweak.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An autoreleased instance of HBPreferences for the specified identifier.</p>
                       </div>
                     </section>
                   </div>
@@ -372,13 +383,16 @@ of the tweak.
                               <td>
                                 <div>
                                   <p>The identifier to be used. This is usually the same as the package identifier
-of the tweak.
-@returns An autoreleased instance of HBPreferences for the specified identifier.</p>
+of the tweak.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An autoreleased instance of HBPreferences for the specified identifier.</p>
                       </div>
                     </section>
                   </div>
@@ -451,8 +465,6 @@ automatically when needed. For further information on what this method does and 
 refer to <a href="http://dscoder.com/defaults.html">NSUserDefaults in Practice</a> § “Sharing Defaults
 Between Programs”.</p>
 
-<p>@returns <code>YES</code> if synchronization was successful, <code>NO</code> if an error occurred.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -466,6 +478,10 @@ Between Programs”.</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">synchronize</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>YES</code> if synchronization was successful, <code>NO</code> if an error occurred.</p>
                       </div>
                     </section>
                   </div>
@@ -602,8 +618,6 @@ Between Programs”.</p>
 
 <p>This does not include default values.</p>
 
-<p>@returns A dictionary containing all keys and values.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -617,6 +631,10 @@ Between Programs”.</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dictionaryRepresentation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A dictionary containing all keys and values.</p>
                       </div>
                     </section>
                   </div>
@@ -670,13 +688,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The object associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The object associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -729,13 +750,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The integer value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The integer value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -788,13 +812,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The unsigned integer value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The unsigned integer value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -847,13 +874,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The floating-point value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The floating-point value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -906,13 +936,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The double value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The double value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -965,13 +998,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The Boolean value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The Boolean value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -1024,13 +1060,16 @@ this value to be updated when running on iOS 7 or older.
                               </td>
                               <td>
                                 <div>
-                                  <p>The key for which to return the corresponding value.
-@returns The value associated with the specified key.</p>
+                                  <p>The key for which to return the corresponding value.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The value associated with the specified key.</p>
                       </div>
                     </section>
                   </div>
@@ -1090,13 +1129,16 @@ provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The object associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The object associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -1161,13 +1203,16 @@ the provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The integer value associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The integer value associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -1232,13 +1277,16 @@ is set, the provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The unsigned integer value associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The unsigned integer value associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -1302,13 +1350,16 @@ set, the provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The floating-point value associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The floating-point value associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -1372,13 +1423,16 @@ the provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The double value associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The double value associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -1442,13 +1496,16 @@ the provided default.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The default value to use when no user preference is set.
-@returns The Boolean value associated with the specified key, or the default value.</p>
+                                  <p>The default value to use when no user preference is set.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The Boolean value associated with the specified key, or the default value.</p>
                       </div>
                     </section>
                   </div>
@@ -2727,8 +2784,8 @@ parameters are the key and its new value.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2018 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2018-03-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-04-08)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
