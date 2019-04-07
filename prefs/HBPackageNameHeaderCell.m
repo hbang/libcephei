@@ -37,7 +37,11 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		NSParameterAssert(specifier.properties[@"packageIdentifier"]);
 
 		self.backgroundColor = [UIColor clearColor];
-		self.backgroundView = IS_IOS_OR_NEWER(iOS_7_0) ? nil : [[UIView alloc] init];
+
+		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
+			self.backgroundView = [[UIView alloc] init];
+			self.backgroundView.backgroundColor = [UIColor clearColor];
+		}
 
 		NSArray <id> *serializedColors = specifier.properties[@"backgroundGradientColors"];
 
