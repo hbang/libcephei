@@ -1,7 +1,7 @@
 Package: ws.hbang.common
 Name: Cephei
 Depends: mobilesubstrate, preferenceloader, jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
-Version: 1.12
+Version: 1.13
 Architecture: iphoneos-arm
 Description: Support library for tweaks
 Maintainer: HASHBANG Productions <support@hbang.ws>
@@ -11,5 +11,5 @@ Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
 Depiction: https://repo.chariz.io/package/ws.hbang.common/
 Support: https://hashbang.productions/support/
 Sponsor: thebigboss.org <http://thebigboss.org>
-Tag: purpose::extension, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11
+Tag: purpose::extension, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
 dev: hbang
