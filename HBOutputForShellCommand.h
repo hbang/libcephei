@@ -8,13 +8,13 @@ __BEGIN_DECLS
 ///
 /// @param command The shell command to run.
 /// @param returnCode A pointer to an integer that will contain the return code of the command.
-/// @returns The output of the provided command.
+/// @return The output of the provided command.
 NSString * _Nullable HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode);
 
 /// Executes a shell command and returns its output.
 ///
 /// @param command The shell command to run.
-/// @returns The output of the provided command, or nil if the command returned with a code other
+/// @return The output of the provided command, or nil if the command returned with a code other
 /// than 0.
 NSString * _Nullable HBOutputForShellCommand(NSString *command);
 

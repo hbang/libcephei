@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// query string. On earlier versions, uses an approximation implemented within Cephei. This
 /// implementation is simplistic and does not handle edge cases that NSURLComponents does support.
 ///
-/// @returns An NSString containing an HTTP query string.
+/// @return An NSString containing an HTTP query string.
 - (NSString *)hb_queryString;
 
 @end

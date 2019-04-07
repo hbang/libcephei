@@ -80,14 +80,14 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param identifier The identifier to be used. This is usually the same as the package identifier
 /// of the tweak.
-/// @returns An autoreleased instance of HBPreferences for the specified identifier.
+/// @return An autoreleased instance of HBPreferences for the specified identifier.
 + (instancetype)preferencesForIdentifier:(NSString *)identifier;
 
 /// Initializes an instance of the class for the specified identifier.
 ///
 /// @param identifier The identifier to be used. This is usually the same as the package identifier
 /// of the tweak.
-/// @returns An autoreleased instance of HBPreferences for the specified identifier.
+/// @return An autoreleased instance of HBPreferences for the specified identifier.
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
 /// The preferences identifier provided at initialisation.
@@ -107,7 +107,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// refer to [NSUserDefaults in Practice](http://dscoder.com/defaults.html) § “Sharing Defaults
 /// Between Programs”.
 ///
-/// @returns `YES` if synchronization was successful, `NO` if an error occurred.
+/// @return `YES` if synchronization was successful, `NO` if an error occurred.
 - (BOOL)synchronize;
 
 /// @name Registering Default Preference Values
@@ -131,7 +131,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// This does not include default values.
 ///
-/// @returns A dictionary containing all keys and values.
+/// @return A dictionary containing all keys and values.
 - (NSDictionary <NSString *, id> *)dictionaryRepresentation;
 
 /// Returns the object associated with the specified key.
@@ -139,7 +139,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The object associated with the specified key.
+/// @return The object associated with the specified key.
 /// @warning You must manually synchronize preferences or use registerObject:default:forKey: for
 /// this value to be updated when running on iOS 7 or older.
 - (id)objectForKey:(NSString *)key;
@@ -149,7 +149,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The integer value associated with the specified key.
+/// @return The integer value associated with the specified key.
 /// @see objectForKey:
 - (NSInteger)integerForKey:(NSString *)key;
 
@@ -158,7 +158,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The unsigned integer value associated with the specified key.
+/// @return The unsigned integer value associated with the specified key.
 /// @see objectForKey:
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key;
 
@@ -167,7 +167,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The floating-point value associated with the specified key.
+/// @return The floating-point value associated with the specified key.
 /// @see objectForKey:
 - (CGFloat)floatForKey:(NSString *)key;
 
@@ -176,7 +176,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The double value associated with the specified key.
+/// @return The double value associated with the specified key.
 /// @see objectForKey:
 - (double)doubleForKey:(NSString *)key;
 
@@ -185,7 +185,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// If the preference is not yet set, returns the default. If no default is set, returns `nil`.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The Boolean value associated with the specified key.
+/// @return The Boolean value associated with the specified key.
 /// @see objectForKey:
 - (BOOL)boolForKey:(NSString *)key;
 
@@ -194,7 +194,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// This method behaves the same as objectForKey:.
 ///
 /// @param key The key for which to return the corresponding value.
-/// @returns The value associated with the specified key.
+/// @return The value associated with the specified key.
 /// @see objectForKey:
 - (id)objectForKeyedSubscript:(id)key;
 
@@ -203,7 +203,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The object associated with the specified key, or the default value.
+/// @return The object associated with the specified key, or the default value.
 - (id)objectForKey:(NSString *)key default:(nullable id)defaultValue;
 
 /// Returns the integer value associated with the specified key, or if no user preference is set,
@@ -211,7 +211,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The integer value associated with the specified key, or the default value.
+/// @return The integer value associated with the specified key, or the default value.
 /// @see objectForKey:default:
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue;
 
@@ -220,7 +220,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The unsigned integer value associated with the specified key, or the default value.
+/// @return The unsigned integer value associated with the specified key, or the default value.
 /// @see objectForKey:default:
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue;
 
@@ -229,7 +229,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The floating-point value associated with the specified key, or the default value.
+/// @return The floating-point value associated with the specified key, or the default value.
 /// @see objectForKey:default:
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue;
 
@@ -238,7 +238,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The double value associated with the specified key, or the default value.
+/// @return The double value associated with the specified key, or the default value.
 /// @see objectForKey:default:
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue;
 
@@ -247,7 +247,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
-/// @returns The Boolean value associated with the specified key, or the default value.
+/// @return The Boolean value associated with the specified key, or the default value.
 /// @see objectForKey:default:
 - (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue;
 

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialises a `TSLinkInstruction` for the provided email address.
 ///
 /// @param emailAddress The email address to send an email to.
-/// @returns A pre-configured instance of `TSLinkInstruction`.
+/// @return A pre-configured instance of `TSLinkInstruction`.
 + (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress;
 
 /// Initialises a `TSContactViewController` by using information provided by a bundle.
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// for information on how the bundle is used.
 ///
 /// @param bundle A bundle included with the package.
-/// @returns A pre-configured instance of `TSContactViewController`.
+/// @return A pre-configured instance of `TSContactViewController`.
 /// @see supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
 + (TSContactViewController *)supportViewControllerForBundle:(NSBundle *)bundle;
 
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param bundle A bundle included with the package.
 /// @param preferencesIdentifier A preferences identifier that is used by the package.
-/// @returns A pre-configured instance of `TSContactViewController`.
+/// @return A pre-configured instance of `TSContactViewController`.
 /// @see supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
 + (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(NSString *)preferencesIdentifier;
 
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param linkInstruction The link instruction to use, or nil.
 /// @param supportInstructions Supportinstructions to use in combination with the built-in ones
 /// defined by HBSupportController, or nil.
-/// @returns A pre-configured instance of `TSContactViewController`.
+/// @return A pre-configured instance of `TSContactViewController`.
 + (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray <TSIncludeInstruction *> *)supportInstructions;
 
 @end

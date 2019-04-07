@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param value The object to retrieve data from. See the discussion for the supported object
 /// types.
-/// @returns The color object. The color information represented by this object is in the device RGB
+/// @return The color object. The color information represented by this object is in the device RGB
 /// colorspace.
 /// @see hb_initWithPropertyListValue:
 + (instancetype)hb_colorWithPropertyListValue:(id)value;
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param value The object to retrieve data from. See the discussion for the supported object
 /// types.
-/// @returns An initialized color object. The color information represented by this object is in the
+/// @return An initialized color object. The color information represented by this object is in the
 /// device RGB colorspace.
 - (instancetype)hb_initWithPropertyListValue:(id)value;
 

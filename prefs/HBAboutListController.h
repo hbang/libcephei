@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Deprecated. It is encouraged to use an HBLinkTableCell instead.
 ///
-/// @returns By default, https://hashbang.productions/.
+/// @return By default, https://hashbang.productions/.
 + (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// The website URL to open when tapping the "donate" cell. Override this method
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Deprecated. It is encouraged to use an HBLinkTableCell instead.
 ///
-/// @returns By default, https://hashbang.productions/donate/.
+/// @return By default, https://hashbang.productions/donate/.
 + (NSURL *)hb_donateURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// The email address to use in the support email composer form. Override this
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// If this method returns nil, the package’s author email address is used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 + (nullable NSString *)hb_supportEmailAddress;
 
 /// The instructions to provide to the TechSupport framework, in addition to the default ones
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// project’s GitHub repo:
 /// https://github.com/ashikase/TechSupport/tree/master/Demo
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @see HBSupportController
 + (nullable NSArray <TSIncludeInstruction *> *)hb_supportInstructions;
 

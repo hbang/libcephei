@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// If you use this method and override the `specifiers` method, ensure you call the super method
 /// with `[super specifiers];` first in your `specifiers` implementation.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 + (nullable NSString *)hb_specifierPlist;
 
 /// @name Colors
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, the return value of hb_tintColor.
+/// @return By default, the return value of hb_tintColor.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A NO value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, NO.
+/// @return By default, NO.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, YES.
+/// @return By default, YES.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A nil value will cause prior view controllers on the stack to be consulted for a value. If a
 /// value is found, that will be used.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 /// @warning Appearance methods on HBListController are deprecated. Use of these methods will result
 /// in a warning being logged. Additionally, if any of these methods return nil, previous view
 /// controllers on the stack are consulted. This can cause an undesired mix of color schemes. It is
@@ -157,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// is actually a parent of `self.navigationController` on iPhone, due to the larger Plus models.
 /// The realNavigationController method returns the correct navigation controller.
 ///
-/// @returns The real navigation controller.
+/// @return The real navigation controller.
 - (UINavigationController *)realNavigationController;
 
 @end

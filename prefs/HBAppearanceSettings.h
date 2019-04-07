@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// A nil value will cause no modification of the tint to occur.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tintColor;
 
 /// @name Navigation Bar
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// A nil value will cause no modification of the navigation bar tint to occur.
 ///
-/// @returns By default, the return value of hb_tintColor.
+/// @return By default, the return value of hb_tintColor.
 @property (nonatomic, copy, nullable) UIColor *navigationBarTintColor;
 
 /// The color to use for the navigation bar title label. Override this method to return a UIColor to
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// A nil value will cause no modification of the navigation bar title color to occur.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarTitleColor;
 
 /// The background color to use for the navigation bar. Override this method to return a UIColor to
@@ -72,14 +72,14 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// A nil value will cause no modification of the navigation bar background to occur.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarBackgroundColor;
 
 /// The color to use for the status bar icons. Override this method to return a UIColor to use.
 ///
 /// A nil value will cause no modification of the status bar color to occur.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *statusBarTintColor;
 
 /// Whether to use an inverted navigation bar.
@@ -89,12 +89,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// An inverted navigation bar has a tinted background, rather than the buttons being tinted. All
 /// other interface elements will be tinted the same.
 ///
-/// @returns By default, NO.
+/// @return By default, NO.
 @property (nonatomic, assign) BOOL invertedNavigationBar __attribute((deprecated("Set navigationBarBackgroundColor and navigationBarTitleColor instead.")));
 
 /// Whether to use a translucent navigation bar. Override this method if you want this behavior.
 ///
-/// @returns By default, YES.
+/// @return By default, YES.
 
 @property (nonatomic, assign) BOOL translucentNavigationBar;
 
@@ -103,25 +103,25 @@ NS_ASSUME_NONNULL_BEGIN
 /// The color to be used for the overall background of the table view. Override this method to
 /// return a UIColor to use.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewBackgroundColor;
 
 /// The color to be used for the text color of table view cells. Override this method to return a
 /// UIColor to use.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellTextColor;
 
 /// The color to be used for the background color of table view cells. Override this method to
 /// return a UIColor to use.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellBackgroundColor;
 
 /// The color to be used for the separator between table view cells. Override this method to return
 /// a UIColor to use.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellSeparatorColor;
 
 /// The color to be used when a table view cell is selected. This color will be shown when the cell
@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Override this method to return a UIColor to use.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellSelectionColor;
 
 @end

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the return value of this method and hb_shareURL are nil, the sharing button will not be
 /// displayed.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 + (nullable NSString *)hb_shareText;
 
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the return value of this method and hb_shareText are nil, the sharing button will not be
 /// displayed.
 ///
-/// @returns By default, nil.
+/// @return By default, nil.
 + (nullable NSURL *)hb_shareURL;
 
 @end
