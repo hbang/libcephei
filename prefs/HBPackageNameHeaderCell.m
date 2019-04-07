@@ -1,6 +1,6 @@
 #import "HBPackageNameHeaderCell.h"
 #import "HBSupportController+Private.h"
-#import <Cephei/UIColor+HBAdditions.h>
+#import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
