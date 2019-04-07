@@ -3,33 +3,21 @@
 
 #pragma mark - Fallback
 
-#define kHBCepheiLocalizationFallbackString @"kHBCepheiLocalizationFallbackString"
-
 %hook NSBundle
 
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
-	// ignore system bundles, and bundles not somewhere in a dir named PreferenceBundles, unless it’s
-	// our own bundle
-	if (self != globalBundle || [self.bundleURL.pathComponents[0] isEqualToString:@"System"] || [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
-		return %orig;
-	}
+	NSString *string = %orig;
 
-	// ask for the string, using our fallback string to detect if the value doesn’t exist
-	NSString *string = %orig(key, kHBCepheiLocalizationFallbackString, tableName);
-
-	if ([string isEqualToString:kHBCepheiLocalizationFallbackString]) {
+	if ((!string || [string isEqualToString:key] || [string isEqualToString:value]) && [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
 		if (self != globalBundle) {
-			// try using our bundle and same table name
-			string = [globalBundle localizedStringForKey:key value:kHBCepheiLocalizationFallbackString table:tableName];
+			string = [globalBundle localizedStringForKey:key value:value table:tableName];
 		}
 
-		if ([string isEqualToString:kHBCepheiLocalizationFallbackString]) {
-			// try using our bundle in the Common table
+		if ((!string || [string isEqualToString:key] || [string isEqualToString:value]) && self != globalBundle) {
 			string = [globalBundle localizedStringForKey:key value:value table:@"Common"];
 		}
 	}
 
-	// return whatever we got
 	return string;
 }
 
