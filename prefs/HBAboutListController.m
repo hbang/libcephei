@@ -2,7 +2,7 @@
 #import "HBSupportController.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TechSupport.h>
-#include <version.h>
+#import <version.h>
 
 @implementation HBAboutListController
 
@@ -13,11 +13,11 @@
 }
 
 + (NSURL *)hb_websiteURL {
-	return [NSURL URLWithString:@"https://www.hbang.ws/"];
+	return [NSURL URLWithString:@"https://hashbang.productions/"];
 }
 
 + (NSURL *)hb_donateURL {
-	return [NSURL URLWithString:@"https://www.hbang.ws/donate/"];
+	return [NSURL URLWithString:@"https://hashbang.productions/donate/"];
 }
 
 + (nullable NSString *)hb_supportEmailAddress {

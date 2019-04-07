@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 	<key>label</key>
 /// 	<string>Visit Website</string>
 /// 	<key>url</key>
-/// 	<string>https://hbang.ws/</string>
+/// 	<string>https://hashbang.productions/</string>
 /// </dict>
 /// <dict>
 /// 	<key>cell</key>
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 	<key>label</key>
 /// 	<string>Donate</string>
 /// 	<key>url</key>
-/// 	<string>https://hbang.ws/donate/</string>
+/// 	<string>https://hashbang.productions/donate/</string>
 /// </dict>
 /// ```
 
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Deprecated. It is encouraged to use an HBLinkTableCell instead.
 ///
-/// @returns By default, https://www.hbang.ws/.
+/// @returns By default, https://hashbang.productions/.
 + (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// The website URL to open when tapping the "donate" cell. Override this method
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Deprecated. It is encouraged to use an HBLinkTableCell instead.
 ///
-/// @returns By default, https://www.hbang.ws/donate/.
+/// @returns By default, https://hashbang.productions/donate/.
 + (NSURL *)hb_donateURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// The email address to use in the support email composer form. Override this

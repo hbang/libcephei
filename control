@@ -8,8 +8,8 @@ Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Development
 Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
-Depiction: https://cydia.hbang.ws/package/ws.hbang.common/
-Support: https://hbang.ws/support/
+Depiction: https://repo.chariz.io/package/ws.hbang.common/
+Support: https://hashbang.productions/support/
 Sponsor: thebigboss.org <http://thebigboss.org>
 Tag: purpose::extension, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11
 dev: hbang

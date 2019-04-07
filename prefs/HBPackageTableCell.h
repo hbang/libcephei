@@ -54,7 +54,7 @@
 /// 	<key>packageIdentifier</key>
 /// 	<string>ws.hbang.common</string>
 /// 	<key>packageRepository</key>
-/// 	<string>https://cydia.hbang.ws</string>
+/// 	<string>https://repo.chariz.io</string>
 /// </dict>
 /// ```
 
