@@ -17,7 +17,7 @@ NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCo
 	int result = pclose(file);
 	*returnCode = result;
 
-	return [NSString stringWithString:output];
+	return output;
 }
 
 NSString *HBOutputForShellCommand(NSString *command) {
