@@ -5,6 +5,7 @@ export TARGET = iphone:11.1:5.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter
+export ARCHS = armv7 arm64 arm64e
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
 RESPRING ?= 1
