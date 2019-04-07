@@ -29,6 +29,7 @@ custom_categories:
       - NSString(HBAdditions)
 
   - name: "CepheiUI — General"
+    children:
       - NSLayoutConstraint(CompactConstraint)
       - UIColor(HBAdditions)
       - UIView(CompactConstraint)
