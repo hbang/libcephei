@@ -97,18 +97,21 @@ BOOL animateBarTintColor = NO;
 
 	// if we have a custom tint color, or we no longer have a custom tint color, but one is currently
 	// set, and it should be animated, ask for it to be
-	if ((backgroundColor || self.barTintColor) && animated) {
-		animateBarTintColor = YES;
-	}
+	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+		if ((backgroundColor || self.barTintColor) && animated) {
+			animateBarTintColor = YES;
+		}
 
-	// set the bar tint color
-	self.barTintColor = backgroundColor;
+		// set the bar tint color
+		self.barTintColor = backgroundColor;
+	}
 }
 
 %end
 
 #pragma mark - Animation hack
 
+%group BackdropHax
 %hook _UIBackdropView
 
 - (void)applySettings:(id)settings {
@@ -125,12 +128,13 @@ BOOL animateBarTintColor = NO;
 }
 
 %end
+%end
 
 #pragma mark - Constructor
 
 %ctor {
 	// this entire thing isn't particularly useful if the OS doesn’t support it
-	if (!IS_IOS_OR_NEWER(iOS_7_0)) {
+	if (!IS_IOS_OR_NEWER(iOS_6_0)) {
 		return;
 	}
 	
@@ -142,5 +146,9 @@ BOOL animateBarTintColor = NO;
 		%init(CraigFederighi);
 	} else {
 		%init(JonyIve);
+	}
+
+	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+		%init(BackdropHax);
 	}
 }
