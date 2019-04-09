@@ -64,7 +64,10 @@ Class $UIActivityViewController, $TWTweetComposeViewController;
 		// if it loaded and we have a twitter account, instantiate a tweet composer. otherwise, just
 		// open the twitter website
 		if ($TWTweetComposeViewController && [$TWTweetComposeViewController canSendTweet]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 			TWTweetComposeViewController *viewController = [[$TWTweetComposeViewController alloc] init];
+#pragma clang diagnostic pop
 			viewController.initialText = [self.class hb_shareText];
 			[viewController addURL:[self.class hb_shareURL]];
 			[self.navigationController presentViewController:viewController animated:YES completion:nil];

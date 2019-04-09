@@ -1,7 +1,8 @@
 ifeq ($(CEPHEI_SIMULATOR),1)
-export TARGET = simulator:latest:5.0
+export TARGET = simulator:latest:7.0
 else
-export TARGET = iphone:11.1:5.0
+export TARGET = iphone:12.2:7.0
+export TARGET_IPHONEOS_DEPLOYMENT_VERSION_armv7 = 5.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter -DTHEOS

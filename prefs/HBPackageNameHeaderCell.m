@@ -77,7 +77,10 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_label.adjustsFontSizeToFitWidth = NO;
 
 		if ([_label respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 			_label.adjustsLetterSpacingToFitWidth = NO;
+#pragma clang diagnostic pop
 		}
 		
 		[self.contentView addSubview:_label];
