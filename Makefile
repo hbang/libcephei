@@ -3,6 +3,8 @@ export TARGET = simulator:latest:7.0
 else
 export TARGET = iphone:12.2:7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_armv7 = 5.0
+export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
+export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
 endif
 
 export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter -DTHEOS
