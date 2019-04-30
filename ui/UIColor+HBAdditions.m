@@ -35,11 +35,11 @@
 				return [self initWithRed:((hex & 0xFF000000) >> 24) / 255.f
 				                   green:((hex & 0x00FF0000) >> 16) / 255.f
 				                    blue:((hex & 0x0000FF00) >> 8)  / 255.f
-				                   alpha:((hex & 0x000000FF) >> 1)  / 255.f];
+				                   alpha:((hex & 0x000000FF) >> 0)  / 255.f];
 			} else {
 				return [self initWithRed:((hex & 0xFF0000) >> 16) / 255.f
 				                   green:((hex & 0x00FF00) >> 8)  / 255.f
-				                    blue:((hex & 0x0000FF) >> 1)  / 255.f
+				                    blue:((hex & 0x0000FF) >> 0)  / 255.f
 				                   alpha:1];
 			}
 		}
