@@ -3,7 +3,7 @@ include $(THEOS)/makefiles/common.mk
 FRAMEWORK_NAME = CepheiPrefs
 CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m)
 CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBAboutListController.h HBAppearanceSettings.h HBDiscreteSliderTableCell.h HBImageTableCell.h HBInitialsLinkTableCell.h HBLinkTableCell.h HBListController.h HBListController+Actions.h HBListItemsController.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
-CepheiPrefs_FRAMEWORKS = CoreGraphics MessageUI UIKit
+CepheiPrefs_FRAMEWORKS = MobileCoreServices
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
