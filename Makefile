@@ -44,7 +44,7 @@ Cephei_WEAK_LIBRARIES = $(THEOS_VENDOR_LIBRARY_PATH)/librocketbootstrap.dylib
 ifeq ($(CEPHEI_SIMULATOR),1)
 Cephei_LOGOSFLAGS = -c generator=internal
 else
-SUBPROJECTS += defaults containersupport
+SUBPROJECTS += defaults
 Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 endif
