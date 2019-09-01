@@ -1,3 +1,5 @@
+#include <mach-o/dyld.h>
+
 #pragma mark - Hax class
 
 @interface HBForceCepheiPrefs : NSObject
@@ -38,20 +40,17 @@
 		}
 
 		// try to guess who it is
-		NSArray <NSURL *> *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:@"file:///usr/lib/TweakInject/"] includingPropertiesForKeys:nil options:kNilOptions error:nil];
-
-		if (!contents) {
-			contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL URLWithString:@"file:///Library/MobileSubstrate/DynamicLibraries/"] includingPropertiesForKeys:nil options:kNilOptions error:nil];
-		}
-
 		NSData *cepheiPrefsData = [@"CepheiPrefs.framework/CepheiPrefs" dataUsingEncoding:NSUTF8StringEncoding];
 		NSMutableArray *suspects = [NSMutableArray array];
-
-		for (NSURL *url in contents) {
+		uint32_t i = 0;
+		const char *imageName;
+		while ((imageName = _dyld_get_image_name(i))) {
+			NSURL *url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:imageName]];
 			NSData *data = [NSData dataWithContentsOfURL:url];
 			if (data && [data rangeOfData:cepheiPrefsData options:kNilOptions range:NSMakeRange(0, data.length)].location != NSNotFound) {
 				[suspects addObject:url.lastPathComponent.stringByDeletingPathExtension];
 			}
+			i++;
 		}
 
 		// eh, not really worth translating. it should be the case that nobody ever sees this!!
@@ -66,13 +65,11 @@
 			mayCrashMessage = [NSString stringWithFormat:@"This might cause %@ or other apps to crash.", appName];
 		}
 
-		NSString *message;
-		
-		if (suspects.count > 0) {
-			message = [NSString stringWithFormat:@"The following tweak(s) contain a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings):\n\n%@\n\n%@ If you experience issues, try uninstalling these tweak(s) or other recently installed or updated tweaks.", [suspects componentsJoinedByString:@", "], mayCrashMessage];
-		} else {
-			message = [NSString stringWithFormat:@"A tweak you’ve installed contains a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings).\n\n%@ If you experience issues, try uninstalling recently installed or updated tweaks.", mayCrashMessage];
+		if (suspects.count == 0) {
+			[suspects addObject:@"Unknown - A jailbreak hider tweak such as Liberty may be causing suspect detection to not work."];
 		}
+		
+		NSString *message = [NSString stringWithFormat:@"The following tweak(s) contain a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings):\n\n%@\n\n%@ If you experience issues, try uninstalling these tweak(s) or other recently installed or updated tweaks.", [suspects componentsJoinedByString:@", "], mayCrashMessage];
 
 		// wow remember UIAlertView?!?!
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
