@@ -1,6 +1,6 @@
 Package: ws.hbang.common
 Name: Cephei
-Depends: jp.ashikase.techsupport, com.rpetrich.rocketbootstrap
+Depends: com.rpetrich.rocketbootstrap, firmware (>= 13.0) | jp.ashikase.techsupport
 Version: 1.13.1
 Architecture: iphoneos-arm
 Description: Support library for tweaks

@@ -1,11 +1,21 @@
 #import "HBPackageNameHeaderCell.h"
 #import "HBSupportController+Private.h"
+#import "../HBOutputForShellCommand.h"
 #import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
 #include <dlfcn.h>
+
+static inline NSString *shellEscape(NSArray <NSString *> *input) {
+	NSMutableArray <NSString *> *result = [NSMutableArray array];
+	for (NSString *string in input) {
+		[result addObject:[NSString stringWithFormat:@"'%@'",
+			[string stringByReplacingOccurrencesOfString:@"'" withString:@"\\'" options:NSRegularExpressionSearch range:NSMakeRange(0, string.length)]]];
+	}
+	return [result componentsJoinedByString:@" "];
+}
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -20,10 +30,13 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	UIColor *_titleColor;
 	UIColor *_subtitleColor;
 
-	TSPackage *_package;
 	NSString *_nameOverride;
 	UIImage *_icon;
 	UILabel *_label;
+
+	NSString *_name;
+	NSString *_version;
+	NSString *_author;
 }
 
 + (Class)layerClass {
@@ -103,7 +116,15 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		}
 
 #if !CEPHEI_EMBEDDED
-		_package = [HBSupportController _packageForIdentifier:specifier.properties[@"packageIdentifier"] orFile:nil];
+		// _package = [HBSupportController _packageForIdentifier:specifier.properties[@"packageIdentifier"] orFile:nil];
+		NSString *package = specifier.properties[@"packageIdentifier"];
+		int status;
+		_name = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Name}", package ]), &status);
+		if ([_name isEqualToString:@""]) {
+			_name = nil;
+		}
+		_author = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Author}", package ]), &status);
+		_version = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Version}", package ]), &status);
 #endif
 
 		[self updateData];
@@ -140,24 +161,24 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 #pragma mark - Updating
 
 - (void)updateData {
-	if (!_package) {
-		// i hate pirate repos
-		return;
-	}
+	// if (!_package) {
+	// 	// i hate pirate repos
+	// 	return;
+	// }
 
-	NSString *name = _nameOverride ?: _package.name;
+	NSString *name = _nameOverride ?: _name;
 
 	if (![_label respondsToSelector:@selector(setAttributedText:)]) {
 		// starting to realise the features we take for granted these days...
-		_label.text = [NSString stringWithFormat:@"%@%@%@", name, _showVersion ? @" " : @"", _showVersion ? _package.version : @""];
+		_label.text = [NSString stringWithFormat:@"%@%@%@", _name, _showVersion ? @" " : @"", _showVersion ? _version : @""];
 		return;
 	}
 
-	NSUInteger cleanedAuthorLocation = [_package.author rangeOfString:@" <"].location;
-	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _package.author : [_package.author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
+	NSUInteger cleanedAuthorLocation = [_author rangeOfString:@" <"].location;
+	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _author : [_author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
 	NSString *icon = _icon ? @"ICON " : @"";
-	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _package.version] : @"";
+	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
 	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
