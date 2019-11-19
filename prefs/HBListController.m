@@ -88,7 +88,7 @@
 			double min = versionFilter[0] ? ((NSNumber *)versionFilter[0]).doubleValue : DBL_MIN;
 			double max = versionFilter.count > 1 && versionFilter[1] ? ((NSNumber *)versionFilter[1]).doubleValue : DBL_MAX;
 
-			if (min < kCFCoreFoundationVersionNumber || max >= kCFCoreFoundationVersionNumber) {
+			if (kCFCoreFoundationVersionNumber < min || kCFCoreFoundationVersionNumber >= max) {
 				[specifiersToRemove addObject:specifier];
 			}
 		}
