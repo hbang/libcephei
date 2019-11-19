@@ -3,6 +3,7 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
+#import <UIKit/UIStatusBarManager+Private.h>
 #import <version.h>
 
 BOOL translucentNavigationBar = NO;
@@ -16,6 +17,7 @@ BOOL translucentNavigationBar = NO;
 
 - (UINavigationController *)_hb_realNavigationController;
 - (void)_hb_getAppearance;
+- (UIStatusBar *)_hb_statusBar;
 
 @end
 
@@ -121,9 +123,27 @@ BOOL translucentNavigationBar = NO;
 	UIColor *statusBarTintColor = self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : self.hb_appearanceSettings.statusBarTintColor;
 #pragma clang diagnostic pop
 
-	if (statusBarTintColor && [UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
-		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
-		statusBar.foregroundColor = statusBarTintColor;
+	if (statusBarTintColor) {
+		UIStatusBar *statusBar = self._hb_statusBar;
+		if (IS_IOS_OR_NEWER(iOS_13_0) && [UIStatusBar instancesRespondToSelector:@selector(setTintColor:withDuration:)]) {
+			[statusBar setTintColor:statusBarTintColor withDuration:0.3];
+		} else if ([UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
+			statusBar.foregroundColor = statusBarTintColor;
+		}
+	}
+}
+
+%new - (UIStatusBar *)_hb_statusBar {
+	if (IS_IOS_OR_NEWER(iOS_13_0)) {
+		if (@available(iOS 13.0, *)) { // Just makes the compiler happy
+			// TODO: Doesn’t work…
+			// There’s only one status bar most of the time, so using anyObject is a bit lazy but should
+			// be totally fine…
+			return self.view.window.windowScene.statusBarManager.localStatusBars.anyObject;
+		}
+		return nil;
+	} else {
+		return [UIApplication sharedApplication].statusBar;
 	}
 }
 
@@ -131,9 +151,12 @@ BOOL translucentNavigationBar = NO;
 	%orig;
 
 	// if we changed the status bar tint color, unset it
-	if ([UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
-		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
-
+	UIStatusBar *statusBar = self._hb_statusBar;
+	if (IS_IOS_OR_NEWER(iOS_13_0) && [UIStatusBar instancesRespondToSelector:@selector(setTintColor:withDuration:)]) {
+		if (statusBar.tintColor) {
+			[statusBar setTintColor:nil withDuration:0.3];
+		}
+	} else if ([UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
 		if (statusBar.foregroundColor) {
 			statusBar.foregroundColor = nil;
 		}
