@@ -123,7 +123,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param defaultValues The dictionary of keys and values you want to register.
 /// @see defaults
-- (void)registerDefaults:(NSDictionary <NSString *, id> *)defaultValues;
+- (void)registerDefaults:(NSDictionary <NSString *, id> *)defaultValues NS_SWIFT_NAME(register(defaults:));
 
 /// @name Getting Preference Values
 
@@ -262,7 +262,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key with which to associate with the value.
 /// @exception HBPreferencesNotMobileException Thrown when the method is called by a process not
 /// running as the `mobile` user.
-- (void)setObject:(nullable id)value forKey:(NSString *)key;
+- (void)setObject:(nullable id)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified integer value.
 ///
@@ -272,7 +272,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param value The integer value to store in the preferences.
 /// @param key The key with which to associate with the value.
 /// @see setObject:forKey:
-- (void)setInteger:(NSInteger)value forKey:(NSString *)key;
+- (void)setInteger:(NSInteger)value forKey:(NSString *)key NS_SWIFT_UNAVAILABLE("");
 
 /// Sets the value of the specified key to the specified unsigned integer value.
 ///
@@ -282,7 +282,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param value The unsigned integer value to store in the preferences.
 /// @param key The key with which to associate with the value.
 /// @see setObject:forKey:
-- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key;
+- (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key NS_SWIFT_UNAVAILABLE("");
 
 /// Sets the value of the specified key to the specified floating-point value.
 ///
@@ -292,7 +292,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param value The floating-point value to store in the preferences.
 /// @param key The key with which to associate with the value.
 /// @see setObject:forKey:
-- (void)setFloat:(CGFloat)value forKey:(NSString *)key;
+- (void)setFloat:(CGFloat)value forKey:(NSString *)key NS_SWIFT_UNAVAILABLE("");
 
 /// Sets the value of the specified key to the specified double value.
 ///
@@ -302,7 +302,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param value The double value to store in the preferences.
 /// @param key The key with which to associate with the value.
 /// @see setObject:forKey:
-- (void)setDouble:(double)value forKey:(NSString *)key;
+- (void)setDouble:(double)value forKey:(NSString *)key NS_SWIFT_UNAVAILABLE("");
 
 /// Sets the value of the specified key to the specified Boolean value.
 ///
@@ -312,7 +312,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param value The Boolean value to store in the preferences.
 /// @param key The key with which to associate with the value.
 /// @see setObject:forKey:
-- (void)setBool:(BOOL)value forKey:(NSString *)key;
+- (void)setBool:(BOOL)value forKey:(NSString *)key NS_SWIFT_UNAVAILABLE("");
 
 /// Sets the value of the specified key to the specified value.
 ///
@@ -329,12 +329,12 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// set up callbacks.
 ///
 /// @param key The key to remove.
-- (void)removeObjectForKey:(NSString *)key;
+- (void)removeObjectForKey:(NSString *)key NS_SWIFT_NAME(removeValue(forKey:));
 
 /// Removes all stored preferences.
 ///
 /// This method acts in the same way as discussed in removeObjectForKey:.
-- (void)removeAllObjects;
+- (void)removeAllObjects NS_SWIFT_NAME(removeAll());
 
 /// @name Registering Variables
 
@@ -357,7 +357,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerObject:(_Nullable id __strong * _Nonnull)object default:(nullable id)defaultValue forKey:(NSString *)key;
+- (void)registerObject:(_Nullable id __strong * _Nonnull)object default:(nullable id)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(object:default:forKey:));
 
 /// Register an integer value to be automatically set to the user’s preference.
 ///
@@ -367,7 +367,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key;
+- (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(integer:default:forKey:));
 
 /// Register an unsigned integer value to be automatically set to the user’s preference.
 ///
@@ -377,7 +377,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerUnsignedInteger:(NSUInteger *)object default:(NSUInteger)defaultValue forKey:(NSString *)key;
+- (void)registerUnsignedInteger:(NSUInteger *)object default:(NSUInteger)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(unsignedInteger:default:forKey:));
 
 /// Register a floating-point value to be automatically set to the user’s preference.
 ///
@@ -387,7 +387,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key;
+- (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(float:default:forKey:));
 
 /// Register a double value to be automatically set to the user’s preference.
 ///
@@ -397,7 +397,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key;
+- (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(double:default:forKey:));
 
 /// Register a Boolean value to be automatically set to the user’s preference.
 ///
@@ -407,7 +407,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
 /// @see registerObject:default:forKey:
-- (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key;
+- (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(bool:default:forKey:));
 
 /// @name Preference Change Callbacks
 
@@ -438,10 +438,10 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Name of an exception that occurs when attempting to set preferences from a process not running
 /// as the `mobile` user.
-extern NSString *const HBPreferencesNotMobileException;
+extern NSNotificationName const HBPreferencesNotMobileException NS_SWIFT_NAME(HBPreferences.notMobileException);
 
 /// This notification is posted when a change is made to a registered preferences identifier. The
 /// notification object is the associated HBPreferences object.
-extern NSString *const HBPreferencesDidChangeNotification;
+extern NSNotificationName const HBPreferencesDidChangeNotification NS_SWIFT_NAME(HBPreferences.didChangeNotification);
 
 NS_ASSUME_NONNULL_END
