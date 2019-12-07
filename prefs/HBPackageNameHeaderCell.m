@@ -75,13 +75,15 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			layer.colors = [colors copy];
 		}
 
-		// hack to resolve odd margins being set on ipad
+		// Hack to resolve odd margins being set on iPad
+		// TODO: This may be fixed in iOS 12?
+		BOOL needsPaddingHax = !IS_IOS_OR_NEWER(iOS_13_0) && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
 		CGFloat marginWidth = [self respondsToSelector:@selector(_marginWidth)] ? self._marginWidth : 0;
 
 		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= IS_IPAD ? marginWidth : 0;
+		labelFrame.origin.x -= needsPaddingHax ? marginWidth : 0;
 		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
-		labelFrame.size.width -= IS_IPAD ? marginWidth * 2 : 0;
+		labelFrame.size.width -= needsPaddingHax ? marginWidth * 2 : 0;
 		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
@@ -107,12 +109,35 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_titleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"titleColor"]];
 		_subtitleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"subtitleColor"]];
 
-		if (!_titleColor) {
-			_titleColor = _hasGradient ? [UIColor colorWithWhite:1.f alpha:0.95f] : [UIColor colorWithWhite:17.f / 255.f alpha:1];
+		if (_titleColor == nil) {
+			if (_hasGradient) {
+				_titleColor = [UIColor colorWithWhite:1.f alpha:0.95f];
+			} else {
+				if (@available(iOS 13.0, *)) {
+					// @available has false positives before about iOS 8 or so… so we need to be doubly sure
+					if (IS_IOS_OR_NEWER(iOS_13_0)) {
+						_titleColor = [UIColor labelColor];
+					}
+				}
+				if (_titleColor == nil) {
+					_titleColor = [UIColor colorWithWhite:17.f / 255.f alpha:1];
+				}
+			}
 		}
 
-		if (!_subtitleColor) {
-			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [UIColor colorWithWhite:68.f / 255.f alpha:1];
+		if (_subtitleColor == nil) {
+			if (_hasGradient) {
+				_subtitleColor = [UIColor colorWithWhite:235.f / 255.f alpha:0.7f];
+			} else {
+				if (@available(iOS 13.0, *)) {
+					if (IS_IOS_OR_NEWER(iOS_13_0)) {
+						_subtitleColor = [[UIColor labelColor] colorWithAlphaComponent:0.68f];
+					}
+				}
+				if (_subtitleColor == nil) {
+					_subtitleColor = [UIColor colorWithWhite:68.f / 255.f alpha:1];
+				}
+			}
 		}
 
 #if !CEPHEI_EMBEDDED
@@ -189,16 +214,16 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
 
 	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
-		UIFont *systemTitleFont = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle1];
-		UIFont *systemTitle2Font = [UIFont preferredFontForTextStyle:*myUIFontTextStyleTitle2];
-		UIFont *systemSubtitleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+		UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
+		UIFontDescriptor *systemTitle2FontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
+		UIFontDescriptor *systemSubtitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
 
 		// use the specified font names, with either the font sizes we want, or the sizes the user
 		// wants, whichever is larger
-		headerFont = [UIFont fontWithName:systemTitleFont.fontName size:MAX(systemTitleFont.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
-		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFont.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
-		condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2Font.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
-		condensedLightFont = [UIFont fontWithName:systemTitleFont.fontName size:condensedFont.pointSize];
+		headerFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:MAX(systemTitleFontDescriptor.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
+		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
+		condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2FontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
+		condensedLightFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:condensedFont.pointSize];
 	} else {
 		headerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize];
 		subtitleFont = [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize];
