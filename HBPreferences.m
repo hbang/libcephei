@@ -71,7 +71,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		// id, and it’s not an apple app, it probably wants its own preferences inside its container
 		// TODO: is there a better way to guess this? should we not guess at all except for the exact
 		// main bundle id?
-		if (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]]) {
+		if (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
 			_container = kCFPreferencesNoContainer;
 		}
 	} else {
