@@ -1,14 +1,14 @@
 Package: ws.hbang.common
 Name: Cephei
 Depends: com.rpetrich.rocketbootstrap, firmware (>= 13.0) | jp.ashikase.techsupport
-Version: 1.13.1
+Version: 1.14
 Architecture: iphoneos-arm
 Description: Support library for tweaks
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Development
 Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
-Depiction: https://repo.chariz.io/package/ws.hbang.common/
+Depiction: https://repo.chariz.com/package/ws.hbang.common/
 Support: https://hashbang.productions/support/
-Tag: role::developer, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12
+Tag: role::developer, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
 dev: hbang
