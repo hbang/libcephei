@@ -2,6 +2,7 @@
 #import "../NSString+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
+#import <version.h>
 
 @interface HBLinkTableCell ()
 
@@ -48,6 +49,9 @@
 	if (self) {
 		UIImageView *imageView = (UIImageView *)self.accessoryView;
 		imageView.image = [UIImage imageNamed:@"twitter" inBundle:globalBundle];
+		if (IS_IOS_OR_NEWER(iOS_7_0)) {
+			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+		}
 		[imageView sizeToFit];
 
 		_user = [specifier.properties[@"user"] copy];

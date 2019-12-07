@@ -9,12 +9,13 @@
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		UIActivityIndicatorViewStyle style = UIActivityIndicatorViewStyleGray;
 		if (IS_IOS_OR_NEWER(iOS_13_0)) {
 			if (@available(iOS 13.0, *)) {
-				_activityIndicator.color = [UIColor labelColor];
+				style = UIActivityIndicatorViewStyleMedium;
 			}
 		}
+		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
 		self.accessoryView = _activityIndicator;
 	}
 

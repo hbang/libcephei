@@ -31,9 +31,20 @@ Class $UIActivityViewController, $TWTweetComposeViewController;
 	[super loadView];
 
 	if ([self.class hb_shareText] && [self.class hb_shareURL]) {
-		self.navigationItem.rightBarButtonItem = IS_IOS_OR_NEWER(iOS_7_0)
-			? [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"heart" inBundle:globalBundle] style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)]
-			: [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)];
+		if (IS_IOS_OR_NEWER(iOS_7_0)) {
+			UIImage *icon = nil;
+			if (@available(iOS 13.0, *)) {
+				if (IS_IOS_OR_NEWER(iOS_13_0)) {
+					icon = [UIImage systemImageNamed:@"heart"];
+				}
+			}
+			if (icon == nil) {
+				icon = [UIImage imageNamed:@"heart" inBundle:globalBundle];
+			}
+			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)];
+		} else {
+			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)];
+		}
 	}
 }
 

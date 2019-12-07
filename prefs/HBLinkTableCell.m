@@ -13,11 +13,21 @@
 		_isBig = specifier.properties[@"big"] && ((NSNumber *)specifier.properties[@"big"]).boolValue;
 
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
-		self.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
+
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
+		if (IS_IOS_OR_NEWER(iOS_7_0)) {
+			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+		}
+		if (@available(iOS 13.0, *)) {
+			if (IS_IOS_OR_NEWER(iOS_13_0)) {
+				imageView.tintColor = [UIColor systemGray3Color];
+			}
+		}
+		self.accessoryView = imageView;
 
 		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
-		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor colorWithWhite:142.f / 255.f alpha:1] : [UIColor tableCellValue1BlueColor];
+		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
 
 		if (self.shouldShowAvatar) {
 			CGFloat size = _isBig ? 38.f : 29.f;
