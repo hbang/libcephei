@@ -2,6 +2,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
+	HBAppearanceSettingsLargeTitleStyleRootOnly,
+	HBAppearanceSettingsLargeTitleStyleAlways,
+	HBAppearanceSettingsLargeTitleStyleNever
+};
+
 /// The `HBAppearanceSettings` class in `CepheiPrefs` provides a model object read by other
 /// components of Cephei to determine colors to use in the user interface.
 ///
@@ -95,8 +101,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether to use a translucent navigation bar. Override this method if you want this behavior.
 ///
 /// @return By default, YES.
-
 @property (nonatomic, assign) BOOL translucentNavigationBar;
+
+/// Whether to use a large title on iOS 11 and newer. Override this method to return a value from
+/// HBAppearanceSettingsLargeTitleStyle.
+///
+/// @return By default, HBAppearanceSettingsLargeTitleStyleRootOnly.
+@property (nonatomic, assign) HBAppearanceSettingsLargeTitleStyle largeTitleStyle;
 
 /// @name Table View
 

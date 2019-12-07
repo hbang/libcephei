@@ -1,4 +1,5 @@
 #import "PSListController+HBTintAdditions.h"
+#import "HBRootListController.h"
 #import "HBTintedTableCell.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UIApplication+Private.h>
@@ -54,6 +55,27 @@ BOOL translucentNavigationBar = NO;
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
 
 	// if we have navigation bar appearance, apply it
+	if (IS_IOS_OR_NEWER(iOS_11_0)) {
+		if (@available(iOS 11.0, *)) {
+			self._hb_realNavigationController.navigationBar.prefersLargeTitles = YES;
+			UINavigationItemLargeTitleDisplayMode largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+			switch (self.hb_appearanceSettings.largeTitleStyle) {
+				case HBAppearanceSettingsLargeTitleStyleRootOnly:
+					largeTitleDisplayMode = [self isKindOfClass:HBRootListController.class] ? UINavigationItemLargeTitleDisplayModeAlways : UINavigationItemLargeTitleDisplayModeNever;
+					break;
+
+				case HBAppearanceSettingsLargeTitleStyleAlways:
+					largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+					break;
+
+				case HBAppearanceSettingsLargeTitleStyleNever:
+					largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+					break;
+			}
+			self.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode;
+		}
+	}
+
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {
 		if (@available(iOS 13.0, *)) {
 			if (self.navigationItem.scrollEdgeAppearance == nil) {
