@@ -97,7 +97,7 @@ BOOL animateBarTintColor = NO;
 
 	// if we have a custom tint color, or we no longer have a custom tint color, but one is currently
 	// set, and it should be animated, ask for it to be
-	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+	if (IS_IOS_OR_NEWER(iOS_7_0) && !IS_IOS_OR_NEWER(iOS_13_0)) {
 		if ((backgroundColor || self.barTintColor) && animated) {
 			animateBarTintColor = YES;
 		}
@@ -148,7 +148,7 @@ BOOL animateBarTintColor = NO;
 		%init(JonyIve);
 	}
 
-	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+	if (IS_IOS_OR_NEWER(iOS_7_0) && !IS_IOS_OR_NEWER(iOS_13_0)) {
 		%init(BackdropHax);
 	}
 }

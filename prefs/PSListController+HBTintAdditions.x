@@ -18,6 +18,7 @@ BOOL translucentNavigationBar = NO;
 - (UINavigationController *)_hb_realNavigationController;
 - (void)_hb_getAppearance;
 - (UIStatusBar *)_hb_statusBar;
+- (UINavigationBarAppearance *)_hb_configureNavigationBarAppearance:(UINavigationBarAppearance *)appearance API_AVAILABLE(ios(13.0));
 
 @end
 
@@ -51,6 +52,20 @@ BOOL translucentNavigationBar = NO;
 
 	// the navigation item also needs access to the appearance settings
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
+
+	// if we have navigation bar appearance, apply it
+	if (IS_IOS_OR_NEWER(iOS_13_0)) {
+		if (@available(iOS 13.0, *)) {
+			if (self.navigationItem.scrollEdgeAppearance == nil) {
+				UINavigationBarAppearance *scrollEdgeAppearance = [[%c(UINavigationBarAppearance) alloc] init];
+				[scrollEdgeAppearance configureWithTransparentBackground];
+				self.navigationItem.scrollEdgeAppearance = scrollEdgeAppearance;
+			}
+			self.navigationItem.standardAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.standardAppearance];
+			self.navigationItem.scrollEdgeAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.scrollEdgeAppearance];
+			self.navigationItem.compactAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.compactAppearance];
+		}
+	}
 }
 
 #pragma mark - UIViewController
@@ -62,6 +77,44 @@ BOOL translucentNavigationBar = NO;
 	// work for the initial view controler in the navigation stack, where for some reason
 	// viewWillAppear: isn’t called on iOS 10
 	[self _hb_getAppearance];
+}
+
+%new - (id)_hb_configureNavigationBarAppearance:(id)appearance {
+	if (@available(iOS 13.0, *)) {
+		UIColor *backgroundColor, *titleColor;
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		if (self.hb_appearanceSettings.invertedNavigationBar) {
+	#pragma clang diagnostic pop
+			titleColor = [UIColor whiteColor];
+			backgroundColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.hb_appearanceSettings.tintColor;
+		} else {
+			titleColor = self.hb_appearanceSettings.navigationBarTitleColor;
+			backgroundColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
+		}
+
+		UINavigationBarAppearance *newAppearance;
+		if (appearance == nil) {
+			newAppearance = [[%c(UINavigationBarAppearance) alloc] init];
+			[newAppearance configureWithDefaultBackground];
+		} else {
+			newAppearance = [[%c(UINavigationBarAppearance) alloc] initWithBarAppearance:appearance];
+		}
+		NSMutableDictionary <NSAttributedStringKey, id> *titleTextAttributes = [newAppearance.titleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
+		NSMutableDictionary <NSAttributedStringKey, id> *largeTitleTextAttributes = [newAppearance.largeTitleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
+		if (titleColor == nil) {
+			[titleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
+			[largeTitleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
+		} else {
+			titleTextAttributes[NSForegroundColorAttributeName] = titleColor;
+			largeTitleTextAttributes[NSForegroundColorAttributeName] = titleColor;
+		}
+		newAppearance.backgroundColor = backgroundColor;
+		newAppearance.titleTextAttributes = titleTextAttributes;
+		newAppearance.largeTitleTextAttributes = largeTitleTextAttributes;
+		return newAppearance;
+	}
+	return nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
