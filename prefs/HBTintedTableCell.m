@@ -4,7 +4,9 @@
 
 - (void)tintColorDidChange {
 	[super tintColorDidChange];
+
 	self.textLabel.textColor = self.tintColor;
+	self.textLabel.highlightedTextColor = self.tintColor;
 }
 
 - (void)refreshCellContentsWithSpecifier:(PSSpecifier *)specifier {
@@ -12,6 +14,7 @@
 
 	if ([self respondsToSelector:@selector(tintColor)]) {
 		self.textLabel.textColor = self.tintColor;
+		self.textLabel.highlightedTextColor = self.tintColor;
 	}
 }
 
