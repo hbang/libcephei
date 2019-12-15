@@ -1,6 +1,7 @@
 #import "HBListItemsController.h"
 #import "HBListController.h"
 #import <version.h>
+#import <HBLog.h>
 
 @implementation HBListItemsController
 

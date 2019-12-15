@@ -1,5 +1,6 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
+#import <HBLog.h>
 #include <dlfcn.h>
 
 #if !CEPHEI_EMBEDDED && !TARGET_OS_SIMULATOR
@@ -77,7 +78,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 
 %ctor {
 	// don’t do anything unless we’re in springboard
-	if (!IN_SPRINGBOARD) {
+	if (![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
 		return;
 	}
 

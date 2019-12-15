@@ -1,3 +1,5 @@
+@import Foundation;
+
 NSBundle *globalBundle;
 
 __attribute__((constructor))

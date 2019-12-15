@@ -6,6 +6,7 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
+#import <HBLog.h>
 
 @interface PSListController ()
 

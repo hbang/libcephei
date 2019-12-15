@@ -1,3 +1,4 @@
+@import UIKit;
 #import <version.h>
 
 %group CopyColor

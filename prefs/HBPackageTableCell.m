@@ -4,6 +4,7 @@
 #import "../NSString+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
+#import <HBLog.h>
 
 @implementation HBPackageTableCell {
 	NSString *_identifier;

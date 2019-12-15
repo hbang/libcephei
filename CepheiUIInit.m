@@ -1,3 +1,4 @@
+@import Foundation;
 #import <objc/runtime.h>
 
 __attribute__((constructor))

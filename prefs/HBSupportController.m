@@ -5,6 +5,7 @@
 #import <TechSupport/TechSupport.h>
 #include <objc/runtime.h>
 #import <version.h>
+#import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
 @import MessageUI;
 

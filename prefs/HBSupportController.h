@@ -1,3 +1,5 @@
+@import Foundation;
+
 @class TSContactViewController, TSLinkInstruction, TSIncludeInstruction;
 
 NS_ASSUME_NONNULL_BEGIN

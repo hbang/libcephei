@@ -1,5 +1,6 @@
 #import "HBPreferencesIPC.h"
 #import "HBPreferencesCommon.h"
+#import <HBLog.h>
 
 @implementation HBPreferencesIPC
 

@@ -3,6 +3,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#import <HBLog.h>
 
 @interface HBLinkTableCell ()
 

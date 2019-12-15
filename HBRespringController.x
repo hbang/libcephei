@@ -1,3 +1,4 @@
+@import UIKit;
 #import "HBRespringController.h"
 #import "HBOutputForShellCommand.h"
 #import <SpringBoard/SpringBoard.h>
@@ -45,7 +46,7 @@
 		}
 
 		[[%c(FBSSystemService) sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
-	} else if (IN_SPRINGBOARD) {
+	} else if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
 		// in springboard, use good ole _relaunchSpringBoardNow
 		[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
 	} else {
@@ -68,7 +69,7 @@
 	%init;
 
 	// if we're in springboard without the FrontBoard restart action (iOS < 8)
-	if (IN_SPRINGBOARD && !%c(SBSRestartRenderServerAction)) {
+	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"] && !%c(SBSRestartRenderServerAction)) {
 		// register our notification
 		int notifyToken;
 		notify_register_dispatch("ws.hbang.common/Respring", &notifyToken, dispatch_get_main_queue(), ^(int token) {

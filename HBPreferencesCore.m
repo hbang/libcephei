@@ -1,6 +1,7 @@
 #import "HBPreferencesCore.h"
 #import "HBPreferencesCore+Conveniences.h"
 #import "HBPreferences.h"
+#import <HBLog.h>
 #include <notify.h>
 
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
