@@ -94,7 +94,7 @@
 		NSError *error = nil;
 		NSString *username = _user.hb_stringByEncodingQueryPercentEscapes;
 		NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
-		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://twitter.com/%@/profile_image?size=%@", username, size]]] returningResponse:nil error:&error];
+		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://avatars.io/twitter/%@/%@", username, size]]] returningResponse:nil error:&error];
 
 		if (error) {
 			HBLogError(@"error loading twitter avatar: %@", error);
