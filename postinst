@@ -1,7 +1,4 @@
 #!/bin/bash
-# restart installd so container support is (re)loaded
-launchctl stop com.apple.mobile.installd
-
 # due to some sort of unfortunate permission error created by an older build of cephei, and dpkg not
 # really fixing them, we need to fix this ourselves
 chown -R root:wheel /Library/PreferenceBundles/Cephei.bundle

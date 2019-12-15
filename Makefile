@@ -60,8 +60,8 @@ ifneq ($(CEPHEI_EMBEDDED),1)
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
 		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
 
-	@# postinst -> DEBIAN/post{inst,rm}
-	$(ECHO_NOTHING)cp postinst postrm $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
+	@# postinst -> DEBIAN/postinst
+	$(ECHO_NOTHING)cp postinst $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 	@# /usr/lib/Cephei.framework -> /Library/Frameworks/Cephei.framework
 	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework$(ECHO_END)
