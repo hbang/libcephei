@@ -50,7 +50,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 - (instancetype)initWithIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
 
-#if CEPHEI_EMBEDDED || TARGET_OS_SIMULATOR
+#if CEPHEI_HBPREFSD || CEPHEI_EMBEDDED || TARGET_OS_SIMULATOR
 	self = [super initWithIdentifier:identifier];
 
 	// always use a nil container when embedded. there’s no point trying to support reading/writing
@@ -60,7 +60,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	// we may not have the appropriate sandbox rules to access the preferences from this process, so
 	// find out whether we do or not. if we don’t, swap the instance of this class out for an instance
 	// of the class that works around this by doing IPC with our springboard server
-	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"] || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
+	if (sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
 		self = [super initWithIdentifier:identifier];
 
 		// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found

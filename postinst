@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 # due to some sort of unfortunate permission error created by an older build of cephei, and dpkg not
 # really fixing them, we need to fix this ourselves
 chown -R root:wheel /Library/PreferenceBundles/Cephei.bundle
@@ -18,3 +20,5 @@ if [[ -d /Library/PreferenceBundles/Cephei.bundle ]]; then
 	rm -r /Library/PreferenceBundles/Cephei.bundle
 	ln -s /Library/Frameworks/CepheiPrefs.framework /Library/PreferenceBundles/Cephei.bundle
 fi
+
+launchctl load -w /Library/LaunchDaemons/ws.hbang.common.hbprefsd.plist
