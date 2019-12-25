@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UIView(CompactConstraint) Category Reference</title>
+    <title>HBAppearanceSettingsLargeTitleStyle Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/objc/Extension/UIView(CompactConstraint)" class="dashAnchor"></a>
+    <a name="//apple_ref/objc/Enum/HBAppearanceSettingsLargeTitleStyle" class="dashAnchor"></a>
 
-    <a title="UIView(CompactConstraint) Category Reference"></a>
+    <a title="HBAppearanceSettingsLargeTitleStyle Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -50,7 +50,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">Cephei Reference</a>
       <img class="carat" src="../img/carat.png" />
-      UIView(CompactConstraint) Category Reference
+      HBAppearanceSettingsLargeTitleStyle Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -204,23 +204,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>UIView(CompactConstraint)</h1>
+            <h1>HBAppearanceSettingsLargeTitleStyle</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">UIView</span> <span class="p">(</span><span class="nl">CompactConstraint</span><span class="p">)</span></code></pre>
+                  <pre class="highlight objective_c"><code><span class="n">NS_ENUM</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">HBAppearanceSettingsLargeTitleStyle</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">HBAppearanceSettingsLargeTitleStyleRootOnly</span><span class="p">,</span>
+	<span class="n">HBAppearanceSettingsLargeTitleStyleAlways</span><span class="p">,</span>
+	<span class="n">HBAppearanceSettingsLargeTitleStyleNever</span>
+<span class="p">}</span></code></pre>
 
                 </div>
               </div>
-            <p>UIView (CompactConstraint), a class category from Marco Arment’s
-<a href="https://github.com/marcoarment/CompactConstraint">CompactConstraint</a> library, is integrated
-with Cephei. CompactConstraint provides an Auto Layout grammar and methods that are easier to
-use and understand than UIKit’s built in functions for programmatically adding constraints.</p>
-
-<p>Refer to <a href="https://github.com/marcoarment/CompactConstraint/blob/master/README.md">its readme</a> to
-learn how to use it. There are two changes to note: most importantly, the methods have an <code>hb_</code>
-prefix, and two methods that are marked as deprecated in the original project have been removed.</p>
-
-<p>CompactConstraint is licensed under the MIT License.</p>
+            <p>Undocumented</p>
 
           </div>
         </section>
@@ -232,9 +227,9 @@ prefix, and two methods that are marked as deprecated in the original project ha
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)UIView(im)hb_addCompactConstraint:metrics:views:"></a>
-                    <a name="//apple_ref/objc/Method/-hb_addCompactConstraint:metrics:views:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIView(im)hb_addCompactConstraint:metrics:views:">-hb_addCompactConstraint:metrics:views:</a>
+                    <a name="/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleRootOnly"></a>
+                    <a name="//apple_ref/objc/Case/HBAppearanceSettingsLargeTitleStyleRootOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleRootOnly">HBAppearanceSettingsLargeTitleStyleRootOnly</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -242,22 +237,19 @@ prefix, and two methods that are marked as deprecated in the original project ha
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Add a single constraint with the compact syntax</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSLayoutConstraint</span> <span class="o">*</span><span class="p">)</span>
-    <span class="nf">hb_addCompactConstraint</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">relationship</span>
-                    <span class="nf">metrics</span><span class="p">:(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">NSNumber</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">metrics</span>
-                      <span class="nf">views</span><span class="p">:(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">UIView</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">views</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">HBAppearanceSettingsLargeTitleStyleRootOnly</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hb_addCompactConstraint</span><span class="p">(</span><span class="n">_</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">NSNumber</span><span class="p">]</span><span class="o">!</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">UIView</span><span class="p">]</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSLayoutConstraint</span><span class="o">!</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rootOnly</span> <span class="o">=</span> <span class="mi">0</span></code></pre>
 
                         </div>
                       </div>
@@ -267,9 +259,9 @@ prefix, and two methods that are marked as deprecated in the original project ha
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)UIView(im)hb_addCompactConstraints:metrics:views:"></a>
-                    <a name="//apple_ref/objc/Method/-hb_addCompactConstraints:metrics:views:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIView(im)hb_addCompactConstraints:metrics:views:">-hb_addCompactConstraints:metrics:views:</a>
+                    <a name="/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleAlways"></a>
+                    <a name="//apple_ref/objc/Case/HBAppearanceSettingsLargeTitleStyleAlways" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleAlways">HBAppearanceSettingsLargeTitleStyleAlways</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -277,22 +269,19 @@ prefix, and two methods that are marked as deprecated in the original project ha
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Add any number of constraints. Can also mix in Visual Format Language strings.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSLayoutConstraint</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span>
-    <span class="nf">hb_addCompactConstraints</span><span class="p">:(</span><span class="n">NSArray</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">relationshipStrings</span>
-                     <span class="nf">metrics</span><span class="p">:(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">NSNumber</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">metrics</span>
-                       <span class="nf">views</span><span class="p">:(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">UIView</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">views</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">HBAppearanceSettingsLargeTitleStyleAlways</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hb_addCompactConstraints</span><span class="p">(</span><span class="n">_</span> <span class="nv">relationshipStrings</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span><span class="o">!</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">NSNumber</span><span class="p">]</span><span class="o">!</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">UIView</span><span class="p">]</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">NSLayoutConstraint</span><span class="p">]</span><span class="o">!</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">always</span> <span class="o">=</span> <span class="mi">1</span></code></pre>
 
                         </div>
                       </div>
@@ -302,9 +291,9 @@ prefix, and two methods that are marked as deprecated in the original project ha
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:objc(cs)UIView(im)hb_addConstraintsWithVisualFormat:options:metrics:views:"></a>
-                    <a name="//apple_ref/objc/Method/-hb_addConstraintsWithVisualFormat:options:metrics:views:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIView(im)hb_addConstraintsWithVisualFormat:options:metrics:views:">-hb_addConstraintsWithVisualFormat:options:metrics:views:</a>
+                    <a name="/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleNever"></a>
+                    <a name="//apple_ref/objc/Case/HBAppearanceSettingsLargeTitleStyleNever" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@E@HBAppearanceSettingsLargeTitleStyle@HBAppearanceSettingsLargeTitleStyleNever">HBAppearanceSettingsLargeTitleStyleNever</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -312,25 +301,19 @@ prefix, and two methods that are marked as deprecated in the original project ha
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>And a convenient shortcut for what we always end up doing with the visualFormat call.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
-                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">hb_addConstraintsWithVisualFormat</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">format</span>
-                                  <span class="nf">options</span><span class="p">:(</span><span class="n">NSLayoutFormatOptions</span><span class="p">)</span><span class="nv">opts</span>
-                                  <span class="nf">metrics</span><span class="p">:</span>
-                                      <span class="p">(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">NSNumber</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span>
-                                          <span class="n">metrics</span>
-                                    <span class="n">views</span><span class="o">:</span><span class="p">(</span><span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="n">UIView</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span>
-                                              <span class="n">views</span><span class="p">;</span></code></pre>
+                          <pre class="highlight objective_c"><code><span class="n">HBAppearanceSettingsLargeTitleStyleNever</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hb_addConstraints</span><span class="p">(</span><span class="n">withVisualFormat</span> <span class="nv">format</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span><span class="p">,</span> <span class="n">options</span> <span class="nv">opts</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">FormatOptions</span> <span class="o">=</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">NSNumber</span><span class="p">]</span><span class="o">!</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">UIView</span><span class="p">]</span><span class="o">!</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">never</span> <span class="o">=</span> <span class="mi">2</span></code></pre>
 
                         </div>
                       </div>
