@@ -2,9 +2,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Constants indicating how to size the title of this item.
 typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
+	/// Display a large title only when the current view controller is a subclass of
+	/// HBRootListController.
+	///
+	/// This is the default mode.
 	HBAppearanceSettingsLargeTitleStyleRootOnly,
+
+	/// Always display a large title.
 	HBAppearanceSettingsLargeTitleStyleAlways,
+
+	/// Never display a large title.
 	HBAppearanceSettingsLargeTitleStyleNever
 };
 
@@ -46,8 +55,8 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 
 /// @name General
 
-/// The tint color to use for interactable elements within the list controller. Override this method
-/// to return a UIColor to use.
+/// The tint color to use for interactable elements within the list controller. Set this property to
+/// a UIColor to use.
 ///
 /// A nil value will cause no modification of the tint to occur.
 ///
@@ -56,32 +65,30 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 
 /// @name Navigation Bar
 
-/// The tint color to use for the navigation bar buttons, or, if hb_invertedNavigationBar is set,
-/// the background of the navigation bar. Override this method to return a UIColor to use, if you
-/// don’t want to use the same color as hb_tintColor.
+/// The tint color to use for the navigation bar buttons, or, if invertedNavigationBar is set, the
+/// background of the navigation bar. Set this property to a UIColor to use, if you don’t want to
+/// use the same color as tintColor.
 ///
 /// A nil value will cause no modification of the navigation bar tint to occur.
 ///
-/// @return By default, the return value of hb_tintColor.
+/// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarTintColor;
 
-/// The color to use for the navigation bar title label. Override this method to return a UIColor to
-/// use.
+/// The color to use for the navigation bar title label. Set this property to a UIColor to use.
 ///
 /// A nil value will cause no modification of the navigation bar title color to occur.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarTitleColor;
 
-/// The background color to use for the navigation bar. Override this method to return a UIColor to
-/// use.
+/// The background color to use for the navigation bar. Set this property to a UIColor to use.
 ///
 /// A nil value will cause no modification of the navigation bar background to occur.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarBackgroundColor;
 
-/// The color to use for the status bar icons. Override this method to return a UIColor to use.
+/// The color to use for the status bar icons. Set this property to a UIColor to use.
 ///
 /// A nil value will cause no modification of the status bar color to occur.
 ///
@@ -90,20 +97,18 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 
 /// Whether to use an inverted navigation bar.
 ///
-/// Deprecated. Set navigationBarBackgroundColor and navigationBarTitleColor instead.
-///
 /// An inverted navigation bar has a tinted background, rather than the buttons being tinted. All
 /// other interface elements will be tinted the same.
 ///
 /// @return By default, NO.
 @property (nonatomic, assign) BOOL invertedNavigationBar __attribute((deprecated("Set navigationBarBackgroundColor and navigationBarTitleColor instead.")));
 
-/// Whether to use a translucent navigation bar. Override this method if you want this behavior.
+/// Whether to use a translucent navigation bar. Set this property to YES if you want this behavior.
 ///
 /// @return By default, YES.
 @property (nonatomic, assign) BOOL translucentNavigationBar;
 
-/// Whether to use a large title on iOS 11 and newer. Override this method to return a value from
+/// Whether to use a large title on iOS 11 and newer. Set this property to a value from
 /// HBAppearanceSettingsLargeTitleStyle.
 ///
 /// @return By default, HBAppearanceSettingsLargeTitleStyleRootOnly.
@@ -111,26 +116,26 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 
 /// @name Table View
 
-/// The color to be used for the overall background of the table view. Override this method to
-/// return a UIColor to use.
+/// The color to be used for the overall background of the table view. Set this property to a
+/// UIColor to use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewBackgroundColor;
 
-/// The color to be used for the text color of table view cells. Override this method to return a
-/// UIColor to use.
+/// The color to be used for the text color of table view cells. Set this property to a UIColor to
+/// use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellTextColor;
 
-/// The color to be used for the background color of table view cells. Override this method to
-/// return a UIColor to use.
+/// The color to be used for the background color of table view cells. Set this property to a
+/// UIColor to use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellBackgroundColor;
 
-/// The color to be used for the separator between table view cells. Override this method to return
-/// a UIColor to use.
+/// The color to be used for the separator between table view cells. Set this property to a UIColor
+/// to use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellSeparatorColor;
@@ -138,7 +143,7 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 /// The color to be used when a table view cell is selected. This color will be shown when the cell
 /// is in the highlighted state.
 ///
-/// Override this method to return a UIColor to use.
+/// Set this property to a UIColor to use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellSelectionColor;
