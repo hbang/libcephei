@@ -28,7 +28,9 @@
 	NSBundle *bundle = [NSBundle mainBundle];
 	NSDictionary *info = bundle.infoDictionary;
 
-	if ([@[ @"com.apple.Preferences", @"com.apple.Bridge" ] containsObject:bundle.bundleIdentifier] || info[@"HBUsesCepheiPrefs"]) {
+	// Capital One dangerously loads all bundles it sees in [NSBundle allBundles] by accident (!),
+	// so just don’t complain in this app
+	if ([@[ @"com.apple.Preferences", @"com.apple.Bridge", @"com.capitalone.enterprisemobilebanking" ] containsObject:bundle.bundleIdentifier] || info[@"HBUsesCepheiPrefs"]) {
 		return;
 	}
 
@@ -48,9 +50,11 @@
 		const char *imageName;
 		while ((imageName = _dyld_get_image_name(i))) {
 			NSURL *url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:imageName]];
-			NSData *data = [NSData dataWithContentsOfURL:url];
-			if (data && [data rangeOfData:cepheiPrefsData options:kNilOptions range:NSMakeRange(0, data.length)].location != NSNotFound) {
-				[suspects addObject:url.lastPathComponent.stringByDeletingPathExtension];
+			if (![url.path hasSuffix:@"/CepheiPrefs.framework/CepheiPrefs"]) {
+				NSData *data = [NSData dataWithContentsOfURL:url];
+				if (data && [data rangeOfData:cepheiPrefsData options:kNilOptions range:NSMakeRange(0, data.length)].location != NSNotFound) {
+					[suspects addObject:url.lastPathComponent.stringByDeletingPathExtension];
+				}
 			}
 			i++;
 		}
