@@ -30,7 +30,7 @@
 		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
 		if (@available(iOS 13.0, *)) {
 			if (IS_IOS_OR_NEWER(iOS_13_0)) {
-				self.detailTextLabel.tintColor = [UIColor labelColor];
+				self.tintColor = [UIColor labelColor];
 			}
 		}
 		if (@available(iOS 13.0, *)) {
