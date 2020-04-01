@@ -1,3 +1,0 @@
-#!/bin/bash
-set -e
-launchctl unload -w /Library/LaunchDaemons/ws.hbang.common.hbprefsd.plist
