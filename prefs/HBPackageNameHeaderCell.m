@@ -1,21 +1,11 @@
 #import "HBPackageNameHeaderCell.h"
-#import "HBSupportController+Private.h"
-#import "../HBOutputForShellCommand.h"
+#import "HBPackage.h"
 #import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
 #include <dlfcn.h>
-
-static inline NSString *shellEscape(NSArray <NSString *> *input) {
-	NSMutableArray <NSString *> *result = [NSMutableArray array];
-	for (NSString *string in input) {
-		[result addObject:[NSString stringWithFormat:@"'%@'",
-			[string stringByReplacingOccurrencesOfString:@"'" withString:@"\\'" options:NSRegularExpressionSearch range:NSMakeRange(0, string.length)]]];
-	}
-	return [result componentsJoinedByString:@" "];
-}
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -141,15 +131,11 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		}
 
 #if !CEPHEI_EMBEDDED
-		// _package = [HBSupportController _packageForIdentifier:specifier.properties[@"packageIdentifier"] orFile:nil];
 		NSString *package = specifier.properties[@"packageIdentifier"];
-		int status;
-		_name = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Name}", package ]), &status);
-		if ([_name isEqualToString:@""]) {
-			_name = nil;
-		}
-		_author = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Author}", package ]), &status);
-		_version = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Version}", package ]), &status);
+		NSDictionary <NSString *, NSString *> *fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+		_name = fields[@"Name"] ?: @"";
+		_author = fields[@"Author"] ?: fields[@"Maintainer"] ?: @"";
+		_version = fields[@"Version"] ?: @"";
 #endif
 
 		[self updateData];

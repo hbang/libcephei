@@ -1,5 +1,5 @@
 #import "HBPackageTableCell.h"
-#import "../HBOutputForShellCommand.h"
+#import "HBPackage.h"
 #import "../NSDictionary+HBAdditions.h"
 #import "../NSString+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
@@ -68,7 +68,7 @@
 		});
 	};
 
-	NSString *iconField = HBOutputForShellCommand([NSString stringWithFormat:@"/usr/bin/dpkg-query -f '${Icon}' -W '%@'", _identifier]);
+	NSString *iconField = getFieldForPackage(_identifier, @"Icon");
 
 	if (iconField && ![iconField isEqualToString:@""]) {
 		NSURL *iconURL = [NSURL URLWithString:iconField];

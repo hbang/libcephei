@@ -1,24 +1,16 @@
 #import "HBSupportController.h"
 #import "../HBPreferences.h"
-#import "../HBOutputForShellCommand.h"
+#import "HBPackage.h"
 #import "HBContactViewController.h"
 #import <TechSupport/TechSupport.h>
 #include <objc/runtime.h>
 #import <version.h>
+#import <dlfcn.h>
 #import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
 @import MessageUI;
 
 Class $TSPackage, $TSLinkInstruction, $TSIncludeInstruction, $TSContactViewController;
-
-static inline NSString *shellEscape(NSArray <NSString *> *input) {
-	NSMutableArray <NSString *> *result = [NSMutableArray array];
-	for (NSString *string in input) {
-		[result addObject:[NSString stringWithFormat:@"'%@'",
-			[string stringByReplacingOccurrencesOfString:@"'" withString:@"\\'" options:NSRegularExpressionSearch range:NSMakeRange(0, string.length)]]];
-	}
-	return [result componentsJoinedByString:@" "];
-}
 
 @implementation HBSupportController
 
@@ -136,23 +128,23 @@ static inline NSString *shellEscape(NSArray <NSString *> *input) {
 
 		// Try and figure out what package we have.
 		NSString *package = bundle.infoDictionary[@"HBPackageIdentifier"] ?: bundle.bundleIdentifier;
-		int status;
-		NSString *author = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Author}", package ]), &status);
-		if (status != 0 || [author isEqualToString:@""]) {
+		NSDictionary <NSString *, NSString *> *fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+		NSString *author = fields[@"Author"] ?: fields[@"Maintainer"];
+		if (author == nil) {
 			// Try something else.
 			NSParameterAssert(bundle);
+			int status = 0;
 			NSString *search = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-S", bundle.executablePath ]), &status);
 			NSAssert(status == 0, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
+
 			package = [search substringWithRange:NSMakeRange(0, [search rangeOfString:@":"].location)];
-			author = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Author}", package ]), &status);
-			NSAssert(status == 0, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
+			fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+			author = fields[@"Author"] ?: fields[@"Maintainer"];
+			NSAssert(author != nil, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 		}
 		NSAssert([author rangeOfString:@"@"].location != NSNotFound, @"Could not retrieve an email address for package %@.", package);
-		NSString *name = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Name}", package ]), &status);
-		if ([name isEqualToString:@""]) {
-			name = package;
-		}
-		NSString *version = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", @"${Version}", package ]), &status);
+		NSString *name = fields[@"Name"] ?: package;
+		NSString *version = fields[@"Version"];
 
 		HBContactViewController *viewController = [[HBContactViewController alloc] init];
 		viewController.to = author;
@@ -161,9 +153,12 @@ static inline NSString *shellEscape(NSArray <NSString *> *input) {
 		NSString *product = nil, *firmware = nil, *build = nil;
 
 		if (IS_IOS_OR_NEWER(iOS_6_0)) {
-			product = CFBridgingRelease(MGCopyAnswer(kMGProductType, NULL));
-			firmware = CFBridgingRelease(MGCopyAnswer(kMGProductVersion, NULL));
-			build = CFBridgingRelease(MGCopyAnswer(kMGBuildVersion, NULL));
+			void *gestalt = dlopen("/usr/lib/libMobileGestalt.dylib", RTLD_LAZY);
+			CFTypeRef (*myMGCopyAnswer)(CFStringRef question, CFDictionaryRef options);
+			myMGCopyAnswer = dlsym(gestalt, "MGCopyAnswer");
+			product = CFBridgingRelease(myMGCopyAnswer(kMGProductType, NULL));
+			firmware = CFBridgingRelease(myMGCopyAnswer(kMGProductVersion, NULL));
+			build = CFBridgingRelease(myMGCopyAnswer(kMGBuildVersion, NULL));
 		} else {
 			product = [UIDevice currentDevice].localizedModel;
 			firmware = [UIDevice currentDevice].systemVersion;
