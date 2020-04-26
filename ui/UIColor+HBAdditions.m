@@ -1,4 +1,5 @@
 #import "UIColor+HBAdditions.h"
+#import <objc/runtime.h>
 
 @implementation UIColor (HBAdditions)
 
@@ -46,6 +47,49 @@
 	}
 
 	return nil;
+}
+
++ (instancetype)hb_colorWithInterfaceStyleVariants:(NSDictionary <NSNumber *, UIColor *> *)variants {
+	if (@available(iOS 13, *)) {
+		return [UIColor colorWithDynamicProvider:^(UITraitCollection *traitCollection) {
+			UIUserInterfaceStyle style = traitCollection.userInterfaceStyle;
+			UIColor *color = variants[@(style)] ?: variants[@(UIUserInterfaceStyleLight)] ?: variants[@(UIUserInterfaceStyleUnspecified)];
+			NSParameterAssert(color);
+			return color;
+		}];
+	} else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+		UIColor *color = variants[@(UIUserInterfaceStyleLight)] ?: variants[@(UIUserInterfaceStyleUnspecified)];
+#pragma clang diagnostic pop
+		NSParameterAssert(color);
+		return color;
+	}
+}
+
+- (instancetype)hb_colorWithDarkInterfaceVariant {
+	if (@available(iOS 13, *)) {
+		if ([self isKindOfClass:objc_getClass("UIDynamicColor")]) {
+			return self;
+		}
+		CGFloat h, s, b, a;
+		[self getHue:&h saturation:&s brightness:&b alpha:&a];
+		UIColor *darkColor = [UIColor colorWithHue:h saturation:MIN(1.f, s * 0.96f) brightness:b alpha:a];
+		return [self hb_colorWithDarkInterfaceVariant:darkColor];
+	} else {
+		return self;
+	}
+}
+
+- (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor {
+	if (@available(iOS 13, *)) {
+		return [UIColor hb_colorWithInterfaceStyleVariants:@{
+			@(UIUserInterfaceStyleLight): self,
+			@(UIUserInterfaceStyleDark): darkColor
+		}];
+	} else {
+		return self;
+	}
 }
 
 @end

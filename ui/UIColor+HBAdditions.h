@@ -32,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// device RGB colorspace.
 - (instancetype)hb_initWithPropertyListValue:(id)value;
 
++ (instancetype)hb_colorWithInterfaceStyleVariants:(NSDictionary <NSNumber *, UIColor *> *)variants;
+
+- (instancetype)hb_colorWithDarkInterfaceVariant;
+
+- (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor;
+
 @end
 
 NS_ASSUME_NONNULL_END
