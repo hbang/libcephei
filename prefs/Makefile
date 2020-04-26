@@ -7,7 +7,7 @@ CepheiPrefs_FRAMEWORKS = MobileCoreServices
 CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
-CepheiPrefs_CFLAGS = -include ../Global.h -fobjc-arc
+CepheiPrefs_CFLAGS = -include Global.h
 CepheiPrefs_INSTALL_PATH = /usr/lib
 
 ifeq ($(filter arm64 arm64e,$(THEOS_CURRENT_ARCH)),$(THEOS_CURRENT_ARCH))

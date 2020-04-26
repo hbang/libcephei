@@ -7,7 +7,7 @@ export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
 endif
 
-export ADDITIONAL_CFLAGS = -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN
+export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN
 export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
 export ARCHS = armv7 arm64
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
@@ -24,7 +24,6 @@ include $(THEOS)/makefiles/common.mk
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
-Cephei_CFLAGS = -include Global.h -fobjc-arc
 Cephei_INSTALL_PATH = /usr/lib
 
 # link arclite to polyfill some features iOS 5 lacks

@@ -5,7 +5,6 @@ CepheiUI_FILES = $(wildcard *.x) $(wildcard *.m) $(wildcard CompactConstraint/*.
 CepheiUI_PUBLIC_HEADERS = CepheiUI.h UIColor+HBAdditions.h $(wildcard CompactConstraint/*.h)
 CepheiUI_FRAMEWORKS = UIKit WebKit
 CepheiUI_EXTRA_FRAMEWORKS = Cephei
-CepheiUI_CFLAGS = -include ../Global.h -fobjc-arc
 CepheiUI_INSTALL_PATH = /usr/lib
 
 ifeq ($(CEPHEI_EMBEDDED),1)
