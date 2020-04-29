@@ -74,7 +74,7 @@
 		}
 		CGFloat h, s, b, a;
 		[self getHue:&h saturation:&s brightness:&b alpha:&a];
-		UIColor *darkColor = [UIColor colorWithHue:h saturation:MIN(1.f, s * 0.96f) brightness:b alpha:a];
+		UIColor *darkColor = [UIColor colorWithHue:h saturation:MAX(0.20, s * 0.96) brightness:b alpha:a];
 		return [self hb_colorWithDarkInterfaceVariant:darkColor];
 	} else {
 		return self;
