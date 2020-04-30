@@ -27,7 +27,13 @@
 
 		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
-		self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
+		if (IS_IOS_OR_NEWER(iOS_13_0)) {
+			if (@available(iOS 13.0, *)) {
+				self.detailTextLabel.textColor = [UIColor secondaryLabelColor];
+			}
+		} else {
+			self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
+		}
 
 		if (self.shouldShowAvatar) {
 			CGFloat size = _isBig ? 38.f : 29.f;
