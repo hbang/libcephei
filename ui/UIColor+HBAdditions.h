@@ -32,10 +32,46 @@ NS_ASSUME_NONNULL_BEGIN
 /// device RGB colorspace.
 - (instancetype)hb_initWithPropertyListValue:(id)value;
 
+/// Initializes and returns a dynamic color object using the provided interface style variants.
+///
+/// This color dynamically changes based on the interface style on iOS 13 and newer. If dynamic
+/// colors are not supported by the operating system, the value for UIUserInterfaceStyleLight or
+/// UIUserInterfaceStyleUnspecified is returned.
+///
+/// Example:
+///
+/// ```objc
+/// UIColor *myColor = [UIColor hb_colorWithInterfaceStyleVariants:@{
+/// 	@(UIUserInterfaceStyleLight): [UIColor systemRedColor],
+/// 	@(UIUserInterfaceStyleDark): [UIColor systemOrangeColor]
+/// }];
+/// ```
+///
+/// @param variants A dictionary of interface style keys and UIColor values.
+/// @return An initialized dynamic color object, or the receiver if dynamic colors are unsupported
+/// by the current operating system.
 + (instancetype)hb_colorWithInterfaceStyleVariants:(NSDictionary <NSNumber *, UIColor *> *)variants;
 
+/// Initializes and returns a dynamic color object, with saturation decreased by 4% in the dark
+/// interface style.
+///
+/// @return If the color is already a dynamic color, returns the receiver. Otherwise, a new dynamic
+/// color object.
+/// @see +[UIColor hb_colorWithInterfaceStyleVariants:]
 - (instancetype)hb_colorWithDarkInterfaceVariant;
 
+/// Initializes and returns a dynamic color object, with the specified variant color for the dark
+/// interface style.
+///
+/// Example:
+///
+/// ```objc
+/// UIColor *myColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant:[UIColor systemOrangeColor]];
+/// ```
+///
+/// @param darkColor The color to use in the dark interface style.
+/// @return A new dynamic color object.
+/// @see +[UIColor hb_colorWithInterfaceStyleVariants:]
 - (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor;
 
 @end
