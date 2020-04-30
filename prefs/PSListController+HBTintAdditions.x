@@ -2,6 +2,7 @@
 #import "HBRootListController.h"
 #import "HBTintedTableCell.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import "../ui/UIColor+HBAdditions.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
 #import <UIKit/UIStatusBarManager+Private.h>
@@ -150,7 +151,7 @@ BOOL translucentNavigationBar = NO;
 
 	// if we have a tint color, grab it
 	if (!tintColor && self.hb_appearanceSettings.tintColor) {
-		tintColor = [self.hb_appearanceSettings.tintColor copy];
+		tintColor = [[self.hb_appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant] copy];
 	}
 
 	// set the table view background and cell separator colors

@@ -1,5 +1,6 @@
 #import "HBAppearanceSettings.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import "../ui/UIColor+HBAdditions.h"
 #import <UIKit/UINavigationBar+Private.h>
 #import <version.h>
 
@@ -85,11 +86,11 @@ BOOL animateBarTintColor = NO;
 
 		// we also want the background color to be the navigation bar tint color or standard tint color
 		// if that’s nil
-		backgroundColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
+		backgroundColor = [appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant];
 	} else {
 		// try the navigation bar tint color. if nil, use the standard tint color (which could also
 		// be nil)
-		self.tintColor = appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor;
+		self.tintColor = [appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant];
 
 		// use the specified background color if one has been set, otherwise leave it unchanged (nil)
 		backgroundColor = appearanceSettings.navigationBarBackgroundColor;

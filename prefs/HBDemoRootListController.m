@@ -1,5 +1,6 @@
 #import "HBDemoRootListController.h"
 #import "HBAppearanceSettings.h"
+#import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
 
@@ -25,11 +26,12 @@
 	[super viewDidLoad];
 
 	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
-	appearance.tintColor = [UIColor purpleColor];
-	appearance.navigationBarTintColor = [UIColor yellowColor];
-	appearance.navigationBarBackgroundColor = [UIColor purpleColor];
-	appearance.navigationBarTitleColor = [UIColor greenColor];
+	appearance.tintColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.navigationBarTintColor = [UIColor systemYellowColor];
+	appearance.navigationBarBackgroundColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.navigationBarTitleColor = [UIColor whiteColor];
 	appearance.statusBarTintColor = [UIColor blueColor];
+	appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
 	appearance.tableViewCellTextColor = [UIColor whiteColor];
 	appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];
 	appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:38.f / 255.f alpha:1];
