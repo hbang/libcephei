@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          Cephei 1.14 Docs
+          Cephei Docs
         </a>
         
       </p>
@@ -126,6 +126,9 @@
                 <a class="nav-group-task-link" href="../Classes/HBAppearanceSettings.html">HBAppearanceSettings</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/HBAppearanceSettingsLargeTitleStyle.html">HBAppearanceSettingsLargeTitleStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/HBSupportController.html">HBSupportController</a>
               </li>
             </ul>
@@ -190,14 +193,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Other%20Enums.html">Other Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/HBAppearanceSettingsLargeTitleStyle.html">HBAppearanceSettingsLargeTitleStyle</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -225,7 +220,7 @@
                     <code>
                     <a name="/c:objc(cs)UIColor(cm)hb_colorWithPropertyListValue:"></a>
                     <a name="//apple_ref/objc/Method/+hb_colorWithPropertyListValue:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIColor(cm)hb_colorWithPropertyListValue:">+hb_colorWithPropertyListValue:</a>
+                    <a class="token" href="#/c:objc(cs)UIColor(cm)hb_colorWithPropertyListValue:">+hb_colorWithPropertyListValue:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -289,7 +284,7 @@ colorspace.</p>
                     <code>
                     <a name="/c:objc(cs)UIColor(im)hb_initWithPropertyListValue:"></a>
                     <a name="//apple_ref/objc/Method/-hb_initWithPropertyListValue:" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)UIColor(im)hb_initWithPropertyListValue:">-hb_initWithPropertyListValue:</a>
+                    <a class="token" href="#/c:objc(cs)UIColor(im)hb_initWithPropertyListValue:">-hb_initWithPropertyListValue:<wbr></a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -350,6 +345,183 @@ device RGB colorspace.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)UIColor(cm)hb_colorWithInterfaceStyleVariants:"></a>
+                    <a name="//apple_ref/objc/Method/+hb_colorWithInterfaceStyleVariants:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)UIColor(cm)hb_colorWithInterfaceStyleVariants:">+hb_colorWithInterfaceStyleVariants:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes and returns a dynamic color object using the provided interface style variants.</p>
+
+<p>This color dynamically changes based on the interface style on iOS 13 and newer. If dynamic
+colors are not supported by the operating system, the value for UIUserInterfaceStyleLight or
+UIUserInterfaceStyleUnspecified is returned.</p>
+
+<p>Example:</p>
+<pre class="highlight objective_c"><code><span class="n">UIColor</span> <span class="o">*</span><span class="n">myColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">hb_colorWithInterfaceStyleVariants</span><span class="p">:@{</span>
+    <span class="err">@</span><span class="p">(</span><span class="n">UIUserInterfaceStyleLight</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">systemRedColor</span><span class="p">],</span>
+    <span class="err">@</span><span class="p">(</span><span class="n">UIUserInterfaceStyleDark</span><span class="p">)</span><span class="o">:</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nf">systemOrangeColor</span><span class="p">]</span>
+<span class="p">}];</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">hb_colorWithInterfaceStyleVariants</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSDictionary</span><span class="o">&lt;</span><span class="n">NSNumber</span> <span class="o">*</span><span class="p">,</span> <span class="n">UIColor</span> <span class="o">*&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nv">variants</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">hb_color</span><span class="p">(</span><span class="n">withInterfaceStyleVariants</span> <span class="nv">variants</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSNumber</span> <span class="p">:</span> <span class="kt">UIColor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>variants</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A dictionary of interface style keys and UIColor values.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An initialized dynamic color object, or the receiver if dynamic colors are unsupported
+by the current operating system.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)UIColor(im)hb_colorWithDarkInterfaceVariant"></a>
+                    <a name="//apple_ref/objc/Method/-hb_colorWithDarkInterfaceVariant" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)UIColor(im)hb_colorWithDarkInterfaceVariant">-hb_colorWithDarkInterfaceVariant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes and returns a dynamic color object, with saturation decreased by 4% in the dark
+interface style.</p>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    hb_colorWithInterfaceStyleVariants:
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="n">hb_colorWithDarkInterfaceVariant</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hb_colorWithDarkInterfaceVariant</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>If the color is already a dynamic color, returns the receiver. Otherwise, a new dynamic
+color object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)UIColor(im)hb_colorWithDarkInterfaceVariant:"></a>
+                    <a name="//apple_ref/objc/Method/-hb_colorWithDarkInterfaceVariant:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)UIColor(im)hb_colorWithDarkInterfaceVariant:">-hb_colorWithDarkInterfaceVariant:<wbr></a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes and returns a dynamic color object, with the specified variant color for the dark
+interface style.</p>
+
+<p>Example:</p>
+<pre class="highlight objective_c"><code><span class="n">UIColor</span> <span class="o">*</span><span class="n">myColor</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIColor</span> <span class="nf">systemRedColor</span><span class="p">]</span> <span class="nf">hb_colorWithDarkInterfaceVariant</span><span class="p">:[</span><span class="n">UIColor</span> <span class="nf">systemOrangeColor</span><span class="p">]];</span>
+</code></pre>
+<div class="aside aside-see">
+    <p class="aside-title">See</p>
+    hb_colorWithInterfaceStyleVariants:
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">hb_colorWithDarkInterfaceVariant</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">darkColor</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hb_color</span><span class="p">(</span><span class="n">withDarkInterfaceVariant</span> <span class="nv">darkColor</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>darkColor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color to use in the dark interface style.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new dynamic color object.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -358,8 +530,8 @@ device RGB colorspace.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2019-12-25)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

@@ -45,6 +45,7 @@ custom_categories:
     children:
       - "CepheiPrefs Annoying Warning"
       - HBAppearanceSettings
+      - HBAppearanceSettingsLargeTitleStyle
       - HBSupportController
 
   - name: "CepheiPrefs — List Controllers"
