@@ -101,6 +101,10 @@
 #pragma mark - Appearance
 
 - (NSArray *)_deprecatedAppearanceMethodsInUse {
+	if (IS_IOS_OR_NEWER(iOS_10_0)) {
+		return nil;
+	}
+
 	static NSArray *AppearanceDeprecations;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -124,9 +128,6 @@
 			SEL sel = NSSelectorFromString(selector);
 
 			// if we get something different from the default, then add it to the list
-			// TODO: we probably should be doing it right™ with methodForSelector:,
-			// but that broke something and i don’t really have the time to look into
-			// it just yet – http://stackoverflow.com/a/20058585/709376
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			if ([self.class performSelector:sel] != [HBListController performSelector:sel]) {
