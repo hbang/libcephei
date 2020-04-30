@@ -25,13 +25,15 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+	UIColor *purpleColor = [UIColor respondsToSelector:@selector(systemPurpleColor)] ? [UIColor systemPurpleColor] : [UIColor purpleColor];
+
 	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
-	appearance.tintColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.tintColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
 	if (@available(iOS 13, *)) {
 		appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
 	}
 	appearance.navigationBarTintColor = [UIColor systemYellowColor];
-	appearance.navigationBarBackgroundColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.navigationBarBackgroundColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
 	appearance.navigationBarTitleColor = [UIColor whiteColor];
 	appearance.statusBarStyle = UIStatusBarStyleLightContent;
 	appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
