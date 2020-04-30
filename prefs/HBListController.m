@@ -5,7 +5,6 @@
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
-#import <TechSupport/TSPackage.h>
 #import <HBLog.h>
 
 @interface PSListController ()
@@ -32,29 +31,6 @@
 + (UIColor *)hb_tableViewCellSelectionColor  { return nil; }
 + (UIColor *)hb_tableViewBackgroundColor     { return nil; }
 + (BOOL)hb_translucentNavigationBar          { return YES; }
-
-- (instancetype)init {
-	self = [super init];
-
-	if (self) {
-		// when an HBPackageNameHeaderCell is instantiated, it grabs the package metadata via TSPackage.
-		// the first time it’s called, +[PIDebianPackage initialize] is invoked, which implements a long
-		// blocking operation (~200ms on iPhone 6s, definitely worse on older devices). this causes a
-		// really noticeable momentary freeze, which we really don’t want. work around this by warming
-		// PIDebianPackage on a background queue (with throttled I/O), reducing subsequent calls to a
-		// more tolerable duration (~70ms).
-#if !CEPHEI_EMBEDDED
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-				__unused TSPackage *package = [HBSupportController _packageForIdentifier:@"ws.hbang.common" orFile:nil];
-			});
-		});
-#endif
-	}
-
-	return self;
-}
 
 #pragma mark - Loading specifiers
 
