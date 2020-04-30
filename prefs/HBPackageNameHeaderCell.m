@@ -5,7 +5,8 @@
 #import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
-#include <dlfcn.h>
+#import <objc/runtime.h>
+#import <dlfcn.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -80,6 +81,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		_label.textAlignment = NSTextAlignmentCenter;
 		_label.adjustsFontSizeToFitWidth = NO;
+		_label.backgroundColor = [UIColor clearColor];
 
 		if ([_label respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)]) {
 #pragma clang diagnostic push
@@ -198,11 +200,17 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	// back to older styles on older iOS
 	NSString * __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
 	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
+	NSString * __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
 
 	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
-		UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
-		UIFontDescriptor *systemTitle2FontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
-		UIFontDescriptor *systemSubtitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
+		static dispatch_once_t onceToken;
+		static Class $UIFontDescriptor;
+		dispatch_once(&onceToken, ^{
+			$UIFontDescriptor = objc_getClass("UIFontDescriptor");
+		});
+		UIFontDescriptor *systemTitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
+		UIFontDescriptor *systemTitle2FontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
+		UIFontDescriptor *systemSubtitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleSubheadline];
 
 		// use the specified font names, with either the font sizes we want, or the sizes the user
 		// wants, whichever is larger
