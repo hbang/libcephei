@@ -27,10 +27,13 @@
 
 	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
 	appearance.tintColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	if (@available(iOS 13, *)) {
+		appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
+	}
 	appearance.navigationBarTintColor = [UIColor systemYellowColor];
 	appearance.navigationBarBackgroundColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
 	appearance.navigationBarTitleColor = [UIColor whiteColor];
-	appearance.statusBarTintColor = [UIColor blueColor];
+	appearance.statusBarStyle = UIStatusBarStyleLightContent;
 	appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
 	appearance.tableViewCellTextColor = [UIColor whiteColor];
 	appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];

@@ -21,15 +21,20 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
 	HBAppearanceSettings *appearanceSettings = [[self.class alloc] init];
 	appearanceSettings.tintColor = [self.tintColor copy];
+	if (@available(iOS 13, *)) {
+		appearanceSettings.userInterfaceStyle = self.userInterfaceStyle;
+	}
 	appearanceSettings.navigationBarTintColor = [self.navigationBarTintColor copy];
 	appearanceSettings.navigationBarTitleColor = [self.navigationBarTitleColor copy];
 	appearanceSettings.navigationBarBackgroundColor = [self.navigationBarBackgroundColor copy];
-	appearanceSettings.statusBarTintColor = [self.statusBarTintColor copy];
+	appearanceSettings.statusBarStyle = self.statusBarStyle;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+	appearanceSettings.statusBarTintColor = [self.statusBarTintColor copy];
 	appearanceSettings.invertedNavigationBar = self.invertedNavigationBar;
 #pragma clang diagnostic pop
 	appearanceSettings.translucentNavigationBar = self.translucentNavigationBar;
+	appearanceSettings.largeTitleStyle = self.largeTitleStyle;
 	appearanceSettings.tableViewBackgroundColor = [self.tableViewBackgroundColor copy];
 	appearanceSettings.tableViewCellTextColor = [self.tableViewCellTextColor copy];
 	appearanceSettings.tableViewCellBackgroundColor = [self.tableViewCellBackgroundColor copy];

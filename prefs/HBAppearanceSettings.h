@@ -63,6 +63,13 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tintColor;
 
+#ifdef __IPHONE_13_0
+/// The user interface style to use. Set this property to a UIUserInterfaceStyle to use.
+///
+/// @return By default, UIUserInterfaceStyleUnspecified.
+@property (nonatomic, assign) UIUserInterfaceStyle userInterfaceStyle API_AVAILABLE(ios(13.0));
+#endif
+
 /// @name Navigation Bar
 
 /// The tint color to use for the navigation bar buttons, or, if invertedNavigationBar is set, the
@@ -88,12 +95,19 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *navigationBarBackgroundColor;
 
+/// The status bar style to use. Set this property to a UIStatusBarStyle to use.
+///
+/// @return By default, UIStatusBarStyleDefault.
+@property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
+
 /// The color to use for the status bar icons. Set this property to a UIColor to use.
 ///
 /// A nil value will cause no modification of the status bar color to occur.
 ///
 /// @return By default, nil.
-@property (nonatomic, copy, nullable) UIColor *statusBarTintColor;
+/// @warning Setting the status bar to a custom color is no longer possible as of iOS 13. Set
+/// statusBarStyle instead.
+@property (nonatomic, copy, nullable) UIColor *statusBarTintColor __attribute((deprecated("Set statusBarStyle instead.")));
 
 /// Whether to use an inverted navigation bar.
 ///

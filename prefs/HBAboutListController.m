@@ -61,6 +61,12 @@
 		viewController.view.tintColor = self.view.tintColor;
 	}
 
+	if (IS_IOS_OR_NEWER(iOS_13_0)) {
+		if (@available(iOS 13, *)) {
+			viewController.overrideUserInterfaceStyle = self.overrideUserInterfaceStyle;
+		}
+	}
+
 	[self.realNavigationController pushViewController:viewController animated:YES];
 }
 
