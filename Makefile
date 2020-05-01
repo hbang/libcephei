@@ -9,7 +9,6 @@ endif
 
 export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN
 export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
-export ARCHS = armv7 arm64
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 
 RESPRING ?= 1

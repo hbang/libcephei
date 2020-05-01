@@ -1,3 +1,6 @@
+# arm64e not needed here
+ARCHS = armv7 arm64
+
 include $(THEOS)/makefiles/common.mk
 
 TOOL_NAME = defaults
