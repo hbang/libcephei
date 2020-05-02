@@ -37,7 +37,6 @@ Cephei_INSTALL_PATH = @rpath
 Cephei_LOGOSFLAGS = -c generator=internal
 else
 ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
-Cephei_WEAK_LIBRARIES = $(THEOS_VENDOR_LIBRARY_PATH)/librocketbootstrap.dylib
 
 ifeq ($(CEPHEI_SIMULATOR),1)
 Cephei_LOGOSFLAGS = -c generator=internal

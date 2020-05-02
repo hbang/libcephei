@@ -1,3 +1,4 @@
+#define ROCKETBOOTSTRAP_LOAD_DYNAMIC
 #import <LightMessaging/LightMessaging.h>
 
 typedef NS_ENUM(NSUInteger, HBPreferencesIPCMessageType) {
@@ -9,5 +10,5 @@ typedef NS_ENUM(NSUInteger, HBPreferencesIPCMessageType) {
 
 static LMConnection springboardService = {
 	MACH_PORT_NULL,
-	"ws.hbang.common.preferences.springboardserver"
+	"cy:ws.hbang.common.preferences.springboardserver"
 };

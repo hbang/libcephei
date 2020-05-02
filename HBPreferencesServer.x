@@ -21,14 +21,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 		return;
 	}
 
-	// get the raw data sent
-	const void *rawData = LMMessageGetData(request);
-	size_t length = LMMessageGetDataLength(request);
-
-	// translate to NSData, then NSDictionary
-	CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, (const UInt8 *)rawData, length, kCFAllocatorNull);
-	NSDictionary <NSString *, id> *userInfo = LMPropertyListForData((__bridge NSData *)data);
-	CFRelease(data);
+	NSDictionary <NSString *, id> *userInfo = LMResponseConsumePropertyList((LMResponseBuffer *)request);
 
 	// deserialize the parameters
 	NSString *identifier = userInfo[@"Identifier"];
@@ -79,11 +72,6 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 %ctor {
 	// don’t do anything unless we’re in springboard
 	if (![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
-		return;
-	}
-
-	if (!dlopen("/usr/lib/librocketbootstrap.dylib", RTLD_LAZY)) {
-		// welp?
 		return;
 	}
 
