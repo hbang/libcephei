@@ -1,7 +1,7 @@
 #import "HBAboutListController.h"
+#import "HBAppearanceSettings.h"
 #import "HBSupportController.h"
 #import <Preferences/PSSpecifier.h>
-#import <TechSupport/TechSupport.h>
 #import <version.h>
 
 @implementation HBAboutListController
@@ -24,15 +24,11 @@
 	return nil;
 }
 
-+ (nullable TSLinkInstruction *)hb_linkInstruction {
-	if ([self hb_supportEmailAddress]) {
-		return [HBSupportController linkInstructionForEmailAddress:[self hb_supportEmailAddress]];
-	}
-
++ (id)hb_linkInstruction {
 	return nil;
 }
 
-+ (nullable NSArray <TSIncludeInstruction *> *)hb_supportInstructions {
++ (nullable NSArray *)hb_supportInstructions {
 	return nil;
 }
 
@@ -55,10 +51,10 @@
 }
 
 - (void)hb_sendSupportEmail:(nullable PSSpecifier *)specifier {
-	TSContactViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] linkInstruction:[self.class hb_linkInstruction] supportInstructions:[self.class hb_supportInstructions]];
+	UIViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] sendToEmail:[self.class hb_supportEmailAddress]];
 
 	if ([viewController respondsToSelector:@selector(tintColor)]) {
-		viewController.view.tintColor = self.view.tintColor;
+		viewController.view.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
 	}
 
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {

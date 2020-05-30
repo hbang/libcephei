@@ -1,7 +1,6 @@
 #import "HBListController.h"
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
-#import "HBSupportController+Private.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>

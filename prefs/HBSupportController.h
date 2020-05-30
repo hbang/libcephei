@@ -1,75 +1,74 @@
-@import Foundation;
-
-@class TSContactViewController, TSLinkInstruction, TSIncludeInstruction;
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// The `HBSupportController` class in `CepheiPrefs` provides a factory that configures a
-/// `TSContactViewController` for immediate use. The `TSContactViewController` class, from
-/// [TechSupport](https://github.com/ashikase/TechSupport) by ashikase, provides a text box for
-/// entering a message, as well as the ability to view or remove pre-defined attachments. After
-/// tapping the submit button, the information is provided to the next step, which most commonly is
-/// an email composer.
+/// The `HBSupportController` class in `CepheiPrefs` provides a factory that configures an email
+/// composer for package support.
 ///
-/// By providing a link instruction, you can have the message sent to a different email address or
-/// posted to a website. You can also provide one or more support instructions, which allow more
-/// files to be attached. For more information and for examples of `TSContactViewController` usage,
-/// refer to the [demos directory](https://github.com/ashikase/TechSupport/tree/master/Demo) in the
-/// TechSupport source.
-///
-/// A `TSContactViewController` should be pushed on your view controller stack; it should not be 
-/// presented modally.
+/// The resulting view controller should be presented modally; it should not be pushed on a
+/// navigation controller stack.
 
 @interface HBSupportController : NSObject
 
-/// Initialises a `TSLinkInstruction` for the provided email address.
+/// No longer supported. Returns nil.
 ///
-/// @param emailAddress The email address to send an email to.
-/// @return A pre-configured instance of `TSLinkInstruction`.
-+ (TSLinkInstruction *)linkInstructionForEmailAddress:(NSString *)emailAddress;
+/// @return nil.
++ (id)linkInstructionForEmailAddress:(NSString *)emailAddress __attribute((deprecated("TechSupport is no longer supported.")));
 
-/// Initialises a `TSContactViewController` by using information provided by a bundle.
+/// Initialises a Mail composer by using information provided by a bundle.
+///
 /// Refer to supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
 /// for information on how the bundle is used.
 ///
 /// @param bundle A bundle included with the package.
-/// @return A pre-configured instance of `TSContactViewController`.
-/// @see supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
-+ (TSContactViewController *)supportViewControllerForBundle:(NSBundle *)bundle;
+/// @return A pre-configured email composer.
+/// @see supportViewControllerForBundle:preferencesIdentifier:sendToEmail:
++ (UIViewController *)supportViewControllerForBundle:(NSBundle *)bundle __attribute((deprecated("TechSupport is no longer supported.")));
 
-/// Initialises a `TSContactViewController` by using information provided by a bundle and references
-/// identifier.
-/// Refer to supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
-/// for information on how the bundle and preferences identifier are used.
+/// Initialises a Mail composer by using information provided by a bundle and preferences identifier.
+///
+/// Either a bundle or preferences identifier is required. If both are nil, an exception will be
+/// thrown. The email address is derived from the `Author` field of the package’s control file.
+/// `HBSupportController` implicitly adds the user’s package listing (output of `dpkg -l`) and the
+/// preferences plist as attachments.
 ///
 /// @param bundle A bundle included with the package.
 /// @param preferencesIdentifier A preferences identifier that is used by the package.
-/// @return A pre-configured instance of `TSContactViewController`.
-/// @see supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(NSString *)preferencesIdentifier;
+/// @return A pre-configured email composer.
+/// @see supportViewControllerForBundle:preferencesIdentifier:sendToEmail:
++ (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier;
 
-/// Initialises a `TSContactViewController` by using information provided by either a bundle or a
-/// preferences identifier, and providing it a custom link instruction and support instructions.
+/// Initialises a Mail composer by using information provided by a bundle, preferences identifier,
+/// and optional email address.
+///
+/// Either a bundle or preferences identifier is required. If both are nil, an exception will be
+/// thrown. If sendToEmail is nil, the email address is derived from the `Author` field of the
+/// package’s control file. `HBSupportController` implicitly adds the user’s package listing (output
+/// of `dpkg -l`) and the preferences plist as attachments.
+///
+/// @param bundle A bundle included with the package.
+/// @param preferencesIdentifier A preferences identifier that is used by the package.
+/// @param sendToEmail The email address to prefill in the To field. Pass nil to use the email
+/// address from the package.
+/// @return A pre-configured email composer.
++ (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier sendToEmail:(nullable NSString *)sendToEmail;
+
+/// Initialises a Mail composer by using information provided by either a bundle or a preferences
+/// identifier, and providing it a custom link instruction and support instructions.
 ///
 /// The bundle may set the key `HBPackageIdentifier` in its Info.plist, containing the package
 /// identifier to gather information from. Otherwise, the dpkg file lists are searched to find the
 /// package that contains the bundle. The package’s name, identifier, and author will be used to
 /// fill out fields in the information that the user will submit.
-/// 
-/// Either a bundle or preferences identifier is required. If both are nil, an exception will be
-/// thrown. If the `linkInstruction` argument is nil, a `TSLinkInstruction` is derived from the
-/// `Author` field of the package’s control file. `HBSupportController` implicitly adds the user’s
-/// package listing (output of `dpkg -l`) and the preferences plist as attachments. To add more,
-/// provide an array of `TSIncludeInstruction`s to the `supportInstructions` argument.
 ///
 /// @param bundle A bundle included with the package.
 /// @param preferencesIdentifier The preferences identifier of the package, if it’s different from
 /// the package identifier that contains the bundle.
-/// @param linkInstruction The link instruction to use, or nil.
-/// @param supportInstructions Supportinstructions to use in combination with the built-in ones
-/// defined by HBSupportController, or nil.
-/// @return A pre-configured instance of `TSContactViewController`.
-+ (TSContactViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable TSLinkInstruction *)linkInstruction supportInstructions:(nullable NSArray <TSIncludeInstruction *> *)supportInstructions;
+/// @param linkInstruction Ignored.
+/// @param supportInstructions Ignored.
+/// @return A pre-configured email composer.
+/// @see +[HBSupportController supportViewControllerForBundle:preferencesIdentifier:]
++ (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable id)linkInstruction supportInstructions:(nullable NSArray *)supportInstructions __attribute((deprecated("Use +[HBSupportController supportViewControllerForBundle:preferencesIdentifier:].")));
 
 @end
 

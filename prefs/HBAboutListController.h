@@ -1,7 +1,5 @@
 #import "HBListController.h"
 
-@class TSIncludeInstruction;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /// The `HBAboutListController` class in `CepheiPrefs` provides a list controller with functions
@@ -91,18 +89,18 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return By default, nil.
 /// @see HBSupportController
-+ (nullable NSArray <TSIncludeInstruction *> *)hb_supportInstructions;
++ (nullable NSArray *)hb_supportInstructions __attribute((deprecated("TechSupport is no longer supported.")));
 
 /// @name Preference Specifier Actions
 
 /// Opens the user's browser to the URL specified by hb_websiteURL.
 ///
-/// Deprecated. It is encouraged to use an HBLinkTableCell instead.
+/// Deprecated. Use an HBLinkTableCell instead.
 - (void)hb_openWebsite __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// Opens the user's browser to the URL specified by hb_donateURL.
 ///
-/// Deprecated. It is encouraged to use an HBLinkTableCell instead.
+/// Deprecated. Use an HBLinkTableCell instead.
 - (void)hb_openDonate __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// Displays a support composer form.

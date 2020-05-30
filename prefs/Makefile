@@ -10,10 +10,6 @@ CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include Global.h
 CepheiPrefs_INSTALL_PATH = /usr/lib
 
-ifeq ($(filter arm64 arm64e,$(THEOS_CURRENT_ARCH)),$(THEOS_CURRENT_ARCH))
-CepheiPrefs_LIBRARIES = MobileGestalt
-endif
-
 ifeq ($(CEPHEI_EMBEDDED),1)
 CepheiPrefs_INSTALL_PATH = @rpath
 CepheiPrefs_LOGOSFLAGS = -c generator=internal

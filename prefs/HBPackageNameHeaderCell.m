@@ -2,7 +2,6 @@
 #import "HBPackage.h"
 #import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
-#import <TechSupport/TSPackage.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
 #import <objc/runtime.h>
@@ -174,11 +173,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 #pragma mark - Updating
 
 - (void)updateData {
-	// if (!_package) {
-	// 	// i hate pirate repos
-	// 	return;
-	// }
-
 	NSString *name = _nameOverride ?: _name;
 
 	if (![_label respondsToSelector:@selector(setAttributedText:)]) {
