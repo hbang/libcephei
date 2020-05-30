@@ -95,7 +95,16 @@
 		NSError *error = nil;
 		NSString *username = _user.hb_stringByEncodingQueryPercentEscapes;
 		NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
-		NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://avatars.io/twitter/%@/%@", username, size]]] returningResponse:nil error:&error];
+
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://mobile.twitter.com/%@/profile_image?size=%@", username, size]]];
+		// I usually wouldn’t do this, it’s kinda rude to straight up lie and pretend to be a browser
+		// from 20 years ago. But Twitter has made it incredibly hard to get at profile pics, and I’m
+		// pretty sick of something as innocent as a profile photo being impossible to get at without
+		// forcing the app to get the user to authenticate to the API first… which is clearly stupid.
+		// So yeah sorry not sorry Twitter. Be less horrible to the little guys and I’ll change this.
+		// https://github.com/hbang/libcephei/issues/38
+		[request setValue:@"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)" forHTTPHeaderField:@"User-Agent"];
+		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
 
 		if (error) {
 			HBLogError(@"error loading twitter avatar: %@", error);
