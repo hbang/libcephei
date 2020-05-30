@@ -1,5 +1,6 @@
 @import SafariServices;
 #import "HBListController+Actions.h"
+#import "HBAppearanceSettings.h"
 #import "../HBRespringController.h"
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
@@ -44,16 +45,15 @@
 
 	// ensure SafariServices is loaded (if it exists)
 	[[NSBundle bundleWithPath:@"/System/Library/Frameworks/SafariServices.framework"] load];
-	
 	Class $SFSafariViewController = objc_getClass("SFSafariViewController");
 
 	// we can only use SFSafariViewController if it’s available (iOS 9), and the url scheme is http(s)
-	if ($SFSafariViewController && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
+	if ($SFSafariViewController != nil && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
 		// initialise view controller
 		SFSafariViewController *viewController = [[$SFSafariViewController alloc] initWithURL:url];
 
 		// use the same tint color as the presenting view controller
-		viewController.view.tintColor = self.view.tintColor;
+		viewController.view.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
 
 		// present it
 		[self.realNavigationController presentViewController:viewController animated:YES completion:nil];
