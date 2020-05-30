@@ -197,6 +197,18 @@
 			<string>https://hashbang.productions/</string>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>url</key>
+			<string>https://hashbang.productions/</string>
+			<key>avatarURL</key>
+			<string>https://repo.chariz.com/CydiaIcon@3x.png</string>
+			<key>avatarCircular</key>
+			<false/>
+		</dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
@@ -208,7 +220,7 @@
 			<key>label</key>
 			<string>HASHBANG Productions</string>
 			<key>user</key>
-			<string>hbangws</string>
+			<string>hashbang</string>
 		</dict>
 		<dict>
 			<key>big</key>
@@ -220,7 +232,7 @@
 			<key>label</key>
 			<string>HASHBANG Productions</string>
 			<key>user</key>
-			<string>hbangws</string>
+			<string>hashbang</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -230,7 +242,19 @@
 			<key>showAvatar</key>
 			<false/>
 			<key>user</key>
-			<string>hbangws</string>
+			<string>hashbang</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>avatarURL</key>
+			<string>https://github.com/CharizTeam.png</string>
+			<key>avatarCircular</key>
+			<false/>
+			<key>user</key>
+			<string>hashbang</string>
 		</dict>
 		<dict>
 			<key>cell</key>

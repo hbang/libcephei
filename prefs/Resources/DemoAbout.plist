@@ -31,8 +31,6 @@
 			<string>HBLinkTableCell</string>
 			<key>height</key>
 			<integer>64</integer>
-			<key>icon</key>
-			<string>hbang.png</string>
 			<key>label</key>
 			<string>HASHBANG Productions</string>
 			<key>subtitle</key>

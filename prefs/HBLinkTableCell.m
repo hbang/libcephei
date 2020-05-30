@@ -3,6 +3,7 @@
 #import <UIKit/UIColor+Private.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#import <HBLog.h>
 
 @implementation HBLinkTableCell
 
@@ -11,6 +12,8 @@
 
 	if (self) {
 		_isBig = specifier.properties[@"big"] && ((NSNumber *)specifier.properties[@"big"]).boolValue;
+		_isAvatarCircular = specifier.properties[@"avatarCircular"] && ((NSNumber *)specifier.properties[@"avatarCircular"]).boolValue;
+		_avatarURL = [NSURL URLWithString:specifier.properties[@"avatarURL"]];
 
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 
@@ -35,7 +38,8 @@
 			self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
 		}
 
-		if (self.shouldShowAvatar) {
+		self.specifier = specifier;
+		if (self.shouldShowAvatar) {NSLog(@"avatar? %i %@", self.shouldShowAvatar, self.specifier.properties);
 			CGFloat size = _isBig ? 38.f : 29.f;
 
 			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
@@ -47,7 +51,6 @@
 			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
 			_avatarView.userInteractionEnabled = NO;
 			_avatarView.clipsToBounds = YES;
-			_avatarView.layer.cornerRadius = IS_IOS_OR_NEWER(iOS_7_0) ? size / 2 : 4.f;
 			[self.imageView addSubview:_avatarView];
 
 			if (specifier.properties[@"initials"]) {
@@ -68,8 +71,16 @@
 				_avatarImageView.layer.minificationFilter = kCAFilterTrilinear;
 				[_avatarView addSubview:_avatarImageView];
 
+				if (_avatarURL != nil) {
+					if (specifier.properties[@"avatarCircular"] == nil) {
+						_isAvatarCircular = YES;
+					}
+				}
+
 				[self loadAvatarIfNeeded];
 			}
+
+			_avatarView.layer.cornerRadius = IS_IOS_OR_NEWER(iOS_7_0) ? size / 2 : 4.f;
 		}
 	}
 
@@ -83,12 +94,10 @@
 }
 
 - (void)setAvatarImage:(UIImage *)avatarImage {
-	// set the image on the image view
 	_avatarImageView.image = avatarImage;
 
-	// if we haven’t faded in yet
+	// Fade in if we haven’t yet
 	if (_avatarImageView.alpha == 0) {
-		// do so now
 		[UIView animateWithDuration:0.15 animations:^{
 			_avatarImageView.alpha = 1;
 		}];
@@ -96,14 +105,47 @@
 }
 
 - (BOOL)shouldShowAvatar {
-	// if showAvatar is non-nil and YES, use that value. otherwise, if initials
-	// is non-nil, return YES
-	return (self.specifier.properties[@"showAvatar"] && ((NSNumber *)self.specifier.properties[@"showAvatar"]).boolValue) ||
-		self.specifier.properties[@"initials"];
+	// If we were explicitly told to show an avatar, or if we have an avatar URL or initials
+	return (self.specifier.properties[@"showAvatar"] && ((NSNumber *)self.specifier.properties[@"showAvatar"]).boolValue)
+		|| self.specifier.properties[@"avatarURL"] != nil || self.specifier.properties[@"initials"] != nil;
 }
 
 - (void)loadAvatarIfNeeded {
-	// stub for subclasses
+	if (_avatarURL == nil || self.avatarImage != nil) {
+		return;
+	}
+
+	static dispatch_queue_t queue;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		queue = dispatch_queue_create("ws.hbang.common.load-avatar-queue", DISPATCH_QUEUE_SERIAL);
+	});
+
+	dispatch_async(queue, ^{
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_avatarURL];
+		if ([_avatarURL.host rangeOfString:@"twitter.com"].location != NSNotFound) {
+			// I usually wouldn’t do this, it’s kinda rude to straight up lie and pretend to be a browser
+			// from 20 years ago. But Twitter has made it incredibly hard to get at profile pics, and I’m
+			// pretty sick of something as innocent as a profile photo being impossible to get at without
+			// forcing the app to get the user to authenticate to the API first… which is clearly stupid.
+			// So yeah sorry not sorry Twitter. Be less horrible to the little guys and I’ll change this.
+			// https://github.com/hbang/libcephei/issues/38
+			[request setValue:@"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)" forHTTPHeaderField:@"User-Agent"];
+		}
+		NSError *error = nil;
+		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+
+		if (error != nil) {
+			HBLogError(@"Error loading avatar: %@", error);
+			return;
+		}
+
+		UIImage *image = [UIImage imageWithData:data];
+
+		dispatch_async(dispatch_get_main_queue(), ^{
+			self.avatarImage = image;
+		});
+	});
 }
 
 @end

@@ -18,11 +18,19 @@
 /// <th>label</th> <td>Required. The name of the person.</td>
 /// </tr>
 /// <tr>
+/// <th>user</th> <td>Required. The Twitter username of the person.</td>
+/// </tr>
+/// <tr>
 /// <th>showAvatar</th> <td>Optional. Whether to show the avatar of the user. The default is
 /// true.</td>
 /// </tr>
 /// <tr>
-/// <th>user</th> <td>Required. The Twitter username of the person.</td>
+/// <th>avatarURL</th> <td>Optional. The URL to an avatar to display. The default is no value,
+/// meaning to retrieve the avatar for the Twitter username specified in the user property.</td>
+/// </tr>
+/// <tr>
+/// <th>avatarCircular</th> <td>Optional. Whether the avatar should be displayed as a circle. The
+/// default is YES.</td>
 /// </tr>
 /// </table>
 ///
@@ -35,7 +43,7 @@
 /// 	<key>label</key>
 /// 	<string>HASHBANG Productions</string>
 /// 	<key>user</key>
-/// 	<string>hbangws</string>
+/// 	<string>hashbang</string>
 /// </dict>
 ///
 /// <!-- Big size: -->
@@ -49,7 +57,7 @@
 /// 	<key>label</key>
 /// 	<string>HASHBANG Productions</string>
 /// 	<key>user</key>
-/// 	<string>hbangws</string>
+/// 	<string>hashbang</string>
 /// </dict>
 ///
 /// <!-- Without an avatar: -->
@@ -61,7 +69,7 @@
 /// 	<key>showAvatar</key>
 /// 	<false/>
 /// 	<key>user</key>
-/// 	<string>hbangws</string>
+/// 	<string>hashbang</string>
 /// </dict>
 /// ```
 

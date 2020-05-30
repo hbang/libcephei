@@ -19,6 +19,14 @@
 /// <th>subtitle</th> <td>Optional. A subtitle to display below the label. The default is an empty
 /// string, hiding the subtitle.</td>
 /// </tr>
+/// <tr>
+/// <th>avatarURL</th> <td>Optional. The URL to an avatar to display. The default is no value,
+/// hiding the avatar.</td>
+/// </tr>
+/// <tr>
+/// <th>avatarCircular</th> <td>Optional. Whether the avatar should be displayed as a circle. The
+/// default is YES when an avatarURL is set, otherwise this property is unused.</td>
+/// </tr>
 /// </table>
 ///
 /// ### Example Usage
@@ -92,5 +100,18 @@
 
 /// The image to display as the avatar, if enabled.
 @property (nonatomic, retain) UIImage *avatarImage;
+
+/// A URL to load into avatarImage to display as the avatar, if enabled.
+@property (nonatomic, retain) NSURL *avatarURL;
+
+/// Whether the image displays as a circle.
+///
+/// The default is YES if an avatarURL is set in the specifier, otherwise NO.
+@property (nonatomic, readonly) BOOL isAvatarCircular;
+
+/// Display the avatar.
+///
+/// You don’t need to call this unless subclassing.
+- (void)loadAvatarIfNeeded;
 
 @end
