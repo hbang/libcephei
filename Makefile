@@ -85,6 +85,23 @@ docs: stage
 	$(ECHO_NOTHING)rm $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
 	$(ECHO_NOTHING)rm docs/undocumented.json$(ECHO_END)
 
+sdk: stage
+	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating SDK"$(ECHO_END)
+	$(ECHO_NOTHING)rm -r sdk$(ECHO_END)
+	$(ECHO_NOTHING)mkdir -p sdk/{Cephei,CepheiUI,CepheiPrefs}.framework$(ECHO_END)
+	$(ECHO_NOTHING)for i in Cephei CepheiUI CepheiPrefs; do \
+		cp -ra $(THEOS_STAGING_DIR)/usr/lib/$$i.framework/{$$i,Headers} sdk/$$i.framework/; \
+		tbd -p -v1 --ignore-missing-exports \
+			--replace-install-name /Library/Frameworks/$$i.framework/$$i \
+			sdk/$$i.framework/$$i \
+			-o sdk/$$i.framework/$$i.tbd; \
+		rm sdk/$$i.framework/$$i; \
+	done$(ECHO_END)
+	$(ECHO_NOTHING)rm -r $(THEOS_STAGING_DIR)/usr/lib/*.framework/Headers$(ECHO_END)
+	$(ECHO_NOTHING)cp -ra sdk/* $(THEOS_VENDOR_LIBRARY_PATH)$(ECHO_END)
+
 ifeq ($(FINALPACKAGE),1)
-before-package:: docs
+before-package:: docs sdk
 endif
+
+.PHONY: docs sdk
