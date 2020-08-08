@@ -6,9 +6,9 @@ All iOS versions since 5.0 are supported, on all devices.
 Documentation is available at **[hbang.github.io/libcephei](https://hbang.github.io/libcephei/)**.
 
 ## Integrating Cephei into a Theos project
-Cephei is a hidden package in Cydia, so if it’s not already installed, you’ll need to either install something that uses it – try TypeStatus – or use `apt-get install ws.hbang.common` at the command line.
+Cephei is marked as a developer package, so if it’s not already installed, you’ll need to either install something that uses it – try TypeStatus – or use `apt install ws.hbang.common` at the command line.
 
-Theos includes headers and linkable frameworks for Cephei, so you don’t need to worry about copying files over from your device.
+Theos includes headers and linkable frameworks for Cephei, so you don’t need to worry about copying files over from your device. You can also find these as zipped-up SDKs on the [GitHub releases](https://github.com/hbang/libcephei/releases) page.
 
 For all projects that will be using Cephei, add it to the instance’s frameworks list:
 
