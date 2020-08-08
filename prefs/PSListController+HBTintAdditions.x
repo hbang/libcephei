@@ -7,7 +7,7 @@
 #import <UIKit/UIStatusBar.h>
 #import <version.h>
 
-BOOL translucentNavigationBar = NO;
+static BOOL translucentNavigationBar = NO;
 
 @interface PSListController ()
 

@@ -5,7 +5,7 @@
 #import <version.h>
 #include <objc/runtime.h>
 
-Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
+static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 
 @implementation HBDiscreteSliderTableCell
 

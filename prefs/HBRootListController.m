@@ -5,7 +5,7 @@
 #import <version.h>
 #include <objc/runtime.h>
 
-Class $UIActivityViewController, $TWTweetComposeViewController;
+static Class $UIActivityViewController, $TWTweetComposeViewController;
 
 @implementation HBRootListController
 
@@ -71,7 +71,7 @@ Class $UIActivityViewController, $TWTweetComposeViewController;
 		if (!$TWTweetComposeViewController) {
 			$TWTweetComposeViewController = objc_getClass("TWTweetComposeViewController");
 		}
-		
+
 		// if it loaded and we have a twitter account, instantiate a tweet composer. otherwise, just
 		// open the twitter website
 		if ($TWTweetComposeViewController && [$TWTweetComposeViewController canSendTweet]) {

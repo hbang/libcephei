@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 
 NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNotification";
 
-NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
+static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 @implementation HBPreferencesCore {
 	NSMutableDictionary <NSString *, id> *_lastSeenValues;

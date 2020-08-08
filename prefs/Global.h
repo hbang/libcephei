@@ -6,4 +6,4 @@
 
 #pragma mark - Variables
 
-extern NSBundle *globalBundle;
+static NSBundle *globalBundle;

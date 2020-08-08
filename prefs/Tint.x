@@ -12,7 +12,7 @@
 
 @end
 
-BOOL animateBarTintColor = NO;
+static BOOL animateBarTintColor = NO;
 
 %hook UINavigationBar
 

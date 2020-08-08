@@ -1,6 +1,6 @@
 @import Foundation;
 
-NSBundle *globalBundle;
+static NSBundle *globalBundle;
 
 __attribute__((constructor))
 static void cepheiInit() {
