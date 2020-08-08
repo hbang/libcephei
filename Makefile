@@ -90,14 +90,15 @@ docs: stage
 sdk: stage
 	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating SDK"$(ECHO_END)
 	$(ECHO_NOTHING)rm -rf $(CEPHEI_SDK_DIR) $(notdir $(CEPHEI_SDK_DIR)).zip$(ECHO_END)
-	$(ECHO_NOTHING)mkdir -p $(CEPHEI_SDK_DIR)/{Cephei,CepheiUI,CepheiPrefs}.framework$(ECHO_END)
 	$(ECHO_NOTHING)for i in Cephei CepheiUI CepheiPrefs; do \
+		mkdir -p $(CEPHEI_SDK_DIR)/$$i.framework; \
 		cp -ra $(THEOS_STAGING_DIR)/usr/lib/$$i.framework/{$$i,Headers} $(CEPHEI_SDK_DIR)/$$i.framework/; \
 		tbd -p -v1 --ignore-missing-exports \
 			--replace-install-name /Library/Frameworks/$$i.framework/$$i \
 			$(CEPHEI_SDK_DIR)/$$i.framework/$$i \
 			-o $(CEPHEI_SDK_DIR)/$$i.framework/$$i.tbd; \
 		rm $(CEPHEI_SDK_DIR)/$$i.framework/$$i; \
+		rm -rf $(THEOS_VENDOR_LIBRARY_PATH)/$$i.framework; \
 	done$(ECHO_END)
 	$(ECHO_NOTHING)rm -r $(THEOS_STAGING_DIR)/usr/lib/*.framework/Headers$(ECHO_END)
 	$(ECHO_NOTHING)cp -ra $(CEPHEI_SDK_DIR)/* $(THEOS_VENDOR_LIBRARY_PATH)$(ECHO_END)
