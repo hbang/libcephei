@@ -1,7 +1,7 @@
 Package: ws.hbang.common
 Name: Cephei Tweak Support
 Depends: firmware (<< 8.0) | mobilesubstrate (>= 0.9.7000) | com.rpetrich.rocketbootstrap, firmware (<< 8.0) | mobilesubstrate (<< 99) | com.rpetrich.rocketbootstrap
-Version: 1.15.2
+Version: 1.15.3
 Architecture: iphoneos-arm
 Description: Support library for tweaks
 Maintainer: HASHBANG Productions <support@hbang.ws>
