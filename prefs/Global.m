@@ -1,8 +1,8 @@
 @import Foundation;
 
-static NSBundle *globalBundle;
+NSBundle *cepheiGlobalBundle;
 
 __attribute__((constructor))
 static void cepheiInit() {
-	globalBundle = [NSBundle bundleWithPath:@"/Library/PreferenceBundles/Cephei.bundle"];
+	cepheiGlobalBundle = [NSBundle bundleWithPath:@"/Library/PreferenceBundles/Cephei.bundle"];
 }

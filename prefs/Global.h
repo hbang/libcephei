@@ -2,8 +2,8 @@
 
 #pragma mark - Macros
 
-#define LOCALIZE(key, table, comment) NSLocalizedStringFromTableInBundle(key, table ?: @"Localizable", globalBundle, comment)
+#define LOCALIZE(key, table, comment) NSLocalizedStringFromTableInBundle(key, table ?: @"Localizable", cepheiGlobalBundle, comment)
 
 #pragma mark - Variables
 
-static NSBundle *globalBundle;
+extern NSBundle *cepheiGlobalBundle;

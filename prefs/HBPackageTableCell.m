@@ -21,7 +21,7 @@
 
 	if (self) {
 		UIImageView *imageView = (UIImageView *)self.accessoryView;
-		imageView.image = [UIImage imageNamed:@"package" inBundle:globalBundle];
+		imageView.image = [UIImage imageNamed:@"package" inBundle:cepheiGlobalBundle];
 		[imageView sizeToFit];
 
 		self.avatarView.layer.cornerRadius = 4.f;

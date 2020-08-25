@@ -39,7 +39,7 @@ static Class $UIActivityViewController, $TWTweetComposeViewController;
 				}
 			}
 			if (icon == nil) {
-				icon = [UIImage imageNamed:@"heart" inBundle:globalBundle];
+				icon = [UIImage imageNamed:@"heart" inBundle:cepheiGlobalBundle];
 			}
 			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)];
 		} else {

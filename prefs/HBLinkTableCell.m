@@ -17,7 +17,7 @@
 
 		self.selectionStyle = UITableViewCellSelectionStyleBlue;
 
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:globalBundle]];
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:cepheiGlobalBundle]];
 		if (IS_IOS_OR_NEWER(iOS_7_0)) {
 			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		}

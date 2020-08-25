@@ -8,13 +8,15 @@
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
 	NSString *string = %orig;
 
-	if ((!string || [string isEqualToString:key] || [string isEqualToString:value]) && [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
-		if (self != globalBundle) {
-			string = [globalBundle localizedStringForKey:key value:value table:tableName];
-		}
+	if (cepheiGlobalBundle != nil) {
+		if ((string == nil || [string isEqualToString:key] || [string isEqualToString:value]) && [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
+			if (self != cepheiGlobalBundle) {
+				string = [cepheiGlobalBundle localizedStringForKey:key value:value table:tableName];
+			}
 
-		if ((!string || [string isEqualToString:key] || [string isEqualToString:value]) && self != globalBundle) {
-			string = [globalBundle localizedStringForKey:key value:value table:@"Common"];
+			if ((string == nil || [string isEqualToString:key] || [string isEqualToString:value]) && self != cepheiGlobalBundle) {
+				string = [cepheiGlobalBundle localizedStringForKey:key value:value table:@"Common"];
+			}
 		}
 	}
 
