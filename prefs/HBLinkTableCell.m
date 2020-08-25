@@ -39,7 +39,7 @@
 		}
 
 		self.specifier = specifier;
-		if (self.shouldShowAvatar) {NSLog(@"avatar? %i %@", self.shouldShowAvatar, self.specifier.properties);
+		if (self.shouldShowAvatar) {
 			CGFloat size = _isBig ? 38.f : 29.f;
 
 			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
