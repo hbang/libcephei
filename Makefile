@@ -55,9 +55,12 @@ after-Cephei-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@# create directories
 	$(ECHO_NOTHING)mkdir -p \
-		$(THEOS_STAGING_DIR)/usr/lib \
+		$(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/usr/{include,lib} \
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
 		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
+
+	@# postinst -> DEBIAN/postinst
+	$(ECHO_NOTHING)cp postinst $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
 
 	@# /usr/lib/Cephei.framework -> /Library/Frameworks/Cephei.framework
 	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework$(ECHO_END)
