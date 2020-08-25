@@ -1,14 +1,14 @@
 Package: ws.hbang.common
 Name: Cephei Tweak Support
 Depends: firmware (<< 8.0) | mobilesubstrate (>= 0.9.7000) | com.rpetrich.rocketbootstrap, firmware (<< 8.0) | mobilesubstrate (<< 99) | com.rpetrich.rocketbootstrap
-Version: 1.15.1
+Version: 1.15.2
 Architecture: iphoneos-arm
 Description: Support library for tweaks
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Development
 Icon: https://chariz.com/cdn/icon/cephei/icon@3x.png
-Depiction: https://repo.chariz.com/package/ws.hbang.common/
+Depiction: https://chariz.com/get/cephei
 Support: https://hashbang.productions/support/
 Tag: role::developer, compatible_min::ios5.0
 dev: hbang
