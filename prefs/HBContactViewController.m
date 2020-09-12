@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	if (self.navigationController == nil || self.navigationController.viewControllers.count == 1) {
+	if (IS_IOS_OR_NEWER(iOS_8_0) && (self.navigationController == nil || self.navigationController.viewControllers.count == 1)) {
 		self.view.hidden = YES;
 	}
 }
@@ -42,15 +42,17 @@
 		NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
 		NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
 		if (IS_IOS_OR_NEWER(iOS_9_0)) {
-			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:body delegate:nil cancelButtonTitle:ok otherButtonTitles:nil];
-			[alertView show];
-			[self _dismiss];
-		} else {
 			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
-			[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 				[self _dismiss];
 			}]];
-			[self.navigationController presentViewController:alertController animated:YES completion:nil];
+			[self presentViewController:alertController animated:YES completion:nil];
+		} else {
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:body delegate:nil cancelButtonTitle:ok otherButtonTitles:nil];
+			[alertView show];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self _dismiss];
+			});
 		}
 		return;
 	}

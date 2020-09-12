@@ -3,6 +3,7 @@
 #import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
+#import <version.h>
 
 @implementation HBDemoRootListController
 
@@ -25,23 +26,25 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	UIColor *purpleColor = [UIColor respondsToSelector:@selector(systemPurpleColor)] ? [UIColor systemPurpleColor] : [UIColor purpleColor];
 
 	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
-	appearance.tintColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
-	if (@available(iOS 13, *)) {
-		appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
+	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+		UIColor *purpleColor = [UIColor respondsToSelector:@selector(systemPurpleColor)] ? [UIColor systemPurpleColor] : [UIColor purpleColor];
+		appearance.tintColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+		if (@available(iOS 13, *)) {
+			appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
+		}
+		appearance.navigationBarTintColor = [UIColor systemYellowColor];
+		appearance.navigationBarBackgroundColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+		appearance.navigationBarTitleColor = [UIColor whiteColor];
+		appearance.statusBarStyle = UIStatusBarStyleLightContent;
+		appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
+		appearance.tableViewCellTextColor = [UIColor whiteColor];
+		appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];
+		appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:38.f / 255.f alpha:1];
+		appearance.tableViewCellSelectionColor = [UIColor colorWithWhite:46.f / 255.f alpha:1];
+		appearance.tableViewBackgroundColor = [UIColor colorWithWhite:44.f / 255.f alpha:1];
 	}
-	appearance.navigationBarTintColor = [UIColor systemYellowColor];
-	appearance.navigationBarBackgroundColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
-	appearance.navigationBarTitleColor = [UIColor whiteColor];
-	appearance.statusBarStyle = UIStatusBarStyleLightContent;
-	appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
-	appearance.tableViewCellTextColor = [UIColor whiteColor];
-	appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];
-	appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:38.f / 255.f alpha:1];
-	appearance.tableViewCellSelectionColor = [UIColor colorWithWhite:46.f / 255.f alpha:1];
-	appearance.tableViewBackgroundColor = [UIColor colorWithWhite:44.f / 255.f alpha:1];
 	self.hb_appearanceSettings = appearance;
 }
 
