@@ -9,8 +9,9 @@
 	self = [super init];
 
 	if (self) {
-		// set defaults. everything else is either nil or NO, which are set implicitly by objc
+		// Set defaults. Everything else is either nil or NO, which is implicit.
 		_translucentNavigationBar = IS_IOS_OR_NEWER(iOS_7_0);
+		_showsNavigationBarShadow = YES;
 	}
 
 	return self;
@@ -34,6 +35,7 @@
 	appearanceSettings.invertedNavigationBar = self.invertedNavigationBar;
 #pragma clang diagnostic pop
 	appearanceSettings.translucentNavigationBar = self.translucentNavigationBar;
+	appearanceSettings.showsNavigationBarShadow = self.showsNavigationBarShadow;
 	appearanceSettings.largeTitleStyle = self.largeTitleStyle;
 	appearanceSettings.tableViewBackgroundColor = [self.tableViewBackgroundColor copy];
 	appearanceSettings.tableViewCellTextColor = [self.tableViewCellTextColor copy];

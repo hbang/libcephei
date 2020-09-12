@@ -133,6 +133,9 @@ static BOOL translucentNavigationBar = NO;
 		newAppearance.backgroundColor = backgroundColor;
 		newAppearance.titleTextAttributes = titleTextAttributes;
 		newAppearance.largeTitleTextAttributes = largeTitleTextAttributes;
+		if (!self.hb_appearanceSettings.showsNavigationBarShadow) {
+			newAppearance.shadowColor = nil;
+		}
 		return newAppearance;
 	}
 	return nil;

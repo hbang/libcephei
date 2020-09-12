@@ -38,6 +38,7 @@
 		appearance.navigationBarBackgroundColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
 		appearance.navigationBarTitleColor = [UIColor whiteColor];
 		appearance.statusBarStyle = UIStatusBarStyleLightContent;
+		appearance.showsNavigationBarShadow = NO;
 		appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
 		appearance.tableViewCellTextColor = [UIColor whiteColor];
 		appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.f / 255.f alpha:1];

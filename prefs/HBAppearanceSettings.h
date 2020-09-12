@@ -122,6 +122,13 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 /// @return By default, YES.
 @property (nonatomic, assign) BOOL translucentNavigationBar;
 
+/// Whether to show the shadow (separator line) at the bottom of the navigation bar.
+///
+/// Requires iOS 13 or later.
+///
+/// @return By default, YES.
+@property (nonatomic, assign) BOOL showsNavigationBarShadow;
+
 /// Whether to use a large title on iOS 11 and newer. Set this property to a value from
 /// HBAppearanceSettingsLargeTitleStyle.
 ///
