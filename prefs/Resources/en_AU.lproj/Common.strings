@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Donate</string>
+	<string>Tip Jar</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Please consider showing your appreciation for this tweak with a donation.</string>
+	<string>Please consider showing your appreciation for this tweak with a small donation to the tip jar.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
