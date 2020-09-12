@@ -1,4 +1,5 @@
 #import "HBContactViewController.h"
+#import "HBAppearanceSettings.h"
 #import "../HBOutputForShellCommand.h"
 #import <version.h>
 @import MessageUI;
@@ -17,6 +18,14 @@
 		self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 	}
 	return self;
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	if (self.navigationController == nil || self.navigationController.viewControllers.count == 1) {
+		self.view.hidden = YES;
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,15 +65,17 @@
 		[viewController addAttachmentData:_preferencesPlist mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"preferences-%@.plist", _preferencesIdentifier]];
 	}
 	if ([viewController.view respondsToSelector:@selector(tintColor)]) {
+		viewController.navigationBar.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
+		viewController.navigationBar.barTintColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
 		viewController.view.tintColor = self.view.tintColor;
 	}
 
-	[self.navigationController presentViewController:viewController animated:YES completion:nil];
+	[self presentViewController:viewController animated:YES completion:nil];
 	_hasShown = YES;
 }
 
 - (void)_dismiss {
-	if (self.navigationController.viewControllers.count == 1) {
+	if (self.navigationController == nil || self.navigationController.viewControllers.count == 1) {
 		[self dismissViewControllerAnimated:NO completion:nil];
 	} else {
 		[self.realNavigationController popViewControllerAnimated:YES];

@@ -1,6 +1,7 @@
 #import "HBAboutListController.h"
 #import "HBAppearanceSettings.h"
 #import "HBSupportController.h"
+#import "HBContactViewController.h"
 #import <Preferences/PSSpecifier.h>
 #import <version.h>
 
@@ -51,11 +52,8 @@
 }
 
 - (void)hb_sendSupportEmail:(nullable PSSpecifier *)specifier {
-	UIViewController *viewController = [HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] sendToEmail:[self.class hb_supportEmailAddress]];
-
-	if ([viewController respondsToSelector:@selector(tintColor)]) {
-		viewController.view.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
-	}
+	HBContactViewController *viewController = (HBContactViewController *)[HBSupportController supportViewControllerForBundle:[NSBundle bundleForClass:self.class] preferencesIdentifier:specifier.properties[@"defaults"] sendToEmail:[self.class hb_supportEmailAddress]];
+	viewController.hb_appearanceSettings = self.hb_appearanceSettings;
 
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {
 		if (@available(iOS 13, *)) {
@@ -63,7 +61,7 @@
 		}
 	}
 
-	[self.realNavigationController pushViewController:viewController animated:YES];
+	[self.realNavigationController presentViewController:viewController animated:NO completion:nil];
 }
 
 @end
