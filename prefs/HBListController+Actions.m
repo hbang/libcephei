@@ -38,11 +38,27 @@
 
 - (void)hb_openURL:(PSSpecifier *)specifier {
 	// get the url from the specifier
-	NSURL *url = [NSURL URLWithString:specifier.properties[@"url"]];
+	NSURL *url = specifier.properties[@"url"];
+	if ([url isKindOfClass:NSString.class]) {
+		url = [NSURL URLWithString:(NSString *)url];
+	}
 
 	// if the url is nil, assert
-	NSAssert(url, @"No URL was provided, or it is invalid.");
+	NSAssert(url != nil && [url isKindOfClass:NSURL.class], @"No URL was provided, or it is invalid.");
 
+	if ([UIApplication instancesRespondToSelector:@selector(openURL:options:completionHandler:)]) {
+		// Attempt to open as a universal link, falling back to open in browser.
+		[[UIApplication sharedApplication] openURL:url options:@{ UIApplicationOpenURLOptionUniversalLinksOnly: @YES } completionHandler:^(BOOL success) {
+			if (!success) {
+				[self _hb_openURLInBrowser:url];
+			}
+		}];
+	} else {
+		[self _hb_openURLInBrowser:url];
+	}
+}
+
+- (void)_hb_openURLInBrowser:(NSURL *)url {
 	// ensure SafariServices is loaded (if it exists)
 	[[NSBundle bundleWithPath:@"/System/Library/Frameworks/SafariServices.framework"] load];
 	Class $SFSafariViewController = objc_getClass("SFSafariViewController");
@@ -53,7 +69,10 @@
 		SFSafariViewController *viewController = [[$SFSafariViewController alloc] initWithURL:url];
 
 		// use the same tint color as the presenting view controller
-		viewController.view.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
+		if ([viewController respondsToSelector:@selector(setPreferredControlTintColor:)]) {
+			viewController.preferredControlTintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
+			viewController.preferredBarTintColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
+		}
 
 		// present it
 		[self.realNavigationController presentViewController:viewController animated:YES completion:nil];
