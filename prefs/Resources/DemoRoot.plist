@@ -205,10 +205,88 @@
 			<string>HASHBANG Productions</string>
 			<key>url</key>
 			<string>https://hashbang.productions/</string>
-			<key>avatarURL</key>
+			<key>iconURL</key>
 			<string>https://repo.chariz.com/CydiaIcon@3x.png</string>
-			<key>avatarCircular</key>
-			<false/>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>subtitle</key>
+			<string>They seem like a pretty cool bunch</string>
+			<key>url</key>
+			<string>https://hashbang.productions/</string>
+			<key>iconURL</key>
+			<string>https://repo.chariz.com/CydiaIcon@3x.png</string>
+			<key>iconCircular</key>
+			<true/>
+			<key>big</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>subtitle</key>
+			<string>They seem like a pretty cool bunch</string>
+			<key>url</key>
+			<string>https://hashbang.productions/</string>
+			<key>iconURL</key>
+			<string>https://repo.chariz.com/CydiaIcon@3x.png</string>
+			<key>big</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>HBPackageTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBPackageTableCell</string>
+			<key>label</key>
+			<string>Cephei</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.common</string>
+			<key>iconCornerRadius</key>
+			<integer>12</integer>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBPackageTableCell</string>
+			<key>label</key>
+			<string>Cephei</string>
+			<key>subtitle</key>
+			<string>Cephei is awesome!</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.common</string>
+			<key>iconURL</key>
+			<string>https://repo.chariz.com/CydiaIcon@3x.png</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBPackageTableCell</string>
+			<key>label</key>
+			<string>TypeStatus</string>
+			<key>subtitle</key>
+			<string>TypeStatus is also awesome!</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.typestatus2</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBPackageTableCell</string>
+			<key>label</key>
+			<string>Quanta</string>
+			<key>subtitle</key>
+			<string>Quanta is hyper awesome!</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.quanta</string>
+			<key>packageRepository</key>
+			<string>https://repo.chariz.com/</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -253,10 +331,20 @@
 			<string>HBTwitterCell</string>
 			<key>label</key>
 			<string>HASHBANG Productions</string>
-			<key>avatarURL</key>
+			<key>iconURL</key>
 			<string>https://github.com/CharizTeam.png</string>
-			<key>avatarCircular</key>
+			<key>iconCircular</key>
 			<false/>
+			<key>user</key>
+			<string>hashbang</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>initials</key>
+			<string>HB</string>
 			<key>user</key>
 			<string>hashbang</string>
 		</dict>

@@ -1,6 +1,10 @@
 #import "HBListController.h"
+#import "HBListController+Actions.h"
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
+#import "HBPackageTableCell.h"
+#import "HBTwitterCell.h"
+#import "HBTwitterAPIClient.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import <Preferences/PSSpecifier.h>
@@ -47,21 +51,32 @@
 	return _specifiers;
 }
 
+- (NSMutableArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target {
+	// Override the loading mechanism so we can add additional features.
+	NSMutableArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target];
+	return [self _hb_configureSpecifiers:specifiers];
+}
+
 - (NSMutableArray *)loadSpecifiersFromPlistName:(NSString *)plistName target:(PSListController *)target bundle:(NSBundle *)bundle {
-	// override the loading mechanism so we can add additional features
+	// Override the loading mechanism so we can add additional features.
 	NSMutableArray *specifiers = [super loadSpecifiersFromPlistName:plistName target:target bundle:bundle];
+	return [self _hb_configureSpecifiers:specifiers];
+}
+
+- (NSMutableArray *)_hb_configureSpecifiers:(NSMutableArray *)specifiers {
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
+	NSMutableArray <NSString *> *twitterUsernames = [NSMutableArray array];
+	NSMutableArray <NSString *> *twitterUserIDs = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
-		// we provide a CF version filter here, originally by calling through to libprefs, but meh. it’s
-		// simple enough i might as well provide it myself
+		// Reimplementation of libprefs (from PreferenceLoader) pl_filter.
+		// When there is 1 item in CoreFoundationVersion: This number is the minimum bound.
+		// When there are 2 items in CoreFoundationVersion: First item is min bound, second is max bound.
 		NSDictionary *filters = specifier.properties[@"pl_filter"];
 
 		if (filters && filters[@"CoreFoundationVersion"]) {
 			NSArray <NSNumber *> *versionFilter = filters[@"CoreFoundationVersion"];
 
-			// array with 1 item means there’s only a minimum bounds. array with 2 items means there’s a
-			// min and max bounds
 			double min = versionFilter[0] ? ((NSNumber *)versionFilter[0]).doubleValue : DBL_MIN;
 			double max = versionFilter.count > 1 && versionFilter[1] ? ((NSNumber *)versionFilter[1]).doubleValue : DBL_MAX;
 
@@ -74,12 +89,23 @@
 		Class cellClass = specifier.properties[PSCellClassKey];
 
 		// if it’s HBLinkTableCell, override the type and action to our own
-		if ([cellClass isSubclassOfClass:HBLinkTableCell.class]) {
+		if ([cellClass isSubclassOfClass:HBLinkTableCell.class] && specifier.buttonAction == nil) {
 			specifier.cellType = PSLinkCell;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-			specifier.buttonAction = @selector(hb_openURL:);
-#pragma clang diagnostic pop
+			if ([cellClass isSubclassOfClass:HBPackageTableCell.class]) {
+				specifier.buttonAction = @selector(hb_openPackage:);
+			} else {
+				specifier.buttonAction = @selector(hb_openURL:);
+			}
+			if ([cellClass isSubclassOfClass:HBTwitterCell.class]) {
+				if (specifier.properties[@"userID"] != nil) {
+					[twitterUserIDs addObject:specifier.properties[@"userID"]];
+				} else if (specifier.properties[@"user"] != nil) {
+					[twitterUsernames addObject:specifier.properties[@"user"]];
+				}
+			}
+			if (!IS_IOS_OR_NEWER(iOS_8_0)) {
+				specifier.controllerLoadAction = specifier.buttonAction;
+			}
 		}
 	}
 
@@ -93,6 +119,11 @@
 
 		// and assign it to specifiers again
 		specifiers = newSpecifiers;
+	}
+
+	if (twitterUsernames.count > 0 || twitterUserIDs.count > 0) {
+		// Queue up all Twitter usernames/user IDs at once so we can bulk load them for performance.
+		[[HBTwitterAPIClient sharedInstance] queueLookupsForUsernames:twitterUsernames userIDs:twitterUserIDs];
 	}
 
 	return specifiers;

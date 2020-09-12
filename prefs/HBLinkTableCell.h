@@ -10,9 +10,6 @@
 /// ### Specifier Parameters
 /// <table>
 /// <tr>
-/// <th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
-/// </tr>
-/// <tr>
 /// <th>url</th> <td>Required. The URL to open.</td>
 /// </tr>
 /// <tr>
@@ -20,12 +17,20 @@
 /// string, hiding the subtitle.</td>
 /// </tr>
 /// <tr>
-/// <th>avatarURL</th> <td>Optional. The URL to an avatar to display. The default is no value,
-/// hiding the avatar.</td>
+/// <th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
 /// </tr>
 /// <tr>
-/// <th>avatarCircular</th> <td>Optional. Whether the avatar should be displayed as a circle. The
-/// default is YES when an avatarURL is set, otherwise this property is unused.</td>
+/// <th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value,
+/// hiding the image.</td>
+/// </tr>
+/// <tr>
+/// <th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
+/// default is NO when an iconURL is set, otherwise this property is unused.</td>
+/// </tr>
+/// <tr>
+/// <th>iconCornerRadius</th> <td>Optional. A custom corner radius to use for the icon. Ignored
+/// if iconCircular is set to true. If set to -1, the operating system’s default icon corner radius
+/// is used. The default is -1.</td>
 /// </tr>
 /// </table>
 ///
@@ -92,26 +97,26 @@
 /// (see examples above).
 @property (nonatomic, readonly) BOOL isBig;
 
-/// The view containing the avatar image view.
-@property (nonatomic, retain, readonly) UIView *avatarView;
+/// The view containing the icon image view.
+@property (nonatomic, retain, readonly) UIView *iconView;
 
-/// The avatar image view.
-@property (nonatomic, retain, readonly) UIImageView *avatarImageView;
+/// The icon image view.
+@property (nonatomic, retain, readonly) UIImageView *iconImageView;
 
-/// The image to display as the avatar, if enabled.
-@property (nonatomic, retain) UIImage *avatarImage;
+/// The image to display as the icon, if enabled.
+@property (nonatomic, retain) UIImage *iconImage;
 
-/// A URL to load into avatarImage to display as the avatar, if enabled.
-@property (nonatomic, retain) NSURL *avatarURL;
+/// A URL to load into iconImage to display as the icon, if enabled.
+@property (nonatomic, retain) NSURL *iconURL;
 
 /// Whether the image displays as a circle.
 ///
-/// The default is YES if an avatarURL is set in the specifier, otherwise NO.
-@property (nonatomic, readonly) BOOL isAvatarCircular;
+/// The default is YES if an iconURL is set in the specifier, otherwise NO.
+@property (nonatomic, readonly) BOOL isIconCircular;
 
-/// Display the avatar.
+/// Load and display the icon.
 ///
 /// You don’t need to call this unless subclassing.
-- (void)loadAvatarIfNeeded;
+- (void)loadIconIfNeeded;
 
 @end

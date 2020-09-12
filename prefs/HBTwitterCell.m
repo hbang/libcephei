@@ -19,7 +19,7 @@
 
 @interface HBLinkTableCell ()
 
-- (BOOL)shouldShowAvatar;
+- (BOOL)shouldShowIcon;
 
 @end
 
@@ -46,15 +46,18 @@
 	NSString *userName = [specifier.properties[@"user"] copy];
 	NSString *userID = [specifier.properties[@"userID"] copy];
 
-	if (specifier.properties[@"avatarURL"] == nil) {
+	if (specifier.properties[@"iconURL"] == nil) {
 		if (USE_TWITTER_API_CLIENT) {
 			NSAssert(userName != nil || userID != nil, @"user or userID not provided");
 		} else {
 			NSAssert(userName != nil, @"user not provided");
 			NSString *escapedUsername = userName.hb_stringByEncodingQueryPercentEscapes;
 			NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
-			specifier.properties[@"avatarURL"] = [NSString stringWithFormat:@"https://mobile.twitter.com/%@/profile_image?size=%@", escapedUsername, size];
+			specifier.properties[@"iconURL"] = [NSString stringWithFormat:@"https://mobile.twitter.com/%@/profile_image?size=%@", escapedUsername, size];
 		}
+	}
+	if (specifier.properties[@"iconCircular"] == nil) {
+		specifier.properties[@"iconCircular"] = @YES;
 	}
 	specifier.properties[@"url"] = [self.class _urlForUsername:userName userID:userID];
 
@@ -82,10 +85,10 @@
 	return self;
 }
 
-- (BOOL)shouldShowAvatar {
-	// HBLinkTableCell doesn’t want avatars by default, but we do. override its check method so that
-	// if showAvatar is unset, we return YES
-	return self.specifier.properties[@"showAvatar"] ? [super shouldShowAvatar] : YES;
+- (BOOL)shouldShowIcon {
+	// HBLinkTableCell doesn’t want avatars by default, but we do. Override its check method so that
+	// if showAvatar and showIcon are unset, we return YES.
+	return self.specifier.properties[@"showAvatar"] || self.specifier.properties[@"showIcon"] ? [super shouldShowIcon] : YES;
 }
 
 #ifdef CEPHEI_TWITTER_BEARER_TOKEN
@@ -98,14 +101,14 @@
 
 - (void)twitterAPIClientDidLoadUsername:(NSString *)username profileImage:(UIImage *)profileImage {
 	dispatch_async(dispatch_get_main_queue(), ^{
-		self.avatarImage = profileImage;
+		self.iconImage = profileImage;
 		_user = username;
 		self.detailTextLabel.text = [@"@" stringByAppendingString:username];
 	});
 }
 
 - (void)dealloc {
-	[[HBTwitterAPIClient sharedInstance] removeDelegate:self forUsername:self.specifier.properties[@"user"] userID:self.specifier.properties[@"userID"]];
+	[[HBTwitterAPIClient sharedInstance] removeDelegate:self forUsername:nil userID:nil];
 }
 #endif
 

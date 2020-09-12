@@ -39,14 +39,16 @@
 			<string>VISIT_WEBSITE</string>
 			<key>url</key>
 			<string>https://hashbang.productions/</string>
+			<key>iconURL</key>
+			<string>https://hashbang.productions/favicon.ico</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Follow Us</string>
 		</dict>
 		<dict>
-			<key>big</key>
-			<true/>
 			<key>cellClass</key>
 			<string>HBTwitterCell</string>
 			<key>label</key>
@@ -57,10 +59,14 @@
 			<string>945654024</string>
 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>DEVELOPER</string>
+			<string>Chariz</string>
+			<key>user</key>
+			<string>CharizTeam</string>
+			<key>userID</key>
+			<string>3066301983</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>

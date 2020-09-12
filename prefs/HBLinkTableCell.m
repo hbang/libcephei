@@ -11,11 +11,13 @@
 	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		_isBig = specifier.properties[@"big"] && ((NSNumber *)specifier.properties[@"big"]).boolValue;
-		_isAvatarCircular = specifier.properties[@"avatarCircular"] && ((NSNumber *)specifier.properties[@"avatarCircular"]).boolValue;
-		_avatarURL = [NSURL URLWithString:specifier.properties[@"avatarURL"]];
+		_isBig = specifier.properties[@"big"] ? ((NSNumber *)specifier.properties[@"big"]).boolValue : NO;
+		_iconURL = specifier.properties[@"iconURL"];
+		if ([_iconURL isKindOfClass:NSString.class]) {
+			_iconURL = [NSURL URLWithString:(NSString *)_iconURL];
+		}
 
-		self.selectionStyle = UITableViewCellSelectionStyleBlue;
+		self.selectionStyle = IS_IOS_OR_NEWER(iOS_7_0) ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleBlue;
 
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:cepheiGlobalBundle]];
 		if (IS_IOS_OR_NEWER(iOS_7_0)) {
@@ -39,91 +41,101 @@
 		}
 
 		self.specifier = specifier;
-		if (self.shouldShowAvatar) {
-			CGFloat size = _isBig ? 38.f : 29.f;
-
-			UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, [UIScreen mainScreen].scale);
+		if (self.shouldShowIcon) {
+			CGFloat iconSize = _isBig ? 40.f : 29.f;
+			UIGraphicsBeginImageContextWithOptions(CGSizeMake(iconSize, iconSize), NO, [UIScreen mainScreen].scale);
 			specifier.properties[@"iconImage"] = UIGraphicsGetImageFromCurrentImageContext();
 			UIGraphicsEndImageContext();
 
-			_avatarView = [[UIView alloc] initWithFrame:self.imageView.bounds];
-			_avatarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-			_avatarView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
-			_avatarView.userInteractionEnabled = NO;
-			_avatarView.clipsToBounds = YES;
-			[self.imageView addSubview:_avatarView];
+			_iconView = [[UIView alloc] initWithFrame:self.imageView.bounds];
+			_iconView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+			_iconView.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1];
+			_iconView.userInteractionEnabled = NO;
+			_iconView.clipsToBounds = YES;
+			[self.imageView addSubview:_iconView];
 
 			if (specifier.properties[@"initials"]) {
-				_avatarView.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1];
+				_iconView.backgroundColor = [UIColor colorWithWhite:0.7f alpha:1];
 
-				UILabel *label = [[UILabel alloc] initWithFrame:_avatarView.bounds];
+				UILabel *label = [[UILabel alloc] initWithFrame:_iconView.bounds];
 				label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 				label.font = [UIFont systemFontOfSize:13.f];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.textColor = [UIColor whiteColor];
 				label.text = specifier.properties[@"initials"];
-				[_avatarView addSubview:label];
+				[_iconView addSubview:label];
 			} else {
-				_avatarImageView = [[UIImageView alloc] initWithFrame:_avatarView.bounds];
-				_avatarImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-				_avatarImageView.alpha = 0;
-				_avatarImageView.userInteractionEnabled = NO;
-				_avatarImageView.layer.minificationFilter = kCAFilterTrilinear;
-				[_avatarView addSubview:_avatarImageView];
+				_iconImageView = [[UIImageView alloc] initWithFrame:_iconView.bounds];
+				_iconImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+				_iconImageView.alpha = 0;
+				_iconImageView.userInteractionEnabled = NO;
+				_iconImageView.layer.minificationFilter = kCAFilterTrilinear;
+				[_iconView addSubview:_iconImageView];
 
-				if (_avatarURL != nil) {
-					if (specifier.properties[@"avatarCircular"] == nil) {
-						_isAvatarCircular = YES;
-					}
-				}
-
-				[self loadAvatarIfNeeded];
+				[self loadIconIfNeeded];
 			}
 
-			_avatarView.layer.cornerRadius = IS_IOS_OR_NEWER(iOS_7_0) ? size / 2 : 4.f;
+			BOOL isIconCircular = specifier.properties[@"iconCircular"] ? ((NSNumber *)specifier.properties[@"iconCircular"]).boolValue : NO;
+			CGFloat cornerRadius = 0;
+			if (isIconCircular) {
+				cornerRadius = iconSize / 2;
+			} else {
+				cornerRadius = specifier.properties[@"iconCornerRadius"] ? ((NSNumber *)specifier.properties[@"iconCornerRadius"]).doubleValue : -1;
+				if (cornerRadius == -1) {
+					cornerRadius = 0;
+					UIGraphicsBeginImageContextWithOptions(CGSizeMake(iconSize, iconSize), NO, [UIScreen mainScreen].scale);
+					UIImage *dummyImage = UIGraphicsGetImageFromCurrentImageContext();
+					UIGraphicsEndImageContext();
+					UIImage *mask = [dummyImage _applicationIconImageForFormat:_isBig ? MIIconVariantSpotlight : MIIconVariantSmall precomposed:YES scale:[UIScreen mainScreen].scale];
+					_iconView.layer.mask = [[UIImageView alloc] initWithImage:mask].layer;
+				}
+			}
+			_iconView.layer.cornerRadius = cornerRadius;
 		}
 	}
 
 	return self;
 }
 
-#pragma mark - Avatar
+#pragma mark - Icon
 
-- (UIImage *)avatarImage {
-	return _avatarImageView.image;
+- (UIImage *)iconImage {
+	return _iconImageView.image;
 }
 
-- (void)setAvatarImage:(UIImage *)avatarImage {
-	_avatarImageView.image = avatarImage;
+- (void)setIconImage:(UIImage *)iconImage {
+	_iconImageView.image = iconImage;
 
 	// Fade in if we haven’t yet
-	if (_avatarImageView.alpha == 0) {
+	if (_iconImageView.alpha == 0) {
 		[UIView animateWithDuration:0.15 animations:^{
-			_avatarImageView.alpha = 1;
+			_iconImageView.alpha = 1;
 		}];
 	}
 }
 
-- (BOOL)shouldShowAvatar {
-	// If we were explicitly told to show an avatar, or if we have an avatar URL or initials
-	return (self.specifier.properties[@"showAvatar"] && ((NSNumber *)self.specifier.properties[@"showAvatar"]).boolValue)
-		|| self.specifier.properties[@"avatarURL"] != nil || self.specifier.properties[@"initials"] != nil;
+- (BOOL)shouldShowIcon {
+	// If we were explicitly told to show an icon, or if we have an icon URL or initials
+	return (self.specifier.properties[@"showIcon"] && ((NSNumber *)self.specifier.properties[@"showIcon"]).boolValue)
+		|| (self.specifier.properties[@"showAvatar"] && ((NSNumber *)self.specifier.properties[@"showAvatar"]).boolValue)
+		|| self.specifier.properties[@"iconURL"] != nil || self.specifier.properties[@"initials"] != nil;
 }
 
-- (void)loadAvatarIfNeeded {
-	if (_avatarURL == nil || self.avatarImage != nil) {
+- (void)loadIconIfNeeded {
+	if (_iconURL == nil || self.iconImage != nil) {
 		return;
 	}
 
 	static dispatch_queue_t queue;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		queue = dispatch_queue_create("ws.hbang.common.load-avatar-queue", DISPATCH_QUEUE_SERIAL);
+		queue = dispatch_queue_create("ws.hbang.common.load-icon-queue", DISPATCH_QUEUE_SERIAL);
 	});
 
 	dispatch_async(queue, ^{
-		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_avatarURL];
-		if ([_avatarURL.host rangeOfString:@"twitter.com"].location != NSNotFound) {
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
+		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
+		if ([_iconURL.host rangeOfString:@"twitter.com"].location != NSNotFound) {
 			// I usually wouldn’t do this, it’s kinda rude to straight up lie and pretend to be a browser
 			// from 20 years ago. But Twitter has made it incredibly hard to get at profile pics, and I’m
 			// pretty sick of something as innocent as a profile photo being impossible to get at without
@@ -136,14 +148,14 @@
 		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
 
 		if (error != nil) {
-			HBLogError(@"Error loading avatar: %@", error);
+			HBLogError(@"Error loading icon: %@", error);
 			return;
 		}
 
 		UIImage *image = [UIImage imageWithData:data];
 
 		dispatch_async(dispatch_get_main_queue(), ^{
-			self.avatarImage = image;
+			self.iconImage = image;
 		});
 	});
 }

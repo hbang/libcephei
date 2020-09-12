@@ -21,15 +21,20 @@
 /// <th>user</th> <td>Required. The Twitter username of the person.</td>
 /// </tr>
 /// <tr>
+/// <th>userID</th> <td>Optional. The Twitter user identifier number of the person. You can find
+/// the user ID using <a href="https://www.google.com/search?q=find+twitter+user+id">online tools</a>.
+/// </td>
+/// </tr>
+/// <tr>
 /// <th>showAvatar</th> <td>Optional. Whether to show the avatar of the user. The default is
 /// true.</td>
 /// </tr>
 /// <tr>
-/// <th>avatarURL</th> <td>Optional. The URL to an avatar to display. The default is no value,
+/// <th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value, meaning
 /// meaning to retrieve the avatar for the Twitter username specified in the user property.</td>
 /// </tr>
 /// <tr>
-/// <th>avatarCircular</th> <td>Optional. Whether the avatar should be displayed as a circle. The
+/// <th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
 /// default is YES.</td>
 /// </tr>
 /// </table>

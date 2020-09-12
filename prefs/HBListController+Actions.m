@@ -2,9 +2,15 @@
 #import "HBListController+Actions.h"
 #import "HBAppearanceSettings.h"
 #import "../HBRespringController.h"
+#import "../NSDictionary+HBAdditions.h"
+#import "../NSString+HBAdditions.h"
+#import <MobileCoreServices/LSApplicationProxy.h>
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
-#include <objc/runtime.h>
+#import <UIKit/UIAlertAction+Private.h>
+#import <UIKit/UIImage+Private.h>
+#import <objc/runtime.h>
+#import <version.h>
 
 @interface HBRespringController ()
 
@@ -81,6 +87,75 @@
 		// just do a usual boring openURL:
 		[[UIApplication sharedApplication] openURL:url];
 #endif
+	}
+}
+
+- (void)hb_openPackage:(PSSpecifier *)specifier {
+	NSString *identifier = specifier.properties[@"packageIdentifier"];
+	NSString *repo = specifier.properties[@"packageRepository"];
+	NSString *escapedIdentifier = identifier.hb_stringByEncodingQueryPercentEscapes;
+
+	NSURL *cydiaURL;
+	if (repo == nil) {
+		cydiaURL = [NSURL URLWithString:[@"cydia://package/" stringByAppendingString:identifier]];
+	} else {
+		cydiaURL = [NSURL URLWithString:[@"cydia://url/https://cydia.saurik.com/api/share#?" stringByAppendingString:@{
+			@"source": repo,
+			@"package": identifier
+		}.hb_queryString]];
+	}
+
+	if (IS_IOS_OR_NEWER(iOS_9_0)) {
+		NSURL *parcilityURL = [NSURL URLWithString:[@"https://parcility.co/package/" stringByAppendingString:escapedIdentifier]];
+		NSArray <NSArray <id> *> *packageManagerURLs = repo == nil
+			? @[
+				@[ @"com.saurik.Cydia", cydiaURL ],
+				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
+				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[@"zbra://package/" stringByAppendingString:escapedIdentifier]] ],
+				@[ @"com.apple.mobilesafari", parcilityURL ]
+			]
+			: @[
+				@[ @"com.saurik.Cydia", cydiaURL ],
+				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
+				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[NSString stringWithFormat:@"zbra://package/%@?%@", escapedIdentifier, @{
+						@"source": repo
+					}.hb_queryString]] ],
+				@[ @"com.apple.mobilesafari", parcilityURL ]
+			];
+
+		Class $UIAlertController = objc_getClass("UIAlertController");
+		Class $UIAlertAction = objc_getClass("UIAlertAction");
+		NSString *title = @"Open in…";
+		NSString *message = repo == nil ? nil : [NSString stringWithFormat:@"This package will be installed from the repository %@.", repo];
+		UIAlertController *alertController = [$UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+
+		for (NSArray <id> *item in packageManagerURLs) {
+			NSString *bundleIdentifier = item[0];
+			NSURL *url = item[1];
+			LSApplicationProxy *app = [LSApplicationProxy applicationProxyForIdentifier:bundleIdentifier];
+			if (app == nil || !app.isInstalled) {
+				continue;
+			}
+
+			NSString *name = app.localizedName;
+			if ([url.host isEqualToString:@"parcility.co"]) {
+				name = @"Parcility";
+			}
+
+			UIImage *icon = [[UIImage _applicationIconImageForBundleIdentifier:bundleIdentifier format:MIIconVariantSmall scale:self.view.window.screen.scale] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+			UIAlertAction *action = [UIAlertAction _actionWithTitle:name descriptiveText:nil image:icon style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+				[self _hb_openURLInBrowser:url];
+			} shouldDismissHandler:nil];
+			[alertController addAction:action];
+		}
+
+		NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
+		NSString *cancel = [uikitBundle localizedStringForKey:@"Cancel" value:@"" table:@"Localizable"];
+		[alertController addAction:[$UIAlertAction _actionWithTitle:cancel descriptiveText:nil image:nil style:UIAlertActionStyleCancel handler:nil shouldDismissHandler:nil]];
+
+		[self presentViewController:alertController animated:YES completion:nil];
+	} else {
+		[self _hb_openURLInBrowser:cydiaURL];
 	}
 }
 

@@ -1,10 +1,9 @@
 #import "HBPackageTableCell.h"
 #import "HBPackage.h"
-#import "../NSDictionary+HBAdditions.h"
-#import "../NSString+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 #import <HBLog.h>
+#import <version.h>
 
 @implementation HBPackageTableCell {
 	NSString *_identifier;
@@ -17,76 +16,40 @@
 
 	NSParameterAssert(_identifier);
 
+	if (specifier.properties[@"iconCornerRadius"] == nil) {
+		specifier.properties[@"iconCornerRadius"] = @-1;
+	}
+
+	if (specifier.properties[@"iconURL"] == nil) {
+		NSURL *iconURL = [[[NSURL URLWithString:@"https://api.parcility.co/db/package/"] URLByAppendingPathComponent:_identifier] URLByAppendingPathComponent:@"icon"];
+		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
+
+		if (iconField && ![iconField isEqualToString:@""]) {
+			NSURL *maybeIconURL = [NSURL URLWithString:iconField];
+			if (maybeIconURL != nil) {
+				iconURL = maybeIconURL;
+			}
+		}
+		
+		specifier.properties[@"iconURL"] = iconURL;
+	}
+
 	self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
 		UIImageView *imageView = (UIImageView *)self.accessoryView;
 		imageView.image = [UIImage imageNamed:@"package" inBundle:cepheiGlobalBundle];
-		[imageView sizeToFit];
-
-		self.avatarView.layer.cornerRadius = 4.f;
-
-		if (_repo) {
-			specifier.properties[@"url"] = [@"cydia://url/https://cydia.saurik.com/api/share#?" stringByAppendingString:@{
-				@"source": _repo,
-				@"package": _identifier
-			}.hb_queryString];
-		} else {
-			specifier.properties[@"url"] = [@"cydia://package/" stringByAppendingString:_identifier.hb_stringByEncodingQueryPercentEscapes];
+		if (IS_IOS_OR_NEWER(iOS_7_0)) {
+			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		}
+		[imageView sizeToFit];
 	}
 
 	return self;
 }
 
-- (BOOL)shouldShowAvatar {
+- (BOOL)shouldShowIcon {
 	return YES;
-}
-
-- (void)loadAvatarIfNeeded {
-	if (self.avatarImage) {
-		return;
-	}
-
-	void (^getIcon)(NSURL *url) = ^(NSURL *url) {
-		NSData *data = [NSData dataWithContentsOfURL:url];
-
-		if (!data) {
-			HBLogWarn(@"failed to get package icon for %@", _identifier);
-			return;
-		}
-
-		UIImage *image = [[UIImage alloc] initWithData:data scale:2];
-
-		if (!image) {
-			HBLogWarn(@"failed to read package icon for %@", _identifier);
-			return;
-		}
-
-		dispatch_async(dispatch_get_main_queue(), ^{
-			self.avatarImage = image;
-		});
-	};
-
-	NSString *iconField = getFieldForPackage(_identifier, @"Icon");
-
-	if (iconField && ![iconField isEqualToString:@""]) {
-		NSURL *iconURL = [NSURL URLWithString:iconField];
-
-		if (!iconURL.isFileURL) {
-			HBLogWarn(@"icon url %@ for %@ isn't a file:// url", iconField, _identifier);
-			return;
-		}
-
-		getIcon(iconURL);
-		return;
-	}
-
-	if (!_repo) {
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			getIcon([[[NSURL URLWithString:@"https://cydia.saurik.com/icon/"] URLByAppendingPathComponent:_identifier] URLByAppendingPathExtension:@"png"]);
-		});
-	}
 }
 
 @end
