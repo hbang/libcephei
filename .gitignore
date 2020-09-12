@@ -2,3 +2,4 @@
 .theos
 packages
 cephei_sdk_*.zip
+*.private.h

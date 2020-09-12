@@ -7,7 +7,7 @@ export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
 endif
 
-export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN
+export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN -DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\""
 export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
 

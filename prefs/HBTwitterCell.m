@@ -1,8 +1,21 @@
 #import "HBTwitterCell.h"
 #import "../NSString+HBAdditions.h"
+#import "../NSDictionary+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#import <HBLog.h>
+
+#if __has_include("TwitterAPI.private.h")
+	#import "TwitterAPI.private.h"
+	#import "HBTwitterAPIClient.h"
+#endif
+
+#ifdef CEPHEI_TWITTER_BEARER_TOKEN
+	#define USE_TWITTER_API_CLIENT IS_IOS_OR_NEWER(iOS_7_0)
+#else
+	#define USE_TWITTER_API_CLIENT NO
+#endif
 
 @interface HBLinkTableCell ()
 
@@ -10,7 +23,7 @@
 
 @end
 
-@interface HBTwitterCell () {
+@interface HBTwitterCell () <HBTwitterAPIClientDelegate> {
 	NSString *_user;
 }
 
@@ -18,45 +31,37 @@
 
 @implementation HBTwitterCell
 
-+ (NSString *)_urlForUsername:(NSString *)user {
-#ifdef THEOS
-	// not really the right thing for this, but your usernames aren't meant to have weird ass
-	// characters in them anyway :p
-	user = user.hb_stringByEncodingQueryPercentEscapes;
-
-	// wow, people still copy paste this code
-	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"aphelion://"]]) {
-		return [@"aphelion://profile/" stringByAppendingString:user];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot://"]]) {
-		return [@"tweetbot:///user_profile/" stringByAppendingString:user];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitterrific://"]]) {
-		return [@"twitterrific:///profile?screen_name=" stringByAppendingString:user];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetings://"]]) {
-		return [@"tweetings:///user?screen_name=" stringByAppendingString:user];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter://"]]) {
-		return [@"twitter://user?screen_name=" stringByAppendingString:user];
-	} else {
-		return [@"https://mobile.twitter.com/" stringByAppendingString:user];
-	}
-#else
-	return nil;
-#endif
++ (NSURL *)_urlForUsername:(NSString *)username userID:(NSString *)userID {
+	NSDictionary <NSString *, NSString *> *query = userID == nil
+		? @{
+			@"screen_name": username
+		}
+		: @{
+			@"user_id": userID
+		};
+	return [NSURL URLWithString:[@"https://twitter.com/intent/user?" stringByAppendingString:query.hb_queryString]];
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	NSString *user = [specifier.properties[@"user"] copy];
+	NSString *userName = [specifier.properties[@"user"] copy];
+	NSString *userID = [specifier.properties[@"userID"] copy];
+
 	if (specifier.properties[@"avatarURL"] == nil) {
-		NSAssert(user != nil, @"User name not provided");
-		NSString *username = user.hb_stringByEncodingQueryPercentEscapes;
-		NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
-		specifier.properties[@"avatarURL"] = [NSString stringWithFormat:@"https://mobile.twitter.com/%@/profile_image?size=%@", username, size];
+		if (USE_TWITTER_API_CLIENT) {
+			NSAssert(userName != nil || userID != nil, @"user or userID not provided");
+		} else {
+			NSAssert(userName != nil, @"user not provided");
+			NSString *escapedUsername = userName.hb_stringByEncodingQueryPercentEscapes;
+			NSString *size = [UIScreen mainScreen].scale > 2 ? @"original" : @"bigger";
+			specifier.properties[@"avatarURL"] = [NSString stringWithFormat:@"https://mobile.twitter.com/%@/profile_image?size=%@", escapedUsername, size];
+		}
 	}
-	specifier.properties[@"url"] = [self.class _urlForUsername:user];
+	specifier.properties[@"url"] = [self.class _urlForUsername:userName userID:userID];
 
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 
 	if (self) {
-		_user = user;
+		_user = userName;
 
 		UIImageView *imageView = (UIImageView *)self.accessoryView;
 		imageView.image = [UIImage imageNamed:@"twitter" inBundle:cepheiGlobalBundle];
@@ -66,6 +71,12 @@
 		[imageView sizeToFit];
 
 		self.detailTextLabel.text = [@"@" stringByAppendingString:_user];
+
+#ifdef CEPHEI_TWITTER_BEARER_TOKEN
+		if (USE_TWITTER_API_CLIENT) {
+			[[HBTwitterAPIClient sharedInstance] addDelegate:self forUsername:userName userID:userID];
+		}
+#endif
 	}
 
 	return self;
@@ -76,5 +87,26 @@
 	// if showAvatar is unset, we return YES
 	return self.specifier.properties[@"showAvatar"] ? [super shouldShowAvatar] : YES;
 }
+
+#ifdef CEPHEI_TWITTER_BEARER_TOKEN
+- (void)prepareForReuse {
+	[super prepareForReuse];
+
+	// Make sure an earlier request for user metadata doesn’t overwrite the incoming cell.
+	[[HBTwitterAPIClient sharedInstance] removeDelegate:self forUsername:self.specifier.properties[@"user"] userID:self.specifier.properties[@"userID"]];
+}
+
+- (void)twitterAPIClientDidLoadUsername:(NSString *)username profileImage:(UIImage *)profileImage {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.avatarImage = profileImage;
+		_user = username;
+		self.detailTextLabel.text = [@"@" stringByAppendingString:username];
+	});
+}
+
+- (void)dealloc {
+	[[HBTwitterAPIClient sharedInstance] removeDelegate:self forUsername:self.specifier.properties[@"user"] userID:self.specifier.properties[@"userID"]];
+}
+#endif
 
 @end

@@ -41,6 +41,22 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>big</key>
+			<true/>
+			<key>cellClass</key>
+			<string>HBTwitterCell</string>
+			<key>label</key>
+			<string>HASHBANG Productions</string>
+			<key>user</key>
+			<string>hashbang</string>
+			<key>userID</key>
+			<string>945654024</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>DEVELOPER</string>
 		</dict>
@@ -51,6 +67,8 @@
 			<string>Adam Demasi</string>
 			<key>user</key>
 			<string>hbkirb</string>
+			<key>userID</key>
+			<string>103767197</string>
 		</dict>
 		<dict>
 			<key>cell</key>

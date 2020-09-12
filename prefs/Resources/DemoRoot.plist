@@ -220,7 +220,9 @@
 			<key>label</key>
 			<string>HASHBANG Productions</string>
 			<key>user</key>
-			<string>hashbang</string>
+			<string>NotActuallyHashbang</string>
+			<key>userID</key>
+			<string>945654024</string>
 		</dict>
 		<dict>
 			<key>big</key>
