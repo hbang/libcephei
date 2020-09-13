@@ -40,7 +40,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Bitte ziehe in Betracht, deine Wertschätzung für diesen Tweak in Form einer Spende zu zeigen.</string>
+	<string>Zeigen Sie Ihr Interesse an dieser Optimierung, indem Sie eine Spende machen.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

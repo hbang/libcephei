@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>التبرع</string>
+	<string>جرة البقشيش</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>يرجى إظهار تقديرك لنا عن طريق التبرع.</string>
+	<string>يرجى التفكير في إظهار تقديرك لهذه الأداة عبر تبرع صغير لجرة البقشيش.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

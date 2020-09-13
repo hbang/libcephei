@@ -9,5 +9,13 @@
 	<!-- The subject used when sending a support email. %@ %@ is the package name and version respectively. -->
 	<key>SUPPORT_EMAIL_SUBJECT</key>
 	<string>%@ %@ – Support</string>
+
+	<!-- Title of error message shown when no email accounts are set up on the device. -->
+	<key>NO_EMAIL_ACCOUNTS_TITLE</key>
+	<string>Es ist kein E-Mail-Konto konfiguriert.</string>
+
+	<!-- Explanation of how to add an email account to the device. -->
+	<key>NO_EMAIL_ACCOUNTS_BODY</key>
+	<string>Verwenden Sie die E-Mail-Optionen, um ein neues Konto hinzuzufügen.</string>
 </dict>
 </plist>
