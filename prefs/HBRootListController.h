@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// The `HBRootListController` class in `CepheiPrefs` provides a list controller class that should
+/// The HBRootListController class in CepheiPrefs provides a list controller class that should
 /// be used as the root of the package's settings. It includes two class methods you can override to
 /// provide a default message and a URL that the user can share via a sharing button displayed to
 /// the right of the navigation bar.

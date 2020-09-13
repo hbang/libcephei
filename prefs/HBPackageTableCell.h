@@ -1,6 +1,6 @@
 #import "HBLinkTableCell.h"
 
-/// The `HBPackageTableCell` class in `CepheiPrefs` provides a cell containing any package's icon,
+/// The HBPackageTableCell class in CepheiPrefs provides a cell containing any package's icon,
 /// name, and description. Tapping it opens the package in Cydia.
 ///
 /// ### Specifier Parameters

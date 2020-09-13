@@ -1,6 +1,6 @@
 #import "HBTintedTableCell.h"
 
-/// The `HBSpinnerTableCell` class in `CepheiPrefs` displays an activity indicator when the cell is
+/// The HBSpinnerTableCell class in CepheiPrefs displays an activity indicator when the cell is
 /// disabled.
 ///
 /// ### Example Usage

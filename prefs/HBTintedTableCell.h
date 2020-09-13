@@ -1,6 +1,6 @@
 #import <Preferences/PSTableCell.h>
 
-/// The `HBTintedTableCell` class in `CepheiPrefs` ensures that a tint set with HBAppearanceSettings
+/// The HBTintedTableCell class in CepheiPrefs ensures that a tint set with HBAppearanceSettings
 /// will also be applied to the title label of a of a cell intended to be used as a button.
 ///
 /// ### Example Usage

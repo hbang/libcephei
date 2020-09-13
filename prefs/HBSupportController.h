@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// The `HBSupportController` class in `CepheiPrefs` provides a factory that configures an email
+/// The HBSupportController class in CepheiPrefs provides a factory that configures an email
 /// composer for package support.
 ///
 /// The resulting view controller should be presented modally; it should not be pushed on a

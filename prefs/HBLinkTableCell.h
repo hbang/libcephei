@@ -1,6 +1,6 @@
 #import "HBTintedTableCell.h"
 
-/// The `HBLinkTableCell` class in `CepheiPrefs` displays a button that, when tapped, opens the
+/// The HBLinkTableCell class in CepheiPrefs displays a button that, when tapped, opens the
 /// specified URL. A typical icon can be used, or the initials key can be set to one or two
 /// characters to show as the icon.
 ///

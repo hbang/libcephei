@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return The color object. The color information represented by this object is in the device RGB
 /// colorspace.
 /// @see hb_initWithPropertyListValue:
-+ (instancetype)hb_colorWithPropertyListValue:(id)value;
++ (instancetype)hb_colorWithPropertyListValue:(id)value NS_SWIFT_NAME(init(propertyListValue:));
 
 /// Initializes and returns a color object using data from the specified object.
 ///
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// types.
 /// @return An initialized color object. The color information represented by this object is in the
 /// device RGB colorspace.
-- (instancetype)hb_initWithPropertyListValue:(id)value;
+- (instancetype)hb_initWithPropertyListValue:(id)value NS_SWIFT_UNAVAILABLE("Use init(propertyListValue:)");
 
 /// Initializes and returns a dynamic color object using the provided interface style variants.
 ///
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return If the color is already a dynamic color, returns the receiver. Otherwise, a new dynamic
 /// color object.
 /// @see +[UIColor hb_colorWithInterfaceStyleVariants:]
-- (instancetype)hb_colorWithDarkInterfaceVariant;
+- (instancetype)hb_colorWithDarkInterfaceVariant NS_SWIFT_NAME(withDarkInterfaceVariant());
 
 /// Initializes and returns a dynamic color object, with the specified variant color for the dark
 /// interface style.
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param darkColor The color to use in the dark interface style.
 /// @return A new dynamic color object.
 /// @see +[UIColor hb_colorWithInterfaceStyleVariants:]
-- (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor;
+- (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor NS_SWIFT_NAME(withDarkInterfaceVariant(_:));
 
 @end
 

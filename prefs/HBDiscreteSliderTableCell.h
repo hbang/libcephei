@@ -1,7 +1,7 @@
 #import <Preferences/PSSliderTableCell.h>
 #import <Preferences/PSDiscreteSlider.h>
 
-/// The `HBDiscreteSliderTableCell` class in `CepheiPrefs` is a subclass of the standard slider
+/// The HBDiscreteSliderTableCell class in CepheiPrefs is a subclass of the standard slider
 /// cell, which displays a vertical line at every whole number. Additionally, when dragging the
 /// slider, it jumps to these lines so the user’s preference will always be a whole number.
 ///

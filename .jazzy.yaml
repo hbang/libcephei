@@ -34,7 +34,7 @@ custom_categories:
       - UIColor(HBAdditions)
       - UIView(CompactConstraint)
 
-  - name: "Cephei — Types/Constants"
+  - name: "Cephei — Types and Constants"
     children:
       - HBPreferencesDidChangeNotification
       - HBPreferencesNotMobileException

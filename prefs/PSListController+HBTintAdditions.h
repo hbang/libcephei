@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// This should only be set in an init or viewDidLoad method of the view controller. The result when
 /// this property or its properties are changed after the view has appeared is undefined.
-@property (nonatomic, copy, nullable, setter=hb_setAppearanceSettings:) HBAppearanceSettings *hb_appearanceSettings;
+@property (nonatomic, copy, nullable, setter=hb_setAppearanceSettings:) HBAppearanceSettings *hb_appearanceSettings NS_SWIFT_NAME(appearanceSettings);
 
 @end
 

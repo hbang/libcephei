@@ -1,7 +1,7 @@
 #import <Preferences/PSTableCell.h>
 #import <Preferences/PSHeaderFooterView.h>
 
-/// The `HBPackageNameHeaderCell` class in `CepheiPrefs` displays a header containing the package’s
+/// The HBPackageNameHeaderCell class in CepheiPrefs displays a header containing the package’s
 /// icon, name, version number, and author. It can be displayed in a subtle condensed design, or, by
 /// default, a tall header that might be displayed at the top of a preference bundle’s root list
 /// controller, for instance.

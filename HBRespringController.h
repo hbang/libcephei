@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// The `HBRespringController` class in `Cephei` provides conveniences for restarting the system app
+/// The HBRespringController class in Cephei provides conveniences for restarting the system app
 /// (usually SpringBoard). It also ensures battery usage statistics are not lost when performing the
 /// restart.
 @interface HBRespringController : NSObject

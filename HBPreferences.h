@@ -7,7 +7,7 @@ typedef void (^HBPreferencesChangeCallback)(void);
 
 typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _Nullable value);
 
-/// The `HBPreferences` class in `Cephei` provides an interface for managing user-defined
+/// The HBPreferences class in Cephei provides an interface for managing user-defined
 /// preferences of a tweak, and the default values used when the user has not yet changed a value.
 ///
 /// `HBPreferences` is very similar to `NSUserDefaults`, however it is specifically tailored to iOS
@@ -81,14 +81,14 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param identifier The identifier to be used. This is usually the same as the package identifier
 /// of the tweak.
 /// @return An autoreleased instance of HBPreferences for the specified identifier.
-+ (instancetype)preferencesForIdentifier:(NSString *)identifier;
++ (instancetype)preferencesForIdentifier:(NSString *)identifier NS_SWIFT_UNAVAILABLE("");
 
 /// Initializes an instance of the class for the specified identifier.
 ///
 /// @param identifier The identifier to be used. This is usually the same as the package identifier
 /// of the tweak.
 /// @return An autoreleased instance of HBPreferences for the specified identifier.
-- (instancetype)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithIdentifier:(NSString *)identifier NS_DESIGNATED_INITIALIZER;
 
 /// The preferences identifier provided at initialisation.
 @property (nonatomic, retain, readonly) NSString *identifier;
@@ -102,13 +102,18 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// lost. Prior to iOS 8.0, writes all pending changes to disk, and reads latest preferences from
 /// disk.
 ///
-/// Do not use this method directly unless you have a specific need. HBPreferences will synchronize
-/// automatically when needed. For further information on what this method does and when to use it,
-/// refer to [NSUserDefaults in Practice](http://dscoder.com/defaults.html) § “Sharing Defaults
-/// Between Programs”.
+/// Deprecated. On iOS 12.0 and later, synchronization is
+/// [no longer required](https://developer.apple.com/documentation/ios-ipados-release-notes/foundation-release-notes#UserDefaults).
+/// The underlying CFPreferencesSynchronize() function simply returns `YES`.
+///
+/// For earlier iOS releases, do not use this method directly unless you have a specific need.
+/// HBPreferences will synchronize automatically when needed. For further information on what this
+/// method does and when to use it, refer to
+/// [NSUserDefaults in Practice](http://dscoder.com/defaults.html) § “Sharing Defaults Between
+/// Programs”.
 ///
 /// @return `YES` if synchronization was successful, `NO` if an error occurred.
-- (BOOL)synchronize;
+- (BOOL)synchronize API_DEPRECATED("Synchronization is no longer required as of iOS 12", ios(5.0, 12.0));
 
 /// @name Registering Default Preference Values
 
@@ -191,7 +196,13 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Returns the value associated with a given key.
 ///
-/// This method behaves the same as objectForKey:.
+/// This method behaves the same as objectForKey:, and enables the preferences object to be used
+/// with a subscript (square brackets). For example:
+///
+/// ```objc
+/// NSString *fooBar = preferences[@"FooBar"];
+/// preferences[@"Awesome"] = @YES;
+/// ```
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The value associated with the specified key.
@@ -316,6 +327,14 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Sets the value of the specified key to the specified value.
 ///
+/// This method behaves the same as setObject:forKey:, and enables the preferences object to be used
+/// with a subscript (square brackets). For example:
+///
+/// ```objc
+/// NSString *fooBar = preferences[@"FooBar"];
+/// preferences[@"Awesome"] = @YES;
+/// ```
+///
 /// @param object The value to store in the preferences.
 /// @param key The key with which to associate with the value.
 - (void)setObject:(nullable id)object forKeyedSubscript:(id)key;
@@ -347,11 +366,13 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// `ws.hbang.common.demo/ReloadPrefs`. In a Preferences specifier property list, you can use the
 /// `PostNotification` key on your specifiers to achieve this:
 ///
+/// ```xml
 /// <dict>
 /// 	…
 /// 	<key>PostNotification</key>
 /// 	<string>ws.hbang.common.demo/ReloadPrefs</string>
 /// </dict>
+/// ```
 ///
 /// @param object The pointer to the object.
 /// @param defaultValue The default value to be used if no user preference is set.
@@ -438,7 +459,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Name of an exception that occurs when attempting to set preferences from a process not running
 /// as the `mobile` user.
-extern NSNotificationName const HBPreferencesNotMobileException NS_SWIFT_NAME(HBPreferences.notMobileException);
+extern NSExceptionName const HBPreferencesNotMobileException NS_SWIFT_NAME(HBPreferences.notMobileException);
 
 /// This notification is posted when a change is made to a registered preferences identifier. The
 /// notification object is the associated HBPreferences object.
