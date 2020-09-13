@@ -120,8 +120,8 @@
 				@[ @"com.apple.mobilesafari", parcilityURL ]
 			];
 
-		NSString *title = @"Open in…";
-		NSString *message = repo == nil ? nil : [NSString stringWithFormat:@"This package will be installed from the repository %@.", repo];
+		NSString *title = LOCALIZE(@"OPEN_PACKAGE_IN_TITLE", @"PackageCell", @"");
+		NSString *message = repo == nil ? nil : [NSString stringWithFormat:LOCALIZE(@"OPEN_PACKAGE_IN_REPO_NOTICE", @"PackageCell", @""), repo];
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
 
 		for (NSArray <id> *item in packageManagerURLs) {
