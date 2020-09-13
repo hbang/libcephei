@@ -113,7 +113,7 @@ sdk: stage
 		zip -9Xrq "$(THEOS_PROJECT_DIR)/$(notdir $(CEPHEI_SDK_DIR)).zip" $(notdir $(CEPHEI_SDK_DIR))$(ECHO_END)
 
 ifeq ($(FINALPACKAGE),1)
-before-package:: docs sdk
+before-package:: sdk
 endif
 
 .PHONY: docs sdk
