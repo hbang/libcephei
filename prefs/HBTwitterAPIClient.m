@@ -1,7 +1,6 @@
 #import "HBTwitterAPIClient.h"
 #import "../NSDictionary+HBAdditions.h"
 #import <HBLog.h>
-#import <objc/runtime.h>
 
 #if __has_include("TwitterAPI.private.h")
 #import "TwitterAPI.private.h"
@@ -186,8 +185,7 @@ typedef NSDictionary <NSString *, NSString *> *HBTwitterAPIClientUserItem;
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 		[request setValue:CEPHEI_TWITTER_BEARER_TOKEN forHTTPHeaderField:@"Authorization"];
 
-		Class $NSURLSession = objc_getClass("NSURLSession");
-		[[[$NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		[[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 			if (error != nil) {
 				HBLogWarn(@"Cephei: Error querying Twitter API: %@", error);
 				return;
@@ -222,8 +220,7 @@ typedef NSDictionary <NSString *, NSString *> *HBTwitterAPIClientUserItem;
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:realURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
 	[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 
-	Class $NSURLSession = objc_getClass("NSURLSession");
-	[[[$NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	[[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		if (error != nil) {
 			HBLogWarn(@"Cephei: Error loading avatar for user %@: %@", userID, error);
 		}

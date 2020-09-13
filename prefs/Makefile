@@ -1,10 +1,11 @@
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = CepheiPrefs
+
 CepheiPrefs_FILES = $(wildcard *.x) $(wildcard *.m)
 CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBAboutListController.h HBAppearanceSettings.h HBDiscreteSliderTableCell.h HBImageTableCell.h HBInitialsLinkTableCell.h HBLinkTableCell.h HBListController.h HBListController+Actions.h HBListItemsController.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
 CepheiPrefs_FRAMEWORKS = MobileCoreServices
-CepheiPrefs_PRIVATE_FRAMEWORKS = Preferences
+CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include Global.h
@@ -18,6 +19,21 @@ CepheiPrefs_LOGOSFLAGS = -c generator=internal
 else
 CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
+
+# As our deployment target is extremely early (iOS 5), some modern symbols need to be weak linked.
+# Introduced in iOS 9, but dynamically loaded, so always needs to be weak.
+WEAK_CLASS_SYMBOLS = SFSafariViewController
+ifeq ($(THEOS_CURRENT_ARCH),armv7)
+	# Introduced in iOS 6, no need to weak link these on arm64.
+	WEAK_CLASS_SYMBOLS += UIActivityViewController
+	# Introduced in iOS 7, no need to weak link these on arm64.
+	WEAK_CLASS_SYMBOLS += NSURLSession UIFontDescriptor
+endif
+ifneq ($(THEOS_CURRENT_ARCH),arm64e)
+	# Introduced before iOS 12, so no need to weak link these on arm64e.
+	WEAK_CLASS_SYMBOLS += UIAlertController UIAlertAction
+endif
+CepheiPrefs_LDFLAGS = $(foreach sym,$(WEAK_CLASS_SYMBOLS),-Xlinker -U -Xlinker _OBJC_CLASS_$$_$(sym))
 
 include $(THEOS_MAKE_PATH)/framework.mk
 

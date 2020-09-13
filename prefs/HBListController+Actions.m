@@ -9,8 +9,6 @@
 #import <Preferences/PSTableCell.h>
 #import <UIKit/UIAlertAction+Private.h>
 #import <UIKit/UIImage+Private.h>
-#import <objc/runtime.h>
-#import <version.h>
 
 @interface HBRespringController ()
 
@@ -67,12 +65,11 @@
 - (void)_hb_openURLInBrowser:(NSURL *)url {
 	// ensure SafariServices is loaded (if it exists)
 	[[NSBundle bundleWithPath:@"/System/Library/Frameworks/SafariServices.framework"] load];
-	Class $SFSafariViewController = objc_getClass("SFSafariViewController");
 
 	// we can only use SFSafariViewController if it’s available (iOS 9), and the url scheme is http(s)
-	if ($SFSafariViewController != nil && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
+	if ([SFSafariViewController class] != nil && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
 		// initialise view controller
-		SFSafariViewController *viewController = [[$SFSafariViewController alloc] initWithURL:url];
+		SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:url];
 
 		// use the same tint color as the presenting view controller
 		if ([viewController respondsToSelector:@selector(setPreferredControlTintColor:)]) {
@@ -105,7 +102,7 @@
 		}.hb_queryString]];
 	}
 
-	if (IS_IOS_OR_NEWER(iOS_9_0)) {
+	if ([UIAlertController class] != nil) {
 		NSURL *parcilityURL = [NSURL URLWithString:[@"https://parcility.co/package/" stringByAppendingString:escapedIdentifier]];
 		NSArray <NSArray <id> *> *packageManagerURLs = repo == nil
 			? @[
@@ -123,11 +120,9 @@
 				@[ @"com.apple.mobilesafari", parcilityURL ]
 			];
 
-		Class $UIAlertController = objc_getClass("UIAlertController");
-		Class $UIAlertAction = objc_getClass("UIAlertAction");
 		NSString *title = @"Open in…";
 		NSString *message = repo == nil ? nil : [NSString stringWithFormat:@"This package will be installed from the repository %@.", repo];
-		UIAlertController *alertController = [$UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
 
 		for (NSArray <id> *item in packageManagerURLs) {
 			NSString *bundleIdentifier = item[0];
@@ -151,8 +146,7 @@
 
 		NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
 		NSString *cancel = [uikitBundle localizedStringForKey:@"Cancel" value:@"" table:@"Localizable"];
-		[alertController addAction:[$UIAlertAction _actionWithTitle:cancel descriptiveText:nil image:nil style:UIAlertActionStyleCancel handler:nil shouldDismissHandler:nil]];
-
+		[alertController addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil]];
 		[self presentViewController:alertController animated:YES completion:nil];
 	} else {
 		[self _hb_openURLInBrowser:cydiaURL];

@@ -69,7 +69,12 @@
 
 - (instancetype)hb_colorWithDarkInterfaceVariant {
 	if (@available(iOS 13, *)) {
-		if ([self isKindOfClass:objc_getClass("UIDynamicColor")]) {
+		static Class $UIDynamicColor;
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			$UIDynamicColor = objc_getClass("UIDynamicColor");
+		});
+		if ([self isKindOfClass:$UIDynamicColor]) {
 			return self;
 		}
 		CGFloat h, s, b, a;

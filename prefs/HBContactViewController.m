@@ -41,7 +41,7 @@
 		NSString *body = LOCALIZE(@"NO_EMAIL_ACCOUNTS_BODY", @"Support", @"");
 		NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
 		NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
-		if (IS_IOS_OR_NEWER(iOS_9_0)) {
+		if ([UIAlertController class] != nil) {
 			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
 			[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 				[self _dismiss];

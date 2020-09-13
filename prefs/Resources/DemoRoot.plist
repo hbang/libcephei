@@ -239,6 +239,16 @@
 			<true/>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>HBLinkTableCell</string>
+			<key>label</key>
+			<string>Doesn’t Exist</string>
+			<key>url</key>
+			<string>http://localhost/</string>
+			<key>iconURL</key>
+			<string>http://localhost/</string>
+		</dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
@@ -287,6 +297,14 @@
 			<string>ws.hbang.quanta</string>
 			<key>packageRepository</key>
 			<string>https://repo.chariz.com/</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBPackageTableCell</string>
+			<key>label</key>
+			<string>Doesn’t Exist</string>
+			<key>packageIdentifier</key>
+			<string>ws.hbang.common.doesntexist</string>
 		</dict>
 		<dict>
 			<key>cell</key>

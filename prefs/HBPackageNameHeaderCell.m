@@ -4,7 +4,6 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import <version.h>
-#import <objc/runtime.h>
 #import <dlfcn.h>
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
@@ -197,14 +196,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	NSString * __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
 
 	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
-		static dispatch_once_t onceToken;
-		static Class $UIFontDescriptor;
-		dispatch_once(&onceToken, ^{
-			$UIFontDescriptor = objc_getClass("UIFontDescriptor");
-		});
-		UIFontDescriptor *systemTitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
-		UIFontDescriptor *systemTitle2FontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
-		UIFontDescriptor *systemSubtitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleSubheadline];
+		UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
+		UIFontDescriptor *systemTitle2FontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
+		UIFontDescriptor *systemSubtitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleSubheadline];
 
 		// use the specified font names, with either the font sizes we want, or the sizes the user
 		// wants, whichever is larger
