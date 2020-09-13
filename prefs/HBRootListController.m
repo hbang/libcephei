@@ -3,6 +3,7 @@
 #import "../NSDictionary+HBAdditions.h"
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
+#import <objc/runtime.h>
 
 @interface HBListController ()
 
@@ -10,7 +11,15 @@
 
 @end
 
+static Class $UIActivityViewController;
+
 @implementation HBRootListController
+
++ (void)initialize {
+	[super initialize];
+
+	$UIActivityViewController = objc_getClass("UIActivityViewController");
+}
 
 #pragma mark - Constants
 
@@ -49,9 +58,9 @@
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
 	// if we have UIActivityViewController (ios 6+)
-	if ([UIActivityViewController class] != nil) {
+	if ($UIActivityViewController != nil) {
 		// instantiate one with the share text and url as items
-		UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[
+		UIActivityViewController *viewController = [[$UIActivityViewController alloc] initWithActivityItems:@[
 			[self.class hb_shareText],
 			[self.class hb_shareURL]
 		] applicationActivities:nil];
