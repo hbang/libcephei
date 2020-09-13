@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          Cephei Docs
+          Cephei 1.16 Docs
         </a>
         
       </p>
@@ -40,7 +40,7 @@
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang.github.io%2Flibcephei%2Fdocsets%2FCephei.xml">
             <img class="header-icon" src="img/dash.png"/>
             Install in Dash
           </a>
@@ -100,19 +100,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html">Cephei — Types/Constants</a>
+            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html">Cephei — Types and Constants</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
               </li>
             </ul>
           </li>
@@ -230,19 +230,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBAppearanceSettings</code> class in <code>CepheiPrefs</code> provides a model object read by other
-components of Cephei to determine colors to use in the user interface.</p>
+                        <p>The HBAppearanceSettings class in CepheiPrefs provides a model object read by other
+components of Cephei to determine colors and other appearence settings to use in the user
+interface.</p>
 
 <p>Appearance settings are typically set on a view controller, via the
 -[PSListController(HBTintAdditions) hb_appearanceSettings] property. This is automatically
 managed by Cephei and provided to view controllers as they are pushed onto the stack.</p>
-
-<p>This interface replaces the previous method that worked in the opposite way – HBListController
-would work backwards to find a view controller with appearance settings defined. This was not
-robust, created messy code within Cephei, and can cause a mix of colors if a view controller
-with different settings to the prior one is pushed.</p>
-
-<p>Use of the old properties on HBListController will cause a warning to be logged.</p>
 
 <p>Most commonly, the API will be used by setting the hb_appearanceSettings property from the init
 method. The following example sets the tint color, table view background color, and enables an
@@ -306,7 +300,7 @@ inverted navigation bar:</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">HBAppearanceSettingsLargeTitleStyle</span> <span class="p">:</span> <span class="kt">UInt</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">LargeTitleStyle</span> <span class="p">:</span> <span class="kt">UInt</span></code></pre>
 
                         </div>
                       </div>
@@ -326,21 +320,11 @@ inverted navigation bar:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBSupportController</code> class in <code>CepheiPrefs</code> provides a factory that configures a
-<code>TSContactViewController</code> for immediate use. The <code>TSContactViewController</code> class, from
-<a href="https://github.com/ashikase/TechSupport">TechSupport</a> by ashikase, provides a text box for
-entering a message, as well as the ability to view or remove pre-defined attachments. After
-tapping the submit button, the information is provided to the next step, which most commonly is
-an email composer.</p>
+                        <p>The HBSupportController class in CepheiPrefs provides a factory that configures an email
+composer for package support.</p>
 
-<p>By providing a link instruction, you can have the message sent to a different email address or
-posted to a website. You can also provide one or more support instructions, which allow more
-files to be attached. For more information and for examples of <code>TSContactViewController</code> usage,
-refer to the <a href="https://github.com/ashikase/TechSupport/tree/master/Demo">demos directory</a> in the
-TechSupport source.</p>
-
-<p>A <code>TSContactViewController</code> should be pushed on your view controller stack; it should not be 
-presented modally.</p>
+<p>The resulting view controller should be presented modally; it should not be pushed on a
+navigation controller stack.</p>
 
                         <a href="Classes/HBSupportController.html" class="slightly-smaller">See more</a>
                       </div>
@@ -368,8 +352,8 @@ presented modally.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          Cephei Docs
+          Cephei 1.16 Docs
         </a>
         
       </p>
@@ -40,7 +40,7 @@
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang.github.io%2Flibcephei%2Fdocsets%2FCephei.xml">
             <img class="header-icon" src="img/dash.png"/>
             Install in Dash
           </a>
@@ -100,19 +100,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html">Cephei — Types/Constants</a>
+            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html">Cephei — Types and Constants</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
               </li>
             </ul>
           </li>
@@ -221,7 +221,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBAboutListController</code> class in <code>CepheiPrefs</code> provides a list controller with functions
+                        <p>The HBAboutListController class in CepheiPrefs provides a list controller with functions
 that would typically be used on an &ldquo;about&rdquo; page. It includes two class methods you can override
 to provide a developer website and donation URL, and a class method to provide an email address
 so the user can send the developer an email right from the tweak&rsquo;s settings.</p>
@@ -302,7 +302,7 @@ the Cephei readme for details.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBListController</code> class in <code>CepheiPrefs</code> provides a list controller with various
+                        <p>The HBListController class in CepheiPrefs provides a list controller with various
 conveniences such as a unique tint color for the list controllers within a preference bundle,
 and bug fixes for common issues within the Settings app and Preferences framework. In
 particular, a bug with the list controller’s content disappearing after closing the Settings
@@ -310,7 +310,12 @@ app and opening it again is worked around, as well as an issue on iOS 7 where in
 cell may stay highlighted after being tapped.</p>
 
 <p>It includes two class methods you can override to return the name of a Preferences specifier
-property list, and various methods to set custom colors in the list controller interface.</p>
+property list, and various methods to control appearance of the interface.</p>
+
+<p>If you use HBLinkTableCell or subclasses such as HBTwitterCell and HBPackageTableCell, it is
+recommended to subclass from HBListController on the view controller classes containing these
+cells to use CepheiPrefs’s built-in callback actions. If you do not subclass from
+HBListController, you will need to implement action methods yourself.</p>
 
                         <a href="Classes/HBListController.html" class="slightly-smaller">See more</a>
                       </div>
@@ -343,7 +348,7 @@ property list, and various methods to set custom colors in the list controller i
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBRootListController</code> class in <code>CepheiPrefs</code> provides a list controller class that should
+                        <p>The HBRootListController class in CepheiPrefs provides a list controller class that should
 be used as the root of the package&rsquo;s settings. It includes two class methods you can override to
 provide a default message and a URL that the user can share via a sharing button displayed to
 the right of the navigation bar.</p>
@@ -406,8 +411,8 @@ setting the desired appearance settings of the view controller.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

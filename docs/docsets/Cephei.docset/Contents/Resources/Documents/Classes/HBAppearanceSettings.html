@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          Cephei Docs
+          Cephei 1.16 Docs
         </a>
         
       </p>
@@ -40,7 +40,7 @@
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang.github.io%2Flibcephei%2Fdocsets%2FCephei.xml">
             <img class="header-icon" src="../img/dash.png"/>
             Install in Dash
           </a>
@@ -100,19 +100,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html">Cephei — Types/Constants</a>
+            <a class="nav-group-name-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html">Cephei — Types and Constants</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
               </li>
             </ul>
           </li>
@@ -202,23 +202,23 @@
             <h1>HBAppearanceSettings</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBAppearanceSettings</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBAppearanceSettings</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
               </div>
-            <p>The <code>HBAppearanceSettings</code> class in <code>CepheiPrefs</code> provides a model object read by other
-components of Cephei to determine colors to use in the user interface.</p>
+            <p>The HBAppearanceSettings class in CepheiPrefs provides a model object read by other
+components of Cephei to determine colors and other appearence settings to use in the user
+interface.</p>
 
 <p>Appearance settings are typically set on a view controller, via the
 -[PSListController(HBTintAdditions) hb_appearanceSettings] property. This is automatically
 managed by Cephei and provided to view controllers as they are pushed onto the stack.</p>
-
-<p>This interface replaces the previous method that worked in the opposite way – HBListController
-would work backwards to find a view controller with appearance settings defined. This was not
-robust, created messy code within Cephei, and can cause a mix of colors if a view controller
-with different settings to the prior one is pushed.</p>
-
-<p>Use of the old properties on HBListController will cause a warning to be logged.</p>
 
 <p>Most commonly, the API will be used by setting the hb_appearanceSettings property from the init
 method. The following example sets the tint color, table view background color, and enables an
@@ -626,6 +626,44 @@ other interface elements will be tinted the same.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:objc(cs)HBAppearanceSettings(py)showsNavigationBarShadow"></a>
+                    <a name="//apple_ref/objc/Property/showsNavigationBarShadow" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)HBAppearanceSettings(py)showsNavigationBarShadow">showsNavigationBarShadow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether to show the shadow (separator line) at the bottom of the navigation bar.</p>
+
+<p>Requires iOS 13 or later.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight objective_c"><code><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">showsNavigationBarShadow</span><span class="p">;</span></code></pre>
+
+                        </div>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">showsNavigationBarShadow</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>By default, YES.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:objc(cs)HBAppearanceSettings(py)largeTitleStyle"></a>
                     <a name="//apple_ref/objc/Property/largeTitleStyle" class="dashAnchor"></a>
                     <a class="token" href="#/c:objc(cs)HBAppearanceSettings(py)largeTitleStyle">largeTitleStyle</a>
@@ -649,7 +687,7 @@ HBAppearanceSettingsLargeTitleStyle.</p>
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">largeTitleStyle</span><span class="p">:</span> <span class="kt"><a href="../Enums/HBAppearanceSettingsLargeTitleStyle.html">HBAppearanceSettingsLargeTitleStyle</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">largeTitleStyle</span><span class="p">:</span> <span class="kt">HBAppearanceSettings</span><span class="o">.</span><span class="kt">LargeTitleStyle</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -868,8 +906,8 @@ is in the highlighted state.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          Cephei Docs
+          Cephei 1.16 Docs
         </a>
         
       </p>
@@ -40,7 +40,7 @@
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang.github.io%2Flibcephei%2Fdocsets%2FCephei.xml">
             <img class="header-icon" src="../img/dash.png"/>
             Install in Dash
           </a>
@@ -100,19 +100,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html">Cephei — Types/Constants</a>
+            <a class="nav-group-name-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html">Cephei — Types and Constants</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+                <a class="nav-group-task-link" href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
               </li>
             </ul>
           </li>
@@ -202,11 +202,17 @@
             <h1>HBPreferences</h1>
               <div class="declaration">
                 <div class="language">
+                  <p class="aside-title">Objective-C</p>
                   <pre class="highlight objective_c"><code><span class="k">@interface</span> <span class="nc">HBPreferences</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
 
                 </div>
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">HBPreferences</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
               </div>
-            <p>The <code>HBPreferences</code> class in <code>Cephei</code> provides an interface for managing user-defined
+            <p>The HBPreferences class in Cephei provides an interface for managing user-defined
 preferences of a tweak, and the default values used when the user has not yet changed a value.</p>
 
 <p><code>HBPreferences</code> is very similar to <code>NSUserDefaults</code>, however it is specifically tailored to iOS
@@ -311,11 +317,6 @@ they can still get access to data you send through various ways.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">preferencesForIdentifier</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">identifier</span><span class="p">;</span></code></pre>
-
-                        </div>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">forIdentifier</span> <span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -467,10 +468,15 @@ current process have completed, preventing race conditions and guaranteeing no d
 lost. Prior to iOS 8.0, writes all pending changes to disk, and reads latest preferences from
 disk.</p>
 
-<p>Do not use this method directly unless you have a specific need. HBPreferences will synchronize
-automatically when needed. For further information on what this method does and when to use it,
-refer to <a href="http://dscoder.com/defaults.html">NSUserDefaults in Practice</a> § “Sharing Defaults
-Between Programs”.</p>
+<p>Deprecated. On iOS 12.0 and later, synchronization is
+<a href="https://developer.apple.com/documentation/ios-ipados-release-notes/foundation-release-notes#UserDefaults">no longer required</a>.
+The underlying CFPreferencesSynchronize() function simply returns <code>YES</code>.</p>
+
+<p>For earlier iOS releases, do not use this method directly unless you have a specific need.
+HBPreferences will synchronize automatically when needed. For further information on what this
+method does and when to use it, refer to
+<a href="http://dscoder.com/defaults.html">NSUserDefaults in Practice</a> § “Sharing Defaults Between
+Programs”.</p>
 
                       </div>
                       <div class="declaration">
@@ -1037,7 +1043,11 @@ this value to be updated when running on iOS 7 or older.
                       <div class="abstract">
                         <p>Returns the value associated with a given key.</p>
 
-<p>This method behaves the same as objectForKey:.</p>
+<p>This method behaves the same as objectForKey:, and enables the preferences object to be used
+with a subscript (square brackets). For example:</p>
+<pre class="highlight objective_c"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">fooBar</span> <span class="o">=</span> <span class="n">preferences</span><span class="p">[</span><span class="s">@"FooBar"</span><span class="p">];</span>
+<span class="n">preferences</span><span class="p">[</span><span class="s">@"Awesome"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">@YES</span><span class="p">;</span>
+</code></pre>
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     objectForKey:
@@ -1946,6 +1956,12 @@ more details.</p>
                       <div class="abstract">
                         <p>Sets the value of the specified key to the specified value.</p>
 
+<p>This method behaves the same as setObject:forKey:, and enables the preferences object to be used
+with a subscript (square brackets). For example:</p>
+<pre class="highlight objective_c"><code><span class="n">NSString</span> <span class="o">*</span><span class="n">fooBar</span> <span class="o">=</span> <span class="n">preferences</span><span class="p">[</span><span class="s">@"FooBar"</span><span class="p">];</span>
+<span class="n">preferences</span><span class="p">[</span><span class="s">@"Awesome"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">@YES</span><span class="p">;</span>
+</code></pre>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -2125,12 +2141,12 @@ set up callbacks.</p>
 it must be set to the value of identifier, followed by <code>/ReloadPrefs</code> - for instance,
 <code>ws.hbang.common.demo/ReloadPrefs</code>. In a Preferences specifier property list, you can use the
 <code>PostNotification</code> key on your specifiers to achieve this:</p>
-
-<p><dict>
+<pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
     …
-    <key>PostNotification</key>
-    <string>ws.hbang.common.demo/ReloadPrefs</string>
-</dict></p>
+    <span class="nt">&lt;key&gt;</span>PostNotification<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>ws.hbang.common.demo/ReloadPrefs<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/dict&gt;</span>
+</code></pre>
 <div class="aside aside-see">
     <p class="aside-title">See</p>
     registerObject:default:forKey:
@@ -2662,12 +2678,12 @@ set up callbacks.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">registerPreferenceChangeBlock</span><span class="p">:</span>
-    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a></span><span class="p">)</span><span class="nv">callback</span><span class="p">;</span></code></pre>
+    <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a></span><span class="p">)</span><span class="nv">callback</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">registerPreferenceChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">registerPreferenceChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2724,13 +2740,13 @@ set up callbacks.</p>
                         <div class="language">
                           <p class="aside-title">Objective-C</p>
                           <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">registerPreferenceChangeBlock</span><span class="p">:</span>
-            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a></span><span class="p">)</span><span class="nv">callback</span>
+            <span class="p">(</span><span class="n">nonnull</span> <span class="n"><a href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a></span><span class="p">)</span><span class="nv">callback</span>
                                <span class="nf">forKey</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span><span class="p">;</span></code></pre>
 
                         </div>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">registerPreferenceChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a></span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">registerPreferenceChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a></span><span class="p">,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -2777,8 +2793,8 @@ parameters are the key and its new value.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

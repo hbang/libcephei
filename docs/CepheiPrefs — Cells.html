@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          Cephei Docs
+          Cephei 1.16 Docs
         </a>
         
       </p>
@@ -40,7 +40,7 @@
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang%2Egithub%2Eio%2Flibcephei%2Fdocsets%2FCephei%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fhbang.github.io%2Flibcephei%2Fdocsets%2FCephei.xml">
             <img class="header-icon" src="img/dash.png"/>
             Install in Dash
           </a>
@@ -100,19 +100,19 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html">Cephei — Types/Constants</a>
+            <a class="nav-group-name-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html">Cephei — Types and Constants</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesDidChangeNotification">HBPreferencesDidChangeNotification</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:@HBPreferencesNotMobileException">HBPreferencesNotMobileException</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesChangeCallback">HBPreferencesChangeCallback</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%2FConstants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
+                <a class="nav-group-task-link" href="Cephei%20%E2%80%94%20Types%20and%20Constants.html#/c:HBPreferences.h@T@HBPreferencesValueChangeCallback">HBPreferencesValueChangeCallback</a>
               </li>
             </ul>
           </li>
@@ -221,7 +221,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBDiscreteSliderTableCell</code> class in <code>CepheiPrefs</code> is a subclass of the standard slider
+                        <p>The HBDiscreteSliderTableCell class in CepheiPrefs is a subclass of the standard slider
 cell, which displays a vertical line at every whole number. Additionally, when dragging the
 slider, it jumps to these lines so the user’s preference will always be a whole number.</p>
 
@@ -287,7 +287,7 @@ are applicable here. There are no custom parameters.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBImageTableCell</code> class in <code>CepheiPrefs</code> provides a simple way to display an image as a
+                        <p>The HBImageTableCell class in CepheiPrefs provides a simple way to display an image as a
 table cell, or a header or footer.</p>
 <h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
 
@@ -354,7 +354,7 @@ set the height yourself using the <code>height</code> key.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBLinkTableCell</code> class in <code>CepheiPrefs</code> displays a button that, when tapped, opens the
+                        <p>The HBLinkTableCell class in CepheiPrefs displays a button that, when tapped, opens the
 specified URL. A typical icon can be used, or the initials key can be set to one or two
 characters to show as the icon.</p>
 
@@ -364,14 +364,27 @@ to get a tinted button.</p>
 
 <table>
 <tr>
-<th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
-</tr>
-<tr>
 <th>url</th> <td>Required. The URL to open.</td>
 </tr>
 <tr>
 <th>subtitle</th> <td>Optional. A subtitle to display below the label. The default is an empty
 string, hiding the subtitle.</td>
+</tr>
+<tr>
+<th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
+</tr>
+<tr>
+<th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value,
+hiding the image.</td>
+</tr>
+<tr>
+<th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
+default is NO when an iconURL is set, otherwise this property is unused.</td>
+</tr>
+<tr>
+<th>iconCornerRadius</th> <td>Optional. A custom corner radius to use for the icon. Ignored
+if iconCircular is set to true. If set to -1, the operating system’s default icon corner radius
+is used. The default is -1.</td>
 </tr>
 </table>
 <h3 id='example-usage' class='heading'>Example Usage</h3>
@@ -459,7 +472,7 @@ string, hiding the subtitle.</td>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBPackageTableCell</code> class in <code>CepheiPrefs</code> provides a cell containing any package&rsquo;s icon,
+                        <p>The HBPackageTableCell class in CepheiPrefs provides a cell containing any package&rsquo;s icon,
 name, and description. Tapping it opens the package in Cydia.</p>
 <h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
 
@@ -545,7 +558,7 @@ if not one of the default repos.</td>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBPackageNameHeaderCell</code> class in <code>CepheiPrefs</code> displays a header containing the package’s
+                        <p>The HBPackageNameHeaderCell class in CepheiPrefs displays a header containing the package’s
 icon, name, version number, and author. It can be displayed in a subtle condensed design, or, by
 default, a tall header that might be displayed at the top of a preference bundle’s root list
 controller, for instance.</p>
@@ -681,7 +694,7 @@ gradient. At least one is required. The default is no background gradient.</td>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBSpinnerTableCell</code> class in <code>CepheiPrefs</code> displays an activity indicator when the cell is
+                        <p>The HBSpinnerTableCell class in CepheiPrefs displays an activity indicator when the cell is
 disabled.</p>
 <h3 id='example-usage' class='heading'>Example Usage</h3>
 
@@ -702,8 +715,8 @@ disabled.</p>
 <pre class="highlight objective_c"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doStuffTapped</span><span class="p">:(</span><span class="n">PSSpecifier</span> <span class="o">*</span><span class="p">)</span><span class="nv">specifier</span> <span class="p">{</span>
     <span class="n">PSTableCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">cachedCellForSpecifier</span><span class="p">:</span><span class="n">specifier</span><span class="p">];</span>
     <span class="n">cell</span><span class="p">.</span><span class="n">cellEnabled</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
-    <span class="c1">// do something in the background…
-</span>    <span class="n">cell</span><span class="p">.</span><span class="n">cellEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+    <span class="c1">// do something in the background…</span>
+    <span class="n">cell</span><span class="p">.</span><span class="n">cellEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -737,7 +750,7 @@ disabled.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBStepperTableCell</code> class in <code>CepheiPrefs</code> allows setting a value using a stepper control
+                        <p>The HBStepperTableCell class in CepheiPrefs allows setting a value using a stepper control
 (&ldquo;minus&rdquo; and &ldquo;plus&rdquo; buttons).</p>
 
 <p>Requires iOS 6.0 or later.</p>
@@ -810,7 +823,7 @@ to denote where the number should be displayed.</td>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBTintedTableCell</code> class in <code>CepheiPrefs</code> ensures that a tint set with HBAppearanceSettings
+                        <p>The HBTintedTableCell class in CepheiPrefs ensures that a tint set with HBAppearanceSettings
 will also be applied to the title label of a of a cell intended to be used as a button.</p>
 <h3 id='example-usage' class='heading'>Example Usage</h3>
 <pre class="highlight xml"><code><span class="nt">&lt;dict&gt;</span>
@@ -853,7 +866,7 @@ will also be applied to the title label of a of a cell intended to be used as a 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>HBTwitterCell</code> class in <code>CepheiPrefs</code> displays a button containing a person’s name, along
+                        <p>The HBTwitterCell class in CepheiPrefs displays a button containing a person’s name, along
 with their Twitter username and avatar. When tapped, a Twitter client installed on the user’s
 device or the Twitter website is opened to the person’s profile.</p>
 <h3 id='specifier-parameters' class='heading'>Specifier Parameters</h3>
@@ -871,11 +884,24 @@ height to 56pt.</td>
 <th>label</th> <td>Required. The name of the person.</td>
 </tr>
 <tr>
+<th>user</th> <td>Required. The Twitter username of the person.</td>
+</tr>
+<tr>
+<th>userID</th> <td>Optional. The Twitter user identifier number of the person. You can find
+the user ID using <a href="https://www.google.com/search?q=find+twitter+user+id">online tools</a>.
+</td>
+</tr>
+<tr>
 <th>showAvatar</th> <td>Optional. Whether to show the avatar of the user. The default is
 true.</td>
 </tr>
 <tr>
-<th>user</th> <td>Required. The Twitter username of the person.</td>
+<th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value, meaning
+meaning to retrieve the avatar for the Twitter username specified in the user property.</td>
+</tr>
+<tr>
+<th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
+default is YES.</td>
 </tr>
 </table>
 <h3 id='example-usage' class='heading'>Example Usage</h3>
@@ -886,7 +912,7 @@ true.</td>
     <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
     <span class="nt">&lt;string&gt;</span>HASHBANG Productions<span class="nt">&lt;/string&gt;</span>
     <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hashbang<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/dict&gt;</span>
 
 <span class="c">&lt;!-- Big size: --&gt;</span>
@@ -900,7 +926,7 @@ true.</td>
     <span class="nt">&lt;key&gt;</span>label<span class="nt">&lt;/key&gt;</span>
     <span class="nt">&lt;string&gt;</span>HASHBANG Productions<span class="nt">&lt;/string&gt;</span>
     <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hashbang<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/dict&gt;</span>
 
 <span class="c">&lt;!-- Without an avatar: --&gt;</span>
@@ -912,7 +938,7 @@ true.</td>
     <span class="nt">&lt;key&gt;</span>showAvatar<span class="nt">&lt;/key&gt;</span>
     <span class="nt">&lt;false/&gt;</span>
     <span class="nt">&lt;key&gt;</span>user<span class="nt">&lt;/key&gt;</span>
-    <span class="nt">&lt;string&gt;</span>hbangws<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;string&gt;</span>hashbang<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;/dict&gt;</span>
 </code></pre>
 
@@ -941,8 +967,8 @@ true.</td>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-04-30)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://hbang.github.io/" target="_blank" rel="external">HASHBANG Productions</a>. All rights reserved. (Last updated: 2020-09-13)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
