@@ -2,7 +2,6 @@
 #import "HBPackage.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
-#import <HBLog.h>
 #import <version.h>
 
 @implementation HBPackageTableCell {

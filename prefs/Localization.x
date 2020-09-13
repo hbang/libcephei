@@ -1,6 +1,5 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSpecifier.h>
-#import <HBLog.h>
 
 #pragma mark - Fallback
 
