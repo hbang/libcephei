@@ -1,5 +1,6 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSpecifier.h>
+#import <HBLog.h>
 
 #pragma mark - Fallback
 
@@ -9,13 +10,13 @@
 	NSString *string = %orig;
 
 	if (cepheiGlobalBundle != nil) {
-		if ((string == nil || [string isEqualToString:key] || [string isEqualToString:value]) && [self.bundleURL.pathComponents containsObject:@"PreferenceBundles"]) {
-			if (self != cepheiGlobalBundle) {
-				string = [cepheiGlobalBundle localizedStringForKey:key value:value table:tableName];
-			}
-
-			if ((string == nil || [string isEqualToString:key] || [string isEqualToString:value]) && self != cepheiGlobalBundle) {
-				string = [cepheiGlobalBundle localizedStringForKey:key value:value table:@"Common"];
+		if (string == nil || [string isEqualToString:key] || [string isEqualToString:value]) {
+			// Make sure we avoid an infinite loop against ourselves when the fallback doesn’t exist
+			if (self != cepheiGlobalBundle || ![tableName isEqualToString:@"Common"]) {
+				NSString *newString = [cepheiGlobalBundle localizedStringForKey:key value:value table:@"Common"];
+				if (newString != nil && ![newString isEqualToString:key] && ![newString isEqualToString:value]) {
+					return newString;
+				}
 			}
 		}
 	}
