@@ -32,14 +32,14 @@
 @implementation HBTwitterCell
 
 + (NSURL *)_urlForUsername:(NSString *)username userID:(NSString *)userID {
-	NSDictionary <NSString *, NSString *> *query = userID == nil
-		? @{
-			@"screen_name": username
-		}
-		: @{
+	NSParameterAssert(username != nil || userID != nil);
+	if (username == nil) {
+		return [NSURL URLWithString:[@"https://twitter.com/intent/user?" stringByAppendingString:@{
 			@"user_id": userID
-		};
-	return [NSURL URLWithString:[@"https://twitter.com/intent/user?" stringByAppendingString:query.hb_queryString]];
+		}.hb_queryString]];
+	} else {
+		return [NSURL URLWithString:[@"https://twitter.com/" stringByAppendingString:username.hb_stringByEncodingQueryPercentEscapes]];
+	}
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
@@ -101,9 +101,10 @@
 
 - (void)twitterAPIClientDidLoadUsername:(NSString *)username profileImage:(UIImage *)profileImage {
 	dispatch_async(dispatch_get_main_queue(), ^{
+		_user = [username copy];
 		self.iconImage = profileImage;
-		_user = username;
 		self.detailTextLabel.text = [@"@" stringByAppendingString:username];
+		self.specifier.properties[@"url"] = [self.class _urlForUsername:username userID:nil];
 	});
 }
 
