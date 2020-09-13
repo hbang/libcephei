@@ -1,5 +1,6 @@
 #import "HBLinkTableCell.h"
 #import <Preferences/PSSpecifier.h>
+#import <MobileIcons/MobileIcons.h>
 #import <UIKit/UIColor+Private.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
@@ -135,6 +136,7 @@
 	dispatch_async(queue, ^{
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
+
 		if ([_iconURL.host rangeOfString:@"twitter.com"].location != NSNotFound) {
 			// I usually wouldn’t do this, it’s kinda rude to straight up lie and pretend to be a browser
 			// from 20 years ago. But Twitter has made it incredibly hard to get at profile pics, and I’m
@@ -144,19 +146,35 @@
 			// https://github.com/hbang/libcephei/issues/38
 			[request setValue:@"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)" forHTTPHeaderField:@"User-Agent"];
 		}
-		NSError *error = nil;
-		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
 
-		if (error != nil) {
-			HBLogError(@"Error loading icon: %@", error);
+		NSError *error = nil;
+		NSHTTPURLResponse *response = nil;
+		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+
+		if (error != nil || response.statusCode != 200) {
+			HBLogWarn(@"Error loading icon (%@): %li %@ - %@", _iconURL.absoluteString, (long)response.statusCode, [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], error);
+			[self iconLoadDidFailWithResponse:response error:error];
 			return;
 		}
 
-		UIImage *image = [UIImage imageWithData:data];
-
 		dispatch_async(dispatch_get_main_queue(), ^{
-			self.iconImage = image;
+			UIImage *image = [UIImage imageWithData:data];
+			if (image == nil) {
+				[self iconLoadDidFailWithResponse:response error:error];
+			} else {
+				self.iconImage = image;
+			}
 		});
+	});
+}
+
+- (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		BOOL isIconCircular = self.specifier.properties[@"iconCircular"] ? ((NSNumber *)self.specifier.properties[@"iconCircular"]).boolValue : NO;
+		BOOL isIconSystemStyle = ((NSNumber *)self.specifier.properties[@"iconCornerRadius"]).doubleValue == -1;
+		if (isIconSystemStyle && !isIconCircular) {
+			self.iconImage = [UIImage imageWithCGImage:LICreateDefaultIcon(_isBig ? MIIconVariantSpotlight : MIIconVariantSmall)];
+		}
 	});
 }
 

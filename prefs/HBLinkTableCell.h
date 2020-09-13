@@ -119,4 +119,11 @@
 /// You don’t need to call this unless subclassing.
 - (void)loadIconIfNeeded;
 
+/// Handle failure to load the icon.
+///
+/// You don’t need to call this unless subclassing. The default implementation replaces the image
+/// with the operating system’s generic “no icon” placeholder if `iconCornerRadius` is set to -1,
+/// and `isIconCircular` is set to NO.
+- (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error;
+
 @end

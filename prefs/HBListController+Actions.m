@@ -134,6 +134,9 @@
 
 			NSString *name = app.localizedName;
 			if ([url.host isEqualToString:@"parcility.co"]) {
+				if (specifier.properties[@"_hb_parcilityReturnedNotFound"] != nil) {
+					continue;
+				}
 				name = @"Parcility";
 			}
 

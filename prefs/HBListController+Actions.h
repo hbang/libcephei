@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hb_respringAndReturn:(PSSpecifier *)specifier;
 
 - (void)hb_openURL:(PSSpecifier *)specifier;
+- (void)hb_openPackage:(PSSpecifier *)specifier;
 
 @end
 

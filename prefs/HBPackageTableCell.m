@@ -21,12 +21,12 @@
 	}
 
 	if (specifier.properties[@"iconURL"] == nil) {
-		NSURL *iconURL = [[[NSURL URLWithString:@"https://api.parcility.co/db/package/"] URLByAppendingPathComponent:_identifier] URLByAppendingPathComponent:@"icon"];
+		NSURL *iconURL = [[NSURL URLWithString:@"https://proxy.prcl.app/package/"] URLByAppendingPathComponent:_identifier];
 		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
 
 		if (iconField && ![iconField isEqualToString:@""]) {
 			NSURL *maybeIconURL = [NSURL URLWithString:iconField];
-			if (maybeIconURL != nil) {
+			if (maybeIconURL != nil && (!maybeIconURL.isFileURL || [maybeIconURL checkResourceIsReachableAndReturnError:nil])) {
 				iconURL = maybeIconURL;
 			}
 		}
@@ -50,6 +50,11 @@
 
 - (BOOL)shouldShowIcon {
 	return YES;
+}
+
+- (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error {
+	self.specifier.properties[@"_hb_parcilityReturnedNotFound"] = @YES;
+	[super iconLoadDidFailWithResponse:response error:error];
 }
 
 @end
