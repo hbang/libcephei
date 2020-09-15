@@ -4,10 +4,10 @@
 <dict>
 	<!-- Title displayed in the navigation bar of the support page. -->
 	<key>SUPPORT_TITLE</key>
-	<string>תמיכה</string>
+	<string>אין חשבונות דוא"ל שהוגדרו..</string>
 
-	<!-- The subject used when sending a support email. %@ %@ is the package name and version respectively. -->
-	<key>SUPPORT_EMAIL_SUBJECT</key>
-	<string>%@ %@ – תמיכה</string>
+	<!-- Explanation of how to add an email account to the device. -->
+	<key>NO_EMAIL_ACCOUNTS_BODY</key>
+	<string>השתמש/י בהגדרות דוא"ל כדי להוסיף חשבון חדש.</string>
 </dict>
 </plist>

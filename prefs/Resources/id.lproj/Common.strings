@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Donasi</string>
+	<string>Tempat Donasi</string>
 
 	<!-- Footer under the donate button. -->
-	<key>DONATE_FOOTER</key>
-	<string>Mohon pertimbangkan memberikan donasi sebagai bentuk apresiasi Anda untuk tweak ini.</string>
+    <key>DONATE_FOOTER</key>
+    <string>Tunjukan apresiasimu untuk tweak ini dengan menyumbang di tempat donasi.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

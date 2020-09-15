@@ -40,7 +40,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Bu uygulamayı takdir etmek için bağışta bulunabilirsiniz.</string>
+	<string>Lütfen bu tweak için desteğinizi ufak bir bağış ile gösterin.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

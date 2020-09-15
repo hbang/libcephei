@@ -36,11 +36,10 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Dona</string>
+	<string>Barattolo delle mance</string>
 
-	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Dimostra di apprezzare questo tweak con una donazione.</string>
+	<string>Per favore, considera di mostrare il tuo apprezzamento per questo tweak attraverso una piccola donazione al barattolo delle mance.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

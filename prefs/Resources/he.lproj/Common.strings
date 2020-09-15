@@ -36,11 +36,10 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>תרום/תרמי</string>
+	<string>כוס טיפים</string>
 
-	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>אנא שקול/י להראות את הערכתך לטוויק זה עם תרומה.</string>
+	<string>אנא שקול/י להראות את הערתך לטוויק זה עם תרומה קטנה לכוס הטיפים.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Donar</string>
+	<string>Tarro de Donaciones</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Por favor considera mostrar tu apreciación por este software con una donación.</string>
+	<string>Considera mostrar tu aprecio a este tweak con una pequeña donación al tarro de donaciones.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

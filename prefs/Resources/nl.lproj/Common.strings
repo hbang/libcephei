@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Doneer</string>
+	<string>Fooi Pot</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Laat je waardering voor deze tweak zien door middel van een donatie.</string>
+	<string>Laat uw waardering zien door middel van kleine donatie.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
