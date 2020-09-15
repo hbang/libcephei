@@ -40,7 +40,7 @@
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Ne manquez pas d'exprimer votre reconnaissance en effectuant un don.</string>
+	<string>Montrez votre intérêt pour ce tweak en faisant un don</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
