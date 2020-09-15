@@ -35,12 +35,12 @@
 	<string>Wsparcie</string>
 
 	<!-- Button leading to a donation page. -->
-	<key>DONATE</key>
-	<string>Wesprzyj</string>
-
-	<!-- Footer under the donate button. -->
-	<key>DONATE_FOOTER</key>
-	<string>Jeżeli podoba Ci się nasza praca, rozważ przeznaczenie darowizny w ramach podziękowania.</string>
+  	<key>DONATE</key>
+	<string>Napiwkir</string>
+  
+  	<!-- Footer under the donate button. -->
+  	<key>DONATE_FOOTER</key>
+	<string>Jeżeli spodobało Ci się rozszerzenie, rozważ wsparcie autorów.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
