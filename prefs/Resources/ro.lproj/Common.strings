@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Doneaza</string>
+	<string>Cutia cu gogoși</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Orice donatie este bine venita.</string>
+	<string>Te rugăm să iei în calcul manifestarea aprecierii pentru acest tweak cu o mică donație pentru cutia cu gogoși.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
