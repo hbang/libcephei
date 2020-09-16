@@ -40,7 +40,7 @@
 
     <!-- Footer under the donate button. -->
     <key>DONATE_FOOTER</key>
-    <string>Если вам нравится этот твик, пожалуйста, отблагодарите его автора пожертвованием.</string>
+    <string>Выразите свою благодарность данному твику небольшим пожертвованием.</string>
 
     <!-- Headings above the credits. -->
     <key>DEVELOPER</key>

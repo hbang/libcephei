@@ -12,10 +12,10 @@
 
 	<!-- Title of error message shown when no email accounts are set up on the device. -->
     <key>NO_EMAIL_ACCOUNTS_TITLE</key>
-    <string>Tidak ada akun surel yang terdaftar.</string>
+    <string>Tidak ada akun email yang terdaftar.</string>
 
-    <!-- Explanation of how to add an email account to the device. -->
-    <key>NO_EMAIL_ACCOUNTS_BODY</key>
-    <string>Gunakan aplikasi Mail untuk mendaftarkan akun surel.</string>
+	<!-- Explanation of how to add an email account to the device. -->
+	<key>NO_EMAIL_ACCOUNTS_BODY</key>
+	<string>Gunakan pengaturan email untuk menambahkan akun.</string>
 </dict>
 </plist>
