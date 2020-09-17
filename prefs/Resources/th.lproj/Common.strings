@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>บริจาค</string>
+	<string>ให้ทิป</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>โปรดพิจารณาคุณค่าของ tweak นี้ด้วยการบริจาค</string>
+	<string>คุณสามารถแสดงความขอบคุณได้โดยการให้ทิปเล็กๆ น้อยๆ</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>

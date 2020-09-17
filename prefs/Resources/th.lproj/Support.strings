@@ -9,5 +9,13 @@
 	<!-- The subject used when sending a support email. %@ %@ is the package name and version respectively. -->
 	<key>SUPPORT_EMAIL_SUBJECT</key>
 	<string>%@ %@ – การช่วยเหลือ</string>
+
+	<!-- Title of error message shown when no email accounts are set up on the device. -->
+	<key>NO_EMAIL_ACCOUNTS_TITLE</key>
+	<string>ไม่มีบัญชีอีเมลที่ใช้ได้</string>
+
+	<!-- Explanation of how to add an email account to the device. -->
+	<key>NO_EMAIL_ACCOUNTS_BODY</key>
+	<string>ไปตั้งค่าในแอพ Mail เพื่อเพิ่มบัญชีอีเมล</string>
 </dict>
 </plist>
