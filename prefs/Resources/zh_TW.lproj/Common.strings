@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>捐贈</string>
+	<string>捐款贊助</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>請考慮用捐贈來表達您對此插件的感謝。</string>
+	<string>請考慮捐款，以對作者表達感謝。</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
