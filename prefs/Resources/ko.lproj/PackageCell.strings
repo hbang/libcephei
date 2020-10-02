@@ -4,10 +4,10 @@
 <dict>
 	<!-- Title of a menu of apps the user can view the package in. -->
 	<key>OPEN_PACKAGE_IN_TITLE</key>
-	<string>Open in…</string>
+	<string>다음으로 열기…</string>
 
 	<!-- Message displayed below the Open In… title when the package comes from a non-default repository. %@ is the repository URL. -->
 	<key>OPEN_PACKAGE_IN_REPO_NOTICE</key>
-	<string>This package will be installed from the repository %@.</string>
+	<string>이 패키지는 %@ 저장소에서 설치됩니다.</string>
 </dict>
 </plist>

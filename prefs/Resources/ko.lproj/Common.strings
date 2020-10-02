@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>기부하기</string>
+	<string>팁 저금통</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>이 트윅에 대한 고마움을 기부로 표현해주세요.</string>
+	<string>팁 저금통에 약간의 기부로 여러분의 감사 표시를 남겨주시면 감사드리겠습니다.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
