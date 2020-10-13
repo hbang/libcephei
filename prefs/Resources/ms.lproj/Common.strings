@@ -36,11 +36,11 @@
 
 	<!-- Button leading to a donation page. -->
 	<key>DONATE</key>
-	<string>Derma</string>
+	<string>Balang Derma</string>
 
 	<!-- Footer under the donate button. -->
 	<key>DONATE_FOOTER</key>
-	<string>Sila pertimbangkan untuk menunjuk perhargaan kepada tweak ini dengan menderma.</string>
+	<string>Sila pertimbangkan untuk memberi penghargaan untuk tweak ini dengan memberi sejumlah derma di balang derma.</string>
 
 	<!-- Headings above the credits. -->
 	<key>DEVELOPER</key>
