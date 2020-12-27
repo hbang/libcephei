@@ -23,13 +23,14 @@
 
 @end
 
-@interface HBTwitterCell () <HBTwitterAPIClientDelegate> {
+#ifdef CEPHEI_TWITTER_BEARER_TOKEN
+@interface HBTwitterCell () <HBTwitterAPIClientDelegate>
+@end
+#endif
+
+@implementation HBTwitterCell {
 	NSString *_user;
 }
-
-@end
-
-@implementation HBTwitterCell
 
 + (NSURL *)_urlForUsername:(NSString *)username userID:(NSString *)userID {
 	NSParameterAssert(username != nil || userID != nil);
