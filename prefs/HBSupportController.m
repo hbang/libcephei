@@ -29,7 +29,7 @@
 
 	// and now we get the data representing an XML plist of the dictionary
 	CFErrorRef error = nil;
-	NSData *data = (__bridge NSData *)CFPropertyListCreateData(kCFAllocatorDefault, (__bridge CFDictionaryRef)dictionary, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
+	NSData *data = (__bridge_transfer NSData *)CFPropertyListCreateData(kCFAllocatorDefault, (__bridge CFDictionaryRef)dictionary, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
 
 	if (error) {
 		HBLogError(@"error serializing prefs for %@: %@", identifier, error);
