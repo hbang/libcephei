@@ -61,7 +61,13 @@
 	return [self _hb_configureSpecifiers:specifiers];
 }
 
-- (UIImageSymbolWeight)symbolWeightWithString:(NSString *)weight {
+- (NSInteger)symbolWeightWithString:(NSString *)weight {
+	if ([weight isKindOfClass:NSNumber.class]) {
+		return [weight integerValue];
+	}
+	if (![weight isKindOfClass:NSString.class]) {
+		return UIImageSymbolWeightRegular;
+	}
 	if ([weight isEqualToString:@"UIImageSymbolWeightUltraLight"] || [weight isEqualToString:@"ultraLight"]) {
 		return UIImageSymbolWeightUltraLight;
 	}
@@ -89,7 +95,13 @@
 	return UIImageSymbolWeightRegular;
 }
 
-- (UIImageSymbolScale)symbolScaleWithString:(NSString *)scale {
+- (NSInteger)imageSystemScale:(id)scale {
+	if ([scaleValue isKindOfClass:NSNumber.class]) {
+		return [scaleValue integerValue];
+	}
+	if (![scaleValue isKindOfClass:NSString.class]) {
+		return UIImageSymbolScaleMedium;
+	}
 	if ([scale isEqualToString:@"UIImageSymbolScaleSmall"] || [scale isEqualToString:@"small"]) {
 		return UIImageSymbolScaleSmall;
 	}
@@ -99,30 +111,14 @@
 	if ([scale isEqualToString:@"UIImageSymbolScaleLarge"] || [scale isEqualToString:@"large"]) {
 		return UIImageSymbolScaleLarge;
 	}
-	return UIImageSymbolWeightRegular;
+	return UIImageSymbolScaleMedium;
 }
 
 - (UIImage *)imageSystemFromDict:(NSDictionary *)imageSystem {
-	UIImageSymbolWeight weight = UIImageSymbolWeightRegular;
-	id weightValue = iconImageSystem[@"weight"];
-	if ([weightValue isKindOfClass:NSString.class]) {
-		weight = [self symbolWeightWithString:weightValue];
-	} else if ([weightValue isKindOfClass:NSNumber.class]) {
-		weight = [weightValue integerValue];
-	}
-
-	UIImageSymbolScale scale = UIImageSymbolScaleMedium;
-	id scaleValue = iconImageSystem[@"scale"];
-	if ([scaleValue isKindOfClass:NSString.class]) {
-		scale = [self symbolScaleWithString:scaleValue];
-	} else if ([scaleValue isKindOfClass:NSNumber.class]) {
-		scale = [scaleValue integerValue];
-	}
-
 	UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration
 		configurationWithPointSize:([imageSystem[@"pointSize"] floatValue] ?: 20.0)
-		weight:weight
-		scale:scale
+		weight:[self imageSystemWeight:weight]
+		scale:[self imageSystemScale:scale]
 	];
 
 	return [UIImage systemImageNamed:imageSystem[@"name"] withConfiguration:configuration];
