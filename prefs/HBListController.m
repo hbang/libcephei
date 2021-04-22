@@ -8,6 +8,7 @@
 #import "HBTwitterAPIClient.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
+#import "Symbols.h"
 #import <Preferences/PSSpecifier.h>
 #import <version.h>
 
@@ -105,6 +106,26 @@
 				specifier.controllerLoadAction = specifier.buttonAction;
 			}
 		}
+
+		// Support for SF Symbols (system images)
+		if (IS_IOS_OR_NEWER(iOS_13_0)) {
+			if (@available(iOS 13, *)) {
+				UIImage *iconImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"iconImageSystem"]];
+				if (iconImage != nil) {
+					specifier.properties[@"iconImage"] = iconImage;
+				}
+
+				UIImage *leftImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"leftImageSystem"]];
+				if (leftImage != nil) {
+					specifier.properties[@"leftImage"] = leftImage;
+				}
+
+				UIImage *rightImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"rightImageSystem"]];
+				if (rightImage != nil) {
+					specifier.properties[@"rightImage"] = rightImage;
+				}
+			}
+		}
 	}
 
 	// if we have specifiers to remove
@@ -125,6 +146,13 @@
 	}
 
 	return specifiers;
+}
+
+- (UIImage *)_hb_symbolImageFromDictionary:(NSDictionary <NSString *, id> *)params {
+	if (@available(iOS 13, *)) {
+		return systemSymbolImageForDictionary(params);
+	}
+	return nil;
 }
 
 #pragma mark - Appearance
