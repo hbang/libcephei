@@ -61,6 +61,73 @@
 	return [self _hb_configureSpecifiers:specifiers];
 }
 
+- (UIImageSymbolWeight)symbolWeightWithString:(NSString *)weight {
+	if ([weight isEqualToString:@"UIImageSymbolWeightUltraLight"] || [weight isEqualToString:@"ultraLight"]) {
+		return UIImageSymbolWeightUltraLight;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightThin"] || [weight isEqualToString:@"thin"]) {
+		return UIImageSymbolWeightThin;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightLight"] || [weight isEqualToString:@"light"]) {
+		return UIImageSymbolWeightLight;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightMedium"] || [weight isEqualToString:@"medium"]) {
+		return UIImageSymbolWeightMedium;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightSemibold"] || [weight isEqualToString:@"semiBold"]) {
+		return UIImageSymbolWeightSemibold;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightBold"] || [weight isEqualToString:@"bold"]) {
+		return UIImageSymbolWeightBold;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightHeavy"] || [weight isEqualToString:@"heavy"]) {
+		return UIImageSymbolWeightHeavy;
+	}
+	if ([weight isEqualToString:@"UIImageSymbolWeightBlack"] || [weight isEqualToString:@"black"]) {
+		return UIImageSymbolWeightBlack;
+	}
+	return UIImageSymbolWeightRegular;
+}
+
+- (UIImageSymbolScale)symbolScaleWithString:(NSString *)scale {
+	if ([scale isEqualToString:@"UIImageSymbolScaleSmall"] || [scale isEqualToString:@"small"]) {
+		return UIImageSymbolScaleSmall;
+	}
+	if ([scale isEqualToString:@"UIImageSymbolScaleMedium"] || [scale isEqualToString:@"medium"]) {
+		return UIImageSymbolScaleMedium;
+	}
+	if ([scale isEqualToString:@"UIImageSymbolScaleLarge"] || [scale isEqualToString:@"large"]) {
+		return UIImageSymbolScaleLarge;
+	}
+	return UIImageSymbolWeightRegular;
+}
+
+- (UIImage *)imageSystemFromDict:(NSDictionary *)imageSystem {
+	UIImageSymbolWeight weight = UIImageSymbolWeightRegular;
+	id weightValue = iconImageSystem[@"weight"];
+	if ([weightValue isKindOfClass:NSString.class]) {
+		weight = [self symbolWeightWithString:weightValue];
+	} else if ([weightValue isKindOfClass:NSNumber.class]) {
+		weight = [weightValue integerValue];
+	}
+
+	UIImageSymbolScale scale = UIImageSymbolScaleMedium;
+	id scaleValue = iconImageSystem[@"scale"];
+	if ([scaleValue isKindOfClass:NSString.class]) {
+		scale = [self symbolScaleWithString:scaleValue];
+	} else if ([scaleValue isKindOfClass:NSNumber.class]) {
+		scale = [scaleValue integerValue];
+	}
+
+	UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration
+		configurationWithPointSize:([imageSystem[@"pointSize"] floatValue] ?: 20.0)
+		weight:weight
+		scale:scale
+	];
+
+	return [UIImage systemImageNamed:imageSystem[@"name"] withConfiguration:configuration];
+}
+
 - (NSMutableArray *)_hb_configureSpecifiers:(NSMutableArray *)specifiers {
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
 	NSMutableArray <NSString *> *twitterUsernames = [NSMutableArray array];
@@ -105,6 +172,14 @@
 				specifier.controllerLoadAction = specifier.buttonAction;
 			}
 		}
+
+		// allow SF Symbols to be used in .plist
+		// [specifier setProperty:[self imageSystemFromDict:specifier.properties[@"iconImageSystem"]] forKey:@"iconImage"];
+		// [specifier setProperty:[self imageSystemFromDict:specifier.properties[@"leftImageSystem"]] forKey:@"leftImage"];
+		// [specifier setProperty:[self imageSystemFromDict:specifier.properties[@"rightImageSystem"]] forKey:@"rightImage"];
+		specifier.properties[@"iconImage"] = [self imageSystemFromDict:specifier.properties[@"iconImageSystem"];
+		specifier.properties[@"leftImage"] = [self imageSystemFromDict:specifier.properties[@"leftImageSystem"];
+		specifier.properties[@"rightImage"] = [self imageSystemFromDict:specifier.properties[@"rightImageSystem"];
 	}
 
 	// if we have specifiers to remove
