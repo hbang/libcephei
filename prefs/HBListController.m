@@ -61,7 +61,7 @@
 	return [self _hb_configureSpecifiers:specifiers];
 }
 
-- (NSInteger)symbolWeightWithString:(NSString *)weight {
+- (NSInteger)imageSystemWeight:(id)weight {
 	if ([weight isKindOfClass:NSNumber.class]) {
 		return [weight integerValue];
 	}
