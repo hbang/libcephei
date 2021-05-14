@@ -103,21 +103,18 @@
 	}
 
 	if ([UIAlertController class] != nil) {
-		NSURL *parcilityURL = [NSURL URLWithString:[@"https://parcility.co/package/" stringByAppendingString:escapedIdentifier]];
 		NSArray <NSArray <id> *> *packageManagerURLs = repo == nil
 			? @[
 				@[ @"com.saurik.Cydia", cydiaURL ],
 				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
-				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[@"zbra://package/" stringByAppendingString:escapedIdentifier]] ],
-				@[ @"com.apple.mobilesafari", parcilityURL ]
+				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[@"zbra://package/" stringByAppendingString:escapedIdentifier]] ]
 			]
 			: @[
 				@[ @"com.saurik.Cydia", cydiaURL ],
 				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
 				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[NSString stringWithFormat:@"zbra://package/%@?%@", escapedIdentifier, @{
 						@"source": repo
-					}.hb_queryString]] ],
-				@[ @"com.apple.mobilesafari", parcilityURL ]
+					}.hb_queryString]] ]
 			];
 
 		NSString *title = LOCALIZE(@"OPEN_PACKAGE_IN_TITLE", @"PackageCell", @"");
@@ -133,13 +130,6 @@
 			}
 
 			NSString *name = app.localizedName;
-			if ([url.host isEqualToString:@"parcility.co"]) {
-				if (specifier.properties[@"_hb_parcilityReturnedNotFound"] != nil) {
-					continue;
-				}
-				name = @"Parcility";
-			}
-
 			UIImage *icon = [[UIImage _applicationIconImageForBundleIdentifier:bundleIdentifier format:MIIconVariantSmall scale:self.view.window.screen.scale] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 			UIAlertAction *action = [UIAlertAction _actionWithTitle:name descriptiveText:nil image:icon style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 				[self _hb_openURLInBrowser:url];
