@@ -280,11 +280,11 @@
 			<key>cellClass</key>
 			<string>HBPackageTableCell</string>
 			<key>label</key>
-			<string>TypeStatus</string>
+			<string>TypeStatus Plus</string>
 			<key>subtitle</key>
-			<string>TypeStatus is also awesome!</string>
+			<string>TypeStatus Plus is also awesome!</string>
 			<key>packageIdentifier</key>
-			<string>ws.hbang.typestatus2</string>
+			<string>ws.hbang.typestatusplus</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
