@@ -1,5 +1,6 @@
 #import "HBPackageTableCell.h"
 #import "HBPackage.h"
+#import "../NSDictionary+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
@@ -20,16 +21,20 @@
 	}
 
 	if (specifier.properties[@"iconURL"] == nil) {
-		NSURL *iconURL = [[NSURL URLWithString:@"https://proxy.prcl.app/package/"] URLByAppendingPathComponent:_identifier];
-		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
+		NSURL *iconURL = [NSURL URLWithString:[@"https://api.canister.me/v1/community/packages?" stringByAppendingString:@{
+			@"id": _identifier,
+			@"content": @"icon",
+			@"redirect": @"true"
+		}.hb_queryString]];
 
+		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
 		if (iconField && ![iconField isEqualToString:@""]) {
 			NSURL *maybeIconURL = [NSURL URLWithString:iconField];
 			if (maybeIconURL != nil && (!maybeIconURL.isFileURL || [maybeIconURL checkResourceIsReachableAndReturnError:nil])) {
 				iconURL = maybeIconURL;
 			}
 		}
-		
+
 		specifier.properties[@"iconURL"] = iconURL;
 	}
 
@@ -52,7 +57,6 @@
 }
 
 - (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error {
-	self.specifier.properties[@"_hb_parcilityReturnedNotFound"] = @YES;
 	[super iconLoadDidFailWithResponse:response error:error];
 }
 
