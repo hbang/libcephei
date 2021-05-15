@@ -2,7 +2,27 @@
 #import "HBPreferencesCommon.h"
 #import <HBLog.h>
 
+static LMConnection preferencesService;
+
 @implementation HBPreferencesIPC
+
++ (void)initialize {
+	[super initialize];
+
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		// Determine which service name to use. libhooker implements the same sandbox workaround via
+		// a two-letter prefixed service name as Substrate does, but because of reasons that effectively
+		// amount to hand-waving, it intentionally chooses to not be compatible with the de-facto cy:
+		// prefix. So we need to just guess the service name to use here. The prefix has no meaning when
+		// RocketBootstrap is providing the sandbox workaround (pre-iOS 11).
+		if (access("/usr/lib/libhooker.dylib", F_OK) == 0) {
+			preferencesService = preferencesServiceLibhooker;
+		} else {
+			preferencesService = preferencesServiceSubstrate;
+		}
+	});
+}
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
@@ -41,7 +61,7 @@
 
 	// send the message, and hopefully have it placed in the response buffer
 	LMResponseBuffer buffer;
-	kern_return_t result = LMConnectionSendTwoWayPropertyList(&springboardService, 0, data, &buffer);
+	kern_return_t result = LMConnectionSendTwoWayPropertyList(&preferencesService, 0, data, &buffer);
 
 	// if it failed, log and return nil
 	if (result != KERN_SUCCESS) {
