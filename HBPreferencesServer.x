@@ -78,15 +78,15 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// amount to hand-waving, it intentionally chooses to not be compatible with the de-facto cy:
 	// prefix. So we need to just guess the service name to use here. The prefix has no meaning when
 	// RocketBootstrap is providing the sandbox workaround (pre-iOS 11).
-	name_t serviceName;
+	LMConnection preferencesService;
 	if (access("/usr/lib/libhooker.dylib", F_OK) == 0) {
-		serviceName = preferencesServiceLibhooker.serverName;
+		preferencesService = preferencesServiceLibhooker;
 	} else {
-		serviceName = preferencesServiceSubstrate.serverName;
+		preferencesService = preferencesServiceSubstrate;
 	}
 
 	// Start the service
-	kern_return_t result = LMStartService(serviceName, CFRunLoopGetCurrent(), HandleReceivedMessage);
+	kern_return_t result = LMStartService(preferencesService.serverName, CFRunLoopGetCurrent(), HandleReceivedMessage);
 	if (result != KERN_SUCCESS) {
 		HBLogError(@"Failed to start preferences IPC service! (Error %i)", result);
 	}
