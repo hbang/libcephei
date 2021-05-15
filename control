@@ -1,6 +1,6 @@
 Package: ws.hbang.common
 Name: Cephei Tweak Support
-Depends: firmware (<< 8.0) | mobilesubstrate (>= 0.9.7000) | org.coolstar.libhooker | com.rpetrich.rocketbootstrap, firmware (<< 8.0) | mobilesubstrate (<< 99) | org.coolstar.libhooker | com.rpetrich.rocketbootstrap
+Depends: firmware (<< 8.0) | mobilesubstrate (>= 0.9.7000) | org.coolstar.libhooker | com.rpetrich.rocketbootstrap
 Version: 1.16
 Architecture: iphoneos-arm
 Description: Support library for tweaks
