@@ -56,8 +56,4 @@
 	return YES;
 }
 
-- (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error {
-	[super iconLoadDidFailWithResponse:response error:error];
-}
-
 @end
