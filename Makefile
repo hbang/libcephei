@@ -44,7 +44,6 @@ ifeq ($(CEPHEI_SIMULATOR),1)
 Cephei_LOGOSFLAGS = -c generator=internal
 else
 SUBPROJECTS += defaults
-Cephei_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 endif
 
