@@ -1,12 +1,14 @@
 #import "HBPreferences-Private.h"
 #import "HBPreferencesIPC.h"
 #import <version.h>
-#include <sandbox.h>
-#include <dlfcn.h>
 
 // ensure private symbols don’t get included if we’re in embedded mode. any empty code paths will be
 // optimised out by the compiler
 #if !CEPHEI_EMBEDDED
+#import <dlfcn.h>
+#import <sandbox.h>
+#import <objc/runtime.h>
+
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
 
 typedef CFPropertyListRef (*_CFPreferencesCopyValueWithContainerType)(CFStringRef key, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
@@ -20,6 +22,8 @@ static _CFPreferencesSetValueWithContainerType _CFPreferencesSetValueWithContain
 static _CFPreferencesSynchronizeWithContainerType _CFPreferencesSynchronizeWithContainer;
 static _CFPreferencesCopyKeyListWithContainerType _CFPreferencesCopyKeyListWithContainer;
 static _CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContainer;
+
+static BOOL isSystemApp;
 #endif
 
 NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
@@ -43,6 +47,8 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		_CFPreferencesSynchronizeWithContainer = (_CFPreferencesSynchronizeWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSynchronizeWithContainer");
 		_CFPreferencesCopyKeyListWithContainer = (_CFPreferencesCopyKeyListWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyKeyListWithContainer");
 		_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyMultipleWithContainer");
+
+		isSystemApp = IS_SYSTEM_APP;
 	});
 #endif
 }
@@ -59,8 +65,8 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #else
 	// we may not have the appropriate sandbox rules to access the preferences from this process, so
 	// find out whether we do or not. if we don’t, swap the instance of this class out for an instance
-	// of the class that works around this by doing IPC with our springboard server
-	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"] || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
+	// of the class that works around this by doing IPC with our preferences server
+	if (isSystemApp || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
 		self = [super initWithIdentifier:identifier];
 
 		// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found

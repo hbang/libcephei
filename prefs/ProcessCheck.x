@@ -1,5 +1,5 @@
 @import UIKit;
-#include <mach-o/dyld.h>
+#import <mach-o/dyld.h>
 #import <HBLog.h>
 
 #pragma mark - Hax class
@@ -63,7 +63,7 @@
 		NSString *title = @"Cephei: Developer Error";
 		NSString *mayCrashMessage;
 
-		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
+		if (IS_SYSTEM_APP) {
 			mayCrashMessage = [NSString stringWithFormat:@"This can cause %@ to crash to Safe Mode.", [UIDevice currentDevice].localizedModel];
 		} else {
 			NSDictionary *localizedInfo = bundle.localizedInfoDictionary;

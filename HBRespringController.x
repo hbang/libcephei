@@ -30,34 +30,37 @@
 }
 
 + (void)respringAndReturnTo:(nullable NSURL *)returnURL {
-	// if we have frontboard (iOS 8)
+	// Load FrontBoardServices and SpringBoardServices if necessary.
 	[[NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FrontBoardServices.framework"] load];
 	[[NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/SpringBoardServices.framework"] load];
 
 	if (%c(FBSSystemService)) {
-		// ask for a render server (aka springboard) restart. if requested, provide our url so settings
-		// is opened right back up to here
+		// iOS 8+: Ask for a system app (SpringBoard, etc.) restart, providing our return URL if any.
+		// Despite being called SpringBoardServices, the framework appears to exist and work on iOS
+		// variants that use a system app other than SpringBoard.
 		SBSRelaunchAction *restartAction;
-
 		if (%c(SBSRelaunchAction)) { // 9.3+
 			restartAction = [%c(SBSRelaunchAction) actionWithReason:@"RestartRenderServer" options:SBSRelaunchActionOptionsFadeToBlackTransition targetURL:returnURL];
 		} else if (%c(SBSRestartRenderServerAction)) { // 8.0 – 9.3
 			restartAction = [%c(SBSRestartRenderServerAction) restartActionWithTargetRelaunchURL:returnURL];
 		}
-
 		[[%c(FBSSystemService) sharedService] sendActions:[NSSet setWithObject:restartAction] withResult:nil];
-	} else if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
-		// in springboard, use good ole _relaunchSpringBoardNow
+	} else {
+		// iOS 5.0 – 7.1: Do our best to restart using whatever we have available. If we’re in
+		// SpringBoard, use good ole _relaunchSpringBoardNow. If not, we need to post to our listener
+		// in SpringBoard, which may or may not be there. If that doesn’t seem to do anything within
+		// 500ms, fall back to running killall SpringBoard.
+		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
 		[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
 	} else {
-		// send a notification to our little listener in springboard, which may or may not be there
-		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("ws.hbang.common/Respring"), NULL, NULL, TRUE);
+			CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("ws.hbang.common/Respring"), NULL, NULL, TRUE);
 
-		// wait half a second in case that fails
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC * 0.5)), dispatch_get_main_queue(), ^{
-			// manually execute killall (i'm lazy, sorry)
-			HBOutputForShellCommand(@"/bin/killall SpringBoard");
-		});
+			// Wait half a second in case that fails, so we can manually execute a killall. In future, we
+			// could use liblaunch here instead to stop and restart the com.apple.SpringBoard job.
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC * 0.5)), dispatch_get_main_queue(), ^{
+				HBOutputForShellCommand(@"/bin/killall SpringBoard");
+			});
+	}
 	}
 }
 
@@ -68,12 +71,12 @@
 %ctor {
 	%init;
 
-	// if we're in springboard without the FrontBoard restart action (iOS < 8)
-	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"] && !%c(SBSRestartRenderServerAction)) {
-		// register our notification
+	// For iOS 5.0 – 7.1, run a listener in SpringBoard that calls _relaunchSpringBoardNow on posting
+	// a notification. This handles the situation of HBRespringController being called from a
+	// non-SpringBoard process, such as Preferences.
+	if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"] && !%c(FBSSystemService)) {
 		int notifyToken;
 		notify_register_dispatch("ws.hbang.common/Respring", &notifyToken, dispatch_get_main_queue(), ^(int token) {
-			// call good ole _relaunchSpringBoardNow
 			[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
 		});
 	}

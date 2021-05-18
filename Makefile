@@ -1,7 +1,7 @@
 ifeq ($(CEPHEI_SIMULATOR),1)
 export TARGET = simulator:latest:7.0
 else
-export TARGET = iphone:13.2:7.0
+export TARGET = iphone:14.4:7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_armv7 = 5.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
 export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
@@ -25,6 +25,7 @@ include $(THEOS)/makefiles/common.mk
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
+Cephei_CFLAGS = -include Global.h
 Cephei_INSTALL_PATH = /usr/lib
 
 # link arclite to polyfill some features iOS 5 lacks

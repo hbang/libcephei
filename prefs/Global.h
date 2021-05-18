@@ -1,3 +1,5 @@
+#import "../Global.h"
+
 @class NSBundle;
 
 #pragma mark - Macros

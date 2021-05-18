@@ -68,8 +68,8 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 #pragma mark - Constructor
 
 %ctor {
-	// Don’t do anything unless we’re in SpringBoard
-	if (![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
+	// Don’t do anything unless we’re in the system app
+	if (!IS_SYSTEM_APP) {
 		return;
 	}
 
