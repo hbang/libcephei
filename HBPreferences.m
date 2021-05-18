@@ -154,9 +154,8 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 
 - (void)_setObject:(id)value forKey:(NSString *)key {
 #if !CEPHEI_EMBEDDED
-	// TODO: we might be able to lift this restriction on iOS 9.3+?
-	if (getuid() != 501) {
-		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is disallowed."];
+	if (!IS_IOS_OR_NEWER(iOS_9_3) && getuid() != 501) {
+		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is not supported before iOS 9.3."];
 	}
 #endif
 
