@@ -3,7 +3,7 @@
 #import <UIKit/UIColor+Private.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
-#include <objc/runtime.h>
+#import <objc/runtime.h>
 
 static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 

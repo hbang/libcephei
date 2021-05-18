@@ -2,7 +2,6 @@
 #import "../HBPreferences.h"
 #import "HBPackage.h"
 #import "HBContactViewController.h"
-#include <objc/runtime.h>
 #import <version.h>
 #import <dlfcn.h>
 #import <HBLog.h>

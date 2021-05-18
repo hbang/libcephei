@@ -1,7 +1,6 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
 #import <HBLog.h>
-#include <dlfcn.h>
 
 #if !CEPHEI_EMBEDDED && !TARGET_OS_SIMULATOR
 

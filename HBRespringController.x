@@ -5,7 +5,7 @@
 #import <SpringBoardServices/SBSRestartRenderServerAction.h>
 #import <FrontBoardServices/FBSSystemService.h>
 #import <Preferences/PreferencesAppController.h>
-#include <notify.h>
+#import <notify.h>
 
 @implementation HBRespringController
 

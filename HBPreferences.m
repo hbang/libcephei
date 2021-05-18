@@ -7,7 +7,6 @@
 #if !CEPHEI_EMBEDDED
 #import <dlfcn.h>
 #import <sandbox.h>
-#import <objc/runtime.h>
 
 #define kCFPreferencesNoContainer CFSTR("kCFPreferencesNoContainer")
 
