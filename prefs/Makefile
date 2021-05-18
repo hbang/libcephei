@@ -35,30 +35,21 @@ include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiPrefs-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
-	@# create directories
-	$(ECHO_NOTHING)mkdir -p \
+	@mkdir -p \
 		$(THEOS_STAGING_DIR)/usr/{include,lib} \
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
-		$(THEOS_STAGING_DIR)/Library/PreferenceBundles$(ECHO_END)
+		$(THEOS_STAGING_DIR)/Library/PreferenceBundles
+	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework
+	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle
 
-	@# /usr/lib/CepheiPrefs.framework -> /Library/Frameworks/CepheiPrefs.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework$(ECHO_END)
-
-	@# libhbangprefs.dylib -> CepheiPrefs.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib$(ECHO_END)
-
-	@# libcepheiprefs.dylib -> CepheiPrefs.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib$(ECHO_END)
-
-	@# libhbangprefs.bundle -> Cephei.bundle
-	$(ECHO_NOTHING)ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle$(ECHO_END)
-
-	@# Cephei.bundle -> CepheiPrefs.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle$(ECHO_END)
+	@# Backwards compatibility symlinks
+	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib
+	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib
+	@ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
 
 ifeq ($(PACKAGE_BUILDNAME),debug)
-	@# install demo entry plist
-	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences$(ECHO_END)
-	$(ECHO_NOTHING)ln -s /Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist$(ECHO_END)
+	@# Install the demo entry plist
+	@mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences
+	@ln -s /Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist
 endif
 endif

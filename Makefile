@@ -53,30 +53,20 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-Cephei-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
-	@# create directories
-	$(ECHO_NOTHING)mkdir -p \
+	@mkdir -p \
 		$(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/usr/{include,lib} \
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
-		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
+		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries
+	@cp postinst $(THEOS_STAGING_DIR)/DEBIAN
+	@ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework
 
-	@# postinst -> DEBIAN/postinst
-	$(ECHO_NOTHING)cp postinst $(THEOS_STAGING_DIR)/DEBIAN$(ECHO_END)
+	@# Set up CepheiSpringBoard
+	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib
+	@cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries
 
-	@# /usr/lib/Cephei.framework -> /Library/Frameworks/Cephei.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework$(ECHO_END)
-
-	@# libhbangcommon.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib$(ECHO_END)
-
-	@# libcephei.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib$(ECHO_END)
-
-	@# TODO: this is kind of a bad idea. maybe it should be in its own daemon?
-	@# CepheiSpringBoard.dylib -> Cephei.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib$(ECHO_END)
-
-	@# copy CepheiSpringBoard.plist
-	$(ECHO_NOTHING)cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries$(ECHO_END)
+	@# Backwards compatibility symlinks
+	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
+	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib
 endif
 
 after-install::
@@ -85,15 +75,15 @@ ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
 endif
 
 docs: stage
-	$(ECHO_NOTHING)ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
-	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(THEOS_PACKAGE_BASE_VERSION)$(ECHO_END)
-	$(ECHO_NOTHING)rm $(THEOS_STAGING_DIR)/usr/lib/include$(ECHO_END)
-	$(ECHO_NOTHING)rm docs/undocumented.json$(ECHO_END)
+	@ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include
+	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(THEOS_PACKAGE_BASE_VERSION)
+	@rm $(THEOS_STAGING_DIR)/usr/lib/include
+	@rm docs/undocumented.json
 
 sdk: stage
 	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating SDK"$(ECHO_END)
-	$(ECHO_NOTHING)rm -rf $(CEPHEI_SDK_DIR) $(notdir $(CEPHEI_SDK_DIR)).zip$(ECHO_END)
-	$(ECHO_NOTHING)for i in Cephei CepheiUI CepheiPrefs; do \
+	@rm -rf $(CEPHEI_SDK_DIR) $(notdir $(CEPHEI_SDK_DIR)).zip
+	@for i in Cephei CepheiUI CepheiPrefs; do \
 		mkdir -p $(CEPHEI_SDK_DIR)/$$i.framework; \
 		cp -ra $(THEOS_STAGING_DIR)/usr/lib/$$i.framework/{$$i,Headers} $(CEPHEI_SDK_DIR)/$$i.framework/; \
 		tbd -p -v1 --ignore-missing-exports \
@@ -102,15 +92,15 @@ sdk: stage
 			-o $(CEPHEI_SDK_DIR)/$$i.framework/$$i.tbd; \
 		rm $(CEPHEI_SDK_DIR)/$$i.framework/$$i; \
 		rm -rf $(THEOS_VENDOR_LIBRARY_PATH)/$$i.framework; \
-	done$(ECHO_END)
-	$(ECHO_NOTHING)rm -r $(THEOS_STAGING_DIR)/usr/lib/*.framework/Headers$(ECHO_END)
-	$(ECHO_NOTHING)cp -ra $(CEPHEI_SDK_DIR)/* $(THEOS_VENDOR_LIBRARY_PATH)$(ECHO_END)
-	$(ECHO_NOTHING)printf 'This is an SDK for developers wanting to use Cephei.\n\nVersion: %s\n\nFor more information, visit %s.' \
+	done
+	@rm -r $(THEOS_STAGING_DIR)/usr/lib/*.framework/Headers
+	@cp -ra $(CEPHEI_SDK_DIR)/* $(THEOS_VENDOR_LIBRARY_PATH)
+	@printf 'This is an SDK for developers wanting to use Cephei.\n\nVersion: %s\n\nFor more information, visit %s.' \
 		"$(THEOS_PACKAGE_BASE_VERSION)" \
 		"https://hbang.github.io/libcephei/" \
-		> $(CEPHEI_SDK_DIR)/README.txt$(ECHO_END)
-	$(ECHO_NOTHING)cd $(dir $(CEPHEI_SDK_DIR)); \
-		zip -9Xrq "$(THEOS_PROJECT_DIR)/$(notdir $(CEPHEI_SDK_DIR)).zip" $(notdir $(CEPHEI_SDK_DIR))$(ECHO_END)
+		> $(CEPHEI_SDK_DIR)/README.txt
+	@cd $(dir $(CEPHEI_SDK_DIR)); \
+		zip -9Xrq "$(THEOS_PROJECT_DIR)/$(notdir $(CEPHEI_SDK_DIR)).zip" $(notdir $(CEPHEI_SDK_DIR))
 
 ifeq ($(FINALPACKAGE),1)
 before-package:: sdk

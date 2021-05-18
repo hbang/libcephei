@@ -19,10 +19,6 @@ include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiUI-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
-	@# create directories
-	$(ECHO_NOTHING)mkdir -p \
-		$(THEOS_STAGING_DIR)/Library/Frameworks$(ECHO_END)
-
-	@# /usr/lib/CepheiUI.framework -> /Library/Frameworks/CepheiUI.framework
-	$(ECHO_NOTHING)ln -s /usr/lib/CepheiUI.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiUI.framework$(ECHO_END)
+	@mkdir -p $(THEOS_STAGING_DIR)/Library/Frameworks
+	@ln -s /usr/lib/CepheiUI.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiUI.framework
 endif
