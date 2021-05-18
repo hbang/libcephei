@@ -29,7 +29,7 @@ static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 #pragma mark - PSTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
-	// for iOS 8.2+, use built in isSegmented style
+	// For iOS 8.2+, use built in isSegmented style
 	specifier.properties[@"isSegmented"] = @YES;
 	return [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
 }

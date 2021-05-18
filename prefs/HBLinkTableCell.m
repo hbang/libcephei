@@ -24,7 +24,7 @@
 		if (IS_IOS_OR_NEWER(iOS_7_0)) {
 			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		}
-		if (@available(iOS 13.0, *)) {
+		if (@available(iOS 13, *)) {
 			if (IS_IOS_OR_NEWER(iOS_13_0)) {
 				imageView.tintColor = [UIColor systemGray3Color];
 			}
@@ -34,7 +34,7 @@
 		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
 		if (IS_IOS_OR_NEWER(iOS_13_0)) {
-			if (@available(iOS 13.0, *)) {
+			if (@available(iOS 13, *)) {
 				self.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 			}
 		} else {

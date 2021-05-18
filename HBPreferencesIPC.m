@@ -27,8 +27,8 @@ static LMConnection preferencesService;
 - (instancetype)initWithIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
 
-	// block apple preferences from being read/written via IPC for security. these are also blocked at
-	// the server side. see HBPreferences.h for an explanation
+	// Block Apple preferences from being read/written via IPC for security. These are also blocked at
+	// the server side. See HBPreferences.h for an explanation.
 	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
 		HBLogWarn(@"An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
 		return nil;
@@ -43,33 +43,29 @@ static LMConnection preferencesService;
 	[NSException raise:NSInternalInconsistencyException format:@"HBPreferencesIPC is not available in embedded mode."];
 	return nil;
 #else
-	// construct our message dictionary with the basics
+	// Construct our message dictionary with the basics
 	NSMutableDictionary <NSString *, id> *data = [@{
 		@"Type": @(type),
 		@"Identifier": self.identifier
 	} mutableCopy];
 
-	// if we’ve been provided a key, add that in
+	// If we’ve been provided a key, add that in
 	if (key) {
 		data[@"Key"] = key;
 	}
 
-	// if we’ve been provided a value, add that too
+	// If we’ve been provided a value, add that too
 	if (value) {
 		data[@"Value"] = value;
 	}
 
-	// send the message, and hopefully have it placed in the response buffer
+	// Send the message, and return the response.
 	LMResponseBuffer buffer;
 	kern_return_t result = LMConnectionSendTwoWayPropertyList(&preferencesService, 0, data, &buffer);
-
-	// if it failed, log and return nil
 	if (result != KERN_SUCCESS) {
-		HBLogError(@"Could not contact preferences IPC server! (Error %i)",result);
+		HBLogError(@"Could not contact preferences IPC server! (Error %i)", result);
 		return nil;
 	}
-
-	// return what we got back
 	return LMResponseConsumePropertyList(&buffer);
 #endif
 }

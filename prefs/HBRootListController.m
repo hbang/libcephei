@@ -39,7 +39,7 @@ static Class $UIActivityViewController;
 	if ([self.class hb_shareText] && [self.class hb_shareURL]) {
 		if (IS_IOS_OR_NEWER(iOS_7_0)) {
 			UIImage *icon = nil;
-			if (@available(iOS 13.0, *)) {
+			if (@available(iOS 13, *)) {
 				if (IS_IOS_OR_NEWER(iOS_13_0)) {
 					icon = [UIImage systemImageNamed:@"heart"];
 				}
@@ -57,9 +57,8 @@ static Class $UIActivityViewController;
 #pragma mark - Callbacks
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
-	// if we have UIActivityViewController (ios 6+)
 	if ($UIActivityViewController != nil) {
-		// instantiate one with the share text and url as items
+		// iOS 6.0+: Use activity view controller.
 		UIActivityViewController *viewController = [[$UIActivityViewController alloc] initWithActivityItems:@[
 			[self.class hb_shareText],
 			[self.class hb_shareURL]
@@ -71,6 +70,7 @@ static Class $UIActivityViewController;
 
 		[self presentViewController:viewController animated:YES completion:nil];
 	} else {
+		// iOS 5.0 – 5.1: Nothing super useful we can do here. Just open twitter.com.
 		[self _hb_openURLInBrowser:[NSURL URLWithString:[@"https://twitter.com/intent/tweet?" stringByAppendingString:@{
 			@"text": [NSString stringWithFormat:@"%@ %@", [self.class hb_shareText], [self.class hb_shareURL]]
 		}.hb_queryString]]];

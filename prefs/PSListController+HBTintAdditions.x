@@ -42,20 +42,16 @@ static BOOL translucentNavigationBar = NO;
 }
 
 %new - (void)hb_setAppearanceSettings:(HBAppearanceSettings *)appearanceSettings {
-	// if appearanceSettings is nil, instantiate a generic appearance object
-	if (!appearanceSettings) {
+	// If appearanceSettings is nil, instantiate a generic appearance object
+	if (appearanceSettings == nil) {
 		appearanceSettings = [[HBAppearanceSettings alloc] init];
 	}
-
-	// set the internal property
 	self._hb_internalAppearanceSettings = [appearanceSettings copy];
-
-	// the navigation item also needs access to the appearance settings
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
 
-	// if we have navigation bar appearance, apply it
+	// Set iOS 11.0+ large title mode.
 	if (IS_IOS_OR_NEWER(iOS_11_0)) {
-		if (@available(iOS 11.0, *)) {
+		if (@available(iOS 11, *)) {
 			self._hb_realNavigationController.navigationBar.prefersLargeTitles = YES;
 			UINavigationItemLargeTitleDisplayMode largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
 			switch (self.hb_appearanceSettings.largeTitleStyle) {
@@ -75,8 +71,9 @@ static BOOL translucentNavigationBar = NO;
 		}
 	}
 
+	// Set iOS 13.0+ navigation bar appearance.
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {
-		if (@available(iOS 13.0, *)) {
+		if (@available(iOS 13, *)) {
 			if (self.navigationItem.scrollEdgeAppearance == nil) {
 				UINavigationBarAppearance *scrollEdgeAppearance = [[%c(UINavigationBarAppearance) alloc] init];
 				[scrollEdgeAppearance configureWithTransparentBackground];
@@ -94,14 +91,14 @@ static BOOL translucentNavigationBar = NO;
 - (void)viewDidLoad {
 	%orig;
 
-	// try and get appearance settings. this might be too early in most situations, but probably will
+	// Try and get appearance settings. This might be too early in most situations, but probably will
 	// work for the initial view controler in the navigation stack, where for some reason
 	// viewWillAppear: isn’t called on iOS 10
 	[self _hb_getAppearance];
 }
 
 %new - (id)_hb_configureNavigationBarAppearance:(id)appearance {
-	if (@available(iOS 13.0, *)) {
+	if (@available(iOS 13, *)) {
 		UIColor *backgroundColor, *titleColor;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -144,18 +141,13 @@ static BOOL translucentNavigationBar = NO;
 - (void)viewWillAppear:(BOOL)animated {
 	%orig;
 
-	// if we didn’t get an appearance settings object before, try again now that we’re definitely on a
-	// navigation controller
+	// If we didn’t get an appearance settings object before, try again now that we’re definitely on a
+	// navigation controller.
 	[self _hb_getAppearance];
 
-	UIColor *tintColor = nil;
+	UIColor *tintColor = [[self.hb_appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant] copy];
 
-	// if we have a tint color, grab it
-	if (!tintColor && self.hb_appearanceSettings.tintColor) {
-		tintColor = [[self.hb_appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant] copy];
-	}
-
-	// set the table view background and cell separator colors
+	// Set the table view background and cell separator colors
 	if (self.hb_appearanceSettings.tableViewBackgroundColor) {
 		self.table.backgroundColor = self.hb_appearanceSettings.tableViewBackgroundColor;
 		self.table.backgroundView = nil;
@@ -164,14 +156,14 @@ static BOOL translucentNavigationBar = NO;
 	if (self.hb_appearanceSettings.tableViewCellSeparatorColor) {
 		self.table.separatorColor = self.hb_appearanceSettings.tableViewCellSeparatorColor;
 
-		// it seems on old iOS you need to set the separator style to none for your custom separator
+		// It seems on old iOS you need to set the separator style to none for your custom separator
 		// color to apply
 		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
 			self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 		}
 	}
 
-	// if we have a translucent navigation bar, apply it
+	// If we have a translucent navigation bar, apply it
 	translucentNavigationBar = self.hb_appearanceSettings ? self.hb_appearanceSettings.translucentNavigationBar : IS_IOS_OR_NEWER(iOS_7_0);
 	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
 
@@ -179,7 +171,7 @@ static BOOL translucentNavigationBar = NO;
 		self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
 	}
 
-	// if we have a tint color, apply it
+	// If we have a tint color, apply it
 	if ([self.view respondsToSelector:@selector(setTintColor:)]) {
 		UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
 		if (tintColor) {
@@ -194,7 +186,7 @@ static BOOL translucentNavigationBar = NO;
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
 	}
 
-	// if we have a status bar tint color, apply it
+	// If we have a status bar tint color, apply it
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {
 		if (@available(iOS 13, *)) {
 			[self setNeedsStatusBarAppearanceUpdate];
@@ -216,13 +208,13 @@ static BOOL translucentNavigationBar = NO;
 - (void)viewWillDisappear:(BOOL)animated {
 	%orig;
 
-	// if we changed the status bar tint color, unset it
+	// If we changed the status bar tint color, unset it
 	if (!IS_IOS_OR_NEWER(iOS_13_0) && [UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
 		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
 		statusBar.foregroundColor = nil;
 	}
 
-	// if the navigation bar wasn’t translucent, set it back
+	// If the navigation bar wasn’t translucent, set it back
 	if (!translucentNavigationBar) {
 		self._hb_realNavigationController.navigationBar.translucent = IS_IOS_OR_NEWER(iOS_7_0);
 
@@ -243,9 +235,8 @@ static BOOL translucentNavigationBar = NO;
 
 #pragma mark - Navigation controller quirks
 
-// The layout of Settings is weird on iOS 8. On iPhone, the actual navigation
-// controller is the parent of self.navigationController. On iPad, it remains
-// how it's always been.
+// The layout of Settings is weird on iOS 8. On iPhone, the actual navigation controller is the
+// parent of self.navigationController. On iPad, it remains how it’s always been.
 %new - (UINavigationController *)_hb_realNavigationController {
 	UINavigationController *navigationController = self.navigationController;
 
@@ -259,15 +250,14 @@ static BOOL translucentNavigationBar = NO;
 #pragma mark - Appearance
 
 %new - (void)_hb_getAppearance {
-	// if we already have appearance settings, we don’t need to worry about this
-	if (self.hb_appearanceSettings) {
+	// If we already have appearance settings, we don’t need to worry about this
+	if (self.hb_appearanceSettings != nil) {
 		return;
 	}
 
-	// enumerate backwards over the navigation stack
+	// Enumerate backwards over the navigation stack to find the closest view controller that has set
+	// an appearance settings object. Copy that for ourselves.
 	for (PSListController *viewController in self.navigationController.viewControllers.reverseObjectEnumerator) {
-		// if this view controller is definitely a PSListController and its appearance settings are
-		// non-nil, grab that and break
 		if ([viewController isKindOfClass:PSListController.class] && viewController.hb_appearanceSettings) {
 			self.hb_appearanceSettings = viewController.hb_appearanceSettings;
 			break;
@@ -283,20 +273,18 @@ static BOOL translucentNavigationBar = NO;
 	if (self.hb_appearanceSettings.tableViewCellSelectionColor) {
 		UIView *selectionView = [[UIView alloc] init];
 		selectionView.backgroundColor = self.hb_appearanceSettings.tableViewCellSelectionColor;
+		cell.selectedBackgroundView = selectionView;
 
-		// hacky workaround to avoid ugly corners
+		// Hacky workaround to avoid ugly corners
 		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
 			selectionView.layer.cornerRadius = 8.f;
 		}
-
-		cell.selectedBackgroundView = selectionView;
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellTextColor) {
 		if (![cell isKindOfClass:HBTintedTableCell.class]) {
 			cell.textLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
 		}
-
 		cell.detailTextLabel.textColor = self.hb_appearanceSettings.tableViewCellTextColor;
 	}
 

@@ -17,24 +17,20 @@
 + (nullable NSData *)_xmlPlistForPreferencesIdentifier:(NSString *)identifier {
 	NSParameterAssert(identifier);
 
-	// get the preferences
+	// Get the preferences as a dictionary.
 	HBPreferences *preferences = [HBPreferences preferencesForIdentifier:identifier];
 	NSDictionary <NSString *, id> *dictionary = preferences.dictionaryRepresentation;
-
-	// if there are none, return nil
 	if (dictionary.allKeys.count == 0) {
 		return nil;
 	}
 
-	// and now we get the data representing an XML plist of the dictionary
+	// Now get the data representing an XML plist of the dictionary.
 	CFErrorRef error = nil;
 	NSData *data = (__bridge_transfer NSData *)CFPropertyListCreateData(kCFAllocatorDefault, (__bridge CFDictionaryRef)dictionary, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
-
 	if (error) {
 		HBLogError(@"error serializing prefs for %@: %@", identifier, error);
 		return nil;
 	}
-
 	return data;
 }
 
@@ -96,7 +92,7 @@
 	}
 	viewController.messageBody = [NSString stringWithFormat:@"\n\nDevice information: %@, iOS %@ (%@)", product, firmware, build];
 
-	// write a plist of the preferences using the identifier we think it may be
+	// Write a plist of the preferences using the identifier we think it may be.
 	NSString *realPreferencesIdentifier = preferencesIdentifier ?: bundle.bundleIdentifier;
 	viewController.preferencesPlist = [self _xmlPlistForPreferencesIdentifier:realPreferencesIdentifier];
 	viewController.preferencesIdentifier = realPreferencesIdentifier;

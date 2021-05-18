@@ -10,18 +10,14 @@
 @implementation HBRespringController
 
 + (NSURL *)_preferencesReturnURL {
-	// not much we can do if we're not in settings
 	if (!%c(PreferencesAppController)) {
 		return nil;
 	}
 
-	// ask for the url to be generated
+	// Ask for the url to be generated. Sadly, this is stored in the preferences, so we need to then
+	// read it out of there.
 	[(PreferencesAppController *)[%c(UIApplication) sharedApplication] generateURL];
-
-	// sadly, this is stored in the preferences…
 	NSString *position = (__bridge NSString *)CFPreferencesCopyAppValue(CFSTR("kPreferencePositionKey"), kCFPreferencesCurrentApplication);
-
-	// return it back into a url
 	return [NSURL URLWithString:position];
 }
 

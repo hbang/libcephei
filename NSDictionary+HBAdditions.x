@@ -4,8 +4,8 @@
 @implementation NSDictionary (HBAdditions)
 
 - (NSString *)hb_queryString {
-	// NSURLComponents will do this in a more "right" way, but NSURLQueryItem was only introduced in
-	// iOS 8. if we're on an older iOS version, fall back to manually constructing the query string
+	// NSURLComponents will do this in a more “right” way, but NSURLQueryItem was only introduced in
+	// iOS 8. If we’re on an older iOS version, fall back to manually constructing the query string.
 	if (%c(NSURLQueryItem)) {
 		NSURLComponents *components = [[%c(NSURLComponents) alloc] init];
 		NSMutableArray <NSURLQueryItem *> *queryItems = [NSMutableArray array];

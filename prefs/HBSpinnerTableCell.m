@@ -11,7 +11,7 @@
 	if (self) {
 		UIActivityIndicatorViewStyle style = UIActivityIndicatorViewStyleGray;
 		if (IS_IOS_OR_NEWER(iOS_13_0)) {
-			if (@available(iOS 13.0, *)) {
+			if (@available(iOS 13, *)) {
 				style = UIActivityIndicatorViewStyleMedium;
 			}
 		}

@@ -30,8 +30,8 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 - (void)_layoutSubviewsForBoundsChange:(BOOL)something {
 	%orig;
 
-	// from iOS 2(?) to 6, the label is strangely positioned. the cause is just a missing
-	// autoresizingMask. fix that here
+	// From iOS 2(?) to 6, the label is strangely positioned. The cause is just a missing
+	// autoresizingMask. Fix that here.
 	if (!IS_IOS_OR_NEWER(iOS_7_0)) {
 		self._hb_valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	}
@@ -58,34 +58,24 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 	NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
 	NSString *cancel = [uikitBundle localizedStringForKey:@"Cancel" value:@"" table:@"Localizable"];
 
-	// set up the alert controller. if there is an accessibilityLabel, use that as the title and our
-	// title as subtitle. otherwise, just use our title
+	// Set up the alert controller. If there is an accessibilityLabel, use that as the title and our
+	// title as subtitle. Otherwise, just use our title.
 	UIAlertController *alertController = [UIAlertController	alertControllerWithTitle:self.accessibilityLabel ?: title message:self.accessibilityLabel ? title : nil preferredStyle:UIAlertControllerStyleAlert];
 
-	// insert our text box
+	// Insert text box
 	[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-		// set to a decimal pad keyboard
 		textField.keyboardType = UIKeyboardTypeDecimalPad;
-
-		// limit to 2 decimal places, because floats are fun
 		textField.text = [NSString stringWithFormat:@"%.02f", self.value];
 	}];
 
-	// insert our ok button
+	// Insert buttons
 	[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		// set the value
 		self.value = alertController.textFields[0].text.floatValue;
-
-		// fire the callback so it gets stored
 		[self sendActionsForControlEvents:UIControlEventValueChanged];
 	}]];
-
-	// same for cancel
 	[alertController addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil]];
 
-	// grab the root window and display it
-	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-	[window.rootViewController presentViewController:alertController animated:YES completion:nil];
+	[self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 %end

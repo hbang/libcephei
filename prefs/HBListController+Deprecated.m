@@ -26,11 +26,11 @@
 @implementation HBListController (DeprecatedPrivate)
 
 - (void)_handleDeprecatedAppearanceMethods {
-	// if at least one deprecated method is in use
+	// If at least one deprecated method is in use, log a warning and make a HBAppearanceSettings
+	// object using the values of the old methods.
 	if (self._deprecatedAppearanceMethodsInUse.count > 0) {
 		HBLogWarn(@"The deprecated HBListController appearance method(s) %@ are in use on %@. Please migrate to the new HBAppearanceSettings as described at https://hbang.github.io/libcephei/Classes/HBAppearanceSettings.html.", [self._deprecatedAppearanceMethodsInUse componentsJoinedByString:@", "], self.class);
 
-		// set up an HBAppearanceSettings using the values of the old methods
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -68,13 +68,11 @@
 	});
 
 	if (!__deprecatedAppearanceMethodsInUse) {
+		// Loop over deprecated appearance methods. If we get something different from the default, add
+		// it to the list.
 		NSMutableArray *methodsInUse = [NSMutableArray array];
-
-		// loop over deprecated appearance methods
 		for (NSString *selector in AppearanceDeprecations) {
 			SEL sel = NSSelectorFromString(selector);
-
-			// if we get something different from the default, then add it to the list
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			if ([self.class performSelector:sel] != [HBListController performSelector:sel]) {
@@ -82,7 +80,6 @@
 				[methodsInUse addObject:selector];
 			}
 		}
-
 		__deprecatedAppearanceMethodsInUse = [methodsInUse copy];
 	}
 

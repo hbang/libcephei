@@ -5,8 +5,8 @@
 %hook UIColor
 
 %new - (UIColor *)copyWithZone:(NSZone *)zone {
-	// copying wasn't implemented on UIColor till iOS 6, so iOS 5 crashes if we call copy. use a
-	// silly workaround to manually copy colors
+	// Copying wasn’t implemented on UIColor till iOS 6, so iOS 5 crashes if we call copy. Use a
+	// silly workaround to manually copy colors.
 	CGFloat red, green, blue, alpha;
 	[self getRed:&red green:&green blue:&blue alpha:&alpha];
 	return [[UIColor alloc] initWithRed:red green:green blue:blue alpha:alpha];

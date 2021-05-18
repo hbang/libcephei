@@ -53,8 +53,8 @@ static BOOL animateBarTintColor = NO;
 %end
 
 - (UIColor *)_titleTextColor {
-	// if the navigation bar is inverted then we use white, otherwise we use the provided title color,
-	// and if that is nil then fall back to orig
+	// If the navigation bar is inverted then we use white, otherwise we use the provided title color,
+	// and if that is nil then fall back to orig.
 	// shush clang i know the thing i deprecated is deprecated
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -67,43 +67,42 @@ static BOOL animateBarTintColor = NO;
 }
 
 %new - (void)_hb_updateTintColorsAnimated:(BOOL)animated {
-	// get the appearance settings from the top item on the stack. if it’s nil, use a standard
-	// HBAppearanceSettings with the defaults
+	// Get the appearance settings from the top item on the stack. If it’s nil, use a standard
+	// HBAppearanceSettings with the defaults.
 	HBAppearanceSettings *appearanceSettings = ((UINavigationItem *)self.navigationItems.lastObject).hb_appearanceSettings ?: [[HBAppearanceSettings alloc] init];
 
-	// set it on ourselves in case other things need it
+	// Set it on ourselves in case other things need it
 	self.hb_appearanceSettings = appearanceSettings;
 
 	UIColor *backgroundColor = nil;
 
-	// if the navigation bar is inverted (deprecated)
+	// If the navigation bar is inverted (deprecated)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	if (self.hb_appearanceSettings.invertedNavigationBar) {
 #pragma clang diagnostic pop
-		// use a shade of grey for tint color
+		// Use a hardcoded grey value for tint color
 		self.tintColor = [UIColor colorWithWhite:247.f / 255.f alpha:1];
 
-		// we also want the background color to be the navigation bar tint color or standard tint color
-		// if that’s nil
+		// We want the background color to be the navigation bar tint color, or standard tint color if
+		// that’s nil
 		backgroundColor = [appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant];
 	} else {
-		// try the navigation bar tint color. if nil, use the standard tint color (which could also
-		// be nil)
+		// Try the navigation bar tint color. If nil, use the standard tint color (which could also
+		// be nil).
 		self.tintColor = [appearanceSettings.navigationBarTintColor ?: appearanceSettings.tintColor hb_colorWithDarkInterfaceVariant];
 
-		// use the specified background color if one has been set, otherwise leave it unchanged (nil)
+		// Use the specified background color if one has been set, otherwise leave it unchanged (nil).
 		backgroundColor = appearanceSettings.navigationBarBackgroundColor;
 	}
 
-	// if we have a custom tint color, or we no longer have a custom tint color, but one is currently
-	// set, and it should be animated, ask for it to be
+	// If we have a custom tint color, or we no longer have a custom tint color, but one is currently
+	// set, and it should be animated, ask for it to be. Not needed on iOS 13.0+ thanks to the
+	// UINavigationBarAppearance API.
 	if (IS_IOS_OR_NEWER(iOS_7_0) && !IS_IOS_OR_NEWER(iOS_13_0)) {
 		if ((backgroundColor || self.barTintColor) && animated) {
 			animateBarTintColor = YES;
 		}
-
-		// set the bar tint color
 		self.barTintColor = backgroundColor;
 	}
 }
@@ -116,10 +115,9 @@ static BOOL animateBarTintColor = NO;
 %hook _UIBackdropView
 
 - (void)applySettings:(id)settings {
-	// hackishly make the backdrop change be animated by wrapping it in a UIView animation block
+	// Hackishly make the backdrop change be animated by wrapping it in a UIView animation block.
 	if (animateBarTintColor) {
 		animateBarTintColor = NO;
-
 		[UIView animateWithDuration:0.2 animations:^{
 			%orig;
 		}];
@@ -134,7 +132,7 @@ static BOOL animateBarTintColor = NO;
 #pragma mark - Constructor
 
 %ctor {
-	// this entire thing isn't particularly useful if the OS doesn’t support it
+	// This entire thing isn’t particularly useful if the OS doesn’t support it
 	if (!IS_IOS_OR_NEWER(iOS_6_0)) {
 		return;
 	}

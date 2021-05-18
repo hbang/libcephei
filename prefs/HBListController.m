@@ -84,11 +84,9 @@
 			}
 		}
 
-		// grab the cell class
 		Class cellClass = specifier.properties[PSCellClassKey];
-
-		// if it’s HBLinkTableCell, override the type and action to our own
 		if ([cellClass isSubclassOfClass:HBLinkTableCell.class] && specifier.buttonAction == nil) {
+			// Override the type and action to our own.
 			specifier.cellType = PSLinkCell;
 			if ([cellClass isSubclassOfClass:HBPackageTableCell.class]) {
 				specifier.buttonAction = @selector(hb_openPackage:);
@@ -128,20 +126,15 @@
 		}
 	}
 
-	// if we have specifiers to remove
+	// If we have specifiers to remove, make a mutable copy of the specifiers to remove them.
 	if (specifiersToRemove.count > 0) {
-		// make a mutable copy of the specifiers
 		NSMutableArray *newSpecifiers = [specifiers mutableCopy];
-
-		// remove all the filtered specifiers
 		[newSpecifiers removeObjectsInArray:specifiersToRemove];
-
-		// and assign it to specifiers again
 		specifiers = newSpecifiers;
 	}
 
+	// Queue up all Twitter usernames/user IDs at once so we can bulk load them for performance.
 	if (twitterUsernames.count > 0 || twitterUserIDs.count > 0) {
-		// Queue up all Twitter usernames/user IDs at once so we can bulk load them for performance.
 		[[HBTwitterAPIClient sharedInstance] queueLookupsForUsernames:twitterUsernames userIDs:twitterUserIDs];
 	}
 
@@ -171,7 +164,7 @@
 #pragma mark - Table View
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	// fixes weird iOS 7 glitch, a little neater than before, and ideally preventing
+	// Fixes weird iOS 7 glitch, a little neater than before, and ideally preventing
 	// crashes on iPads and older devices.
 	[super tableView:tableView didSelectRowAtIndexPath:indexPath];
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];

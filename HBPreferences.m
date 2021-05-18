@@ -2,8 +2,8 @@
 #import "HBPreferencesIPC.h"
 #import <version.h>
 
-// ensure private symbols don’t get included if we’re in embedded mode. any empty code paths will be
-// optimised out by the compiler
+// Ensure private symbols don’t get included if we’re in embedded mode. Any empty code paths will be
+// optimised out by the compiler.
 #if !CEPHEI_EMBEDDED
 #import <dlfcn.h>
 #import <sandbox.h>
@@ -58,23 +58,23 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #if CEPHEI_EMBEDDED || TARGET_OS_SIMULATOR
 	self = [super initWithIdentifier:identifier];
 
-	// always use a nil container when embedded. there’s no point trying to support reading/writing
-	// preferences we can’t access without the IPC relay available
+	// Always use a nil container when embedded. There’s no point trying to support reading/writing
+	// preferences we can’t access without the IPC relay available.
 	_container = nil;
 #else
-	// we may not have the appropriate sandbox rules to access the preferences from this process, so
-	// find out whether we do or not. if we don’t, swap the instance of this class out for an instance
-	// of the class that works around this by doing IPC with our preferences server
+	// We may not have the appropriate sandbox rules to access the preferences from this process, so
+	// find out whether we do or not. If we don’t, swap the instance of this class out for an instance
+	// of the class that works around this by doing IPC with our preferences server.
 	if (isSystemApp || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
 		self = [super initWithIdentifier:identifier];
 
 		// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found
-		// within the container’s directory. we also assume no container is in use if the process is
+		// within the container’s directory. We also assume no container is in use if the process is
 		// running as root.
-		// a nil container indicates to use the current container. kCFPreferencesNoContainer forces the
-		// user’s home directory to be used. we assume that if the identifier starts with the app bundle
-		// id, and it’s not an apple app, it probably wants its own preferences inside its container
-		// TODO: is there a better way to guess this? should we not guess at all except for the exact
+		// A nil container indicates to use the current container. kCFPreferencesNoContainer forces the
+		// user’s home directory to be used. We assume that if the identifier starts with the app bundle
+		// id, it probably wants its own preferences inside its container.
+		// TODO: Is there a better way to guess this? Should we not guess at all except for the exact
 		// main bundle id?
 		if (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
 			_container = kCFPreferencesNoContainer;

@@ -104,7 +104,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			if (_hasGradient) {
 				_titleColor = [UIColor colorWithWhite:1.f alpha:0.95f];
 			} else {
-				if (@available(iOS 13.0, *)) {
+				if (@available(iOS 13, *)) {
 					// @available has false positives before about iOS 8 or so… so we need to be doubly sure
 					if (IS_IOS_OR_NEWER(iOS_13_0)) {
 						_titleColor = [UIColor labelColor];
@@ -120,7 +120,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			if (_hasGradient) {
 				_subtitleColor = [UIColor colorWithWhite:235.f / 255.f alpha:0.7f];
 			} else {
-				if (@available(iOS 13.0, *)) {
+				if (@available(iOS 13, *)) {
 					if (IS_IOS_OR_NEWER(iOS_13_0)) {
 						_subtitleColor = [[UIColor labelColor] colorWithAlphaComponent:0.68f];
 					}
@@ -190,8 +190,8 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
 
-	// the Title1 and Title2 styles were added in iOS 9. get their symbols dynamically so we can fall
-	// back to older styles on older iOS
+	// The Title1 and Title2 styles were added in iOS 9. Get their symbols dynamically so we can fall
+	// back to older styles on older iOS.
 	NSString * __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
 	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
 	NSString * __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
@@ -206,7 +206,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		UIFontDescriptor *systemTitle2FontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
 		UIFontDescriptor *systemSubtitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleSubheadline];
 
-		// use the specified font names, with either the font sizes we want, or the sizes the user
+		// Use the specified font names, with either the font sizes we want, or the sizes the user
 		// wants, whichever is larger
 		headerFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:MAX(systemTitleFontDescriptor.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
 		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
@@ -220,7 +220,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	}
 
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
-		NSKernAttributeName: [NSNull null], // this *enables* kerning, interestingly
+		NSKernAttributeName: [NSNull null], // This *enables* kerning, interestingly
 	}];
 
 	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
