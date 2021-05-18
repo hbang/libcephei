@@ -61,20 +61,8 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 		int notifyToken;
 		notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &notifyToken, dispatch_get_main_queue(), ^(int token) {
-			HBLogDebug(@"received change notification - reloading preferences");
-
-			// if we know this identifier
-			if (KnownIdentifiers[identifier]) {
-				// reload just that one
-				[(HBPreferencesCore *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
-			} else {
-				HBLogWarn(@"Identifier %@ is not known. Reloading all known HBPreferences instances. (This functionality will be removed a future release.)", identifier);
-
-				// just in case... reload all of them
-				for (NSString *key in KnownIdentifiers) {
-					[(HBPreferencesCore *)KnownIdentifiers[key] _didReceiveDarwinNotification];
-				}
-			}
+			HBLogDebug(@"Received change notification for %@ - reloading preferences", identifier);
+			[(HBPreferencesCore *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
 		});
 	}
 
