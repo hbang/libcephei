@@ -1,27 +1,32 @@
-#!/bin/bash
+#!/bin/sh
 # Due to some sort of unfortunate permission error created by an older build of Cephei, and dpkg not
 # really fixing them, we need to fix this ourselves
 chown -R root:wheel /Library/PreferenceBundles/Cephei.bundle
 
 # These somehow became a directory instead of a symlink
-if [[ -d /Library/Frameworks/Cephei.framework ]]; then
+if [ -d /Library/Frameworks/Cephei.framework ]; then
 	rm -r /Library/Frameworks/Cephei.framework
 	ln -s /usr/lib/Cephei.framework /Library/Frameworks/Cephei.framework
 fi
 
-if [[ -d /Library/Frameworks/CepheiPrefs.framework ]]; then
+if [ -d /Library/Frameworks/CepheiPrefs.framework ]; then
 	rm -r /Library/Frameworks/CepheiPrefs.framework
 	ln -s /usr/lib/CepheiPrefs.framework /Library/Frameworks/CepheiPrefs.framework
 fi
 
-if [[ -d /Library/PreferenceBundles/Cephei.bundle ]]; then
+if [ -d /Library/PreferenceBundles/Cephei.bundle ]; then
 	rm -r /Library/PreferenceBundles/Cephei.bundle
 	ln -s /Library/Frameworks/CepheiPrefs.framework /Library/PreferenceBundles/Cephei.bundle
 fi
 
 # Tell the package manager to restart system app (SpringBoard) after installation.
-cydia=($CYDIA)
-if [[ ${cydia[1]} -ge 1 ]]; then
-	echo "finish:restart" >&${cydia[0]}
+if ! [ -z "$CYDIA" ]; then
+	read -r fd ver <<EOT
+$CYDIA
+EOT
+	if [ "$ver" -ge 1 ]; then
+		echo "finish:restart" >&$fd
+	fi
 fi
+
 exit 0
