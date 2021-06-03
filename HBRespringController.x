@@ -17,7 +17,7 @@
 	// Ask for the url to be generated. Sadly, this is stored in the preferences, so we need to then
 	// read it out of there.
 	[(PreferencesAppController *)[%c(UIApplication) sharedApplication] generateURL];
-	NSString *position = (__bridge NSString *)CFPreferencesCopyAppValue(CFSTR("kPreferencePositionKey"), kCFPreferencesCurrentApplication);
+	NSString *position = (__bridge_transfer NSString *)CFPreferencesCopyAppValue(CFSTR("kPreferencePositionKey"), kCFPreferencesCurrentApplication);
 	return [NSURL URLWithString:position];
 }
 
@@ -47,8 +47,8 @@
 		// in SpringBoard, which may or may not be there. If that doesn’t seem to do anything within
 		// 500ms, fall back to running killall SpringBoard.
 		if ([[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"]) {
-		[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
-	} else {
+			[(SpringBoard *)[%c(UIApplication) sharedApplication] _relaunchSpringBoardNow];
+		} else {
 			CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("ws.hbang.common/Respring"), NULL, NULL, TRUE);
 
 			// Wait half a second in case that fails, so we can manually execute a killall. In future, we
@@ -56,7 +56,7 @@
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(NSEC_PER_SEC * 0.5)), dispatch_get_main_queue(), ^{
 				HBOutputForShellCommand(@"/bin/killall SpringBoard");
 			});
-	}
+		}
 	}
 }
 
