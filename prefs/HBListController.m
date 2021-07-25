@@ -85,23 +85,29 @@
 		}
 
 		Class cellClass = specifier.properties[PSCellClassKey];
-		if ([cellClass isSubclassOfClass:HBLinkTableCell.class] && specifier.buttonAction == nil) {
+		if ([cellClass isSubclassOfClass:HBLinkTableCell.class] && (![specifier respondsToSelector:@selector(buttonAction)] || specifier.buttonAction == nil)) {
 			// Override the type and action to our own.
 			specifier.cellType = PSLinkCell;
+			SEL action;
 			if ([cellClass isSubclassOfClass:HBPackageTableCell.class]) {
-				specifier.buttonAction = @selector(hb_openPackage:);
+				action = @selector(hb_openPackage:);
 			} else {
-				specifier.buttonAction = @selector(hb_openURL:);
+				action = @selector(hb_openURL:);
 			}
+			if (IS_IOS_OR_NEWER(iOS_8_0)) {
+				specifier.buttonAction = action;
+			} else if (IS_IOS_OR_NEWER(iOS_6_0)) {
+				specifier.controllerLoadAction = action;
+			} else {
+				specifier->action = action;
+			}
+
 			if ([cellClass isSubclassOfClass:HBTwitterCell.class]) {
 				if (specifier.properties[@"userID"] != nil) {
 					[twitterUserIDs addObject:specifier.properties[@"userID"]];
 				} else if (specifier.properties[@"user"] != nil) {
 					[twitterUsernames addObject:specifier.properties[@"user"]];
 				}
-			}
-			if (!IS_IOS_OR_NEWER(iOS_8_0)) {
-				specifier.controllerLoadAction = specifier.buttonAction;
 			}
 		}
 
