@@ -273,7 +273,7 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	callback();
 }
 
-- (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key {
+- (void)registerPreferenceChangeBlockForKey:(NSString *)key block:(HBPreferencesValueChangeCallback)callback {
 	if (!_preferenceChangeBlocks) {
 		_preferenceChangeBlocks = [[NSMutableDictionary alloc] init];
 	}
@@ -289,6 +289,10 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	[self _objectForKey:key];
 
 	callback(key, [self objectForKey:key]);
+}
+
+- (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key {
+	[self registerPreferenceChangeBlockForKey:key block:callback];
 }
 
 @end
