@@ -18,7 +18,7 @@ NSString *const HBPreferencesDidChangeNotification = @"HBPreferencesDidChangeNot
 static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 @implementation HBPreferencesCore {
-	NSMutableDictionary <NSString *, id> *_lastSeenValues;
+	NSMapTable *_lastSeenValues;
 	NSMutableDictionary <NSString *, NSArray <id> *> *_pointers;
 
 	NSMutableDictionary <NSString *, NSArray <HBPreferencesChangeCallback> *> *_preferenceChangeBlocks;
@@ -53,7 +53,7 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 		_identifier = [identifier copy];
 		_defaults = [[NSMutableDictionary alloc] init];
 		_pointers = [[NSMutableDictionary alloc] init];
-		_lastSeenValues = [[NSMutableDictionary alloc] init];
+		_lastSeenValues = NSCreateMapTable(NSObjectMapKeyCallBacks, NSNonOwnedPointerMapValueCallBacks, 0);
 
 		KnownIdentifiers[_identifier] = self;
 
@@ -76,29 +76,29 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 - (void)_preferencesChanged {
 	[self synchronize];
 
-	NSDictionary <NSString *, id> *lastSeenValues = [_lastSeenValues copy];
+	// We need to copy lastSeenValues now, so we have the state of last seen values before we start
+	// accessing these values and therefore changing the hashes in _lastSeenValues.
+	NSMapTable *lastSeenValues = NSCopyMapTableWithZone(_lastSeenValues, NULL);
 
 	[self _updateRegisteredObjects];
 
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 
-	if (_preferenceChangeBlocks && _preferenceChangeBlocks.allKeys.count > 0) {
-		for (NSString *key in _preferenceChangeBlocks) {
-			id lastValue = lastSeenValues[key];
-			id newValue = [self _objectForKey:key];
-
-			if (newValue != lastValue || (newValue == nil && [lastValue isKindOfClass:NSNull.class]) || ![newValue isEqual:lastValue]) {
-				for (HBPreferencesValueChangeCallback callback in _preferenceChangeBlocks[key]) {
-					callback(key, [self objectForKey:key]);
-				}
+	// Handle callback blocks.
+	NSArray <NSString *> *keys = NSAllMapTableKeys(lastSeenValues);
+	for (NSString *key in keys) {
+		NSUInteger lastValue = (NSUInteger)NSMapGet(lastSeenValues, (__bridge CFStringRef)key);
+		NSUInteger newValue = [self _calculateHashForValue:[self _objectForKey:key]];
+		if (newValue != lastValue) {
+			for (HBPreferencesValueChangeCallback callback in _preferenceChangeBlocks[key]) {
+				callback(key, [self objectForKey:key]);
 			}
 		}
 	}
 
-	if (_preferenceChangeBlocksGlobal && _preferenceChangeBlocksGlobal.count > 0) {
-		for (HBPreferencesChangeCallback callback in _preferenceChangeBlocksGlobal) {
-			callback();
-		}
+	// Finally, handle any general global callbacks.
+	for (HBPreferencesChangeCallback callback in _preferenceChangeBlocksGlobal) {
+		callback();
 	}
 }
 
@@ -161,8 +161,34 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 	}
 }
 
+- (NSUInteger)_calculateHashForValue:(NSObject *)value {
+	// NSArray and NSDictionary’s hash methods are pretty useless. Do our best to try and calculate
+	// our own. This hash can overflow of course, but it’s not a big deal because the value should
+	// still be consistent.
+	static NSUInteger magicNumber = 7;
+	if ([value isKindOfClass:NSArray.class]) {
+		NSArray *array = (NSArray *)value;
+		NSUInteger hash = 0;
+		for (id item in array) {
+			hash = magicNumber * hash + [self _calculateHashForValue:item];
+		}
+		return hash;
+	} else if ([value isKindOfClass:NSDictionary.class]) {
+		NSDictionary *dictionary = (NSDictionary *)value;
+		NSUInteger hash = 0;
+		NSArray *sortedKeys = [dictionary.allKeys sortedArrayUsingSelector:@selector(compare:)];
+		for (id key in sortedKeys) {
+			hash = magicNumber * hash + [self _calculateHashForValue:key];
+			hash = magicNumber * hash + [self _calculateHashForValue:dictionary[key]];
+		}
+		return hash;
+	}
+
+	return (value ?: [NSNull null]).hash;
+}
+
 - (void)_storeValue:(id)value forKey:(NSString *)key {
-	_lastSeenValues[key] = value ?: [[NSNull alloc] init];
+	NSMapInsert(_lastSeenValues, (__bridge CFStringRef)key, (void *)[self _calculateHashForValue:value]);
 }
 
 #pragma mark - Dictionary representation
