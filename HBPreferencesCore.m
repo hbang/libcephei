@@ -84,15 +84,17 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:HBPreferencesDidChangeNotification object:self]];
 
-	// Handle callback blocks.
+	// Handle KVO notifications and callback blocks.
 	NSArray <NSString *> *keys = NSAllMapTableKeys(lastSeenValues);
 	for (NSString *key in keys) {
 		NSUInteger lastValue = (NSUInteger)NSMapGet(lastSeenValues, (__bridge CFStringRef)key);
 		NSUInteger newValue = [self _calculateHashForValue:[self _objectForKey:key]];
 		if (newValue != lastValue) {
+			[self willChangeValueForKey:key];
 			for (HBPreferencesValueChangeCallback callback in _preferenceChangeBlocks[key]) {
 				callback(key, [self objectForKey:key]);
 			}
+			[self didChangeValueForKey:key];
 		}
 	}
 

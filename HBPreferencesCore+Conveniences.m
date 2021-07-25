@@ -2,6 +2,28 @@
 
 @implementation HBPreferencesCore (Conveniences)
 
+#pragma mark - KVO
+
+- (id)valueForUndefinedKey:(NSString *)key {
+	// Called by valueForKey: when the key doesn’t exist. Usually this throws an exception. We use
+	// this opportunity to try and grab a matching value from preferences instead. Using KVO on this
+	// class will therefore never abort on undefined keys.
+	return [self objectForKey:key];
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+	// As above, if the key doesnt exist, we treat it as intending to write to the preferences.
+	[self setObject:value forKey:key];
+}
+
+- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+	// We need to first get the initial value for this key so our KVO notifications will work. This
+	// will read the key from the preferences, so we have its hash value in _lastSeenValues.
+	[self valueForKeyPath:keyPath];
+
+	[super addObserver:observer forKeyPath:keyPath options:options context:context];
+}
+
 #pragma mark - Getters
 
 - (NSInteger)integerForKey:(NSString *)key {
