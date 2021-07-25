@@ -8,11 +8,10 @@ CepheiUI_EXTRA_FRAMEWORKS = Cephei
 CepheiUI_INSTALL_PATH = /usr/lib
 
 ifeq ($(CEPHEI_EMBEDDED),1)
-CepheiUI_INSTALL_PATH = @rpath
-CepheiUI_LOGOSFLAGS = -c generator=internal
+	CepheiUI_INSTALL_PATH = @rpath
+	CepheiUI_LOGOSFLAGS = -c generator=internal
 else ifeq ($(CEPHEI_SIMULATOR),1)
-CepheiUI_LOGOSFLAGS = -c generator=internal
-else
+	CepheiUI_LOGOSFLAGS = -c generator=internal
 endif
 
 include $(THEOS_MAKE_PATH)/framework.mk

@@ -14,12 +14,12 @@ CepheiPrefs_CFLAGS = -include Global.h
 CepheiPrefs_INSTALL_PATH = /usr/lib
 
 ifeq ($(CEPHEI_EMBEDDED),1)
-CepheiPrefs_INSTALL_PATH = @rpath
-CepheiPrefs_LOGOSFLAGS = -c generator=internal
+	CepheiPrefs_INSTALL_PATH = @rpath
+	CepheiPrefs_LOGOSFLAGS = -c generator=internal
 else ifeq ($(CEPHEI_SIMULATOR),1)
-CepheiPrefs_LOGOSFLAGS = -c generator=internal
+	CepheiPrefs_LOGOSFLAGS = -c generator=internal
 else
-CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
+	CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 
 # As our deployment target is extremely early (iOS 5), some modern symbols need to be weak linked.

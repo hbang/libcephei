@@ -1,10 +1,10 @@
 ifeq ($(CEPHEI_SIMULATOR),1)
-export TARGET = simulator:latest:7.0
+	export TARGET = simulator:latest:7.0
 else
-export TARGET = iphone:14.4:7.0
-export TARGET_IPHONEOS_DEPLOYMENT_VERSION_armv7 = 5.0
-export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
-export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
+	export TARGET = iphone:14.4:5.0
+	export TARGET_IPHONEOS_DEPLOYMENT_VERSION_armv7 = 5.0
+	export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64 = 7.0
+	export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
 endif
 
 export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN -DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\""
@@ -15,7 +15,7 @@ RESPRING ?= 1
 INSTALL_TARGET_PROCESSES = Preferences
 
 ifeq ($(RESPRING),1)
-INSTALL_TARGET_PROCESSES += SpringBoard
+	INSTALL_TARGET_PROCESSES += SpringBoard
 endif
 
 CEPHEI_SDK_DIR = $(THEOS_OBJ_DIR)/cephei_sdk_$(THEOS_PACKAGE_BASE_VERSION)
@@ -28,24 +28,24 @@ Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRes
 Cephei_CFLAGS = -include Global.h
 Cephei_INSTALL_PATH = /usr/lib
 
-# link arclite to polyfill some features iOS 5 lacks
+# Link ARCLite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
 
 SUBPROJECTS = ui prefs
 
 ifeq ($(CEPHEI_EMBEDDED),1)
-PACKAGE_BUILDNAME += embedded
-ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=1
-Cephei_INSTALL_PATH = @rpath
-Cephei_LOGOSFLAGS = -c generator=internal
+	PACKAGE_BUILDNAME += embedded
+	ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=1
+	Cephei_INSTALL_PATH = @rpath
+	Cephei_LOGOSFLAGS = -c generator=internal
 else
-ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
+	ADDITIONAL_CFLAGS += -DCEPHEI_EMBEDDED=0
 
-ifeq ($(CEPHEI_SIMULATOR),1)
-Cephei_LOGOSFLAGS = -c generator=internal
-else
-SUBPROJECTS += defaults
-endif
+	ifeq ($(CEPHEI_SIMULATOR),1)
+		Cephei_LOGOSFLAGS = -c generator=internal
+	else
+		SUBPROJECTS += defaults
+	endif
 endif
 
 include $(THEOS_MAKE_PATH)/framework.mk
