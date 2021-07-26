@@ -11,7 +11,6 @@ CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include Global.h
-CepheiPrefs_INSTALL_PATH = /usr/lib
 
 ifeq ($(CEPHEI_EMBEDDED),1)
 	CepheiPrefs_INSTALL_PATH = @rpath
@@ -36,9 +35,11 @@ include $(THEOS_MAKE_PATH)/framework.mk
 after-CepheiPrefs-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@mkdir -p \
-		$(THEOS_STAGING_DIR)/usr/{include,lib} \
+		$(THEOS_STAGING_DIR)/usr/lib \
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
 		$(THEOS_STAGING_DIR)/Library/PreferenceBundles
+
+	@mv $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)/usr/lib
 	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework
 	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle
 

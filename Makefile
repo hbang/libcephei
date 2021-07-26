@@ -26,7 +26,6 @@ FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
 Cephei_CFLAGS = -include Global.h
-Cephei_INSTALL_PATH = /usr/lib
 
 # Link ARCLite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
@@ -54,10 +53,14 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 after-Cephei-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@mkdir -p \
-		$(THEOS_STAGING_DIR)/DEBIAN $(THEOS_STAGING_DIR)/usr/{include,lib} \
+		$(THEOS_STAGING_DIR)/DEBIAN \
+		$(THEOS_STAGING_DIR)/usr/lib \
 		$(THEOS_STAGING_DIR)/Library/Frameworks \
 		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries
 	@cp postinst $(THEOS_STAGING_DIR)/DEBIAN
+
+	@# Move Cephei to sandbox-accessible location
+	@mv $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework $(THEOS_STAGING_DIR)/usr/lib
 	@ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework
 
 	@# Set up CepheiSpringBoard
@@ -83,14 +86,13 @@ docs: stage
 sdk: stage
 	$(ECHO_BEGIN)$(PRINT_FORMAT_MAKING) "Generating SDK"$(ECHO_END)
 	@rm -rf $(CEPHEI_SDK_DIR) $(notdir $(CEPHEI_SDK_DIR)).zip
-	@for i in Cephei CepheiUI CepheiPrefs; do \
+	@set -e; for i in Cephei CepheiUI CepheiPrefs; do \
 		mkdir -p $(CEPHEI_SDK_DIR)/$$i.framework; \
 		cp -ra $(THEOS_STAGING_DIR)/usr/lib/$$i.framework/{$$i,Headers} $(CEPHEI_SDK_DIR)/$$i.framework/; \
-		tbd -p -v1 --ignore-missing-exports \
-			--replace-install-name /Library/Frameworks/$$i.framework/$$i \
-			$(CEPHEI_SDK_DIR)/$$i.framework/$$i \
-			-o $(CEPHEI_SDK_DIR)/$$i.framework/$$i.tbd; \
-		rm $(CEPHEI_SDK_DIR)/$$i.framework/$$i; \
+		xcrun tapi stubify \
+			--filetype=tbd-v2 \
+			--delete-input-file \
+			$(CEPHEI_SDK_DIR)/$$i.framework/$$i; \
 		rm -rf $(THEOS_VENDOR_LIBRARY_PATH)/$$i.framework; \
 	done
 	@rm -r $(THEOS_STAGING_DIR)/usr/lib/*.framework/Headers
