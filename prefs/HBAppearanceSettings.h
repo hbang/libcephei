@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Constants indicating how to size the title of this item.
 typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 	/// Display a large title only when the current view controller is a subclass of
-	/// HBRootListController.
+	/// `HBRootListController`.
 	///
 	/// This is the default mode.
 	HBAppearanceSettingsLargeTitleStyleRootOnly,
@@ -17,17 +17,16 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 	HBAppearanceSettingsLargeTitleStyleNever
 } NS_SWIFT_NAME(HBAppearanceSettings.LargeTitleStyle);
 
-/// The HBAppearanceSettings class in CepheiPrefs provides a model object read by other
-/// components of Cephei to determine colors and other appearence settings to use in the user
-/// interface.
+/// The HBAppearanceSettings class in CepheiPrefs provides a model object read by other components
+/// of Cephei to determine colors and other appearence settings to use in the user interface.
 ///
 /// Appearance settings are typically set on a view controller, via the
-/// -[PSListController(HBTintAdditions) hb_appearanceSettings] property. This is automatically
+/// `-[PSListController(HBTintAdditions) hb_appearanceSettings]` property. This is automatically
 /// managed by Cephei and provided to view controllers as they are pushed onto the stack.
 ///
-/// Most commonly, the API will be used by setting the hb_appearanceSettings property from the init
-/// method. The following example sets the tint color, table view background color, and enables an
-/// inverted navigation bar:
+/// Most commonly, the API will be used by setting the `hb_appearanceSettings` property from the
+/// init method. The following example sets the tint color, table view background color, and
+/// customises the navigation bar with a background, title, and status bar color:
 ///
 /// ```objc
 /// - (instancetype)init {
@@ -36,8 +35,10 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 /// 	if (self) {
 /// 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
 /// 		appearanceSettings.tintColor = [UIColor colorWithRed:66.f / 255.f green:105.f / 255.f blue:154.f / 255.f alpha:1];
+/// 		appearanceSettings.barTintColor = [UIColor systemRedColor];
+/// 		appearanceSettings.navigationBarTitleColor = [UIColor whiteColor];
 /// 		appearanceSettings.tableViewBackgroundColor = [UIColor colorWithWhite:242.f / 255.f alpha:1];
-/// 		appearanceSettings.invertedNavigationBar = YES;
+/// 		appearanceSettings.statusBarStyle = UIStatusBarStyleLightContent;
 /// 		self.hb_appearanceSettings = appearanceSettings;
 /// 	}
 ///
@@ -157,8 +158,6 @@ typedef NS_ENUM(NSUInteger, HBAppearanceSettingsLargeTitleStyle) {
 
 /// The color to be used when a table view cell is selected. This color will be shown when the cell
 /// is in the highlighted state.
-///
-/// Set this property to a UIColor to use.
 ///
 /// @return By default, nil.
 @property (nonatomic, copy, nullable) UIColor *tableViewCellSelectionColor;

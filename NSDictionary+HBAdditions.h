@@ -2,8 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// NSDictionary (HBAdditions) is a class category in `Cephei` that provides some convenience
-/// methods.
+/// NSDictionary (HBAdditions) is a class category in Cephei that provides some convenience methods.
 @interface NSDictionary (HBAdditions)
 
 /// Constructs and returns an NSString object that is the result of joining the dictionary keys and

@@ -3,7 +3,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Appearance methods implemented on HBListController are not supported on iOS 10.0 and later. Use
-/// HBAppearanceSettings instead.
+/// `HBAppearanceSettings` instead.
 @interface HBListController (Deprecated)
 
 /// @name Colors

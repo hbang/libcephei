@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// NSString (HBAdditions) is a class category in `Cephei` that provides some convenience methods.
+/// NSString (HBAdditions) is a class category in Cephei that provides some convenience methods.
 @interface NSString (HBAdditions)
 
 /// Returns a string encoded for an HTTP query parameter.

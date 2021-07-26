@@ -28,16 +28,15 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// `NSUserDefaults` uses “defaults” to refer to both preferences themselves and the fallback values
 /// if a key doesn’t exist.
 ///
-/// Ensure you read the discussion for `-[HBPreferences registerObject:default:forKey:]` before
-/// using the automatic updating mechanism. `-[HBPreferences objectForKey:]` does not update as
-/// another process updates the preferences on iOS 7 or older; if you need to support older iOS
-/// versions, use the registration methods instead.
+/// Ensure you read the discussion for `-registerObject:default:forKey:` before using the automatic
+/// updating mechanism. `-objectForKey:` does not update as another process updates the preferences
+/// on iOS 7 or older; if you need to support older iOS versions, use the registration methods
+/// instead.
 ///
 /// As of Cephei 1.17, HBPreferences supports Key-Value Observation. As such, you may subscribe to
-/// changes made to preferences through observer callbacks. The
-/// `-[HBPreferences registerPreferenceChangeBlock:]` and
-/// `-[HBPreferences registerPreferenceChangeBlockForKey:block:]` methods are provided to subscribe
-/// to preference changes via a callback block since Cephei 1.3, and you can additionally observe
+/// changes made to preferences through observer callbacks. The `-registerPreferenceChangeBlock:`
+/// and `-registerPreferenceChangeBlockForKey:block:` methods are provided to subscribe to
+/// preference changes via a callback block since Cephei 1.3, and you can additionally observe
 /// `HBPreferencesDidChangeNotification`.
 ///
 /// ### Example usage
@@ -114,9 +113,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// This could be done [using IPC](http://iphonedevwiki.net/index.php/IPC) from an unsandboxed
 /// process such as SpringBoard. Avoid sending sensitive information via IPC to sandboxed apps, as
 /// they can still get access to data you send through various ways.
-///
-/// If this is an inconvenience for you and you believe an exception should be made, please
-/// [file an issue](https://github.com/hbang/libcephei/issues) to discuss it.
 @interface HBPreferences : NSObject
 
 /// @name Initializing an HBPreferences Object
@@ -190,7 +186,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The object associated with the specified key.
-/// @warning You must manually synchronize preferences or use `registerObject:default:forKey:` for
+/// @warning You must manually synchronize preferences or use `-registerObject:default:forKey:` for
 /// this value to be updated when running on iOS 7 or older.
 - (id)objectForKey:(NSString *)key;
 
@@ -200,7 +196,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The integer value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (NSInteger)integerForKey:(NSString *)key;
 
 /// Returns the unsigned integer value associated with the specified key.
@@ -209,7 +205,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The unsigned integer value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key;
 
 /// Returns the floating-point value associated with the specified key.
@@ -218,7 +214,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The floating-point value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (CGFloat)floatForKey:(NSString *)key;
 
 /// Returns the double value associated with the specified key.
@@ -227,7 +223,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The double value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (double)doubleForKey:(NSString *)key;
 
 /// Returns the Boolean value associated with the specified key.
@@ -236,12 +232,12 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The Boolean value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (BOOL)boolForKey:(NSString *)key;
 
 /// Returns the value associated with a given key.
 ///
-/// This method behaves the same as `objectForKey:`, and enables the preferences object to be used
+/// This method behaves the same as `-objectForKey:`, and enables the preferences object to be used
 /// with a subscript (square brackets). For example:
 ///
 /// Objective-C:
@@ -260,7 +256,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The value associated with the specified key.
-/// @see `objectForKey:`
+/// @see `-objectForKey:`
 - (id)objectForKeyedSubscript:(id)key;
 
 /// Returns the object associated with the specified key, or if no user preference is set, the
@@ -277,7 +273,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
 /// @return The integer value associated with the specified key, or the default value.
-/// @see `objectForKey:default:`
+/// @see `-objectForKey:default:`
 - (NSInteger)integerForKey:(NSString *)key default:(NSInteger)defaultValue;
 
 /// Returns the unsigned integer value associated with the specified key, or if no user preference
@@ -286,7 +282,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
 /// @return The unsigned integer value associated with the specified key, or the default value.
-/// @see `objectForKey:default:`
+/// @see `-objectForKey:default:`
 - (NSUInteger)unsignedIntegerForKey:(NSString *)key default:(NSUInteger)defaultValue;
 
 /// Returns the floating-point value associated with the specified key, or if no user preference is
@@ -295,7 +291,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
 /// @return The floating-point value associated with the specified key, or the default value.
-/// @see `objectForKey:default:`
+/// @see `-objectForKey:default:`
 - (CGFloat)floatForKey:(NSString *)key default:(CGFloat)defaultValue;
 
 /// Returns the double value associated with the specified key, or if no user preference is set,
@@ -304,7 +300,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
 /// @return The double value associated with the specified key, or the default value.
-/// @see `objectForKey:default:`
+/// @see `-objectForKey:default:`
 - (double)doubleForKey:(NSString *)key default:(double)defaultValue;
 
 /// Returns the Boolean value associated with the specified key, or if no user preference is set,
@@ -313,7 +309,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key for which to return the corresponding value.
 /// @param defaultValue The default value to use when no user preference is set.
 /// @return The Boolean value associated with the specified key, or the default value.
-/// @see `objectForKey:default:`
+/// @see `-objectForKey:default:`
 - (BOOL)boolForKey:(NSString *)key default:(BOOL)defaultValue;
 
 /// @name Setting Preference Values
@@ -331,57 +327,57 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Sets the value of the specified key to the specified integer value.
 ///
-/// This is a convenience method that calls `setObject:forKey:`. See the discussion of that method
+/// This is a convenience method that calls `-setObject:forKey:`. See the discussion of that method
 /// for more details.
 ///
 /// @param value The integer value to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @see `setObject:forKey:`
+/// @see `-setObject:forKey:`
 - (void)setInteger:(NSInteger)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified unsigned integer value.
 ///
-/// This is a convenience method that calls `setObject:forKey:`. See the discussion of that method
+/// This is a convenience method that calls `-setObject:forKey:`. See the discussion of that method
 /// for more details.
 ///
 /// @param value The unsigned integer value to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @see `setObject:forKey:`
+/// @see `-setObject:forKey:`
 - (void)setUnsignedInteger:(NSUInteger)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified floating-point value.
 ///
-/// This is a convenience method that calls `setObject:forKey:`. See the discussion of that method
+/// This is a convenience method that calls `-setObject:forKey:`. See the discussion of that method
 /// for more details.
 ///
 /// @param value The floating-point value to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @see `setObject:forKey:`
+/// @see `-setObject:forKey:`
 - (void)setFloat:(CGFloat)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified double value.
 ///
-/// This is a convenience method that calls `setObject:forKey:`. See the discussion of that method
+/// This is a convenience method that calls `-setObject:forKey:`. See the discussion of that method
 /// for more details.
 ///
 /// @param value The double value to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @see `setObject:forKey:`
+/// @see `-setObject:forKey:`
 - (void)setDouble:(double)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified Boolean value.
 ///
-/// This is a convenience method that calls `setObject:forKey:`. See the discussion of that method
+/// This is a convenience method that calls `-setObject:forKey:`. See the discussion of that method
 /// for more details.
 ///
 /// @param value The Boolean value to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @see `setObject:forKey:`
+/// @see `-setObject:forKey:`
 - (void)setBool:(BOOL)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified value.
 ///
-/// This method behaves the same as `setObject:forKey:`, and enables the preferences object to be
+/// This method behaves the same as `-setObject:forKey:`, and enables the preferences object to be
 /// used with a subscript (square brackets). For example:
 ///
 /// ```objc
@@ -402,7 +398,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// Removes all stored preferences.
 ///
-/// This method acts in the same way as discussed in `removeObjectForKey:`.
+/// This method acts in the same way as discussed in `-removeObjectForKey:`.
 - (void)removeAllObjects NS_SWIFT_NAME(removeAll());
 
 /// @name Registering Variables
@@ -427,7 +423,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the object.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerObject:(_Nullable id __strong * _Nonnull)object default:(nullable id)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// Register an integer value to be automatically set to the user’s preference.
@@ -437,7 +433,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the integer.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerInteger:(NSInteger *)object default:(NSInteger)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// Register an unsigned integer value to be automatically set to the user’s preference.
@@ -447,7 +443,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the unsigned integer.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerUnsignedInteger:(NSUInteger *)object default:(NSUInteger)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// Register a floating-point value to be automatically set to the user’s preference.
@@ -457,7 +453,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the integer.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerFloat:(CGFloat *)object default:(CGFloat)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// Register a double value to be automatically set to the user’s preference.
@@ -467,7 +463,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the double.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerDouble:(double *)object default:(double)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// Register a Boolean value to be automatically set to the user’s preference.
@@ -477,7 +473,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param object The pointer to the Boolean.
 /// @param defaultValue The default value to be used if no user preference is set.
 /// @param key The key in the preferences property list.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerBool:(BOOL *)object default:(BOOL)defaultValue forKey:(NSString *)key NS_SWIFT_NAME(register(_:default:forKey:));
 
 /// @name Preference Change Callbacks
@@ -490,7 +486,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param callback A block object called when the specified key’s value changes. The block object
 /// takes no parameters and returns no value.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerPreferenceChangeBlock:(HBPreferencesChangeCallback)callback;
 
 /// Register a block to be called when a specific preference is changed.
@@ -502,24 +498,24 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @param key The key to listen for.
 /// @param callback A block object called when the specified key’s value changes. The block object’s
 /// parameters are the key and its new value.
-/// @see `registerObject:default:forKey:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerPreferenceChangeBlockForKey:(NSString *)key block:(HBPreferencesValueChangeCallback)callback;
 
 /// Register a block to be called when a specific preference is changed.
 ///
 /// Blocks are called after HBPreferences’ cache of values is updated. The block will also be called
-/// immediately after calling this method. See `registerObject:default:forKey:` for details on how
+/// immediately after calling this method. See `-registerObject:default:forKey:` for details on how
 /// to set up callbacks.
 ///
 /// Deprecated. This method signature changed in Cephei 1.17 to better support the order of
-/// arguments preferred by Swift closure syntax. Use `registerPreferenceChangeBlockForKey:block:`
+/// arguments preferred by Swift closure syntax. Use `-registerPreferenceChangeBlockForKey:block:`
 /// instead.
 ///
 /// @param callback A block object called when the specified key’s value changes. The block object’s
 /// parameters are the key and its new value.
 /// @param key The key to listen for.
-/// @see `registerPreferenceChangeBlockForKey:block:`
-/// @see `registerObject:default:forKey:`
+/// @see `-registerPreferenceChangeBlockForKey:block:`
+/// @see `-registerObject:default:forKey:`
 - (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key __attribute((deprecated("Use registerPreferenceChangeBlockForKey:block: instead.")));
 
 @end

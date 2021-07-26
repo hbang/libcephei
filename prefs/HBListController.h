@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// It includes two class methods you can override to return the name of a Preferences specifier
 /// property list, and various methods to control appearance of the interface.
 ///
-/// If you use HBLinkTableCell or subclasses such as HBTwitterCell and HBPackageTableCell, it is
-/// recommended to subclass from HBListController on the view controller classes containing these
+/// If you use `HBLinkTableCell` or subclasses such as `HBTwitterCell` and `HBPackageTableCel`l, it
+/// is recommended to subclass from HBListController on the view controller classes containing these
 /// cells to use CepheiPrefs’s built-in callback actions. If you do not subclass from
 /// HBListController, you will need to implement action methods yourself.
 
