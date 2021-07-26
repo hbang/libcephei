@@ -43,6 +43,11 @@
 			<string>Switch</string>
 			<key>label</key>
 			<string>Awesome</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>switch.2</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -129,6 +134,11 @@
 				<integer>8</integer>
 				<integer>9</integer>
 			</array>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>globe</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -145,6 +155,13 @@
 			<string>HBSpinnerTableCell</string>
 			<key>label</key>
 			<string>Do Stuff</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>wand.and.stars</string>
+				<key>weight</key>
+				<string>semibold</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -169,6 +186,13 @@
 			<real>1</real>
 			<key>singularLabel</key>
 			<string>1 Thing</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>number.circle</string>
+				<key>tintColor</key>
+				<string>#007aff</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -183,6 +207,11 @@
 			<string>HBTintedTableCell</string>
 			<key>label</key>
 			<string>Do Something Else</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>star</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -202,7 +231,7 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Avatar from URL</string>
 			<key>url</key>
 			<string>https://hashbang.productions/</string>
 			<key>iconURL</key>
@@ -212,7 +241,7 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Avatar from URL, circular</string>
 			<key>subtitle</key>
 			<string>They seem like a pretty cool bunch</string>
 			<key>url</key>
@@ -228,7 +257,7 @@
 			<key>cellClass</key>
 			<string>HBLinkTableCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Avatar from URL, big</string>
 			<key>subtitle</key>
 			<string>They seem like a pretty cool bunch</string>
 			<key>url</key>
@@ -280,11 +309,11 @@
 			<key>cellClass</key>
 			<string>HBPackageTableCell</string>
 			<key>label</key>
-			<string>TypeStatus Plus</string>
+			<string>NewTerm</string>
 			<key>subtitle</key>
-			<string>TypeStatus Plus is also awesome!</string>
+			<string>NewTerm is also awesome!</string>
 			<key>packageIdentifier</key>
-			<string>ws.hbang.typestatusplus</string>
+			<string>ws.hbang.newterm2</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
@@ -316,7 +345,7 @@
 			<key>cellClass</key>
 			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Mismatched username</string>
 			<key>user</key>
 			<string>NotActuallyHashbang</string>
 			<key>userID</key>
@@ -330,7 +359,7 @@
 			<key>height</key>
 			<integer>56</integer>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Big cell</string>
 			<key>user</key>
 			<string>hashbang</string>
 		</dict>
@@ -338,7 +367,7 @@
 			<key>cellClass</key>
 			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>No avatar</string>
 			<key>showAvatar</key>
 			<false/>
 			<key>user</key>
@@ -348,9 +377,9 @@
 			<key>cellClass</key>
 			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Avatar from URL</string>
 			<key>iconURL</key>
-			<string>https://github.com/CharizTeam.png</string>
+			<string>https://chariz.com/img/favicon.png</string>
 			<key>iconCircular</key>
 			<false/>
 			<key>user</key>
@@ -360,7 +389,7 @@
 			<key>cellClass</key>
 			<string>HBTwitterCell</string>
 			<key>label</key>
-			<string>HASHBANG Productions</string>
+			<string>Monogram initials</string>
 			<key>initials</key>
 			<string>HB</string>
 			<key>user</key>

@@ -1,8 +1,36 @@
 @import UIKit;
 @import ObjectiveC;
 #import "../ui/UIColor+HBAdditions.h"
+#import <MobileIcons/MobileIcons.h>
+#import <UIKit/UIImage+Private.h>
+#import <HBLog.h>
 
 static Class $UIImageSymbolConfiguration;
+
+static inline UIImage *iconFromColorAndGlyph(UIColor *color, BOOL isBig, UIImage *glyph) {
+	CGFloat iconSize = isBig ? 40.f : 29.f;
+	CGRect iconRect = CGRectMake(0, 0, iconSize, iconSize);
+	UIGraphicsBeginImageContextWithOptions(iconRect.size, NO, [UIScreen mainScreen].scale);
+	[color setFill];
+	UIRectFill(iconRect);
+
+	if (glyph != nil) {
+		// Scale to fit 80% of the icon size
+		CGFloat glyphBaseSize = ceilf(iconSize * 0.8f);
+		CGSize glyphSize = CGSizeMake(glyphBaseSize, glyphBaseSize);
+		if (glyph.size.width > glyph.size.height) {
+			glyphSize.height /= glyph.size.width / glyph.size.height;
+		} else if (glyph.size.height > glyph.size.width) {
+			glyphSize.width /= glyph.size.height / glyph.size.width;
+		}
+		CGRect glyphRect = CGRectInset(iconRect, (iconSize - glyphSize.width) / 2, (iconSize - glyphSize.height) / 2);
+		[glyph drawInRect:glyphRect];
+	}
+
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return [image _applicationIconImageForFormat:isBig ? MIIconVariantSpotlight : MIIconVariantSmall precomposed:YES scale:[UIScreen mainScreen].scale];
+}
 
 static inline UIImageSymbolWeight systemSymbolWeightFromValue(id value) NS_AVAILABLE_IOS(13_0) {
 	if ([value isKindOfClass:NSNumber.class]) {
@@ -70,5 +98,15 @@ static inline UIImage *systemSymbolImageForDictionary(NSDictionary <NSString *, 
 		$UIImageSymbolConfiguration = objc_getClass("UIImageSymbolConfiguration");
 	}
 	UIImageSymbolConfiguration *configuration = [$UIImageSymbolConfiguration configurationWithPointSize:pointSize weight:weight scale:scale];
-	return [[UIImage systemImageNamed:name withConfiguration:configuration] imageWithTintColor:tintColor renderingMode:renderingMode];
+	UIImage *symbolImage = [UIImage systemImageNamed:name withConfiguration:configuration];
+
+	// Background color
+	if (params[@"backgroundColor"] != nil) {
+		UIColor *backgroundColor = [UIColor hb_colorWithPropertyListValue:params[@"backgroundColor"]];
+		if (backgroundColor != nil) {
+			symbolImage = [symbolImage imageWithTintColor:tintColor ?: [UIColor whiteColor] renderingMode:renderingMode];
+			return iconFromColorAndGlyph(backgroundColor, NO, symbolImage);
+		}
+	}
+	return [symbolImage imageWithTintColor:tintColor renderingMode:renderingMode];
 }

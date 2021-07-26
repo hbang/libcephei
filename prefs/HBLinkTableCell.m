@@ -1,8 +1,7 @@
 #import "HBLinkTableCell.h"
+#import "Symbols.h"
 #import <Preferences/PSSpecifier.h>
-#import <MobileIcons/MobileIcons.h>
 #import <UIKit/UIColor+Private.h>
-#import <UIKit/UIImage+Private.h>
 #import <version.h>
 #import <HBLog.h>
 
@@ -92,12 +91,7 @@
 
 					UIImage *maskImage = iconMasks[@(iconSize)];
 					if (maskImage == nil) {
-						UIGraphicsBeginImageContextWithOptions(CGSizeMake(iconSize, iconSize), NO, [UIScreen mainScreen].scale);
-						[[UIColor whiteColor] setFill];
-						UIRectFill(CGRectMake(0, 0, iconSize, iconSize));
-						UIImage *dummyImage = UIGraphicsGetImageFromCurrentImageContext();
-						UIGraphicsEndImageContext();
-						maskImage = [dummyImage _applicationIconImageForFormat:_isBig ? MIIconVariantSpotlight : MIIconVariantSmall precomposed:YES scale:[UIScreen mainScreen].scale];
+						maskImage = iconFromColorAndGlyph([UIColor whiteColor], _isBig, nil);
 						iconMasks[@(iconSize)] = maskImage;
 					}
 					CALayer *maskLayer = [CALayer layer];
