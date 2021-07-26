@@ -16,10 +16,6 @@
 
 	NSParameterAssert(_identifier);
 
-	if (specifier.properties[@"iconCornerRadius"] == nil) {
-		specifier.properties[@"iconCornerRadius"] = @-1;
-	}
-
 	if (specifier.properties[@"iconURL"] == nil) {
 		NSURL *iconURL = [NSURL URLWithString:[@"https://api.canister.me/v1/community/packages?" stringByAppendingString:@{
 			@"id": _identifier,

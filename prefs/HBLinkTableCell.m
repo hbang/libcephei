@@ -82,13 +82,28 @@
 				cornerRadius = iconSize / 2;
 			} else {
 				cornerRadius = specifier.properties[@"iconCornerRadius"] ? ((NSNumber *)specifier.properties[@"iconCornerRadius"]).doubleValue : -1;
-				if (cornerRadius == -1) {
+				if (cornerRadius < 0) {
 					cornerRadius = 0;
-					UIGraphicsBeginImageContextWithOptions(CGSizeMake(iconSize, iconSize), NO, [UIScreen mainScreen].scale);
-					UIImage *dummyImage = UIGraphicsGetImageFromCurrentImageContext();
-					UIGraphicsEndImageContext();
-					UIImage *mask = [dummyImage _applicationIconImageForFormat:_isBig ? MIIconVariantSpotlight : MIIconVariantSmall precomposed:YES scale:[UIScreen mainScreen].scale];
-					_iconView.layer.mask = [[UIImageView alloc] initWithImage:mask].layer;
+					static NSMutableDictionary <NSNumber *, UIImage *> *iconMasks;
+					static dispatch_once_t onceToken;
+					dispatch_once(&onceToken, ^{
+						iconMasks = [NSMutableDictionary dictionary];
+					});
+
+					UIImage *maskImage = iconMasks[@(iconSize)];
+					if (maskImage == nil) {
+						UIGraphicsBeginImageContextWithOptions(CGSizeMake(iconSize, iconSize), NO, [UIScreen mainScreen].scale);
+						[[UIColor whiteColor] setFill];
+						UIRectFill(CGRectMake(0, 0, iconSize, iconSize));
+						UIImage *dummyImage = UIGraphicsGetImageFromCurrentImageContext();
+						UIGraphicsEndImageContext();
+						maskImage = [dummyImage _applicationIconImageForFormat:_isBig ? MIIconVariantSpotlight : MIIconVariantSmall precomposed:YES scale:[UIScreen mainScreen].scale];
+						iconMasks[@(iconSize)] = maskImage;
+					}
+					CALayer *maskLayer = [CALayer layer];
+					maskLayer.frame = CGRectMake(0, 0, iconSize, iconSize);
+					maskLayer.contents = (__bridge id)maskImage.CGImage;
+					_iconView.layer.mask = maskLayer;
 				}
 			}
 			_iconView.layer.cornerRadius = cornerRadius;
@@ -171,8 +186,8 @@
 - (void)iconLoadDidFailWithResponse:(NSURLResponse *)response error:(NSError *)error {
 	dispatch_async(dispatch_get_main_queue(), ^{
 		BOOL isIconCircular = self.specifier.properties[@"iconCircular"] ? ((NSNumber *)self.specifier.properties[@"iconCircular"]).boolValue : NO;
-		BOOL isIconSystemStyle = ((NSNumber *)self.specifier.properties[@"iconCornerRadius"]).doubleValue == -1;
-		if (isIconSystemStyle && !isIconCircular) {
+		CGFloat cornerRadius = self.specifier.properties[@"iconCornerRadius"] ? ((NSNumber *)self.specifier.properties[@"iconCornerRadius"]).doubleValue : -1;
+		if (cornerRadius < 0 && !isIconCircular) {
 			self.iconImage = [UIImage imageWithCGImage:LICreateDefaultIcon(_isBig ? MIIconVariantSpotlight : MIIconVariantSmall)];
 		}
 	});
