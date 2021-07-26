@@ -1,7 +1,0 @@
----
-archs:                 [ armv7, arm64, arm64e ]
-platform:              ios
-install-name:          /Library/Frameworks/CepheiUI.framework/CepheiUI
-current-version:       0
-compatibility-version: 0
-...
