@@ -68,12 +68,11 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// 	private let preferences = HBPreferences(identifier: "ws.hbang.common.demo")
 ///
 /// 	// Example using registration method
-/// 	private(set) var isEnabled: Bool = false
-/// 	private(set) var canDoThing: Bool = false
+/// 	private(set) var canDoThing: ObjCBool = false
 ///
 /// 	// Example using custom getter and setter
 /// 	var anotherSetting: Int {
-/// 		get { preferences["AnotherSetting"] as! Int }
+/// 		get { preferences["AnotherSetting"] as? Int ?? -1 }
 /// 		set { preferences["AnotherSetting"] = newValue }
 /// 	}
 ///
@@ -86,11 +85,10 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// 			"AnotherSetting": 1
 /// 		])
 ///
-/// 		preferences.register(&isEnabled, default: true, forKey: "Enabled")
-/// 		preferences.register(&canDoThing, default: false, forKey: "Enabled")
+/// 		preferences.register(&canDoThing, default: false, forKey: "DoThing")
 ///
-/// 		// Example using dictionary subscript methods
 /// 		print("Am I enabled? \(preferences["Enabled"] as? Bool ?? false)")
+/// 		print("Can I do thing? \(canDoThing)")
 /// 	}
 ///
 /// }

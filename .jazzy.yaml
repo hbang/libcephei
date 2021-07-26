@@ -1,6 +1,4 @@
 clean: true
-output: docs
-theme: fullwidth
 objc: true
 sdk: iphonesimulator
 module: Cephei
@@ -11,7 +9,6 @@ author_url: https://hbang.github.io/
 github_url: https://github.com/hbang/libcephei
 root_url: https://hbang.github.io/libcephei/
 dash_url: https://hbang.github.io/libcephei/docsets/Cephei.xml
-readme: README.md
 documentation: info/*.md
 exclude: "*/include/*"
 hide_documentation_coverage: true

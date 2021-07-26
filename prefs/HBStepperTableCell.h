@@ -46,6 +46,7 @@
 
 @interface HBStepperTableCell : PSControlTableCell
 
+/// The stepper control.
 @property (nonatomic, retain) UIStepper *control;
 
 @end

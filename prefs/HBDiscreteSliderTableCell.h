@@ -40,6 +40,7 @@
 
 @interface HBDiscreteSliderTableCell : PSControlTableCell
 
+/// The slider control.
 @property (nonatomic, retain) PSDiscreteSlider *control;
 
 @end
