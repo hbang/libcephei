@@ -17,4 +17,5 @@
 	<!-- Explanation of how to add an email account to the device. -->
 	<key>NO_EMAIL_ACCOUNTS_BODY</key>
 	<string>Folosește setările aplicației Mail pentru a adăuga un cont nou.</string>
+</dict>
 </plist>
