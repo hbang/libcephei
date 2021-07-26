@@ -70,7 +70,9 @@ static Class $NSURLSession;
 			return;
 		}
 
+		// Clean up anything cached more than 4 days ago.
 		NSTimeInterval cutoff = 4 * 24 * 60 * 60;
+		BOOL isDirty = NO;
 		for (NSURL *url in items) {
 			if ([url.lastPathComponent isEqualToString:@"cache.plist"]) {
 				continue;
@@ -84,13 +86,32 @@ static Class $NSURLSession;
 			}
 			if ([modDate compare:[NSDate dateWithTimeIntervalSinceNow:-cutoff]] == NSOrderedAscending) {
 				// It’s stale. Delete it.
-				NSString *key = [url.lastPathComponent stringByDeletingPathExtension];
+				NSString *fileName = [url.lastPathComponent stringByDeletingPathExtension];
+				NSString *key = [@"id:" stringByAppendingString:[fileName substringToIndex:[fileName rangeOfString:@"_"].location]];
 				[_cacheData removeObjectForKey:key];
+				isDirty = YES;
 				[[NSFileManager defaultManager] removeItemAtURL:url error:&error];
 				if (error != nil) {
-				HBLogWarn(@"Cephei: Failed to delete stale cache: %@", error);
+					HBLogWarn(@"Cephei: Failed to delete stale cache: %@", error);
 				}
 			}
+		}
+
+		NSMutableArray *keysToRemove = [NSMutableArray array];
+		for (NSString *key in _cacheData) {
+			if (![key hasPrefix:@"id:"]) {
+				continue;
+			}
+			HBTwitterAPIClientUserItem item = _cacheData[key];
+			if (item[@"profile_image"] == nil || ![[_cacheURL URLByAppendingPathComponent:item[@"profile_image"]] checkResourceIsReachableAndReturnError:nil]) {
+				[keysToRemove addObject:key];
+				isDirty = YES;
+			}
+		}
+		[_cacheData removeObjectsForKeys:keysToRemove];
+
+		if (isDirty) {
+			[self _saveCache];
 		}
 	});
 }
@@ -120,7 +141,12 @@ static Class $NSURLSession;
 			if (userID == nil) {
 				[fetchUsernames addObject:username];
 			} else {
-				[self _handleCallbackForUserID:userID result:[self _cacheItemForUserID:userID]];
+				HBTwitterAPIClientUserItem item = [self _cacheItemForUserID:userID];
+				if (item == nil) {
+					[fetchUserIDs addObject:userID];
+				} else {
+					[self _handleCallbackForUserID:userID result:item];
+				}
 			}
 		}
 		for (NSString *userID in userIDs) {
