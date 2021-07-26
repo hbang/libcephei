@@ -23,7 +23,7 @@
 	if (specifier.properties[@"iconURL"] == nil) {
 		NSURL *iconURL = [NSURL URLWithString:[@"https://api.canister.me/v1/community/packages?" stringByAppendingString:@{
 			@"id": _identifier,
-			@"content": @"icon",
+			@"content": @"packageIcon",
 			@"redirect": @"true"
 		}.hb_queryString]];
 
