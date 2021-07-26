@@ -25,7 +25,8 @@ include $(THEOS)/makefiles/common.mk
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
-Cephei_CFLAGS = -include Global.h
+Cephei_CFLAGS = -include Global.h -fapplication-extension
+Cephei_LDFLAGS = -fapplication-extension
 
 # Link ARCLite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
