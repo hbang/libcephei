@@ -19,18 +19,12 @@
 			<string>#ffffff</string>
 			<key>subtitleColor</key>
 			<string>#aaaaaa</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>This is a demo of Cephei features. Refer to https://hbang.github.io/libcephei/ for further details.</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>PSSwitchCell</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -52,48 +46,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>HBImageTableCell</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBImageTableCell</string>
-			<key>height</key>
-			<integer>29</integer>
-			<key>icon</key>
-			<string>icon.png</string>
-			<key>label</key>
-			<string>Big Image</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>HBDiscreteSliderTableCell</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBDiscreteSliderTableCell</string>
-			<key>default</key>
-			<real>5</real>
-			<key>defaults</key>
-			<string>ws.hbang.common.demo</string>
-			<key>key</key>
-			<string>Discrete</string>
-			<key>label</key>
-			<string>Discrete</string>
-			<key>max</key>
-			<real>15</real>
-			<key>min</key>
-			<real>1</real>
-			<key>showValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>PSListItemsController</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -141,35 +93,6 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>HBSpinnerTableCell</string>
-		</dict>
-		<dict>
-			<key>action</key>
-			<string>doStuffTapped:</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>cellClass</key>
-			<string>HBSpinnerTableCell</string>
-			<key>label</key>
-			<string>Do Stuff</string>
-			<key>iconImageSystem</key>
-			<dict>
-				<key>name</key>
-				<string>wand.and.stars</string>
-				<key>weight</key>
-				<string>semibold</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>HBStepperTableCell</string>
-		</dict>
-		<dict>
 			<key>cellClass</key>
 			<string>HBStepperTableCell</string>
 			<key>default</key>
@@ -190,8 +113,63 @@
 			<dict>
 				<key>name</key>
 				<string>number.circle</string>
-				<key>tintColor</key>
-				<string>#007aff</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Sliders</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>5</real>
+			<key>defaults</key>
+			<string>ws.hbang.common.demo</string>
+			<key>key</key>
+			<string>Slider</string>
+			<key>label</key>
+			<string>Slider</string>
+			<key>max</key>
+			<real>15</real>
+			<key>min</key>
+			<real>1</real>
+			<key>showValue</key>
+			<true/>
+			<key>leftImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>slider.horizontal.3</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+			<string>HBDiscreteSliderTableCell</string>
+			<key>default</key>
+			<real>5</real>
+			<key>defaults</key>
+			<string>ws.hbang.common.demo</string>
+			<key>key</key>
+			<string>Discrete</string>
+			<key>label</key>
+			<string>Discrete</string>
+			<key>max</key>
+			<real>15</real>
+			<key>min</key>
+			<real>1</real>
+			<key>leftImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>sun.min</string>
+			</dict>
+			<key>rightImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>sun.max</string>
 			</dict>
 		</dict>
 		<dict>
@@ -201,17 +179,38 @@
 			<string>HBTintedTableCell</string>
 		</dict>
 		<dict>
+			<key>action</key>
+			<string>doStuffTapped:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>HBSpinnerTableCell</string>
+			<key>label</key>
+			<string>Perform Magic Tricks</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>wand.and.stars</string>
+				<key>weight</key>
+				<string>semibold</string>
+			</dict>
+		</dict>
+		<dict>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>HBTintedTableCell</string>
 			<key>label</key>
-			<string>Do Something Else</string>
+			<string>Do Something Destructive</string>
 			<key>iconImageSystem</key>
 			<dict>
 				<key>name</key>
-				<string>star</string>
+				<string>exclamationmark.triangle</string>
+				<key>weight</key>
+				<string>bold</string>
 			</dict>
+			<key>tintColor</key>
+			<string>#ff3b30</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -410,6 +409,11 @@
 			<true/>
 			<key>label</key>
 			<string>ABOUT</string>
+			<key>iconImageSystem</key>
+			<dict>
+				<key>name</key>
+				<string>info.circle</string>
+			</dict>
 		</dict>
 	</array>
 	<key>title</key>
