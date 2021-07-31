@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A string to be used as a default message when the user shares the package to a friend or social
 /// website. Override this method to return your own string.
 ///
-/// If the return value of this method and hb_shareURL are nil, the sharing button will not be
+/// If the return value of this method and `hb_shareURL `are nil, the sharing button will not be
 /// displayed.
 ///
 /// @return By default, nil.
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The URL to be shared when the user shares the package to a friend or social website. Override
 /// this method to return your own URL.
 ///
-/// If the return value of this method and hb_shareText are nil, the sharing button will not be
+/// If the return value of this method and `hb_shareText` are nil, the sharing button will not be
 /// displayed.
 ///
 /// @return By default, nil.

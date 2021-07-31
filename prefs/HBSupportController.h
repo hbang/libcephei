@@ -10,21 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HBSupportController : NSObject
 
-/// No longer supported. Returns nil.
-///
-/// @return nil.
-+ (id)linkInstructionForEmailAddress:(NSString *)emailAddress __attribute((deprecated("TechSupport is no longer supported.")));
-
-/// Initialises a Mail composer by using information provided by a bundle.
-///
-/// Refer to `-supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:`
-/// for information on how the bundle is used.
-///
-/// @param bundle A bundle included with the package.
-/// @return A pre-configured email composer.
-/// @see `-supportViewControllerForBundle:preferencesIdentifier:sendToEmail:`
-+ (UIViewController *)supportViewControllerForBundle:(NSBundle *)bundle __attribute((deprecated("TechSupport is no longer supported.")));
-
 /// Initialises a Mail composer by using information provided by a bundle and preferences identifier.
 ///
 /// Either a bundle or preferences identifier is required. If both are nil, an exception will be
@@ -35,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param bundle A bundle included with the package.
 /// @param preferencesIdentifier A preferences identifier that is used by the package.
 /// @return A pre-configured email composer.
-/// @see `-supportViewControllerForBundle:preferencesIdentifier:sendToEmail:`
+/// @see `+supportViewControllerForBundle:preferencesIdentifier:sendToEmail:`
 + (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier;
 
 /// Initialises a Mail composer by using information provided by a bundle, preferences identifier,
@@ -53,6 +38,23 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return A pre-configured email composer.
 + (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier sendToEmail:(nullable NSString *)sendToEmail;
 
+/// @name Deprecated
+
+/// No longer supported. Returns nil.
+///
+/// @return nil.
++ (id)linkInstructionForEmailAddress:(NSString *)emailAddress __attribute((deprecated("TechSupport is no longer supported.")));
+
+/// Initialises a Mail composer by using information provided by a bundle.
+///
+/// Refer to `+supportViewControllerForBundle:preferencesIdentifier:linkInstruction:supportInstructions:`
+/// for information on how the bundle is used.
+///
+/// @param bundle A bundle included with the package.
+/// @return A pre-configured email composer.
+/// @see `+supportViewControllerForBundle:preferencesIdentifier:sendToEmail:`
++ (UIViewController *)supportViewControllerForBundle:(NSBundle *)bundle __attribute((deprecated("TechSupport is no longer supported.")));
+
 /// Initialises a Mail composer by using information provided by either a bundle or a preferences
 /// identifier, and providing it a custom link instruction and support instructions.
 ///
@@ -67,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param linkInstruction Ignored.
 /// @param supportInstructions Ignored.
 /// @return A pre-configured email composer.
-/// @see `-supportViewControllerForBundle:preferencesIdentifier:`
+/// @see `+supportViewControllerForBundle:preferencesIdentifier:`
 + (UIViewController *)supportViewControllerForBundle:(nullable NSBundle *)bundle preferencesIdentifier:(nullable NSString *)preferencesIdentifier linkInstruction:(nullable id)linkInstruction supportInstructions:(nullable NSArray *)supportInstructions __attribute((deprecated("Use +[HBSupportController supportViewControllerForBundle:preferencesIdentifier:].")));
 
 @end

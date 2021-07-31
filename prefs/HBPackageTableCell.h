@@ -4,20 +4,20 @@
 /// name, and description. Tapping it opens the package in Cydia.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>packageIdentifier</th> <td>Required. The package identifier to retrieve the required
+/// <td>packageIdentifier</td> <td>Required. The package identifier to retrieve the required
 /// information from.</td>
 /// </tr>
 /// <tr>
-/// <th>packageRepository</th> <td>Optional. The URL to the repository the package is available on,
+/// <td>packageRepository</td> <td>Optional. The URL to the repository the package is available on,
 /// if not one of the default repos.</td>
 /// </tr>
 /// <tr>
-/// <th>label</th> <td>Required. The name of the package.</td>
+/// <td>label</td> <td>Required. The name of the package.</td>
 /// </tr>
 /// <tr>
-/// <th>subtitleText</th> <td>Optional. Can be used for a description of the package.</td>
+/// <td>subtitleText</td> <td>Optional. Can be used for a description of the package.</td>
 /// </tr>
 /// </table>
 ///

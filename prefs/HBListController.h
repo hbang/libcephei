@@ -21,21 +21,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// ### Specifier Parameters
 /// HBListController extends specifiers with the following parameters:
 ///
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>pl_filter</th> <td>Optional. Supports additional filters that decide whether a specifier
+/// <td>pl_filter</td> <td>Optional. Supports additional filters that decide whether a specifier
 /// should be displayed, as specified below.</td>
 /// </tr>
 /// <tr>
-/// <th>iconImageSystem</th> <td>Optional. Supports displaying a system image as the cell icon, as
+/// <td>iconImageSystem</td> <td>Optional. Supports displaying a system image as the cell icon, as
 /// specified below.</td>
 /// </tr>
 /// <tr>
-/// <th>leftImageSystem</th> <td>Optional. Supports displaying a system image as the icon to the
+/// <td>leftImageSystem</td> <td>Optional. Supports displaying a system image as the icon to the
 /// left of a PSSliderCell’s slider control, as specified below.</td>
 /// </tr>
 /// <tr>
-/// <th>rightImageSystem</th> <td>Optional. Supports displaying a system image as the icon to the
+/// <td>rightImageSystem</td> <td>Optional. Supports displaying a system image as the icon to the
 /// right of a PSSliderCell’s slider control, as specified below.</td>
 /// </tr>
 /// </table>
@@ -50,14 +50,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// hundred or more) for each major revision of Apple’s OS platforms, and it is typically roughly
 /// the same between all Apple OS platforms at any point in time.
 ///
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>CoreFoundationVersion</th> <td>Optional. An array of one or two CoreFoundation version
-/// numbers in decimal (`<real>`). If one number is present, this is a minimum bound. The current
-/// device’s CoreFoundation version must be greater than or equal to this number. If two numbers are
-/// present, the first number is the lower bound, and the second number is one more than the upper
-/// bound. The current device’s CoreFoundation version must be greater than or equal to the first
-/// number, and less than (but not equal to) the second number.</td>
+/// <td>CoreFoundationVersion</td> <td>Optional. An array of one or two CoreFoundation version
+/// numbers in decimal (&lt;real&gt;). If one number is present, this is a minimum bound. The
+/// current device’s CoreFoundation version must be greater than or equal to this number. If two
+/// numbers are present, the first number is the lower bound, and the second number is one more than
+/// the upper bound. The current device’s CoreFoundation version must be greater than or equal to
+/// the first number, and less than (but not equal to) the second number.</td>
 /// </tr>
 /// </table>
 ///
@@ -94,12 +94,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 	</dict>
 /// </dict>
 ///
-/// <!-- Will only display on iOS 11.4 (CF 1556.00) or older: -->
+/// <!-- Will only display on versions earlier than iOS 12.0 (CF 1556.00): -->
 /// <dict>
 /// 	<key>cell</key>
 /// 	<string>PSSwitchCell</string>
 /// 	<key>label</key>
-/// 	<string>My iOS <12 Only Feature</string>
+/// 	<string>My iOS &lt;12 Only Feature</string>
 /// 	<key>pl_filter</key>
 /// 	<dict>
 /// 		<key>CoreFoundationVersion</key>
@@ -120,31 +120,31 @@ NS_ASSUME_NONNULL_BEGIN
 /// when a symbol name is specified that was added in a later iOS version than is currently in use.
 /// In this case, you can supply a PNG icon through the usual means as a fallback.
 ///
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>name</th> <td>Required. The symbol name to use.</td>
+/// <td>name</td> <td>Required. The symbol name to use.</td>
 /// </tr>
 /// <tr>
-/// <th>weight</th> <td>Optional. The weight to render the symbol at. The supported values are:
-/// `ultraLight`, `thin`, `light`, `regular`, `medium`, `semibold`, `bold`, `heavy`, `black`. The
-/// default is `regular`.</td>
+/// <td>weight</td> <td>Optional. The weight to render the symbol at. The supported values are:
+/// ultraLight, thin, light, regular, medium, semibold, bold, heavy, black. The default is
+/// regular.</td>
 /// </tr>
 /// <tr>
-/// <th>scale</th> <td>Optional. The scale to render the symbol at. The supported values are:
-/// `small`, `medium`, `large`. The default is `medium`.</td>
+/// <td>scale</td> <td>Optional. The scale to render the symbol at. The supported values are: small,
+/// medium, large. The default is medium.</td>
 /// </tr>
 /// <tr>
-/// <th>pointSize</th> <td>Optional. The equivalent font size to render the symbol at. The default
-/// is `20.0`.</td>
+/// <td>pointSize</td> <td>Optional. The equivalent font size to render the symbol at. The default
+/// is 20.0.</td>
 /// </tr>
 /// <tr>
-/// <th>tintColor</th> <td>Optional. The color to render the icon in. The default is no value, which
-/// means the tint color will be inherited from the `-[HBAppearanceSettings tintColor]`; if neither
-/// value is set, the default iOS blue tint color is used. When `backgroundColor` is set, no value
-/// means white (`#ffffff`) will be used.</td>
+/// <td>tintColor</td> <td>Optional. The color to render the icon in. The default is no value, which
+/// means the tint color will be inherited from the -[HBAppearanceSettings tintColor]; if neither
+/// value is set, the default iOS blue tint color is used. When backgroundColor is set, no value
+/// means white (#ffffff) will be used.</td>
 /// </tr>
 /// <tr>
-/// <th>backgroundColor</th> <td>Optional. The background color to use for the symbol. When
+/// <td>backgroundColor</td> <td>Optional. The background color to use for the symbol. When
 /// specified, the symbol will be rendered inside an icon shape of the specified background color.
 /// The symbol will be scaled down by 20% to appropriately fit the icon shape. The default is no
 /// value, which means no icon shape will be rendered.</td>

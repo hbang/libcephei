@@ -5,36 +5,36 @@
 /// device or the Twitter website is opened to the person’s profile.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>big</th> <td>Optional. Whether to display the username below the name (true) or to the right
+/// <td>big</td> <td>Optional. Whether to display the username below the name (true) or to the right
 /// of it (false). The default is false. If you set this to true, you should also set the cell’s
 /// height to 56pt.</td>
 /// </tr>
 /// <tr>
-/// <th>initials</th> <td>Optional. One or two characters to show instead of an avatar.</td>
+/// <td>initials</td> <td>Optional. One or two characters to show instead of an avatar.</td>
 /// </tr>
 /// <tr>
-/// <th>label</th> <td>Required. The name of the person.</td>
+/// <td>label</td> <td>Required. The name of the person.</td>
 /// </tr>
 /// <tr>
-/// <th>user</th> <td>Required. The Twitter username of the person.</td>
+/// <td>user</td> <td>Required. The Twitter username of the person.</td>
 /// </tr>
 /// <tr>
-/// <th>userID</th> <td>Optional. The Twitter user identifier number of the person. You can find
+/// <td>userID</td> <td>Optional. The Twitter user identifier number of the person. You can find
 /// the user ID using <a href="https://www.google.com/search?q=find+twitter+user+id">online tools</a>.
 /// </td>
 /// </tr>
 /// <tr>
-/// <th>showAvatar</th> <td>Optional. Whether to show the avatar of the user. The default is
+/// <td>showAvatar</td> <td>Optional. Whether to show the avatar of the user. The default is
 /// true.</td>
 /// </tr>
 /// <tr>
-/// <th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value, meaning
+/// <td>iconURL</td> <td>Optional. The URL to an image to display. The default is no value, meaning
 /// meaning to retrieve the avatar for the Twitter username specified in the user property.</td>
 /// </tr>
 /// <tr>
-/// <th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
+/// <td>iconCircular</td> <td>Optional. Whether the icon should be displayed as a circle. The
 /// default is YES.</td>
 /// </tr>
 /// </table>

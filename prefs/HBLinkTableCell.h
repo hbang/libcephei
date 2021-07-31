@@ -8,27 +8,27 @@
 /// to get a tinted button.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>url</th> <td>Required. The URL to open.</td>
+/// <td>url</td> <td>Required. The URL to open.</td>
 /// </tr>
 /// <tr>
-/// <th>subtitle</th> <td>Optional. A subtitle to display below the label. The default is an empty
+/// <td>subtitle</td> <td>Optional. A subtitle to display below the label. The default is an empty
 /// string, hiding the subtitle.</td>
 /// </tr>
 /// <tr>
-/// <th>initials</th> <td>Optional. One or two characters to show as the icon.</td>
+/// <td>initials</td> <td>Optional. One or two characters to show as the icon.</td>
 /// </tr>
 /// <tr>
-/// <th>iconURL</th> <td>Optional. The URL to an image to display. The default is no value,
+/// <td>iconURL</td> <td>Optional. The URL to an image to display. The default is no value,
 /// hiding the image.</td>
 /// </tr>
 /// <tr>
-/// <th>iconCircular</th> <td>Optional. Whether the icon should be displayed as a circle. The
+/// <td>iconCircular</td> <td>Optional. Whether the icon should be displayed as a circle. The
 /// default is NO when an iconURL is set, otherwise this property is unused.</td>
 /// </tr>
 /// <tr>
-/// <th>iconCornerRadius</th> <td>Optional. A custom corner radius to use for the icon. Ignored
+/// <td>iconCornerRadius</td> <td>Optional. A custom corner radius to use for the icon. Ignored
 /// if iconCircular is set to true. If set to -1, the operating system’s default icon corner radius
 /// is used. The default is -1.</td>
 /// </tr>

@@ -6,12 +6,11 @@
 /// ### Specifier Parameters
 /// HBListController extends specifiers with the following parameters:
 ///
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>tintColor</th> <td>Optional. The color to use for the label of the cell. The default is no
-/// value, which means the tint color will be inherited from the
-/// `-[HBAppearanceSettings tintColor]`; if neither value is set, the default iOS blue tint color is
-/// used.</td>
+/// <td>tintColor</td> <td>Optional. The color to use for the label of the cell. The default is no
+/// value, which means the tint color will be inherited from the -[HBAppearanceSettings tintColor];
+/// if neither value is set, the default iOS blue tint color is used.</td>
 /// </tr>
 /// </table>
 ///

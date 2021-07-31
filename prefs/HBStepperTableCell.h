@@ -6,19 +6,19 @@
 /// Requires iOS 6.0 or later.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>label</th> <td>Required. The label displayed when the value is plural. Use <code>%i</code>
+/// <td>label</td> <td>Required. The label displayed when the value is plural. Use <code>%i</code>
 /// to denote where the number should be displayed.</td>
 /// </tr>
 /// <tr>
-/// <th>max</th> <td>Required. The highest possible numeric value for the stepper.</td>
+/// <td>max</td> <td>Required. The highest possible numeric value for the stepper.</td>
 /// </tr>
 /// <tr>
-/// <th>min</th> <td>Required. The lowest possible numeric value for the stepper.</td>
+/// <td>min</td> <td>Required. The lowest possible numeric value for the stepper.</td>
 /// </tr>
 /// <tr>
-/// <th>singularLabel</th> <td>Required. The label displayed when the value is singular.</td>
+/// <td>singularLabel</td> <td>Required. The label displayed when the value is singular.</td>
 /// </tr>
 /// </table>
 ///

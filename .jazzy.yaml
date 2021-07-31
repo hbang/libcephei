@@ -70,3 +70,14 @@ custom_categories:
     children:
       - HBListItemsController
       - HBInitialsLinkTableCell
+
+head: |
+  <style>
+  body, .section-name { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+  pre, code { font-family: "SF Mono", ui-monospace, Menlo, monspace; }
+  h1, h2, h3, .section-name { font-weight: 600; }
+  .nav-group-name { font-weight: 300; }
+  .highlight { line-height: 1.3em; }
+  .graybox { line-height: 1.8em; }
+  .graybox tr td:first-of-type { font-weight: bold; }
+  </style>

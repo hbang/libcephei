@@ -7,42 +7,42 @@
 /// controller, for instance.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>condensed</th> <td>Optional. When true, displays an icon, the package name and version in
+/// <td>condensed</td> <td>Optional. When true, displays an icon, the package name and version in
 /// one line, and on another displays the author name. When false, displays a large package name,
 /// and on two lines in small font the package version and author. The default is false.</td>
 /// </tr>
 /// <tr>
-/// <th>icon</th> <td>Required in condensed mode. Not used otherwise. The file name of the icon to
+/// <td>icon</td> <td>Required in condensed mode. Not used otherwise. The file name of the icon to
 /// use within the current preference bundle.</td>
 /// </tr>
 /// <tr>
-/// <th>packageIdentifier</th> <td>Required. The package identifier to retrieve the required
+/// <td>packageIdentifier</td> <td>Required. The package identifier to retrieve the required
 /// information from.</td>
 /// </tr>
 /// <tr>
-/// <th>packageNameOverride</th> <td>Optional. A custom name to use instead of the package’s
+/// <td>packageNameOverride</td> <td>Optional. A custom name to use instead of the package’s
 /// name.</td>
 /// </tr>
 /// <tr>
-/// <th>showAuthor</th> <td>Optional. Whether to show the `Author` field of the package. The default
+/// <td>showAuthor</td> <td>Optional. Whether to show the Author field of the package. The default
 /// is true.</td>
 /// </tr>
 /// <tr>
-/// <th>showVersion</th> <td>Optional. Whether to show the `Version` field of the package. The
-/// default is true.</td>
+/// <td>showVersion</td> <td>Optional. Whether to show the Version field of the package. The default
+/// is true.</td>
 /// </tr>
 /// <tr>
-/// <th>titleColor</th> <td>Optional. The color to apply to the name of the package. The default is
+/// <td>titleColor</td> <td>Optional. The color to apply to the name of the package. The default is
 /// #111111.</td>
 /// </tr>
 /// <tr>
-/// <th>subtitleColor</th> <td>Optional. The color to apply to the subtitles. The default is
+/// <td>subtitleColor</td> <td>Optional. The color to apply to the subtitles. The default is
 /// #444444.</td>
 /// </tr>
 /// <tr>
-/// <th>backgroundGradientColors</th> <td>Optional. An array of color stops to use as a background
+/// <td>backgroundGradientColors</td> <td>Optional. An array of color stops to use as a background
 /// gradient. At least one is required. The default is no background gradient.</td>
 /// </tr>
 /// </table>

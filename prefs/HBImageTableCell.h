@@ -5,9 +5,9 @@
 /// table cell, or a header or footer.
 ///
 /// ### Specifier Parameters
-/// <table>
+/// <table class="graybox">
 /// <tr>
-/// <th>icon</th> <td>Required. The file name of the image to display in the cell.</td>
+/// <td>icon</td> <td>Required. The file name of the image to display in the cell.</td>
 /// </tr>
 /// </table>
 ///
