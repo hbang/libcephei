@@ -17,7 +17,10 @@
 /// CompactConstraint is licensed under the MIT License.
 @interface NSLayoutConstraint (CompactConstraint)
 
+/// Instantiate a single constraint with the compact syntax.
 + (instancetype)hb_compactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView;
+
+/// Instantiate any number of constraints. Can also mix in Visual Format Language strings.
 + (NSArray <NSLayoutConstraint *> *)hb_compactConstraints:(NSArray <NSString *> *)relationshipStrings metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views self:(id)selfView;
 
 /// And a convenient shortcut for creating constraints with the visualFormat string as the identifier

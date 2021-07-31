@@ -17,7 +17,7 @@
 /// CompactConstraint is licensed under the MIT License.
 @interface UIView (CompactConstraint)
 
-/// Add a single constraint with the compact syntax
+/// Add a single constraint with the compact syntax.
 - (NSLayoutConstraint *)hb_addCompactConstraint:(NSString *)relationship metrics:(NSDictionary <NSString *, NSNumber *> *)metrics views:(NSDictionary <NSString *, UIView *> *)views;
 
 /// Add any number of constraints. Can also mix in Visual Format Language strings.
