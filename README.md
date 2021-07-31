@@ -1,4 +1,4 @@
-# Cephei
+# ![Cephei Tweak Support](info/logo.jpg)
 Cephei is a framework for jailbroken iOS devices that includes various convenience features for developers. Primarily, it focuses on settings-related features, but it also contains other utilties. I hope you’ll appreciate what it has to offer.
 
 All iOS versions since 5.0 are supported, on all devices.
@@ -33,3 +33,5 @@ You can take a look at a demo of CepheiPrefs by copying `/Library/PreferenceBund
 
 ## License
 Licensed under the Apache License, version 2.0. Refer to [LICENSE.md](https://github.com/hbang/libcephei/blob/master/LICENSE.md).
+
+Header backdrop photo credit: [Kristopher Roller](https://unsplash.com/@krisroller) on Unsplash
