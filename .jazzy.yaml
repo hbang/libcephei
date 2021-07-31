@@ -19,7 +19,6 @@ hide_documentation_coverage: true
 custom_categories:
   - name: "Cephei — General"
     children:
-      - "Container Support"
       - defaults
       - HBOutputForShellCommand
       - HBOutputForShellCommandWithReturnCode
