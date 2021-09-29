@@ -17,7 +17,7 @@
 /// <td>label</td> <td>Required. The name of the package.</td>
 /// </tr>
 /// <tr>
-/// <td>subtitleText</td> <td>Optional. Can be used for a description of the package.</td>
+/// <td>subtitle</td> <td>Optional. Can be used for a description of the package.</td>
 /// </tr>
 /// </table>
 ///
@@ -41,7 +41,7 @@
 /// 	<string>Cephei</string>
 /// 	<key>packageIdentifier</key>
 /// 	<string>ws.hbang.common</string>
-/// 	<key>subtitleText</key>
+/// 	<key>subtitle</key>
 /// 	<string>Support library for tweaks</string>
 /// </dict>
 ///
