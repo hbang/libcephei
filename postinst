@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 # Due to some sort of unfortunate permission error created by an older build of Cephei, and dpkg not
 # really fixing them, we need to fix this ourselves
 chown -R root:wheel /Library/PreferenceBundles/Cephei.bundle
@@ -17,6 +19,14 @@ fi
 if [ -d /Library/PreferenceBundles/Cephei.bundle ]; then
 	rm -r /Library/PreferenceBundles/Cephei.bundle
 	ln -s /Library/Frameworks/CepheiPrefs.framework /Library/PreferenceBundles/Cephei.bundle
+fi
+
+# Install defaults alternative. This is used so Procursus’s defaults package has higher priority
+# over Cephei’s defaults, maintaining compatibility.
+# The mkdir -p fixes update-alternatives so it works on Telesphoreo.
+if [ "$1" = "configure" ]; then
+	mkdir -p /var/cache/dpkg/log
+	update-alternatives --install /usr/bin/defaults defaults /usr/bin/hbprefs 30
 fi
 
 # Tell the package manager to restart system app (SpringBoard) after installation.

@@ -1,14 +1,14 @@
 #import "../HBPreferences.h"
 
-void usage() {
+void usage(char *name) {
 	printf(
-		"defaults: read and write preferences using Cephei\n"
+		"%1$s: read and write preferences using Cephei\n"
 		"\n"
 		"Usage:\n"
-		"  defaults read <id>                 Show all preferences for id.\n"
-		"  defaults read <id> <key>           Show value for preference key in id.\n"
-		"  defaults write <id> <key> <value>  Write value for preference key in id.\n"
-		"  defaults help                      Display this help.\n"
+		"  %1$s read <id>                 Show all preferences for id.\n"
+		"  %1$s read <id> <key>           Show value for preference key in id.\n"
+		"  %1$s write <id> <key> <value>  Write value for preference key in id.\n"
+		"  %1$s help                      Display this help.\n"
 		"\n"
 		"Value is one of:\n"
 		"  <value> | -string <value>          String\n"
@@ -24,17 +24,19 @@ void usage() {
 		"  0 on success. 1 on failure to read/write. 255 on invalid input.\n"
 		"\n"
 		"Examples:\n"
-		"  defaults read com.apple.springboard\n"
-		"  defaults read com.apple.springboard SBBacklightLevel2\n"
-		"  defaults write -g AppleLocale en_US\n"
-		"  defaults write com.apple.springboard SBBacklightLevel2 -float 0.5\n");
+		"  %1$s read com.apple.springboard\n"
+		"  %1$s read com.apple.springboard SBBacklightLevel2\n"
+		"  %1$s write -g AppleLocale en_US\n"
+		"  %1$s write com.apple.springboard SBBacklightLevel2 -float 0.5\n",
+		name
+	);
 }
 
 int main(int argc, char *argv[]) {
 	NSArray <NSString *> *arguments = [NSProcessInfo processInfo].arguments;
 
 	if (arguments.count < 3) {
-		usage();
+		usage(argv[0]);
 		return 0;
 	}
 
@@ -80,7 +82,7 @@ int main(int argc, char *argv[]) {
 		// As documented, the method call does nothing on iOS 12.0+ anyway.
 		return [preferences synchronize] ? 0 : 1;
 	} else if ([mode isEqualToString:@"help"] || [mode isEqualToString:@"--help"]) {
-		usage();
+		usage(argv[0]);
 		return 0;
 	} else {
 		printf("Unrecognized mode \"%s\". For help, use \"defaults --help\".\n", mode.UTF8String);

@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+# Uninstall defaults alternative.
+if [ "$1" = "remove" ]; then
+	update-alternatives --remove defaults /usr/bin/hbprefs
+fi
+
+exit 0
