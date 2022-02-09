@@ -32,6 +32,6 @@ You should specify the current version of Cephei as the minimum requirement, so 
 You can take a look at a demo of CepheiPrefs by copying `/Library/PreferenceBundles/Cephei.bundle/entry.plist` to `/Library/PreferenceLoader/Preferences/Cephei.plist` – quit and relaunch Settings if it’s open. Alternatively, you can compile Cephei yourself – when compiling a debug build, the Cephei Demo preference bundle will be visible by default.
 
 ## License
-Licensed under the Apache License, version 2.0. Refer to [LICENSE.md](https://github.com/hbang/libcephei/blob/master/LICENSE.md).
+Licensed under the Apache License, version 2.0. Refer to [LICENSE.md](https://github.com/hbang/libcephei/blob/main/LICENSE.md).
 
 Header backdrop photo credit: [Kristopher Roller](https://unsplash.com/@krisroller) on Unsplash
