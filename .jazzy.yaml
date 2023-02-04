@@ -61,12 +61,12 @@ custom_categories:
       - HBSpinnerTableCell
       - HBStepperTableCell
       - HBTintedTableCell
-      - HBTwitterCell
 
   - name: "CepheiPrefs — Deprecated"
     children:
       - HBListItemsController
       - HBInitialsLinkTableCell
+      - HBTwitterCell
 
 head: |
   <style>

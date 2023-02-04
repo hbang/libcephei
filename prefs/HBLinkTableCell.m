@@ -146,16 +146,6 @@
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 
-		if ([_iconURL.host rangeOfString:@"twitter.com"].location != NSNotFound) {
-			// I usually wouldn’t do this, it’s kinda rude to straight up lie and pretend to be a browser
-			// from 20 years ago. But Twitter has made it incredibly hard to get at profile pics, and I’m
-			// pretty sick of something as innocent as a profile photo being impossible to get at without
-			// forcing the app to get the user to authenticate to the API first… which is clearly stupid.
-			// So yeah sorry not sorry Twitter. Be less horrible to the little guys and I’ll change this.
-			// https://github.com/hbang/libcephei/issues/38
-			[request setValue:@"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)" forHTTPHeaderField:@"User-Agent"];
-		}
-
 		NSError *error = nil;
 		NSHTTPURLResponse *response = nil;
 		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];

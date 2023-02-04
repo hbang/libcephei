@@ -4,8 +4,6 @@
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
 #import "HBPackageTableCell.h"
-#import "HBTwitterCell.h"
-#import "HBTwitterAPIClient.h"
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import "Symbols.h"
@@ -64,8 +62,6 @@
 
 - (NSMutableArray *)_hb_configureSpecifiers:(NSMutableArray *)specifiers {
 	NSMutableArray *specifiersToRemove = [NSMutableArray array];
-	NSMutableArray <NSString *> *twitterUsernames = [NSMutableArray array];
-	NSMutableArray <NSString *> *twitterUserIDs = [NSMutableArray array];
 
 	for (PSSpecifier *specifier in specifiers) {
 		// Reimplementation of libprefs (from PreferenceLoader) pl_filter.
@@ -101,14 +97,6 @@
 			} else {
 				specifier->action = action;
 			}
-
-			if ([cellClass isSubclassOfClass:HBTwitterCell.class]) {
-				if (specifier.properties[@"userID"] != nil) {
-					[twitterUserIDs addObject:specifier.properties[@"userID"]];
-				} else if (specifier.properties[@"user"] != nil) {
-					[twitterUsernames addObject:specifier.properties[@"user"]];
-				}
-			}
 		}
 
 		// Support for SF Symbols (system images)
@@ -137,11 +125,6 @@
 		NSMutableArray *newSpecifiers = [specifiers mutableCopy];
 		[newSpecifiers removeObjectsInArray:specifiersToRemove];
 		specifiers = newSpecifiers;
-	}
-
-	// Queue up all Twitter usernames/user IDs at once so we can bulk load them for performance.
-	if (twitterUsernames.count > 0 || twitterUserIDs.count > 0) {
-		[[HBTwitterAPIClient sharedInstance] queueLookupsForUsernames:twitterUsernames userIDs:twitterUserIDs];
 	}
 
 	return specifiers;
