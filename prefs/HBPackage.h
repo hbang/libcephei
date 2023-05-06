@@ -16,7 +16,7 @@ static inline NSDictionary <NSString *, NSString *> *getFieldsForPackage(NSStrin
 	}
 	NSString *format = [escapedFields componentsJoinedByString:@"\n"];
 	int status;
-	NSString *output = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-Wf", format, package ]), &status);
+	NSString *output = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @INSTALL_PREFIX @"/usr/bin/dpkg-query", @"-Wf", format, package ]), &status);
 	if (status == 0) {
 		NSArray <NSString *> *lines = [output componentsSeparatedByString:@"\n"];
 		if (lines.count == fields.count) {

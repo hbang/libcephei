@@ -60,7 +60,7 @@
 		// Try something else.
 		NSParameterAssert(bundle);
 		int status = 0;
-		NSString *search = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @"/usr/bin/dpkg-query", @"-S", bundle.executablePath ]), &status);
+		NSString *search = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @INSTALL_PREFIX @"/usr/bin/dpkg-query", @"-S", bundle.executablePath ]), &status);
 		NSAssert(status == 0, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 
 		package = [search substringWithRange:NSMakeRange(0, [search rangeOfString:@":"].location)];
@@ -79,9 +79,13 @@
 	NSString *product = nil, *firmware = nil, *build = nil;
 
 	if (IS_IOS_OR_NEWER(iOS_6_0)) {
+#if ROOTLESS
+		CFTypeRef (*myMGCopyAnswer)(CFStringRef question, CFDictionaryRef options) = MGCopyAnswer;
+#else
 		void *gestalt = dlopen("/usr/lib/libMobileGestalt.dylib", RTLD_LAZY);
 		CFTypeRef (*myMGCopyAnswer)(CFStringRef question, CFDictionaryRef options);
 		myMGCopyAnswer = dlsym(gestalt, "MGCopyAnswer");
+#endif
 		product = CFBridgingRelease(myMGCopyAnswer(kMGProductType, NULL));
 		firmware = CFBridgingRelease(myMGCopyAnswer(kMGProductVersion, NULL));
 		build = CFBridgingRelease(myMGCopyAnswer(kMGBuildVersion, NULL));

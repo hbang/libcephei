@@ -1,6 +1,7 @@
 @import UIKit;
 #import <version.h>
 
+#if !ROOTLESS
 %group CopyColor
 %hook UIColor
 
@@ -20,3 +21,4 @@
 		%init(CopyColor);
 	}
 }
+#endif

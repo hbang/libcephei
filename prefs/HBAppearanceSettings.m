@@ -10,7 +10,9 @@
 
 	if (self) {
 		// Set defaults. Everything else is either nil or NO, which is implicit.
+#if !ROOTLESS
 		_translucentNavigationBar = IS_IOS_OR_NEWER(iOS_7_0);
+#endif
 		_showsNavigationBarShadow = YES;
 	}
 
@@ -31,8 +33,10 @@
 	appearanceSettings.statusBarStyle = self.statusBarStyle;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#if !ROOTLESS
 	appearanceSettings.statusBarTintColor = [self.statusBarTintColor copy];
 	appearanceSettings.invertedNavigationBar = self.invertedNavigationBar;
+#endif
 #pragma clang diagnostic pop
 	appearanceSettings.translucentNavigationBar = self.translucentNavigationBar;
 	appearanceSettings.showsNavigationBarShadow = self.showsNavigationBarShadow;

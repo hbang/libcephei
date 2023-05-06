@@ -67,7 +67,11 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		// Hack to resolve odd margins being set on iPad
 		// TODO: This may be fixed in iOS 12?
+#if ROOTLESS
+		BOOL needsPaddingHax = NO;
+#else
 		BOOL needsPaddingHax = !IS_IOS_OR_NEWER(iOS_13_0) && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+#endif
 		CGFloat marginWidth = [self respondsToSelector:@selector(_marginWidth)] ? self._marginWidth : 0;
 
 		CGRect labelFrame = self.contentView.bounds;
@@ -88,7 +92,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			_label.adjustsLetterSpacingToFitWidth = NO;
 #pragma clang diagnostic pop
 		}
-		
+
 		[self.contentView addSubview:_label];
 
 		_condensed = specifier.properties[@"condensed"] ? ((NSNumber *)specifier.properties[@"condensed"]).boolValue : NO;
@@ -192,9 +196,15 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 	// The Title1 and Title2 styles were added in iOS 9. Get their symbols dynamically so we can fall
 	// back to older styles on older iOS.
-	NSString * __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
-	NSString * __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
-	NSString * __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
+#if ROOTLESS
+	NSString * const __strong *myUIFontTextStyleTitle1 = &UIFontTextStyleTitle1;
+	NSString * const __strong *myUIFontTextStyleTitle2 = &UIFontTextStyleTitle2;
+	NSString * const __strong *myUIFontTextStyleSubheadline = &UIFontTextStyleSubheadline;
+#else
+	NSString * const __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
+	NSString * const __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
+	NSString * const __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
+#endif
 
 	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
 		static dispatch_once_t onceToken;

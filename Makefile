@@ -1,4 +1,8 @@
-ifeq ($(CEPHEI_SIMULATOR),1)
+ifeq ($(ROOTLESS),1)
+	export THEOS_PACKAGE_SCHEME = rootless
+	export TARGET = iphone:latest:15.0
+	export ARCHS = arm64 arm64e
+else ifeq ($(CEPHEI_SIMULATOR),1)
 	export TARGET = simulator:latest:7.0
 else
 	export TARGET = iphone:14.4:5.0
@@ -7,9 +11,17 @@ else
 	export TARGET_IPHONEOS_DEPLOYMENT_VERSION_arm64e = 12.0
 endif
 
-export ADDITIONAL_CFLAGS = -fobjc-arc -Wextra -Wno-unused-parameter -DTHEOS -DTHEOS_LEAN_AND_MEAN -DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\""
+export ADDITIONAL_CFLAGS = -fobjc-arc \
+	-Wextra -Wno-unused-parameter \
+	-DTHEOS -DTHEOS_LEAN_AND_MEAN \
+	-DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\"" \
+	-DINSTALL_PREFIX="\"$(THEOS_PACKAGE_INSTALL_PREFIX)\""
+ifeq ($(ROOTLESS),1)
+	ADDITIONAL_CFLAGS += -DROOTLESS=1
+endif
+
 export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
-export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
+export CEPHEI_EMBEDDED CEPHEI_SIMULATOR ROOTLESS
 
 RESPRING ?= 1
 INSTALL_TARGET_PROCESSES = Preferences
@@ -25,8 +37,9 @@ include $(THEOS)/makefiles/common.mk
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
-Cephei_CFLAGS = -include Global.h -fapplication-extension
+Cephei_CFLAGS = -include Global.h -fapplication-extension -DROCKETBOOTSTRAP_LOAD_DYNAMIC
 Cephei_LDFLAGS = -fapplication-extension
+Cephei_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
 
 # Link ARCLite to polyfill some features iOS 5 lacks
 armv7_LDFLAGS = -fobjc-arc
@@ -55,22 +68,37 @@ after-Cephei-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@mkdir -p \
 		$(THEOS_STAGING_DIR)/DEBIAN \
+		$(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries
+
+ifeq ($(ROOTLESS),1)
+	@cp postinst-rootless $(THEOS_STAGING_DIR)/DEBIAN/postinst
+	@cp prerm-rootless $(THEOS_STAGING_DIR)/DEBIAN/prerm
+else
+	@cp postinst prerm $(THEOS_STAGING_DIR)/DEBIAN
+endif
+
+ifneq ($(ROOTLESS),1)
+	@# Compatibility junk
+	@mkdir -p \
 		$(THEOS_STAGING_DIR)/usr/lib \
-		$(THEOS_STAGING_DIR)/Library/Frameworks \
-		$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries
-	@cp postinst $(THEOS_STAGING_DIR)/DEBIAN
+		$(THEOS_STAGING_DIR)/Library/Frameworks
 
 	@# Move Cephei to sandbox-accessible location
 	@mv $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework $(THEOS_STAGING_DIR)/usr/lib
 	@ln -s /usr/lib/Cephei.framework $(THEOS_STAGING_DIR)/Library/Frameworks/Cephei.framework
 
-	@# Set up CepheiSpringBoard
-	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib
-	@cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries
-
 	@# Backwards compatibility symlinks
 	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libhbangcommon.dylib
 	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)/usr/lib/libcephei.dylib
+endif
+
+	@# Set up CepheiSpringBoard
+ifeq ($(ROOTLESS),1)
+	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib
+else
+	@ln -s /usr/lib/Cephei.framework/Cephei $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib
+endif
+	@cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries
 endif
 
 after-install::

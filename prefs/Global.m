@@ -4,5 +4,5 @@ NSBundle *cepheiGlobalBundle;
 
 __attribute__((constructor))
 static void cepheiInit() {
-	cepheiGlobalBundle = [NSBundle bundleWithPath:@"/Library/PreferenceBundles/Cephei.bundle"];
+	cepheiGlobalBundle = [NSBundle bundleWithPath:@INSTALL_PREFIX @"/Library/PreferenceBundles/Cephei.bundle"];
 }

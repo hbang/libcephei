@@ -76,7 +76,11 @@
 	} else {
 #ifdef THEOS
 		// Just do a usual boring openURL:
+#if ROOTLESS
+		[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+#else
 		[[UIApplication sharedApplication] openURL:url];
+#endif
 #endif
 	}
 }
@@ -86,6 +90,7 @@
 	NSString *repo = specifier.properties[@"packageRepository"];
 	NSString *escapedIdentifier = identifier.hb_stringByEncodingQueryPercentEscapes;
 
+#if !ROOTLESS
 	NSURL *cydiaURL;
 	if (repo == nil) {
 		cydiaURL = [NSURL URLWithString:[@"cydia://package/" stringByAppendingString:identifier]];
@@ -95,16 +100,21 @@
 			@"package": identifier
 		}.hb_queryString]];
 	}
+#endif
 
 	if ([UIAlertController class] != nil) {
 		NSArray <NSArray <id> *> *packageManagerURLs = repo == nil
 			? @[
+#if !ROOTLESS
 				@[ @"com.saurik.Cydia", cydiaURL ],
+#endif
 				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
 				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[@"zbra://package/" stringByAppendingString:escapedIdentifier]] ]
 			]
 			: @[
+#if !ROOTLESS
 				@[ @"com.saurik.Cydia", cydiaURL ],
+#endif
 				@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
 				@[ @"xyz.willy.Zebra", [NSURL URLWithString:[NSString stringWithFormat:@"zbra://package/%@?%@", escapedIdentifier, @{
 						@"source": repo
@@ -136,7 +146,9 @@
 		[alertController addAction:[UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil]];
 		[self presentViewController:alertController animated:YES completion:nil];
 	} else {
+#if !ROOTLESS
 		[self _hb_openURLInBrowser:cydiaURL];
+#endif
 	}
 }
 

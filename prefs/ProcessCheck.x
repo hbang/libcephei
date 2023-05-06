@@ -2,6 +2,7 @@
 #import <mach-o/dyld.h>
 #import <HBLog.h>
 
+#if !ROOTLESS
 #pragma mark - Hax class
 
 @interface HBForceCepheiPrefs : NSObject
@@ -74,7 +75,7 @@
 		if (suspects.count == 0) {
 			[suspects addObject:@"Unknown - A jailbreak hider tweak such as Liberty may be causing suspect detection to not work."];
 		}
-		
+
 		NSString *message = [NSString stringWithFormat:@"The following tweak(s) contain a programming error (CepheiPrefs framework incorrectly loaded into a process other than Settings):\n\n%@\n\n%@ If you experience issues, try uninstalling these tweak(s) or other recently installed or updated tweaks.", [suspects componentsJoinedByString:@", "], mayCrashMessage];
 
 		// wow remember UIAlertView?!?!
@@ -82,3 +83,4 @@
 		[alertView show];
 	}];
 }
+#endif

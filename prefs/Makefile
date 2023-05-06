@@ -11,6 +11,7 @@ CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
 CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include Global.h
+CepheiPrefs_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
 
 ifeq ($(CEPHEI_EMBEDDED),1)
 	CepheiPrefs_INSTALL_PATH = @rpath
@@ -21,23 +22,32 @@ else
 	CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 
-# As our deployment target is extremely early (iOS 5), some modern symbols need to be weak linked.
-# Introduced in iOS 9, but dynamically loaded, so always needs to be weak.
-WEAK_CLASS_SYMBOLS = SFSafariViewController
-ifneq ($(THEOS_CURRENT_ARCH),arm64e)
-	# Introduced before iOS 12, so no need to weak link these on arm64e.
-	WEAK_CLASS_SYMBOLS += UIAlertController UIAlertAction
+ifeq ($(ROOTLESS),1)
+	CepheiPrefs_EXTRA_FRAMEWORKS += CepheiUI
+else
+	# As our deployment target is extremely early (iOS 5), some modern symbols need to be weak linked.
+	# Introduced in iOS 9, but dynamically loaded, so always needs to be weak.
+	WEAK_CLASS_SYMBOLS = SFSafariViewController
+	ifneq ($(THEOS_CURRENT_ARCH),arm64e)
+		# Introduced before iOS 12, so no need to weak link these on arm64e.
+		WEAK_CLASS_SYMBOLS += UIAlertController UIAlertAction
+	endif
+	CepheiPrefs_LDFLAGS = $(foreach sym,$(WEAK_CLASS_SYMBOLS),-Xlinker -U -Xlinker _OBJC_CLASS_$$_$(sym))
 endif
-CepheiPrefs_LDFLAGS = $(foreach sym,$(WEAK_CLASS_SYMBOLS),-Xlinker -U -Xlinker _OBJC_CLASS_$$_$(sym))
 
 include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiPrefs-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@mkdir -p \
+		$(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles
+
+ifeq ($(ROOTLESS),1)
+	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles/Cephei.bundle
+else
+	@mkdir -p \
 		$(THEOS_STAGING_DIR)/usr/lib \
-		$(THEOS_STAGING_DIR)/Library/Frameworks \
-		$(THEOS_STAGING_DIR)/Library/PreferenceBundles
+		$(THEOS_STAGING_DIR)/Library/Frameworks
 
 	@mv $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)/usr/lib
 	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework
@@ -47,10 +57,11 @@ ifneq ($(CEPHEI_EMBEDDED),1)
 	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib
 	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib
 	@ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
+endif
 
 ifeq ($(PACKAGE_BUILDNAME),debug)
 	@# Install the demo entry plist
-	@mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences
-	@ln -s /Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/Cephei.plist
+	@mkdir -p $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceLoader/Preferences
+	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceLoader/Preferences/Cephei.plist
 endif
 endif

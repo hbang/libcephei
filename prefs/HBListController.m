@@ -17,14 +17,16 @@
 
 @end
 
+#if !ROOTLESS
 @interface HBListController (DeprecatedPrivate)
-
 - (void)_handleDeprecatedAppearanceMethods;
-
 @end
+#endif
 
 @implementation HBListController {
+#if !ROOTLESS
 	NSArray *__deprecatedAppearanceMethodsInUse;
+#endif
 }
 
 #pragma mark - Constants
@@ -141,7 +143,9 @@
 
 - (void)_hb_getAppearance {
 	[super _hb_getAppearance];
+#if !ROOTLESS
 	[self _handleDeprecatedAppearanceMethods];
+#endif
 }
 
 #pragma mark - Navigation controller quirks

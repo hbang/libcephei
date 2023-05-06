@@ -17,7 +17,7 @@ static LMConnection preferencesService;
 		// amount to hand-waving, it intentionally chooses to not be compatible with the de-facto cy:
 		// prefix. So we need to just guess the service name to use here. The prefix has no meaning when
 		// RocketBootstrap is providing the sandbox workaround (pre-iOS 11).
-		if (access("/usr/lib/libhooker.dylib", F_OK) == 0) {
+		if (access(INSTALL_PREFIX "/usr/lib/libhooker.dylib", F_OK) == 0) {
 			preferencesService = preferencesServiceLibhooker;
 		} else {
 			preferencesService = preferencesServiceSubstrate;

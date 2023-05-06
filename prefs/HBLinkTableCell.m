@@ -146,24 +146,32 @@
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 
+		void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+			NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+			if (error != nil || statusCode != 200) {
+				HBLogWarn(@"Error loading icon (%@): %li %@ - %@", _iconURL.absoluteString, (long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], error);
+				[self iconLoadDidFailWithResponse:response error:error];
+				return;
+			}
+
+			dispatch_async(dispatch_get_main_queue(), ^{
+				UIImage *image = [UIImage imageWithData:data];
+				if (image == nil) {
+					[self iconLoadDidFailWithResponse:response error:error];
+				} else {
+					self.iconImage = image;
+				}
+			});
+		};
+
+#if ROOTLESS
+		[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:completion];
+#else
 		NSError *error = nil;
 		NSHTTPURLResponse *response = nil;
 		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-
-		if (error != nil || response.statusCode != 200) {
-			HBLogWarn(@"Error loading icon (%@): %li %@ - %@", _iconURL.absoluteString, (long)response.statusCode, [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode], error);
-			[self iconLoadDidFailWithResponse:response error:error];
-			return;
-		}
-
-		dispatch_async(dispatch_get_main_queue(), ^{
-			UIImage *image = [UIImage imageWithData:data];
-			if (image == nil) {
-				[self iconLoadDidFailWithResponse:response error:error];
-			} else {
-				self.iconImage = image;
-			}
-		});
+		completion(data, response, error);
+#endif
 	});
 }
 

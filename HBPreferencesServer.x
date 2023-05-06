@@ -42,7 +42,11 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// Do the appropriate thing for each message type
 	switch (type) {
 		case HBPreferencesIPCMessageTypeSynchronize:
+#if ROOTLESS
+			result = @YES;
+#else
 			result = @([preferences synchronize]);
+#endif
 			break;
 
 		case HBPreferencesIPCMessageTypeGetAll:
@@ -78,7 +82,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// prefix. So we need to just guess the service name to use here. The prefix has no meaning when
 	// RocketBootstrap is providing the sandbox workaround (pre-iOS 11).
 	LMConnection preferencesService;
-	if (access("/usr/lib/libhooker.dylib", F_OK) == 0) {
+	if (access(INSTALL_PREFIX "/usr/lib/libhooker.dylib", F_OK) == 0) {
 		preferencesService = preferencesServiceLibhooker;
 	} else {
 		preferencesService = preferencesServiceSubstrate;

@@ -5,6 +5,7 @@
 #import <version.h>
 #import <objc/runtime.h>
 
+#if !ROOTLESS
 static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 
 @implementation HBDiscreteSliderTableCell
@@ -13,7 +14,7 @@ static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 
 + (void)initialize {
 	[super initialize];
-	
+
 	$PSSliderTableCell = objc_getClass("PSSliderTableCell");
 	$PSDiscreteSlider = objc_getClass("PSDiscreteSlider");
 	$PSSegmentableSlider = objc_getClass("PSSegmentableSlider");
@@ -55,3 +56,4 @@ static Class $PSSliderTableCell, $PSDiscreteSlider, $PSSegmentableSlider;
 }
 
 @end
+#endif

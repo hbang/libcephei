@@ -9,3 +9,11 @@
 #define IS_SYSTEM_APP ([[NSBundle mainBundle].principalClass isKindOfClass:NSClassFromString(@"UIApplication")] && [[NSBundle mainBundle].principalClass respondsToSelector:@selector(registerAsSystemApp)] \
 	? (BOOL)[[NSBundle mainBundle].principalClass registerAsSystemApp] \
 	: [[NSBundle mainBundle].bundleIdentifier isEqualToString:@"com.apple.springboard"])
+
+#if ROOTLESS
+	// Redefine IS_IOS_OR_NEWER to add a check for the passed version being >= iOS 15.0, to make the
+	// compiler optimise out unneeded code.
+	#import <version.h>
+	#undef IS_IOS_OR_NEWER
+	#define IS_IOS_OR_NEWER(version) (kCFCoreFoundationVersionNumber_##version >= kCFCoreFoundationVersionNumber_iOS_15_0 && kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_##version)
+#endif

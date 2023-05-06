@@ -77,10 +77,14 @@ int main(int argc, char *argv[]) {
 			return 255;
 		}
 
+#if ROOTLESS
+		return 0;
+#else
 		// Synchronize is usually bad™, but necessary when the process is about to exit as the messages
 		// may not have reached cfprefsd yet. It’ll spin until cfprefsd has acknowledged the write.
 		// As documented, the method call does nothing on iOS 12.0+ anyway.
 		return [preferences synchronize] ? 0 : 1;
+#endif
 	} else if ([mode isEqualToString:@"help"] || [mode isEqualToString:@"--help"]) {
 		usage(argv[0]);
 		return 0;

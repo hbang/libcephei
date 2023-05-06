@@ -3,6 +3,7 @@
 #import <version.h>
 #import <HBLog.h>
 
+#if !ROOTLESS
 @implementation HBListItemsController
 
 - (instancetype)init {
@@ -11,3 +12,4 @@
 }
 
 @end
+#endif

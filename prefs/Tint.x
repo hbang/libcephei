@@ -4,6 +4,7 @@
 #import <UIKit/UINavigationBar+Private.h>
 #import <version.h>
 
+#if !ROOTLESS
 @interface UINavigationBar (HBTintAdditions)
 
 @property (nonatomic, copy) HBAppearanceSettings *hb_appearanceSettings;
@@ -31,27 +32,6 @@ static BOOL animateBarTintColor = NO;
 	return item;
 }
 
-%group JonyIve
-- (void)_setItems:(NSArray *)items transition:(NSInteger)transition {
-	%orig;
-	[self _hb_updateTintColorsAnimated:transition != 0];
-}
-%end
-
-%group CraigFederighi
-- (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset {
-	%orig;
-	[self _hb_updateTintColorsAnimated:transition != 0];
-}
-%end
-
-%group EddyCue
-- (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset resetOwningRelationship:(BOOL)resetOwningRelationship {
-	%orig;
-	[self _hb_updateTintColorsAnimated:transition != 0];
-}
-%end
-
 - (UIColor *)_titleTextColor {
 	// If the navigation bar is inverted then we use white, otherwise we use the provided title color,
 	// and if that is nil then fall back to orig.
@@ -62,7 +42,7 @@ static BOOL animateBarTintColor = NO;
 #pragma clang diagnostic pop
 		return [UIColor whiteColor];
 	}
-	
+
 	return self.hb_appearanceSettings.navigationBarTitleColor ?: %orig;
 }
 
@@ -109,6 +89,33 @@ static BOOL animateBarTintColor = NO;
 
 %end
 
+%group JonyIve
+%hook UINavigationBar
+- (void)_setItems:(NSArray *)items transition:(NSInteger)transition {
+	%orig;
+	[self _hb_updateTintColorsAnimated:transition != 0];
+}
+%end
+%end
+
+%group CraigFederighi
+%hook UINavigationBar
+- (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset {
+	%orig;
+	[self _hb_updateTintColorsAnimated:transition != 0];
+}
+%end
+%end
+
+%group EddyCue
+%hook UINavigationBar
+- (void)_setItems:(NSArray *)items transition:(NSInteger)transition reset:(BOOL)reset resetOwningRelationship:(BOOL)resetOwningRelationship {
+	%orig;
+	[self _hb_updateTintColorsAnimated:transition != 0];
+}
+%end
+%end
+
 #pragma mark - Animation hack
 
 %group BackdropHax
@@ -136,7 +143,7 @@ static BOOL animateBarTintColor = NO;
 	if (!IS_IOS_OR_NEWER(iOS_6_0)) {
 		return;
 	}
-	
+
 	%init;
 
 	if (IS_IOS_OR_NEWER(iOS_9_0)) {
@@ -151,3 +158,4 @@ static BOOL animateBarTintColor = NO;
 		%init(BackdropHax);
 	}
 }
+#endif

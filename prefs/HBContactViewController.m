@@ -48,11 +48,13 @@
 			}]];
 			[self presentViewController:alertController animated:YES completion:nil];
 		} else {
+#if !ROOTLESS
 			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:body delegate:nil cancelButtonTitle:ok otherButtonTitles:nil];
 			[alertView show];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[self _dismiss];
 			});
+#endif
 		}
 		return;
 	}
@@ -62,7 +64,7 @@
 	viewController.toRecipients = @[ _to ];
 	viewController.subject = _subject;
 	[viewController setMessageBody:_messageBody isHTML:NO];
-	[viewController addAttachmentData:[HBOutputForShellCommand(@"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"Package List.txt"];
+	[viewController addAttachmentData:[HBOutputForShellCommand(@INSTALL_PREFIX @"/usr/bin/dpkg -l") dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:@"Package List.txt"];
 	if (_preferencesPlist != nil && _preferencesIdentifier != nil) {
 		[viewController addAttachmentData:_preferencesPlist mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"preferences-%@.plist", _preferencesIdentifier]];
 	}

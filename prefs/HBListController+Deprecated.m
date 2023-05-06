@@ -3,6 +3,7 @@
 #import <version.h>
 #import <HBLog.h>
 
+#if !ROOTLESS
 @interface HBListController () {
 	NSArray *__deprecatedAppearanceMethodsInUse;
 }
@@ -87,3 +88,4 @@
 }
 
 @end
+#endif

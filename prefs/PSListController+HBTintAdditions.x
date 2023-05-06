@@ -7,7 +7,9 @@
 #import <UIKit/UIStatusBar.h>
 #import <version.h>
 
+#if !ROOTLESS
 static BOOL translucentNavigationBar = NO;
+#endif
 
 @interface PSListController ()
 
@@ -164,35 +166,42 @@ static BOOL translucentNavigationBar = NO;
 	}
 
 	// If we have a translucent navigation bar, apply it
+#if !ROOTLESS
 	translucentNavigationBar = self.hb_appearanceSettings ? self.hb_appearanceSettings.translucentNavigationBar : IS_IOS_OR_NEWER(iOS_7_0);
 	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
 
 	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
 		self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
 	}
+#endif
 
 	// If we have a tint color, apply it
 	if ([self.view respondsToSelector:@selector(setTintColor:)]) {
-		UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+		UIWindow *window = self.view.window;
 		if (tintColor) {
 			self.view.tintColor = tintColor;
-			keyWindow.tintColor = tintColor;
-		} else if (keyWindow.tintColor) {
-			keyWindow.tintColor = nil;
+			window.tintColor = tintColor;
+		} else if (window.tintColor) {
+			window.tintColor = nil;
 		}
 	}
 
 	if (tintColor) {
+#if ROOTLESS
+		[UISwitch appearanceWhenContainedInInstancesOfClasses:@[[self class]]].onTintColor = tintColor;
+#else
 		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
+#endif
 	}
 
-	// If we have a status bar tint color, apply it
 	if (IS_IOS_OR_NEWER(iOS_13_0)) {
+		// Set user interface style
 		if (@available(iOS 13, *)) {
 			[self setNeedsStatusBarAppearanceUpdate];
 			self.overrideUserInterfaceStyle = self.hb_appearanceSettings.userInterfaceStyle;
 		}
 	} else {
+		// If we have a status bar tint color, apply it
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		UIColor *statusBarTintColor = self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : self.hb_appearanceSettings.statusBarTintColor;
@@ -214,6 +223,7 @@ static BOOL translucentNavigationBar = NO;
 		statusBar.foregroundColor = nil;
 	}
 
+#if !ROOTLESS
 	// If the navigation bar wasn’t translucent, set it back
 	if (!translucentNavigationBar) {
 		self._hb_realNavigationController.navigationBar.translucent = IS_IOS_OR_NEWER(iOS_7_0);
@@ -222,6 +232,7 @@ static BOOL translucentNavigationBar = NO;
 			self.edgesForExtendedLayout = UIRectEdgeAll;
 		}
 	}
+#endif
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -239,12 +250,7 @@ static BOOL translucentNavigationBar = NO;
 // parent of self.navigationController. On iPad, it remains how it’s always been.
 %new - (UINavigationController *)_hb_realNavigationController {
 	UINavigationController *navigationController = self.navigationController;
-
-	while (navigationController.navigationController) {
-		navigationController = navigationController.navigationController;
-	}
-
-	return navigationController;
+	return navigationController.navigationController ?: navigationController;
 }
 
 #pragma mark - Appearance

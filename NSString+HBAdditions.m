@@ -3,12 +3,26 @@
 @implementation NSString (HBAdditions)
 
 - (NSString *)hb_stringByEncodingQueryPercentEscapes {
+#if ROOTLESS
+	return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+#else
+	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+		return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+	}
 	return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR(":/?&=;+!@#$()',*"), kCFStringEncodingUTF8));
+#endif
 }
 
 - (NSString *)hb_stringByDecodingQueryPercentEscapes {
+#if ROOTLESS
+	return [self stringByRemovingPercentEncoding];
+#else
+	if (IS_IOS_OR_NEWER(iOS_7_0)) {
+		return [self stringByRemovingPercentEncoding];
+	}
 	NSString *newString = [self stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 	return (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (CFStringRef)newString, CFSTR("")));
+#endif
 }
 
 - (NSDictionary *)hb_queryStringComponents {

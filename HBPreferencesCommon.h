@@ -1,4 +1,3 @@
-#define ROCKETBOOTSTRAP_LOAD_DYNAMIC
 #import <LightMessaging/LightMessaging.h>
 
 typedef NS_ENUM(NSUInteger, HBPreferencesIPCMessageType) {
