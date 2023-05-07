@@ -50,51 +50,34 @@
 }
 
 + (instancetype)hb_colorWithInterfaceStyleVariants:(NSDictionary <NSNumber *, UIColor *> *)variants {
-	if (@available(iOS 13, *)) {
-		return [UIColor colorWithDynamicProvider:^(UITraitCollection *traitCollection) {
-			UIUserInterfaceStyle style = traitCollection.userInterfaceStyle;
-			UIColor *color = variants[@(style)] ?: variants[@(UIUserInterfaceStyleLight)] ?: variants[@(UIUserInterfaceStyleUnspecified)];
-			NSParameterAssert(color);
-			return color;
-		}];
-	} else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunguarded-availability-new"
-		UIColor *color = variants[@(UIUserInterfaceStyleLight)] ?: variants[@(UIUserInterfaceStyleUnspecified)];
-#pragma clang diagnostic pop
+	return [UIColor colorWithDynamicProvider:^(UITraitCollection *traitCollection) {
+		UIUserInterfaceStyle style = traitCollection.userInterfaceStyle;
+		UIColor *color = variants[@(style)] ?: variants[@(UIUserInterfaceStyleLight)] ?: variants[@(UIUserInterfaceStyleUnspecified)];
 		NSParameterAssert(color);
 		return color;
-	}
+	}];
 }
 
 - (instancetype)hb_colorWithDarkInterfaceVariant {
-	if (@available(iOS 13, *)) {
-		static Class $UIDynamicColor;
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-			$UIDynamicColor = objc_getClass("UIDynamicColor");
-		});
-		if ([self isKindOfClass:$UIDynamicColor]) {
-			return self;
-		}
-		CGFloat h, s, b, a;
-		[self getHue:&h saturation:&s brightness:&b alpha:&a];
-		UIColor *darkColor = [UIColor colorWithHue:h saturation:MAX(0.20, s * 0.96) brightness:b alpha:a];
-		return [self hb_colorWithDarkInterfaceVariant:darkColor];
-	} else {
+	static Class $UIDynamicColor;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		$UIDynamicColor = objc_getClass("UIDynamicColor");
+	});
+	if ([self isKindOfClass:$UIDynamicColor]) {
 		return self;
 	}
+	CGFloat h, s, b, a;
+	[self getHue:&h saturation:&s brightness:&b alpha:&a];
+	UIColor *darkColor = [UIColor colorWithHue:h saturation:MAX(0.20, s * 0.96) brightness:b alpha:a];
+	return [self hb_colorWithDarkInterfaceVariant:darkColor];
 }
 
 - (instancetype)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor {
-	if (@available(iOS 13, *)) {
-		return [UIColor hb_colorWithInterfaceStyleVariants:@{
-			@(UIUserInterfaceStyleLight): self,
-			@(UIUserInterfaceStyleDark): darkColor
-		}];
-	} else {
-		return self;
-	}
+	return [UIColor hb_colorWithInterfaceStyleVariants:@{
+		@(UIUserInterfaceStyleLight): self,
+		@(UIUserInterfaceStyleDark): darkColor
+	}];
 }
 
 @end

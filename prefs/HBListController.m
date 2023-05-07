@@ -1,6 +1,5 @@
 #import "HBListController.h"
 #import "HBListController+Actions.h"
-#import "HBListController+Deprecated.h"
 #import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
 #import "HBPackageTableCell.h"
@@ -17,17 +16,7 @@
 
 @end
 
-#if !ROOTLESS
-@interface HBListController (DeprecatedPrivate)
-- (void)_handleDeprecatedAppearanceMethods;
-@end
-#endif
-
-@implementation HBListController {
-#if !ROOTLESS
-	NSArray *__deprecatedAppearanceMethodsInUse;
-#endif
-}
+@implementation HBListController
 
 #pragma mark - Constants
 
@@ -92,33 +81,23 @@
 			} else {
 				action = @selector(hb_openURL:);
 			}
-			if (IS_IOS_OR_NEWER(iOS_8_0)) {
-				specifier.buttonAction = action;
-			} else if (IS_IOS_OR_NEWER(iOS_6_0)) {
-				specifier.controllerLoadAction = action;
-			} else {
-				specifier->action = action;
-			}
+			specifier.buttonAction = action;
 		}
 
 		// Support for SF Symbols (system images)
-		if (IS_IOS_OR_NEWER(iOS_13_0)) {
-			if (@available(iOS 13, *)) {
-				UIImage *iconImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"iconImageSystem"]];
-				if (iconImage != nil) {
-					specifier.properties[@"iconImage"] = iconImage;
-				}
+		UIImage *iconImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"iconImageSystem"]];
+		if (iconImage != nil) {
+			specifier.properties[@"iconImage"] = iconImage;
+		}
 
-				UIImage *leftImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"leftImageSystem"]];
-				if (leftImage != nil) {
-					specifier.properties[@"leftImage"] = leftImage;
-				}
+		UIImage *leftImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"leftImageSystem"]];
+		if (leftImage != nil) {
+			specifier.properties[@"leftImage"] = leftImage;
+		}
 
-				UIImage *rightImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"rightImageSystem"]];
-				if (rightImage != nil) {
-					specifier.properties[@"rightImage"] = rightImage;
-				}
-			}
+		UIImage *rightImage = [self _hb_symbolImageFromDictionary:specifier.properties[@"rightImageSystem"]];
+		if (rightImage != nil) {
+			specifier.properties[@"rightImage"] = rightImage;
 		}
 	}
 
@@ -133,19 +112,7 @@
 }
 
 - (UIImage *)_hb_symbolImageFromDictionary:(NSDictionary <NSString *, id> *)params {
-	if (@available(iOS 13, *)) {
-		return systemSymbolImageForDictionary(params);
-	}
-	return nil;
-}
-
-#pragma mark - Appearance
-
-- (void)_hb_getAppearance {
-	[super _hb_getAppearance];
-#if !ROOTLESS
-	[self _handleDeprecatedAppearanceMethods];
-#endif
+	return systemSymbolImageForDictionary(params);
 }
 
 #pragma mark - Navigation controller quirks

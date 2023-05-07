@@ -11,7 +11,7 @@
 
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
-		self.backgroundView = IS_IOS_OR_NEWER(iOS_7_0) ? nil : [[UIView alloc] init];
+		self.backgroundView = nil;
 
 		_bigImageView = [[UIImageView alloc] initWithImage:specifier.properties[@"iconImage"]];
 		_bigImageView.frame = self.contentView.bounds;

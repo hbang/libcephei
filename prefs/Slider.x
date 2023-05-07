@@ -1,4 +1,3 @@
-#import "HBDiscreteSliderTableCell.h"
 #import <version.h>
 
 static NSInteger const kUISliderLabelTag = 0x76616C75;
@@ -15,7 +14,7 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 - (void)setShowValue:(BOOL)showValue {
 	%orig;
 
-	if (showValue && IS_IOS_OR_NEWER(iOS_8_0)) {
+	if (showValue) {
 		UILabel *label = self._hb_valueLabel;
 		label.textColor = self.tintColor;
 	}
@@ -25,16 +24,6 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 	%orig;
 
 	self._hb_valueLabel.textColor = self.tintColor;
-}
-
-- (void)_layoutSubviewsForBoundsChange:(BOOL)something {
-	%orig;
-
-	// From iOS 2(?) to 6, the label is strangely positioned. The cause is just a missing
-	// autoresizingMask. Fix that here.
-	if (!IS_IOS_OR_NEWER(iOS_7_0)) {
-		self._hb_valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-	}
 }
 
 %new - (UILabel *)_hb_valueLabel {

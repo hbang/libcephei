@@ -17,28 +17,15 @@
 			_iconURL = [NSURL URLWithString:(NSString *)_iconURL];
 		}
 
-		self.selectionStyle = IS_IOS_OR_NEWER(iOS_7_0) ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleBlue;
+		self.selectionStyle = UITableViewCellSelectionStyleDefault;
 
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"safari" inBundle:cepheiGlobalBundle]];
-		if (IS_IOS_OR_NEWER(iOS_7_0)) {
-			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		}
-		if (@available(iOS 13, *)) {
-			if (IS_IOS_OR_NEWER(iOS_13_0)) {
-				imageView.tintColor = [UIColor systemGray3Color];
-			}
-		}
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"safari"]];
+		imageView.tintColor = [UIColor systemGray3Color];
 		self.accessoryView = imageView;
 
 		self.detailTextLabel.numberOfLines = _isBig ? 0 : 1;
 		self.detailTextLabel.text = specifier.properties[@"subtitle"] ?: @"";
-		if (IS_IOS_OR_NEWER(iOS_13_0)) {
-			if (@available(iOS 13, *)) {
-				self.detailTextLabel.textColor = [UIColor secondaryLabelColor];
-			}
-		} else {
-			self.detailTextLabel.textColor = IS_IOS_OR_NEWER(iOS_7_0) ? [UIColor systemGrayColor] : [UIColor tableCellValue1BlueColor];
-		}
+		self.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 
 		self.specifier = specifier;
 		if (self.shouldShowIcon) {
@@ -146,7 +133,7 @@
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 
-		void (^completion)(NSData *data, NSURLResponse *response, NSError *error) = ^(NSData *data, NSURLResponse *response, NSError *error) {
+		[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
 			if (error != nil || statusCode != 200) {
 				HBLogWarn(@"Error loading icon (%@): %li %@ - %@", _iconURL.absoluteString, (long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], error);
@@ -162,16 +149,7 @@
 					self.iconImage = image;
 				}
 			});
-		};
-
-#if ROOTLESS
-		[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:completion];
-#else
-		NSError *error = nil;
-		NSHTTPURLResponse *response = nil;
-		NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-		completion(data, response, error);
-#endif
+		}];
 	});
 }
 

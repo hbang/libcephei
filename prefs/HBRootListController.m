@@ -11,15 +11,7 @@
 
 @end
 
-static Class $UIActivityViewController;
-
 @implementation HBRootListController
-
-+ (void)initialize {
-	[super initialize];
-
-	$UIActivityViewController = objc_getClass("UIActivityViewController");
-}
 
 #pragma mark - Constants
 
@@ -37,44 +29,19 @@ static Class $UIActivityViewController;
 	[super loadView];
 
 	if ([self.class hb_shareText] && [self.class hb_shareURL]) {
-		if (IS_IOS_OR_NEWER(iOS_7_0)) {
-			UIImage *icon = nil;
-			if (@available(iOS 13, *)) {
-				if (IS_IOS_OR_NEWER(iOS_13_0)) {
-					icon = [UIImage systemImageNamed:@"heart"];
-				}
-			}
-			if (icon == nil) {
-				icon = [UIImage imageNamed:@"heart" inBundle:cepheiGlobalBundle];
-			}
-			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:icon style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)];
-		} else {
-			self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(hb_shareTapped:)];
-		}
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"heart"] style:UIBarButtonItemStylePlain target:self action:@selector(hb_shareTapped:)];
 	}
 }
 
 #pragma mark - Callbacks
 
 - (void)hb_shareTapped:(UIBarButtonItem *)sender {
-	if ($UIActivityViewController != nil) {
-		// iOS 6.0+: Use activity view controller.
-		UIActivityViewController *viewController = [[$UIActivityViewController alloc] initWithActivityItems:@[
-			[self.class hb_shareText],
-			[self.class hb_shareURL]
-		] applicationActivities:nil];
-
-		if ([viewController respondsToSelector:@selector(presentationController)] && [viewController.presentationController respondsToSelector:@selector(barButtonItem)]) {
-			((UIPopoverPresentationController *)viewController.presentationController).barButtonItem = sender;
-		}
-
-		[self presentViewController:viewController animated:YES completion:nil];
-	} else {
-		// iOS 5.0 – 5.1: Nothing super useful we can do here. Just open twitter.com.
-		[self _hb_openURLInBrowser:[NSURL URLWithString:[@"https://twitter.com/intent/tweet?" stringByAppendingString:@{
-			@"text": [NSString stringWithFormat:@"%@ %@", [self.class hb_shareText], [self.class hb_shareURL]]
-		}.hb_queryString]]];
-	}
+	UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[
+		[self.class hb_shareText],
+		[self.class hb_shareURL]
+	] applicationActivities:nil];
+	((UIPopoverPresentationController *)viewController.presentationController).barButtonItem = sender;
+	[self presentViewController:viewController animated:YES completion:nil];
 }
 
 @end

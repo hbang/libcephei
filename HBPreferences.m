@@ -76,7 +76,7 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 		// id, it probably wants its own preferences inside its container.
 		// TODO: Is there a better way to guess this? Should we not guess at all except for the exact
 		// main bundle id?
-		if (IS_IOS_OR_NEWER(iOS_8_0) && getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
+		if (getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
 			_container = kCFPreferencesNoContainer;
 		}
 	} else {
@@ -152,12 +152,6 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #pragma mark - Setters
 
 - (void)_setObject:(id)value forKey:(NSString *)key {
-#if !CEPHEI_EMBEDDED && !ROOTLESS
-	if (!IS_IOS_OR_NEWER(iOS_9_3) && getuid() != 501) {
-		[NSException raise:HBPreferencesNotMobileException format:@"Writing preferences as a non-mobile user is not supported before iOS 9.3."];
-	}
-#endif
-
 	if (_container) {
 #if !CEPHEI_EMBEDDED
 		_CFPreferencesSetValueWithContainer((__bridge CFStringRef)key, (__bridge CFPropertyListRef)value, (__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);

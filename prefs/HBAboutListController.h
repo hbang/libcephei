@@ -58,22 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// @name Constants
 
-/// The website URL to open when tapping the “visit website” cell. Override this method to return
-/// your own URL.
-///
-/// Deprecated. It is encouraged to use an `HBLinkTableCell` instead.
-///
-/// @return By default, https://hashbang.productions/.
-+ (NSURL *)hb_websiteURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
-
-/// The website URL to open when tapping the "donate" cell. Override this method to return your own
-/// URL.
-///
-/// Deprecated. It is encouraged to use an `HBLinkTableCell` instead.
-///
-/// @return By default, https://hashbang.productions/donate/.
-+ (NSURL *)hb_donateURL __attribute((deprecated("Use an HBLinkTableCell instead.")));
-
 /// The email address to use in the support email composer form. Override this method to return an
 /// email address.
 ///
@@ -81,24 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @return By default, nil.
 + (nullable NSString *)hb_supportEmailAddress;
-
-/// No longer supported.
-///
-/// @return By default, nil.
-/// @see `HBSupportController`
-+ (nullable NSArray *)hb_supportInstructions __attribute((deprecated("TechSupport is no longer supported.")));
-
-/// @name Preference Specifier Actions
-
-/// Opens the user's browser to the URL specified by `-hb_websiteURL`.
-///
-/// Deprecated. Use an `HBLinkTableCell` instead.
-- (void)hb_openWebsite __attribute((deprecated("Use an HBLinkTableCell instead.")));
-
-/// Opens the user's browser to the URL specified by `-hb_donateURL`.
-///
-/// Deprecated. Use an `HBLinkTableCell` instead.
-- (void)hb_openDonate __attribute((deprecated("Use an HBLinkTableCell instead.")));
 
 /// Displays a support composer form.
 ///

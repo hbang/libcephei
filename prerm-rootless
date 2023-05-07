@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-
-# Uninstall defaults alternative.
-if [ "$1" = "remove" ]; then
-	update-alternatives --remove defaults /var/jb/usr/bin/hbprefs
-fi
-
-exit 0

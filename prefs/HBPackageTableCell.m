@@ -38,10 +38,7 @@
 
 	if (self) {
 		UIImageView *imageView = (UIImageView *)self.accessoryView;
-		imageView.image = [UIImage imageNamed:@"package" inBundle:cepheiGlobalBundle];
-		if (IS_IOS_OR_NEWER(iOS_7_0)) {
-			imageView.image = [imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		}
+		imageView.image = [UIImage systemImageNamed:@"shippingbox"];
 		[imageView sizeToFit];
 	}
 

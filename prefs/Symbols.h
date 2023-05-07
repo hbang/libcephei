@@ -5,8 +5,6 @@
 #import <UIKit/UIImage+Private.h>
 #import <HBLog.h>
 
-static Class $UIImageSymbolConfiguration;
-
 static inline UIImage *iconFromColorAndGlyph(UIColor *color, BOOL isBig, UIImage *glyph) {
 	CGFloat iconSize = isBig ? 40.f : 29.f;
 	CGRect iconRect = CGRectMake(0, 0, iconSize, iconSize);
@@ -94,10 +92,7 @@ static inline UIImage *systemSymbolImageForDictionary(NSDictionary <NSString *, 
 	UIColor *tintColor = [UIColor hb_colorWithPropertyListValue:params[@"tintColor"]];
 	UIImageRenderingMode renderingMode = tintColor ? UIImageRenderingModeAlwaysOriginal : UIImageRenderingModeAlwaysTemplate;
 
-	if ($UIImageSymbolConfiguration == nil) {
-		$UIImageSymbolConfiguration = objc_getClass("UIImageSymbolConfiguration");
-	}
-	UIImageSymbolConfiguration *configuration = [$UIImageSymbolConfiguration configurationWithPointSize:pointSize weight:weight scale:scale];
+	UIImageSymbolConfiguration *configuration = [UIImageSymbolConfiguration configurationWithPointSize:pointSize weight:weight scale:scale];
 	UIImage *symbolImage = [UIImage systemImageNamed:name withConfiguration:configuration];
 
 	// Background color

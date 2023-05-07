@@ -41,11 +41,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		self.backgroundColor = [UIColor clearColor];
 
-		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
-			self.backgroundView = [[UIView alloc] init];
-			self.backgroundView.backgroundColor = [UIColor clearColor];
-		}
-
 		NSArray <id> *serializedColors = specifier.properties[@"backgroundGradientColors"];
 
 		if (serializedColors) {
@@ -67,17 +62,8 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 		// Hack to resolve odd margins being set on iPad
 		// TODO: This may be fixed in iOS 12?
-#if ROOTLESS
-		BOOL needsPaddingHax = NO;
-#else
-		BOOL needsPaddingHax = !IS_IOS_OR_NEWER(iOS_13_0) && [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
-#endif
-		CGFloat marginWidth = [self respondsToSelector:@selector(_marginWidth)] ? self._marginWidth : 0;
-
 		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= needsPaddingHax ? marginWidth : 0;
 		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
-		labelFrame.size.width -= needsPaddingHax ? marginWidth * 2 : 0;
 		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
 		_label = [[UILabel alloc] initWithFrame:labelFrame];
@@ -85,13 +71,10 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_label.textAlignment = NSTextAlignmentCenter;
 		_label.adjustsFontSizeToFitWidth = NO;
 		_label.backgroundColor = [UIColor clearColor];
-
-		if ([_label respondsToSelector:@selector(setAdjustsLetterSpacingToFitWidth:)]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-			_label.adjustsLetterSpacingToFitWidth = NO;
+		_label.adjustsLetterSpacingToFitWidth = NO;
 #pragma clang diagnostic pop
-		}
 
 		[self.contentView addSubview:_label];
 
@@ -105,34 +88,11 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_subtitleColor = [UIColor hb_colorWithPropertyListValue:specifier.properties[@"subtitleColor"]];
 
 		if (_titleColor == nil) {
-			if (_hasGradient) {
-				_titleColor = [UIColor colorWithWhite:1.f alpha:0.95f];
-			} else {
-				if (@available(iOS 13, *)) {
-					// @available has false positives before about iOS 8 or so… so we need to be doubly sure
-					if (IS_IOS_OR_NEWER(iOS_13_0)) {
-						_titleColor = [UIColor labelColor];
-					}
-				}
-				if (_titleColor == nil) {
-					_titleColor = [UIColor colorWithWhite:17.f / 255.f alpha:1];
-				}
-			}
+			_titleColor = _hasGradient ? [UIColor colorWithWhite:1.f alpha:0.95f] : [UIColor labelColor];
 		}
 
 		if (_subtitleColor == nil) {
-			if (_hasGradient) {
-				_subtitleColor = [UIColor colorWithWhite:235.f / 255.f alpha:0.7f];
-			} else {
-				if (@available(iOS 13, *)) {
-					if (IS_IOS_OR_NEWER(iOS_13_0)) {
-						_subtitleColor = [[UIColor labelColor] colorWithAlphaComponent:0.68f];
-					}
-				}
-				if (_subtitleColor == nil) {
-					_subtitleColor = [UIColor colorWithWhite:68.f / 255.f alpha:1];
-				}
-			}
+			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor labelColor] colorWithAlphaComponent:0.68f];
 		}
 
 #if !CEPHEI_EMBEDDED
@@ -179,12 +139,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 - (void)updateData {
 	NSString *name = _nameOverride ?: _name;
 
-	if (![_label respondsToSelector:@selector(setAttributedText:)]) {
-		// starting to realise the features we take for granted these days...
-		_label.text = [NSString stringWithFormat:@"%@%@%@", _name, _showVersion ? @" " : @"", _showVersion ? _version : @""];
-		return;
-	}
-
 	NSUInteger cleanedAuthorLocation = [_author rangeOfString:@" <"].location;
 	NSString *cleanedAuthor = cleanedAuthorLocation == NSNotFound ? _author : [_author substringWithRange:NSMakeRange(0, cleanedAuthorLocation)];
 
@@ -192,42 +146,16 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
-	UIFont *headerFont, *subtitleFont, *condensedFont, *condensedLightFont;
+	UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle1];
+	UIFontDescriptor *systemTitle2FontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2];
+	UIFontDescriptor *systemSubtitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
 
-	// The Title1 and Title2 styles were added in iOS 9. Get their symbols dynamically so we can fall
-	// back to older styles on older iOS.
-#if ROOTLESS
-	NSString * const __strong *myUIFontTextStyleTitle1 = &UIFontTextStyleTitle1;
-	NSString * const __strong *myUIFontTextStyleTitle2 = &UIFontTextStyleTitle2;
-	NSString * const __strong *myUIFontTextStyleSubheadline = &UIFontTextStyleSubheadline;
-#else
-	NSString * const __strong *myUIFontTextStyleTitle1 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle1");
-	NSString * const __strong *myUIFontTextStyleTitle2 = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleTitle2");
-	NSString * const __strong *myUIFontTextStyleSubheadline = (NSString * __strong *)dlsym(RTLD_DEFAULT, "UIFontTextStyleSubheadline");
-#endif
-
-	if (myUIFontTextStyleTitle1 && myUIFontTextStyleTitle2) {
-		static dispatch_once_t onceToken;
-		static Class $UIFontDescriptor;
-		dispatch_once(&onceToken, ^{
-			$UIFontDescriptor = objc_getClass("UIFontDescriptor");
-		});
-		UIFontDescriptor *systemTitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle1];
-		UIFontDescriptor *systemTitle2FontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleTitle2];
-		UIFontDescriptor *systemSubtitleFontDescriptor = [$UIFontDescriptor preferredFontDescriptorWithTextStyle:*myUIFontTextStyleSubheadline];
-
-		// Use the specified font names, with either the font sizes we want, or the sizes the user
-		// wants, whichever is larger
-		headerFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:MAX(systemTitleFontDescriptor.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
-		subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
-		condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2FontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
-		condensedLightFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:condensedFont.pointSize];
-	} else {
-		headerFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellHeaderFontSize];
-		subtitleFont = [UIFont systemFontOfSize:kHBPackageNameTableCellSubtitleFontSize];
-		condensedFont = [UIFont systemFontOfSize:kHBPackageNameTableCellCondensedFontSize];
-		condensedLightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:kHBPackageNameTableCellCondensedFontSize];
-	}
+	// Use the specified font names, with either the font sizes we want, or the sizes the user wants,
+	// whichever is larger
+	UIFont *headerFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:MAX(systemTitleFontDescriptor.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
+	UIFont *subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
+	UIFont *condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2FontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
+	UIFont *condensedLightFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:condensedFont.pointSize];
 
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
 		NSKernAttributeName: [NSNull null], // This *enables* kerning, interestingly

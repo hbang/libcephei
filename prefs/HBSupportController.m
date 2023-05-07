@@ -76,24 +76,9 @@
 	viewController.to = author;
 	viewController.subject = [NSString stringWithFormat:LOCALIZE(@"SUPPORT_EMAIL_SUBJECT", @"Support", @"The subject used when sending a support email. %@ %@ is the package name and version respectively."), name, version];
 
-	NSString *product = nil, *firmware = nil, *build = nil;
-
-	if (IS_IOS_OR_NEWER(iOS_6_0)) {
-#if ROOTLESS
-		CFTypeRef (*myMGCopyAnswer)(CFStringRef question, CFDictionaryRef options) = MGCopyAnswer;
-#else
-		void *gestalt = dlopen("/usr/lib/libMobileGestalt.dylib", RTLD_LAZY);
-		CFTypeRef (*myMGCopyAnswer)(CFStringRef question, CFDictionaryRef options);
-		myMGCopyAnswer = dlsym(gestalt, "MGCopyAnswer");
-#endif
-		product = CFBridgingRelease(myMGCopyAnswer(kMGProductType, NULL));
-		firmware = CFBridgingRelease(myMGCopyAnswer(kMGProductVersion, NULL));
-		build = CFBridgingRelease(myMGCopyAnswer(kMGBuildVersion, NULL));
-	} else {
-		product = [UIDevice currentDevice].localizedModel;
-		firmware = [UIDevice currentDevice].systemVersion;
-		build = @"?";
-	}
+	NSString *product = CFBridgingRelease(MGCopyAnswer(kMGProductType, NULL));
+	NSString *firmware = CFBridgingRelease(MGCopyAnswer(kMGProductVersion, NULL));
+	NSString *build = CFBridgingRelease(MGCopyAnswer(kMGBuildVersion, NULL));
 	viewController.messageBody = [NSString stringWithFormat:@"\n\nDevice information: %@, iOS %@ (%@)", product, firmware, build];
 
 	// Write a plist of the preferences using the identifier we think it may be.

@@ -27,24 +27,19 @@
 	[super viewDidLoad];
 
 	HBAppearanceSettings *appearance = [[HBAppearanceSettings alloc] init];
-	if (IS_IOS_OR_NEWER(iOS_7_0)) {
-		UIColor *purpleColor = [UIColor respondsToSelector:@selector(systemPurpleColor)] ? [UIColor systemPurpleColor] : [UIColor colorWithRed:175.0 / 255.0 green:82.0 / 255.0 blue:222.0 / 255.0 alpha:1];
-		appearance.tintColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
-		if (@available(iOS 13, *)) {
-			appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
-		}
-		appearance.navigationBarTintColor = [UIColor systemYellowColor];
-		appearance.navigationBarBackgroundColor = [purpleColor hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
-		appearance.navigationBarTitleColor = [UIColor whiteColor];
-		appearance.statusBarStyle = UIStatusBarStyleLightContent;
-		appearance.showsNavigationBarShadow = NO;
-		appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
-		appearance.tableViewCellTextColor = [UIColor whiteColor];
-		appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.0 / 255.0 alpha:1];
-		appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:38.0 / 255.0 alpha:1];
-		appearance.tableViewCellSelectionColor = [UIColor colorWithWhite:46.0 / 255.0 alpha:1];
-		appearance.tableViewBackgroundColor = [UIColor colorWithWhite:44.0 / 255.0 alpha:1];
-	}
+	appearance.tintColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.userInterfaceStyle = UIUserInterfaceStyleDark;
+	appearance.navigationBarTintColor = [UIColor systemYellowColor];
+	appearance.navigationBarBackgroundColor = [[UIColor systemPurpleColor] hb_colorWithDarkInterfaceVariant:[UIColor systemPinkColor]];
+	appearance.navigationBarTitleColor = [UIColor whiteColor];
+	appearance.statusBarStyle = UIStatusBarStyleLightContent;
+	appearance.showsNavigationBarShadow = NO;
+	appearance.largeTitleStyle = HBAppearanceSettingsLargeTitleStyleAlways;
+	appearance.tableViewCellTextColor = [UIColor whiteColor];
+	appearance.tableViewCellBackgroundColor = [UIColor colorWithWhite:22.0 / 255.0 alpha:1];
+	appearance.tableViewCellSeparatorColor = [UIColor colorWithWhite:38.0 / 255.0 alpha:1];
+	appearance.tableViewCellSelectionColor = [UIColor colorWithWhite:46.0 / 255.0 alpha:1];
+	appearance.tableViewBackgroundColor = [UIColor colorWithWhite:44.0 / 255.0 alpha:1];
 	self.hb_appearanceSettings = appearance;
 }
 

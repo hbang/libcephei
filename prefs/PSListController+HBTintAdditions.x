@@ -7,10 +7,6 @@
 #import <UIKit/UIStatusBar.h>
 #import <version.h>
 
-#if !ROOTLESS
-static BOOL translucentNavigationBar = NO;
-#endif
-
 @interface PSListController ()
 
 @property (nonatomic, retain) HBAppearanceSettings *_hb_internalAppearanceSettings;
@@ -52,40 +48,32 @@ static BOOL translucentNavigationBar = NO;
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
 
 	// Set iOS 11.0+ large title mode.
-	if (IS_IOS_OR_NEWER(iOS_11_0)) {
-		if (@available(iOS 11, *)) {
-			self._hb_realNavigationController.navigationBar.prefersLargeTitles = YES;
-			UINavigationItemLargeTitleDisplayMode largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-			switch (self.hb_appearanceSettings.largeTitleStyle) {
-				case HBAppearanceSettingsLargeTitleStyleRootOnly:
-					largeTitleDisplayMode = [self isKindOfClass:HBRootListController.class] ? UINavigationItemLargeTitleDisplayModeAlways : UINavigationItemLargeTitleDisplayModeNever;
-					break;
+	self._hb_realNavigationController.navigationBar.prefersLargeTitles = YES;
+	UINavigationItemLargeTitleDisplayMode largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+	switch (self.hb_appearanceSettings.largeTitleStyle) {
+		case HBAppearanceSettingsLargeTitleStyleRootOnly:
+			largeTitleDisplayMode = [self isKindOfClass:HBRootListController.class] ? UINavigationItemLargeTitleDisplayModeAlways : UINavigationItemLargeTitleDisplayModeNever;
+			break;
 
-				case HBAppearanceSettingsLargeTitleStyleAlways:
-					largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-					break;
+		case HBAppearanceSettingsLargeTitleStyleAlways:
+			largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+			break;
 
-				case HBAppearanceSettingsLargeTitleStyleNever:
-					largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-					break;
-			}
-			self.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode;
-		}
+		case HBAppearanceSettingsLargeTitleStyleNever:
+			largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+			break;
 	}
+	self.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode;
 
 	// Set iOS 13.0+ navigation bar appearance.
-	if (IS_IOS_OR_NEWER(iOS_13_0)) {
-		if (@available(iOS 13, *)) {
-			if (self.navigationItem.scrollEdgeAppearance == nil) {
-				UINavigationBarAppearance *scrollEdgeAppearance = [[%c(UINavigationBarAppearance) alloc] init];
-				[scrollEdgeAppearance configureWithTransparentBackground];
-				self.navigationItem.scrollEdgeAppearance = scrollEdgeAppearance;
-			}
-			self.navigationItem.standardAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.standardAppearance];
-			self.navigationItem.scrollEdgeAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.scrollEdgeAppearance];
-			self.navigationItem.compactAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.compactAppearance];
-		}
+	if (self.navigationItem.scrollEdgeAppearance == nil) {
+		UINavigationBarAppearance *scrollEdgeAppearance = [[%c(UINavigationBarAppearance) alloc] init];
+		[scrollEdgeAppearance configureWithTransparentBackground];
+		self.navigationItem.scrollEdgeAppearance = scrollEdgeAppearance;
 	}
+	self.navigationItem.standardAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.standardAppearance];
+	self.navigationItem.scrollEdgeAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.scrollEdgeAppearance];
+	self.navigationItem.compactAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.compactAppearance];
 }
 
 #pragma mark - UIViewController
@@ -100,44 +88,32 @@ static BOOL translucentNavigationBar = NO;
 }
 
 %new - (id)_hb_configureNavigationBarAppearance:(id)appearance {
-	if (@available(iOS 13, *)) {
-		UIColor *backgroundColor, *titleColor;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		if (self.hb_appearanceSettings.invertedNavigationBar) {
-#pragma clang diagnostic pop
-			titleColor = [UIColor whiteColor];
-			backgroundColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.hb_appearanceSettings.tintColor;
-		} else {
-			titleColor = self.hb_appearanceSettings.navigationBarTitleColor;
-			backgroundColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
-		}
+	UIColor *titleColor = self.hb_appearanceSettings.navigationBarTitleColor;
+	UIColor *backgroundColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
 
-		UINavigationBarAppearance *newAppearance;
-		if (appearance == nil) {
-			newAppearance = [[%c(UINavigationBarAppearance) alloc] init];
-			[newAppearance configureWithDefaultBackground];
-		} else {
-			newAppearance = [[%c(UINavigationBarAppearance) alloc] initWithBarAppearance:appearance];
-		}
-		NSMutableDictionary <NSAttributedStringKey, id> *titleTextAttributes = [newAppearance.titleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
-		NSMutableDictionary <NSAttributedStringKey, id> *largeTitleTextAttributes = [newAppearance.largeTitleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
-		if (titleColor == nil) {
-			[titleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
-			[largeTitleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
-		} else {
-			titleTextAttributes[NSForegroundColorAttributeName] = titleColor;
-			largeTitleTextAttributes[NSForegroundColorAttributeName] = titleColor;
-		}
-		newAppearance.backgroundColor = backgroundColor;
-		newAppearance.titleTextAttributes = titleTextAttributes;
-		newAppearance.largeTitleTextAttributes = largeTitleTextAttributes;
-		if (!self.hb_appearanceSettings.showsNavigationBarShadow) {
-			newAppearance.shadowColor = nil;
-		}
-		return newAppearance;
+	UINavigationBarAppearance *newAppearance;
+	if (appearance == nil) {
+		newAppearance = [[%c(UINavigationBarAppearance) alloc] init];
+		[newAppearance configureWithDefaultBackground];
+	} else {
+		newAppearance = [[%c(UINavigationBarAppearance) alloc] initWithBarAppearance:appearance];
 	}
-	return nil;
+	NSMutableDictionary <NSAttributedStringKey, id> *titleTextAttributes = [newAppearance.titleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
+	NSMutableDictionary <NSAttributedStringKey, id> *largeTitleTextAttributes = [newAppearance.largeTitleTextAttributes mutableCopy] ?: [NSMutableDictionary dictionary];
+	if (titleColor == nil) {
+		[titleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
+		[largeTitleTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
+	} else {
+		titleTextAttributes[NSForegroundColorAttributeName] = titleColor;
+		largeTitleTextAttributes[NSForegroundColorAttributeName] = titleColor;
+	}
+	newAppearance.backgroundColor = backgroundColor;
+	newAppearance.titleTextAttributes = titleTextAttributes;
+	newAppearance.largeTitleTextAttributes = largeTitleTextAttributes;
+	if (!self.hb_appearanceSettings.showsNavigationBarShadow) {
+		newAppearance.shadowColor = nil;
+	}
+	return newAppearance;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -157,89 +133,29 @@ static BOOL translucentNavigationBar = NO;
 
 	if (self.hb_appearanceSettings.tableViewCellSeparatorColor) {
 		self.table.separatorColor = self.hb_appearanceSettings.tableViewCellSeparatorColor;
-
-		// It seems on old iOS you need to set the separator style to none for your custom separator
-		// color to apply
-		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
-			self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-		}
 	}
-
-	// If we have a translucent navigation bar, apply it
-#if !ROOTLESS
-	translucentNavigationBar = self.hb_appearanceSettings ? self.hb_appearanceSettings.translucentNavigationBar : IS_IOS_OR_NEWER(iOS_7_0);
-	self._hb_realNavigationController.navigationBar.translucent = translucentNavigationBar;
-
-	if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-		self.edgesForExtendedLayout = translucentNavigationBar ? UIRectEdgeAll : UIRectEdgeNone;
-	}
-#endif
 
 	// If we have a tint color, apply it
-	if ([self.view respondsToSelector:@selector(setTintColor:)]) {
-		UIWindow *window = self.view.window;
-		if (tintColor) {
-			self.view.tintColor = tintColor;
-			window.tintColor = tintColor;
-		} else if (window.tintColor) {
-			window.tintColor = nil;
-		}
+	UIWindow *window = self.view.window;
+	if (tintColor) {
+		self.view.tintColor = tintColor;
+		window.tintColor = tintColor;
+	} else if (window.tintColor) {
+		window.tintColor = nil;
 	}
 
 	if (tintColor) {
-#if ROOTLESS
 		[UISwitch appearanceWhenContainedInInstancesOfClasses:@[[self class]]].onTintColor = tintColor;
-#else
-		[UISwitch appearanceWhenContainedIn:self.class, nil].onTintColor = tintColor;
-#endif
 	}
 
-	if (IS_IOS_OR_NEWER(iOS_13_0)) {
-		// Set user interface style
-		if (@available(iOS 13, *)) {
-			[self setNeedsStatusBarAppearanceUpdate];
-			self.overrideUserInterfaceStyle = self.hb_appearanceSettings.userInterfaceStyle;
-		}
-	} else {
-		// If we have a status bar tint color, apply it
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-		UIColor *statusBarTintColor = self.hb_appearanceSettings.invertedNavigationBar ? [UIColor whiteColor] : self.hb_appearanceSettings.statusBarTintColor;
-#pragma clang diagnostic pop
-
-		if (statusBarTintColor != nil && [UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
-			UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
-			statusBar.foregroundColor = statusBarTintColor;
-		}
-	}
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	%orig;
-
-	// If we changed the status bar tint color, unset it
-	if (!IS_IOS_OR_NEWER(iOS_13_0) && [UIStatusBar instancesRespondToSelector:@selector(setForegroundColor:)]) {
-		UIStatusBar *statusBar = [UIApplication sharedApplication].statusBar;
-		statusBar.foregroundColor = nil;
-	}
-
-#if !ROOTLESS
-	// If the navigation bar wasn’t translucent, set it back
-	if (!translucentNavigationBar) {
-		self._hb_realNavigationController.navigationBar.translucent = IS_IOS_OR_NEWER(iOS_7_0);
-
-		if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-			self.edgesForExtendedLayout = UIRectEdgeAll;
-		}
-	}
-#endif
+	// Set user interface style
+	[self setNeedsStatusBarAppearanceUpdate];
+	self.overrideUserInterfaceStyle = self.hb_appearanceSettings.userInterfaceStyle;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-	if (IS_IOS_OR_NEWER(iOS_13_0)) {
-		if (self.hb_appearanceSettings.statusBarStyle != UIStatusBarStyleDefault) {
-			return self.hb_appearanceSettings.statusBarStyle;
-		}
+	if (self.hb_appearanceSettings.statusBarStyle != UIStatusBarStyleDefault) {
+		return self.hb_appearanceSettings.statusBarStyle;
 	}
 	return %orig;
 }
@@ -280,11 +196,6 @@ static BOOL translucentNavigationBar = NO;
 		UIView *selectionView = [[UIView alloc] init];
 		selectionView.backgroundColor = self.hb_appearanceSettings.tableViewCellSelectionColor;
 		cell.selectedBackgroundView = selectionView;
-
-		// Hacky workaround to avoid ugly corners
-		if (!IS_IOS_OR_NEWER(iOS_7_0)) {
-			selectionView.layer.cornerRadius = 8.f;
-		}
 	}
 
 	if (self.hb_appearanceSettings.tableViewCellTextColor) {

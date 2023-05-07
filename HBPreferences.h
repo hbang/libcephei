@@ -64,7 +64,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// ```swift
 /// class Preferences {
-/// 
+///
 /// 	private let preferences = HBPreferences(identifier: "ws.hbang.common.demo")
 ///
 /// 	// Example using registration method
@@ -100,7 +100,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// ### Security
 /// As of Cephei 1.12, HBPreferences restricts most Apple preferences (identifiers starting with
 /// `com.apple.…`) from being read/written from a sandboxed process. This protects against a
-/// malicious app using HBPreferences as a way to gather sensitive information or change system 
+/// malicious app using HBPreferences as a way to gather sensitive information or change system
 /// preferences without the user’s knowledge. For instance, an App Store app could
 /// [phish for the user’s Apple ID login](https://krausefx.com/blog/ios-privacy-stealpassword-easily-get-the-users-apple-id-password-just-by-asking),
 /// creating a very real-looking login prompt by pre-filling their email address in the username box,
@@ -131,28 +131,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 
 /// The preferences identifier provided at initialisation.
 @property (nonatomic, retain, readonly) NSString *identifier;
-
-/// @name Synchronizing Preferences
-
-/// Synchronizes preferences data to prevent race conditions.
-///
-/// On iOS 8.0 and later, waits until all communications between the `cfprefsd` daemon and the
-/// current process have completed, preventing race conditions and guaranteeing no data will be
-/// lost. Prior to iOS 8.0, writes all pending changes to disk, and reads latest preferences from
-/// disk.
-///
-/// Deprecated. On iOS 12.0 and later, synchronization is
-/// [no longer required](https://developer.apple.com/documentation/ios-ipados-release-notes/foundation-release-notes#UserDefaults).
-/// The underlying CFPreferencesSynchronize() function simply returns `YES`.
-///
-/// For earlier iOS releases, do not use this method directly unless you have a specific need.
-/// HBPreferences will synchronize automatically when needed. For further information on what this
-/// method does and when to use it, refer to
-/// [NSUserDefaults in Practice](http://dscoder.com/defaults.html) § “Sharing Defaults Between
-/// Programs”.
-///
-/// @return `YES` if synchronization was successful, `NO` if an error occurred.
-- (BOOL)synchronize API_DEPRECATED("Synchronization is no longer required as of iOS 12", ios(5.0, 12.0));
 
 /// @name Registering Default Preference Values
 
@@ -499,28 +477,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// @see `-registerObject:default:forKey:`
 - (void)registerPreferenceChangeBlockForKey:(NSString *)key block:(HBPreferencesValueChangeCallback)callback;
 
-/// Register a block to be called when a specific preference is changed.
-///
-/// Blocks are called after HBPreferences’ cache of values is updated. The block will also be called
-/// immediately after calling this method. See `-registerObject:default:forKey:` for details on how
-/// to set up callbacks.
-///
-/// Deprecated. This method signature changed in Cephei 1.17 to better support the order of
-/// arguments preferred by Swift closure syntax. Use `-registerPreferenceChangeBlockForKey:block:`
-/// instead.
-///
-/// @param callback A block object called when the specified key’s value changes. The block object’s
-/// parameters are the key and its new value.
-/// @param key The key to listen for.
-/// @see `-registerPreferenceChangeBlockForKey:block:`
-/// @see `-registerObject:default:forKey:`
-- (void)registerPreferenceChangeBlock:(HBPreferencesValueChangeCallback)callback forKey:(NSString *)key __attribute((deprecated("Use registerPreferenceChangeBlockForKey:block: instead.")));
-
 @end
-
-/// Name of an exception that occurs when attempting to set preferences from a process not running
-/// as the `mobile` user.
-extern NSExceptionName const HBPreferencesNotMobileException NS_SWIFT_NAME(HBPreferences.notMobileException);
 
 /// This notification is posted when a change is made to a registered preferences identifier. The
 /// notification object is the associated HBPreferences object.

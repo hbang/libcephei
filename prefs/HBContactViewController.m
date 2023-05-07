@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	if (IS_IOS_OR_NEWER(iOS_8_0) && (self.navigationController == nil || self.navigationController.viewControllers.count == 1)) {
+	if (self.navigationController == nil || self.navigationController.viewControllers.count == 1) {
 		self.view.hidden = YES;
 	}
 }
@@ -41,21 +41,11 @@
 		NSString *body = LOCALIZE(@"NO_EMAIL_ACCOUNTS_BODY", @"Support", @"");
 		NSBundle *uikitBundle = [NSBundle bundleWithIdentifier:@"com.apple.UIKit"];
 		NSString *ok = [uikitBundle localizedStringForKey:@"OK" value:@"" table:@"Localizable"];
-		if ([UIAlertController class] != nil) {
-			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
-			[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-				[self _dismiss];
-			}]];
-			[self presentViewController:alertController animated:YES completion:nil];
-		} else {
-#if !ROOTLESS
-			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:body delegate:nil cancelButtonTitle:ok otherButtonTitles:nil];
-			[alertView show];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[self _dismiss];
-			});
-#endif
-		}
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:body preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:[UIAlertAction actionWithTitle:ok style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+			[self _dismiss];
+		}]];
+		[self presentViewController:alertController animated:YES completion:nil];
 		return;
 	}
 
@@ -68,11 +58,9 @@
 	if (_preferencesPlist != nil && _preferencesIdentifier != nil) {
 		[viewController addAttachmentData:_preferencesPlist mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"preferences-%@.plist", _preferencesIdentifier]];
 	}
-	if ([viewController.view respondsToSelector:@selector(tintColor)]) {
-		viewController.navigationBar.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
-		viewController.navigationBar.barTintColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
-		viewController.view.tintColor = self.view.tintColor;
-	}
+	viewController.navigationBar.tintColor = self.hb_appearanceSettings.navigationBarTintColor ?: self.view.tintColor;
+	viewController.navigationBar.barTintColor = self.hb_appearanceSettings.navigationBarBackgroundColor;
+	viewController.view.tintColor = self.view.tintColor;
 
 	[self presentViewController:viewController animated:YES completion:nil];
 	_hasShown = YES;

@@ -71,18 +71,6 @@ static LMConnection preferencesService;
 #endif
 }
 
-#pragma mark - Reloading
-
-- (BOOL)synchronize {
-	if (IS_IOS_OR_NEWER(iOS_12_0)) {
-		// Don’t bother doing IPC at all, since we know synchronize does nothing on iOS 12+.
-		return YES;
-	}
-
-	NSNumber *result = [self _sendMessageType:HBPreferencesIPCMessageTypeSynchronize key:nil value:nil];
-	return result.boolValue;
-}
-
 #pragma mark - Dictionary representation
 
 - (NSDictionary <NSString *, id> *)dictionaryRepresentation {

@@ -41,14 +41,6 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 
 	// Do the appropriate thing for each message type
 	switch (type) {
-		case HBPreferencesIPCMessageTypeSynchronize:
-#if ROOTLESS
-			result = @YES;
-#else
-			result = @([preferences synchronize]);
-#endif
-			break;
-
 		case HBPreferencesIPCMessageTypeGetAll:
 			result = preferences.dictionaryRepresentation;
 			break;

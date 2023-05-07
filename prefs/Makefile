@@ -5,10 +5,11 @@ FRAMEWORK_NAME = CepheiPrefs
 # Ensure HBDemoRootListController is the first class linked, to work around an issue with
 # Preferences ignoring both `detail` and `NSPrincipalClass` when viewing the demo prefs on old iOS.
 CepheiPrefs_FILES = HBDemoRootListController.m $(filter-out HBDemoRootListController.m,$(wildcard *.m) $(wildcard *.x))
-CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBAboutListController.h HBAppearanceSettings.h HBDiscreteSliderTableCell.h HBImageTableCell.h HBInitialsLinkTableCell.h HBLinkTableCell.h HBListController.h HBListController+Actions.h HBListItemsController.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
+CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBAboutListController.h HBAppearanceSettings.h HBImageTableCell.h HBLinkTableCell.h HBListController.h HBListController+Actions.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBRootListController.h HBSpinnerTableCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
 CepheiPrefs_FRAMEWORKS = MobileCoreServices
 CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
-CepheiPrefs_EXTRA_FRAMEWORKS = Cephei
+CepheiPrefs_LIBRARIES = MobileGestalt
+CepheiPrefs_EXTRA_FRAMEWORKS = Cephei CepheiUI
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
 CepheiPrefs_CFLAGS = -include Global.h
 CepheiPrefs_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
@@ -22,42 +23,13 @@ else
 	CepheiPrefs_EXTRA_FRAMEWORKS += CydiaSubstrate
 endif
 
-ifeq ($(ROOTLESS),1)
-	CepheiPrefs_EXTRA_FRAMEWORKS += CepheiUI
-else
-	# As our deployment target is extremely early (iOS 5), some modern symbols need to be weak linked.
-	# Introduced in iOS 9, but dynamically loaded, so always needs to be weak.
-	WEAK_CLASS_SYMBOLS = SFSafariViewController
-	ifneq ($(THEOS_CURRENT_ARCH),arm64e)
-		# Introduced before iOS 12, so no need to weak link these on arm64e.
-		WEAK_CLASS_SYMBOLS += UIAlertController UIAlertAction
-	endif
-	CepheiPrefs_LDFLAGS = $(foreach sym,$(WEAK_CLASS_SYMBOLS),-Xlinker -U -Xlinker _OBJC_CLASS_$$_$(sym))
-endif
-
 include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiPrefs-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
 	@mkdir -p \
 		$(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles
-
-ifeq ($(ROOTLESS),1)
 	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles/Cephei.bundle
-else
-	@mkdir -p \
-		$(THEOS_STAGING_DIR)/usr/lib \
-		$(THEOS_STAGING_DIR)/Library/Frameworks
-
-	@mv $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)/usr/lib
-	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/Frameworks/CepheiPrefs.framework
-	@ln -s /usr/lib/CepheiPrefs.framework $(THEOS_STAGING_DIR)/Library/PreferenceBundles/Cephei.bundle
-
-	@# Backwards compatibility symlinks
-	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libhbangprefs.dylib
-	@ln -s /usr/lib/CepheiPrefs.framework/CepheiPrefs $(THEOS_STAGING_DIR)/usr/lib/libcepheiprefs.dylib
-	@ln -s Cephei.bundle $(THEOS_STAGING_DIR)/Library/PreferenceBundles/libhbangprefs.bundle
-endif
 
 ifeq ($(PACKAGE_BUILDNAME),debug)
 	@# Install the demo entry plist
