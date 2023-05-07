@@ -2,8 +2,6 @@
 #import "HBListController+Actions.h"
 #import "HBAppearanceSettings.h"
 #import "../HBRespringController.h"
-#import "../NSDictionary+HBAdditions.h"
-#import "../NSString+HBAdditions.h"
 #import <MobileCoreServices/LSApplicationProxy.h>
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
@@ -76,19 +74,23 @@
 - (void)hb_openPackage:(PSSpecifier *)specifier {
 	NSString *identifier = specifier.properties[@"packageIdentifier"];
 	NSString *repo = specifier.properties[@"packageRepository"];
-	NSString *escapedIdentifier = identifier.hb_stringByEncodingQueryPercentEscapes;
+	NSString *escapedIdentifier = [identifier stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
-	NSArray <NSArray <id> *> *packageManagerURLs = repo == nil
-		? @[
+	NSArray <NSArray <id> *> *packageManagerURLs;
+	if (repo) {
+		NSURLComponents *zebraURL = [NSURLComponents componentsWithString:[NSString stringWithFormat:@"zbra://package/%@", escapedIdentifier]];
+		zebraURL.queryItems = @[[NSURLQueryItem queryItemWithName:@"source" value:repo]];
+
+		packageManagerURLs = @[
+			@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
+			@[ @"xyz.willy.Zebra", zebraURL.URL ]
+		];
+	} else {
+		packageManagerURLs = @[
 			@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
 			@[ @"xyz.willy.Zebra", [NSURL URLWithString:[@"zbra://package/" stringByAppendingString:escapedIdentifier]] ]
-		]
-		: @[
-			@[ @"org.coolstar.SileoStore", [NSURL URLWithString:[@"sileo://package/" stringByAppendingString:escapedIdentifier]] ],
-			@[ @"xyz.willy.Zebra", [NSURL URLWithString:[NSString stringWithFormat:@"zbra://package/%@?%@", escapedIdentifier, @{
-					@"source": repo
-				}.hb_queryString]] ]
 		];
+	}
 
 	NSString *title = LOCALIZE(@"OPEN_PACKAGE_IN_TITLE", @"PackageCell", @"");
 	NSString *message = repo == nil ? nil : [NSString stringWithFormat:LOCALIZE(@"OPEN_PACKAGE_IN_REPO_NOTICE", @"PackageCell", @""), repo];

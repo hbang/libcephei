@@ -6,6 +6,7 @@
 #import "PSListController+HBTintAdditions.h"
 #import "UINavigationItem+HBTintAdditions.h"
 #import "Symbols.h"
+#import "CepheiPrefs-Swift.h"
 #import <Preferences/PSSpecifier.h>
 #import <version.h>
 

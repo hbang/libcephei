@@ -1,6 +1,4 @@
 #import "HBTwitterCell.h"
-#import "../NSString+HBAdditions.h"
-#import "../NSDictionary+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 
 @implementation HBTwitterCell
@@ -8,11 +6,14 @@
 + (NSURL *)_urlForUsername:(NSString *)username userID:(NSString *)userID {
 	NSParameterAssert(username != nil || userID != nil);
 	if (username == nil) {
-		return [NSURL URLWithString:[@"https://twitter.com/intent/user?" stringByAppendingString:@{
-			@"user_id": userID
-		}.hb_queryString]];
+		NSURLComponents *url = [NSURLComponents componentsWithString:@"https://twitter.com/intent/user"];
+		url.queryItems = @[
+			[NSURLQueryItem queryItemWithName:@"user_id" value:userID]
+		];
+		return url.URL;
 	} else {
-		return [NSURL URLWithString:[@"https://twitter.com/" stringByAppendingString:username.hb_stringByEncodingQueryPercentEscapes]];
+		NSString *encodedUsername = [username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+		return [NSURL URLWithString:[@"https://twitter.com/" stringByAppendingString:encodedUsername]];
 	}
 }
 

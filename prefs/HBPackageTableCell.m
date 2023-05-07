@@ -1,6 +1,5 @@
 #import "HBPackageTableCell.h"
 #import "HBPackage.h"
-#import "../NSDictionary+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
@@ -17,11 +16,13 @@
 	NSParameterAssert(_identifier);
 
 	if (specifier.properties[@"iconURL"] == nil) {
-		NSURL *iconURL = [NSURL URLWithString:[@"https://api.canister.me/v1/community/packages?" stringByAppendingString:@{
-			@"id": _identifier,
-			@"content": @"packageIcon",
-			@"redirect": @"true"
-		}.hb_queryString]];
+		NSURLComponents *canisterURL = [NSURLComponents componentsWithString:@"https://api.canister.me/v1/community/packages"];
+		canisterURL.queryItems = @[
+			[NSURLQueryItem queryItemWithName:@"id" value:_identifier],
+			[NSURLQueryItem queryItemWithName:@"content" value:@"packageIcon"],
+			[NSURLQueryItem queryItemWithName:@"redirect" value:@"true"]
+		];
+		NSURL *iconURL = canisterURL.URL;
 
 		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
 		if (iconField && ![iconField isEqualToString:@""]) {

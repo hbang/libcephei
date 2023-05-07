@@ -28,7 +28,7 @@ include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
 Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
-Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h NSDictionary+HBAdditions.h NSString+HBAdditions.h
+Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h
 Cephei_CFLAGS = -include Global.h -fapplication-extension -DROCKETBOOTSTRAP_LOAD_DYNAMIC
 Cephei_LDFLAGS = -fapplication-extension
 Cephei_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks

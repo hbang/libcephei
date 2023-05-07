@@ -1,6 +1,5 @@
 #import "HBRootListController.h"
 #import "HBListController+Actions.h"
-#import "../NSDictionary+HBAdditions.h"
 #import <UIKit/UIImage+Private.h>
 #import <version.h>
 #import <objc/runtime.h>
