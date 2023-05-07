@@ -50,33 +50,19 @@
 		</dict>
 		<dict>
 			<key>cellClass</key>
-			<string>HBTwitterCell</string>
-			<key>label</key>
-			<string>HASHBANG Productions</string>
-			<key>user</key>
-			<string>hashbang</string>
-			<key>userID</key>
-			<string>945654024</string>
-		</dict>
-		<dict>
-			<key>cellClass</key>
-			<string>HBTwitterCell</string>
+			<string>HBMastodonTableCell</string>
 			<key>label</key>
 			<string>Chariz</string>
-			<key>user</key>
-			<string>CharizTeam</string>
-			<key>userID</key>
-			<string>3066301983</string>
+			<key>account</key>
+			<string>@chariz@chariz.com</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
-			<string>HBTwitterCell</string>
+			<string>HBMastodonTableCell</string>
 			<key>label</key>
 			<string>Adam Demasi</string>
-			<key>user</key>
-			<string>hbkirb</string>
-			<key>userID</key>
-			<string>103767197</string>
+			<key>account</key>
+			<string>@kirb@kirb.me</string>
 		</dict>
 		<dict>
 			<key>cell</key>

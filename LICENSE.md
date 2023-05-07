@@ -1,4 +1,4 @@
-Includes "Box" (Cydia) icon by Даниил Пронин from the Noun Project.
+Includes Mastodon SF Symbols icon by Jeremie Berduck, licensed under [Apache License version 2.0](https://github.com/jeremieb/social-symbols/blob/7c61a1cb151da855cae350372ddcad4ee176d0b0/LICENSE).
 
 ---
 

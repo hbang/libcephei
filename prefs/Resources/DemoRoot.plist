@@ -280,6 +280,72 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>HBMastodonTableCell</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>label</key>
+			<string>Redirect username</string>
+			<key>account</key>
+			<string>@kirb@kirb.me</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>label</key>
+			<string>Moved username</string>
+			<key>account</key>
+			<string>@kirb@mastodon.social</string>
+		</dict>
+		<dict>
+			<key>big</key>
+			<true/>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>height</key>
+			<integer>56</integer>
+			<key>label</key>
+			<string>Big cell</string>
+			<key>account</key>
+			<string>@theos@procursus.social</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>label</key>
+			<string>No avatar</string>
+			<key>showAvatar</key>
+			<false/>
+			<key>account</key>
+			<string>chariz@chariz.com</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>label</key>
+			<string>Avatar from URL</string>
+			<key>iconURL</key>
+			<string>https://chariz.com/img/favicon.png</string>
+			<key>iconCircular</key>
+			<false/>
+			<key>account</key>
+			<string>@chariz@chariz.com</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBMastodonTableCell</string>
+			<key>label</key>
+			<string>Monogram initials</string>
+			<key>initials</key>
+			<string>ZB</string>
+			<key>account</key>
+			<string>@zebra@procursus.social</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>HBPackageTableCell</string>
 		</dict>
 		<dict>

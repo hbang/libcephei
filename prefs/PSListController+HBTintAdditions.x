@@ -14,7 +14,7 @@
 @property (nonatomic, retain) UIColor *_hb_tableViewCellBackgroundColor;
 @property (nonatomic, retain) UIColor *_hb_tableViewCellSelectionColor;
 
-- (UINavigationBarAppearance *)_hb_configureNavigationBarAppearance:(UINavigationBarAppearance *)appearance API_AVAILABLE(ios(13.0));
+- (UINavigationBarAppearance *)_hb_configureNavigationBarAppearance:(UINavigationBarAppearance *)appearance;
 - (UINavigationController *)_hb_realNavigationController;
 - (void)_hb_getAppearance;
 
