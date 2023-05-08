@@ -1,14 +1,4 @@
 #import "HBRootListController.h"
-#import "HBListController+Actions.h"
-#import <UIKit/UIImage+Private.h>
-#import <version.h>
-#import <objc/runtime.h>
-
-@interface HBListController ()
-
-- (void)_hb_openURLInBrowser:(NSURL *)url;
-
-@end
 
 @implementation HBRootListController
 

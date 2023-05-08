@@ -43,7 +43,7 @@ protocol MastodonAPIClientDelegate: NSObjectProtocol {
 @objc(HBMastodonAPIClient)
 class MastodonAPIClient: NSObject {
 
-	private static let userAgent = "Cephei/2.0 iOS/\(UIDevice.current.systemVersion) (+https://hbang.github.io/libcephei/)"
+	private static let userAgent = "Cephei/\(cepheiVersion) iOS/\(UIDevice.current.systemVersion) (+https://hbang.github.io/libcephei/)"
 	private static let cacheCutoff: TimeInterval = 4 * 24 * 60 * 60
 
 	@objc(sharedInstance)

@@ -1,8 +1,6 @@
 #import "HBPackageTableCell.h"
-#import "HBPackage.h"
 #import <Preferences/PSSpecifier.h>
-#import <UIKit/UIImage+Private.h>
-#import <version.h>
+#import "CepheiPrefs-Swift.h"
 
 @implementation HBPackageTableCell {
 	NSString *_identifier;

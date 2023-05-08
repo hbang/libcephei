@@ -1,11 +1,10 @@
 #import "HBSupportController.h"
+#import "../HBOutputForShellCommand.h"
 #import "../HBPreferences.h"
-#import "HBPackage.h"
 #import "HBContactViewController.h"
-#import <version.h>
-#import <dlfcn.h>
 #import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
+#import "CepheiPrefs-Swift.h"
 @import MessageUI;
 
 @implementation HBSupportController
@@ -59,11 +58,9 @@
 	if (author == nil) {
 		// Try something else.
 		NSParameterAssert(bundle);
-		int status = 0;
-		NSString *search = HBOutputForShellCommandWithReturnCode(shellEscape(@[ @INSTALL_PREFIX @"/usr/bin/dpkg-query", @"-S", bundle.executablePath ]), &status);
-		NSAssert(status == 0, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
+		package = resolvePackageForFile(bundle.executablePath);
+		NSAssert(package != nil, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 
-		package = [search substringWithRange:NSMakeRange(0, [search rangeOfString:@":"].location)];
 		fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
 		author = fields[@"Author"] ?: fields[@"Maintainer"];
 		NSAssert(author != nil, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);

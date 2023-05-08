@@ -1,11 +1,8 @@
 #import "HBPackageNameHeaderCell.h"
-#import "HBPackage.h"
 #import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UITableViewCell+Private.h>
-#import <version.h>
-#import <dlfcn.h>
-#import <objc/runtime.h>
+#import "CepheiPrefs-Swift.h"
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
