@@ -1,6 +1,5 @@
 #import "HBTintedTableCell.h"
 #import <Preferences/PSSpecifier.h>
-#import "../ui/UIColor+HBAdditions.h"
 
 @implementation HBTintedTableCell
 

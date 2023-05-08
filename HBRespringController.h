@@ -5,21 +5,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// The HBRespringController class in Cephei provides conveniences for restarting the system app
 /// (usually SpringBoard). It also ensures battery usage statistics are not lost when performing the
 /// restart.
+NS_SWIFT_NAME(RespringController)
 @interface HBRespringController : NSObject
 
 /// Restart the system app.
 ///
-/// On iOS 8.0 and newer, fades out and then returns to the home screen (system remains unlocked).
-/// On older iOS versions, a standard restart occurs.
+/// Displays a loading spinner, then returns to the home screen (system remains unlocked).
 + (void)respring;
 
 /// Restart the system app and immediately launch a URL.
 ///
-/// Requires iOS 8.0 or newer. On older iOS versions, a standard restart occurs and the URL is not
-/// opened.
+/// Displays a loading spinner, then launches the specified URL (system remains unlocked).
 ///
 /// @param returnURL The URL to launch after restarting.
-+ (void)respringAndReturnTo:(nullable NSURL *)returnURL;
++ (void)respringAndReturnTo:(nullable NSURL *)returnURL NS_SWIFT_NAME(respring(returnURL:));
 
 @end
 

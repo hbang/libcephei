@@ -7,9 +7,7 @@
 	NSParameterAssert(username != nil || userID != nil);
 	if (username == nil) {
 		NSURLComponents *url = [NSURLComponents componentsWithString:@"https://twitter.com/intent/user"];
-		url.queryItems = @[
-			[NSURLQueryItem queryItemWithName:@"user_id" value:userID]
-		];
+		url.queryItems = @[[NSURLQueryItem queryItemWithName:@"user_id" value:userID]];
 		return url.URL;
 	} else {
 		NSString *encodedUsername = [username stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];

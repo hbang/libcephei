@@ -200,12 +200,14 @@
 			<string>PSButtonCell</string>
 			<key>cellClass</key>
 			<string>HBTintedTableCell</string>
+			<key>action</key>
+			<string>hb_respringAndReturn:</string>
 			<key>label</key>
-			<string>Do Something Destructive</string>
+			<string>Respring</string>
 			<key>iconImageSystem</key>
 			<dict>
 				<key>name</key>
-				<string>exclamationmark.triangle</string>
+				<string>restart.circle</string>
 				<key>weight</key>
 				<string>bold</string>
 			</dict>

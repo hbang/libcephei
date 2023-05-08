@@ -1,5 +1,4 @@
 #import "HBPackageNameHeaderCell.h"
-#import "../ui/UIColor+HBAdditions.h"
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import "CepheiPrefs-Swift.h"

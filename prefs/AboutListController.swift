@@ -1,7 +1,3 @@
-#import "HBListController.h"
-
-NS_ASSUME_NONNULL_BEGIN
-
 /// The HBAboutListController class in CepheiPrefs provides a list controller with functions
 /// that would typically be used on an "about" page. It includes two class methods you can override
 /// to provide a developer website and donation URL, and a class method to provide an email address
@@ -54,26 +50,45 @@ NS_ASSUME_NONNULL_BEGIN
 /// </dict>
 /// ```
 
-@interface HBAboutListController : HBListController
+@objc(HBAboutListController)
+public class AboutListController: ListController {
 
-/// @name Constants
+	public override var specifierPlist: String? { "About" }
 
-/// The email address to use in the support email composer form. Override this method to return an
-/// email address.
-///
-/// If this method returns nil, the package’s author email address is used.
-///
-/// @return By default, nil.
-+ (nullable NSString *)hb_supportEmailAddress;
+	/// @name Constants
 
-/// Displays a support composer form.
-///
-/// The `-hb_supportEmailAddress` and `-hb_supportInstructions` methods are used to provide the
-/// appropriate parameters to `HBSupportController`.
-///
-/// @see `HBSupportController`
-- (void)hb_sendSupportEmail;
+	// TODO: DEPRECATE
+	/// The email address to use in the support email composer form. Override this method to return an
+	/// email address.
+	///
+	/// If this method returns nil, the package’s author email address is used.
+	///
+	/// @return By default, nil.
+	@objc(hb_supportEmailAddress)
+	public static var supportEmailAddress: String? { nil }
 
-@end
+	@objc(hb_supportEmailAddress)
+	public var supportEmailAddress: String? { Self.supportEmailAddress }
 
-NS_ASSUME_NONNULL_END
+	/// Displays a support composer form.
+	///
+	/// The `-hb_supportEmailAddress` method provides the appropriate parameters to
+	/// `HBSupportController`.
+	///
+	/// @see `HBSupportController`
+	@objc(hb_sendSupportEmail)
+	public func sendSupportEmail() {
+		sendSupportEmail(nil)
+	}
+
+	@objc(hb_sendSupportEmail:)
+	public func sendSupportEmail(_ sender: PSSpecifier?) {
+		let viewController = HBSupportController.supportViewController(for: Bundle(for: Self.self),
+																																	 preferencesIdentifier: specifier?.properties["defaults"] as? String,
+																																	 sendToEmail: supportEmailAddress) as! ListController
+		viewController.appearanceSettings = appearanceSettings
+		viewController.overrideUserInterfaceStyle = overrideUserInterfaceStyle
+		realNavigationController?.present(viewController, animated: false)
+	}
+
+}

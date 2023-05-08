@@ -1,7 +1,6 @@
 #import "HBSupportController.h"
 #import "../HBOutputForShellCommand.h"
 #import "../HBPreferences.h"
-#import "HBContactViewController.h"
 #import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
 #import "CepheiPrefs-Swift.h"

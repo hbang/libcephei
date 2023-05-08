@@ -1,7 +1,7 @@
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = CepheiUI
-CepheiUI_FILES = $(wildcard *.x) $(wildcard *.m)
+CepheiUI_FILES = $(wildcard *.swift) $(wildcard *.m)
 CepheiUI_PUBLIC_HEADERS = CepheiUI.h UIColor+HBAdditions.h
 CepheiUI_FRAMEWORKS = UIKit
 CepheiUI_EXTRA_FRAMEWORKS = Cephei

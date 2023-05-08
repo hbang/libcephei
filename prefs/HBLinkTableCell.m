@@ -1,9 +1,10 @@
 #import "HBLinkTableCell.h"
-#import "Symbols.h"
+#import <MobileIcons/MobileIcons.h>
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIColor+Private.h>
 #import <version.h>
 #import <HBLog.h>
+#import "CepheiPrefs-Swift.h"
 
 @implementation HBLinkTableCell
 
@@ -78,7 +79,7 @@
 
 					UIImage *maskImage = iconMasks[@(iconSize)];
 					if (maskImage == nil) {
-						maskImage = iconFromColorAndGlyph([UIColor whiteColor], _isBig, nil);
+						maskImage = [SymbolRenderer makeIconWithBackgroundColor:[UIColor whiteColor] isBig:_isBig glyph:nil];
 						iconMasks[@(iconSize)] = maskImage;
 					}
 					CALayer *maskLayer = [CALayer layer];

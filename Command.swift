@@ -26,17 +26,16 @@ class Command: NSObject {
 	private var stdout: PipeDescriptor = [0, 0]
 
 	@discardableResult
-	@objc class func executeSync(_ command: String, arguments: [String]?, status: UnsafeMutablePointer<Int32>) -> String? {
+	@objc class func executeSync(_ command: String, arguments: [String]?, status: UnsafeMutablePointer<Int32>?) -> String {
 		// As this method is intended for convenience, the arguments array isn’t expected to have the
 		// first argument, which is typically the path or name of the binary being invoked. Add it now.
 		let task = Command(command: command, arguments: [command] + (arguments ?? []))
 		let result = try? task.executeSync()
-		status.pointee = result ?? 127
-		return result == 0 ? task.output : nil
+		status?.pointee = result ?? 127
+		return task.output
 	}
 
 	init(command: String, arguments: [String]?) {
-		super.init()
 		self.command = command
 		self.arguments = arguments ?? []
 	}
@@ -65,7 +64,7 @@ class Command: NSObject {
 
 		// Setup the dispatch handler for the output pipes
 		let stdOutSource = DispatchSource.makeReadSource(fileDescriptor: stdout[0], queue: readQueue)
-		stdOutSource.setEventHandler {
+		stdOutSource.setEventHandler { [self] in
 			let buffer = UnsafeMutableRawPointer.allocate(byteCount: Int(BUFSIZ), alignment: MemoryLayout<CChar>.alignment)
 			let bytesRead = read(self.stdout[0], buffer, Int(BUFSIZ))
 			switch bytesRead {

@@ -1,6 +1,5 @@
 #import "HBAppearanceSettings.h"
 #import "UINavigationItem+HBTintAdditions.h"
-#import "../ui/UIColor+HBAdditions.h"
 #import <UIKit/UINavigationBar+Private.h>
 #import <version.h>
 

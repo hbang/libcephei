@@ -1,8 +1,7 @@
 #import "PSListController+HBTintAdditions.h"
-#import "HBRootListController.h"
 #import "HBTintedTableCell.h"
 #import "UINavigationItem+HBTintAdditions.h"
-#import "../ui/UIColor+HBAdditions.h"
+#import "CepheiPrefs-Swift.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
 #import <version.h>

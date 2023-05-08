@@ -56,6 +56,14 @@ class MastodonAPIClient: NSObject {
 	private var cacheIsDirty = false
 	private var writeTimer: Timer?
 
+	static func parseAccount(from string: String) -> (account: String, domain: String)? {
+		let components = string.split(separator: "@", maxSplits: 2, omittingEmptySubsequences: true)
+		if components.count == 2 {
+			return (String(components[0]), String(components[1]))
+		}
+		return nil
+	}
+
 	private override init() {
 		super.init()
 		do {
@@ -132,16 +140,8 @@ class MastodonAPIClient: NSObject {
 
 	// MARK: - Cache keys
 
-	private func parseAccount(from string: String) -> (account: String, domain: String)? {
-		let components = string.split(separator: "@", maxSplits: 2, omittingEmptySubsequences: true)
-		if components.count == 2 {
-			return (String(components[0]), String(components[1]))
-		}
-		return nil
-	}
-
 	private func cacheKey(forAccount account: String) -> String? {
-		if let (user, host) = parseAccount(from: account) {
+		if let (user, host) = Self.parseAccount(from: account) {
 			return "acct:\(user)@\(host)"
 		}
 		return nil
@@ -219,7 +219,7 @@ class MastodonAPIClient: NSObject {
 	}
 
 	private func fetchWebFinger(forAccount account: String) async {
-		guard let (user, host) = parseAccount(from: account) else {
+		guard let (user, host) = Self.parseAccount(from: account) else {
 			return
 		}
 
@@ -262,7 +262,7 @@ class MastodonAPIClient: NSObject {
 				return
 			}
 
-			let (_, host) = parseAccount(from: account)!
+			let (_, host) = Self.parseAccount(from: account)!
 			let userInfo = MastodonUserInfo(account: "@\(json.preferredUsername)@\(userURL.host ?? host)",
 																			url: userURL,
 																			imageURL: URL(string: json.icon?.url ?? ""))
