@@ -1,23 +1,13 @@
 #import "HBOutputForShellCommand.h"
+#import "Cephei-Swift.h"
 
 NSString *HBOutputForShellCommandWithReturnCode(NSString *command, int *returnCode) {
-	FILE *file = popen(command.UTF8String, "r");
-
-	if (!file) {
-		return nil;
+	int status = 0;
+	NSString *result = [HBCommand executeSync:@INSTALL_PREFIX @"/bin/sh" arguments:@[@"-c", command] status:&status];
+	if (returnCode) {
+		*returnCode = status;
 	}
-
-	char data[1024];
-	NSMutableString *output = [NSMutableString string];
-
-	while (fgets(data, 1024, file) != NULL) {
-		[output appendString:[NSString stringWithUTF8String:data]];
-	}
-
-	int result = pclose(file);
-	*returnCode = result;
-
-	return output;
+	return result;
 }
 
 NSString *HBOutputForShellCommand(NSString *command) {

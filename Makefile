@@ -6,11 +6,15 @@ else
 	export ARCHS = arm64 arm64e
 endif
 
-export ADDITIONAL_CFLAGS = -fobjc-arc \
+export ADDITIONAL_CFLAGS = \
+	-fobjc-arc \
 	-Wextra -Wno-unused-parameter \
 	-DTHEOS -DTHEOS_LEAN_AND_MEAN \
 	-DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\"" \
 	-DINSTALL_PREFIX="\"$(THEOS_PACKAGE_INSTALL_PREFIX)\""
+export ADDITIONAL_SWIFTFLAGS = \
+	-Xcc -DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\"" \
+	-Xcc -DINSTALL_PREFIX="\"$(THEOS_PACKAGE_INSTALL_PREFIX)\""
 
 export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
 export CEPHEI_EMBEDDED CEPHEI_SIMULATOR
@@ -27,7 +31,7 @@ CEPHEI_SDK_DIR = $(THEOS_OBJ_DIR)/cephei_sdk_$(THEOS_PACKAGE_BASE_VERSION)
 include $(THEOS)/makefiles/common.mk
 
 FRAMEWORK_NAME = Cephei
-Cephei_FILES = $(wildcard *.m) $(wildcard *.x)
+Cephei_FILES = $(wildcard *.swift) $(wildcard *.m) $(wildcard *.x)
 Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h
 Cephei_CFLAGS = -include Global.h -fapplication-extension -DROCKETBOOTSTRAP_LOAD_DYNAMIC
 Cephei_LDFLAGS = -fapplication-extension
@@ -70,7 +74,7 @@ endif
 
 after-install::
 ifneq ($(RESPRING)$(PACKAGE_BUILDNAME),1)
-#	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
+	install.exec "uiopen 'prefs:root=Cephei%20Demo'"
 endif
 
 docs: stage

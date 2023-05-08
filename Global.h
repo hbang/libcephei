@@ -6,4 +6,6 @@
 // +[UIApplication registerAsSystemApp] will tell us if we’re in a system app, and the UIApplication
 // subclass should also be the principal class of the bundle.
 // Cephei avoids linking UIKit, so we need to be careful to not directly use UIKit symbols here.
-#define IS_SYSTEM_APP ([[NSBundle mainBundle].principalClass isKindOfClass:NSClassFromString(@"UIApplication")] && [[NSBundle mainBundle].principalClass respondsToSelector:@selector(registerAsSystemApp)] && (BOOL)[[NSBundle mainBundle].principalClass registerAsSystemApp])
+#define IS_SYSTEM_APP ([[NSBundle mainBundle].principalClass isKindOfClass:NSClassFromString(@"UIApplication")] \
+	&& [[NSBundle mainBundle].principalClass respondsToSelector:@selector(registerAsSystemApp)] \
+	&& (BOOL)[[NSBundle mainBundle].principalClass registerAsSystemApp])
