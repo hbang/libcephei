@@ -162,8 +162,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The object associated with the specified key.
-/// @warning You must manually synchronize preferences or use `-registerObject:default:forKey:` for
-/// this value to be updated when running on iOS 7 or older.
 - (id)objectForKey:(NSString *)key;
 
 /// Returns the integer value associated with the specified key.
