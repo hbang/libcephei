@@ -56,9 +56,9 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			layer.colors = [colors copy];
 		}
 
-		// Hack to resolve odd margins being set on iPad
-		// TODO: This may be fixed in iOS 12?
+		// Hack to resolve odd margins
 		CGRect labelFrame = self.contentView.bounds;
+		labelFrame.origin.x -= self._marginWidth * 2;
 		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
 		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
 
