@@ -6,7 +6,6 @@
 	<dict>
 		<key>Bundles</key>
 		<array>
-			<string>com.apple.springboard</string>
 			<string>com.apple.FrontBoard</string>
 		</array>
 	</dict>
