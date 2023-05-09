@@ -28,7 +28,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// We block Apple preferences from being read/written via IPC for security. This check is also on
 	// the client side; this code path will never be reached unless something sends a message over the
 	// port directly. See HBPreferences docs for an explanation.
-	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
+	if (!isIdentifierPermitted(identifier)) {
 		// Send empty dictionary back, free the buffer, and return
 		LMSendPropertyListReply(request->head.msgh_remote_port, @{});
 		LMResponseBufferFree(bytes);

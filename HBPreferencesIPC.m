@@ -30,7 +30,7 @@ static LMConnection preferencesService;
 
 	// Block Apple preferences from being read/written via IPC for security. These are also blocked at
 	// the server side. See HBPreferences.h for an explanation.
-	if ([identifier hasPrefix:@"com.apple."] || [identifier isEqualToString:@"UITextInputContextIdentifiers"]) {
+	if (!isIdentifierPermitted(identifier)) {
 		HBLogWarn(@"An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
 		return nil;
 	}
