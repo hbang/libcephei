@@ -4,7 +4,6 @@
 #import "CepheiPrefs-Swift.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
-#import <version.h>
 
 @interface PSListController ()
 

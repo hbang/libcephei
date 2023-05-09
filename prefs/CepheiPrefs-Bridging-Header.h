@@ -4,7 +4,6 @@
 #import <UIKit/UIImage+Private.h>
 #import "../HBOutputForShellCommand.h"
 #import "../HBRespringController.h"
-#import "HBAppearanceSettings.h"
 #import "HBLinkTableCell.h"
 #import "HBMastodonTableCell.h"
 #import "HBPackageTableCell.h"

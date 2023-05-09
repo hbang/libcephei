@@ -12,7 +12,7 @@ class DemoRootListController: RootListController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let appearanceSettings = HBAppearanceSettings()
+		let appearanceSettings = AppearanceSettings()
 		appearanceSettings.tintColor = .systemPurple.withDarkInterfaceVariant(.systemPink)
 		appearanceSettings.userInterfaceStyle = .dark
 		appearanceSettings.navigationBarTintColor = .systemCyan
