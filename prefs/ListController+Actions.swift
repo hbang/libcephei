@@ -109,6 +109,10 @@ public extension ListController {
 		}
 
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+		alertController.popoverPresentationController?.sourceView = view
+		alertController.popoverPresentationController?.sourceRect = view.bounds
+		alertController.popoverPresentationController?.permittedArrowDirections = []
+
 		for (url, app) in zip(urls, apps) {
 			guard let app = app else {
 				continue
@@ -120,6 +124,7 @@ public extension ListController {
 			}
 			alertController.addAction(action)
 		}
+
 		alertController.addAction(UIAlertAction(title: .cancel, style: .cancel, handler: nil))
 		realNavigationController?.present(alertController, animated: true)
 	}
