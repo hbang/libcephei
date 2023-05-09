@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
 		} else if ([type isEqualToString:@"-string"]) {
 			[preferences setObject:value forKey:key];
 		} else {
-			printf("Unrecognized type \"%s\". For help, use \"defaults --help\".\n", type.UTF8String);
+			printf("Unrecognized type \"%s\". For help, use \"%s --help\".\n", type.UTF8String, argv[0]);
 			return 255;
 		}
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 		usage(argv[0]);
 		return 0;
 	} else {
-		printf("Unrecognized mode \"%s\". For help, use \"defaults --help\".\n", mode.UTF8String);
+		printf("Unrecognized mode \"%s\". For help, use \"%s --help\".\n", mode.UTF8String, argv[0]);
 		return 255;
 	}
 }
