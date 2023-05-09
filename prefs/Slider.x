@@ -1,5 +1,3 @@
-#import <version.h>
-
 static NSInteger const kUISliderLabelTag = 0x76616C75;
 
 @interface UISlider ()
@@ -16,6 +14,10 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 
 	if (showValue) {
 		UILabel *label = self._hb_valueLabel;
+		CGRect frame = label.frame;
+		frame.size.width += 10;
+		label.frame = frame;
+		label.font = [UIFont monospacedDigitSystemFontOfSize:label.font.pointSize weight:UIFontWeightRegular];
 		label.textColor = self.tintColor;
 	}
 }
@@ -54,7 +56,14 @@ static NSInteger const kUISliderLabelTag = 0x76616C75;
 	// Insert text box
 	[alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
 		textField.keyboardType = UIKeyboardTypeDecimalPad;
-		textField.text = [NSString stringWithFormat:@"%.02f", self.value];
+		NSString *value = [NSString stringWithFormat:@"%.02f", self.value];
+		if ([value hasSuffix:@"0"]) {
+			value = [value substringToIndex:value.length - 1];
+		}
+		if ([value hasSuffix:@".0"]) {
+			value = [value substringToIndex:value.length - 3];
+		}
+		textField.text = value;
 	}];
 
 	// Insert buttons
