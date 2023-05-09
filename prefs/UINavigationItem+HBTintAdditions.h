@@ -1,4 +1,4 @@
-#import "HBAppearanceSettings.h"
+@class HBAppearanceSettings;
 
 @interface UINavigationItem (HBTintAdditions)
 

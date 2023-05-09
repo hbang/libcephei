@@ -164,7 +164,8 @@ class MastodonAPIClient: NSObject {
 
 	@objc func queueLookup(forAccount account: String) {
 		Task.detached(priority: .userInitiated) {
-			if let item = self.cache[account] {
+			if let key = self.cacheKey(forAccount: account),
+				 let item = self.cache[key] {
 				await self.notifyDelegates(account: account, item: item, image: nil)
 			} else {
 				await self.fetchWebFinger(forAccount: account)
