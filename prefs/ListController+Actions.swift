@@ -166,6 +166,7 @@ public extension ListController {
 	@objc(hb_openMastodon:)
 	func openMastodon(specifier: PSSpecifier?) {
 		guard let account = specifier?.properties?["account"] as? String,
+					let url = (specifier?.properties?["url"] as? URLConvertible)?.url,
 					let (user, host) = MastodonAPIClient.parseAccount(from: account) else {
 			return
 		}
@@ -178,7 +179,7 @@ public extension ListController {
 			URL(string: "cx-c3-toot://\(host)/@\(user)")!,
 			URL(string: "mastodon://profile/@\(user)@\(host)")!
 		]
-		promptOpenURLChoices(title: nil, message: nil, choices: choices, fallbackURL: URL(string: "https://\(host)/@\(user)")!)
+		promptOpenURLChoices(title: nil, message: nil, choices: choices, fallbackURL: url)
 	}
 
 }
