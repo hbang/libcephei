@@ -41,7 +41,7 @@ public class RootListController: ListController {
 	override public func loadView() {
 		super.loadView()
 
-		if Self.shareText != nil || Self.shareURL != nil {
+		if shareText != nil || shareURL != nil {
 			navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"),
 																													style: .plain,
 																													target: self,
