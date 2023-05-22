@@ -38,9 +38,6 @@ Cephei_CFLAGS = -include Global.h -fapplication-extension -DROCKETBOOTSTRAP_LOAD
 Cephei_LDFLAGS = -fapplication-extension
 Cephei_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
 
-# Link ARCLite to polyfill some features iOS 5 lacks
-armv7_LDFLAGS = -fobjc-arc
-
 SUBPROJECTS = ui prefs
 
 ifeq ($(CEPHEI_EMBEDDED),1)
