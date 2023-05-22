@@ -44,7 +44,7 @@ import UIKit
 /// ```
 
 @objc(HBAppearanceSettings)
-class AppearanceSettings: NSObject {
+public class AppearanceSettings: NSObject {
 
 	/// Constants indicating how to size the title of this item.
 	@objc(HBAppearanceSettingsLargeTitleStyle)
@@ -155,21 +155,21 @@ class AppearanceSettings: NSObject {
 }
 
 extension AppearanceSettings: NSCopying {
-	@objc func copy(with zone: NSZone? = nil) -> Any {
+	@objc public func copy(with zone: NSZone? = nil) -> Any {
 		let appearanceSettings = AppearanceSettings()
-		appearanceSettings.tintColor = tintColor?.copy() as? UIColor
+		appearanceSettings.tintColor = tintColor
 		appearanceSettings.userInterfaceStyle = userInterfaceStyle
-		appearanceSettings.navigationBarTintColor = navigationBarTintColor?.copy() as? UIColor
-		appearanceSettings.navigationBarTitleColor = navigationBarTitleColor?.copy() as? UIColor
-		appearanceSettings.navigationBarBackgroundColor = navigationBarBackgroundColor?.copy() as? UIColor
+		appearanceSettings.navigationBarTintColor = navigationBarTintColor
+		appearanceSettings.navigationBarTitleColor = navigationBarTitleColor
+		appearanceSettings.navigationBarBackgroundColor = navigationBarBackgroundColor
 		appearanceSettings.statusBarStyle = statusBarStyle
 		appearanceSettings.showsNavigationBarShadow = showsNavigationBarShadow
 		appearanceSettings.largeTitleStyle = largeTitleStyle
-		appearanceSettings.tableViewBackgroundColor = tableViewBackgroundColor?.copy() as? UIColor
-		appearanceSettings.tableViewCellTextColor = tableViewCellTextColor?.copy() as? UIColor
-		appearanceSettings.tableViewCellBackgroundColor = tableViewCellBackgroundColor?.copy() as? UIColor
-		appearanceSettings.tableViewCellSeparatorColor = tableViewCellSeparatorColor?.copy() as? UIColor
-		appearanceSettings.tableViewCellSelectionColor = tableViewCellSelectionColor?.copy() as? UIColor
+		appearanceSettings.tableViewBackgroundColor = tableViewBackgroundColor
+		appearanceSettings.tableViewCellTextColor = tableViewCellTextColor
+		appearanceSettings.tableViewCellBackgroundColor = tableViewCellBackgroundColor
+		appearanceSettings.tableViewCellSeparatorColor = tableViewCellSeparatorColor
+		appearanceSettings.tableViewCellSelectionColor = tableViewCellSelectionColor
 		return appearanceSettings
 	}
 }
