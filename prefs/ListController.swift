@@ -232,13 +232,15 @@ public class ListController: PSListController {
 	/// preference bundle, omitting the file extension.
 	///
 	/// Example:
+	///
+	/// ```swift
+	/// override var specifierPlist: String { "Root" }
+	/// ```
+	///
 	/// ```objc
 	/// + (NSString *)hb_specifierPlist {
 	/// 	return @"Root";
 	/// }
-	/// ```
-	/// ```swift
-	/// override var specifierPlist: String { "Root" }
 	/// ```
 	///
 	/// If you use this method and override the `specifiers` method, ensure you call the super method
@@ -334,7 +336,7 @@ public class ListController: PSListController {
 
 	/// Returns the “real” navigation controller for this view controller.
 	///
-	/// As of iOS 8.0, the navigation controller that owns the navigation bar and other responsibilities
+	/// As of iOS 8, the navigation controller that owns the navigation bar and other responsibilities
 	/// is actually a parent of `self.navigationController` on iPhone, due to the larger Plus models.
 	/// The realNavigationController method returns the correct navigation controller.
 	///
@@ -344,12 +346,3 @@ public class ListController: PSListController {
 	}
 
 }
-
-// extension ListController { // UITableViewDelegate
-// 	func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
-// 		// Fixes weird iOS 7 glitch, a little neater than before, and ideally preventing crashes on
-// 		// iPads and older devices.
-// 		super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
-// 		tableView.deselectRow(at: indexPath, animated: true)
-// 	}
-// }

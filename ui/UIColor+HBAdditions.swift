@@ -118,6 +118,13 @@ public extension UIColor {
 	///
 	/// Example:
 	///
+	/// ```swift
+	/// let myColor = UIColor(interfaceStyleVariants: [
+	/// 	.light: .systemRed,
+	/// 	.dark: .systemOrange
+	/// ])
+	/// ```
+	///
 	/// ```objc
 	/// UIColor *myColor = [UIColor hb_colorWithInterfaceStyleVariants:@{
 	/// 	@(UIUserInterfaceStyleLight): [UIColor systemRedColor],
@@ -170,6 +177,10 @@ public extension UIColor {
 	/// interface style.
 	///
 	/// Example:
+	///
+	/// ```swift
+	/// let myColor = UIColor.systemRed.withDarkInterfaceVariant(.systemOrange)
+	/// ```
 	///
 	/// ```objc
 	/// UIColor *myColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant:[UIColor systemOrangeColor]];

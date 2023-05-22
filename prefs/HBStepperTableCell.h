@@ -3,8 +3,6 @@
 /// The HBStepperTableCell class in CepheiPrefs allows setting a value using a stepper control
 /// ("minus" and "plus" buttons).
 ///
-/// Requires iOS 6.0 or later.
-///
 /// ### Specifier Parameters
 /// <table class="graybox">
 /// <tr>

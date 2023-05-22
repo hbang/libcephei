@@ -29,9 +29,7 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// if a key doesn’t exist.
 ///
 /// Ensure you read the discussion for `-registerObject:default:forKey:` before using the automatic
-/// updating mechanism. `-objectForKey:` does not update as another process updates the preferences
-/// on iOS 7 or older; if you need to support older iOS versions, use the registration methods
-/// instead.
+/// updating mechanism. Specifically, a Darwin notification is required for this feature to work.
 ///
 /// As of Cephei 1.17, HBPreferences supports Key-Value Observation. As such, you may subscribe to
 /// changes made to preferences through observer callbacks. The `-registerPreferenceChangeBlock:`
@@ -75,9 +73,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// 		get { preferences["AnotherSetting"] as? Int ?? -1 }
 /// 		set { preferences["AnotherSetting"] = newValue }
 /// 	}
-///
-/// 	// Example using KVO observation
-/// 	private var doThingObserver: NSKeyValueObserving?
 ///
 /// 	init() {
 /// 		preferences.register(defaults: [
@@ -162,8 +157,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param key The key for which to return the corresponding value.
 /// @return The object associated with the specified key.
-/// @warning You must manually synchronize preferences or use `-registerObject:default:forKey:` for
-/// this value to be updated when running on iOS 7 or older.
 - (id)objectForKey:(NSString *)key;
 
 /// Returns the integer value associated with the specified key.
@@ -216,18 +209,14 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// This method behaves the same as `-objectForKey:`, and enables the preferences object to be used
 /// with a subscript (square brackets). For example:
 ///
-/// Objective-C:
+/// ```swift
+/// let fooBar = preferences["FooBar"] as? String
+/// preferences["Awesome"] = true
+/// ```
 ///
 /// ```objc
 /// NSString *fooBar = preferences[@"FooBar"];
 /// preferences[@"Awesome"] = @YES;
-/// ```
-///
-/// Swift:
-///
-/// ```swift
-/// let fooBar = preferences["FooBar"] as? String
-/// preferences["Awesome"] = true
 /// ```
 ///
 /// @param key The key for which to return the corresponding value.
@@ -353,6 +342,11 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// This method behaves the same as `-setObject:forKey:`, and enables the preferences object to be
 /// used with a subscript (square brackets). For example:
+///
+/// ```swift
+/// let fooBar = preferences["FooBar"]
+/// preferences["Awesome"] = true
+/// ```
 ///
 /// ```objc
 /// NSString *fooBar = preferences[@"FooBar"];

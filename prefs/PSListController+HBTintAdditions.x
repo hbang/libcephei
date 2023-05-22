@@ -45,7 +45,7 @@
 	self._hb_internalAppearanceSettings = [appearanceSettings copy];
 	self.navigationItem.hb_appearanceSettings = self._hb_internalAppearanceSettings;
 
-	// Set iOS 11.0+ large title mode.
+	// Set large title mode.
 	self._hb_realNavigationController.navigationBar.prefersLargeTitles = YES;
 	UINavigationItemLargeTitleDisplayMode largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
 	switch (self.hb_appearanceSettings.largeTitleStyle) {
@@ -63,7 +63,7 @@
 	}
 	self.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode;
 
-	// Set iOS 13.0+ navigation bar appearance.
+	// Set navigation bar appearance.
 	if (self.navigationItem.scrollEdgeAppearance == nil) {
 		UINavigationBarAppearance *scrollEdgeAppearance = [[%c(UINavigationBarAppearance) alloc] init];
 		[scrollEdgeAppearance configureWithTransparentBackground];

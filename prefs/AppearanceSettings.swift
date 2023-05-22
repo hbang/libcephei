@@ -11,6 +11,20 @@ import UIKit
 /// init method. The following example sets the tint color, table view background color, and
 /// customises the navigation bar with a background, title, and status bar color:
 ///
+/// ```swift
+/// init() {
+/// 	super.init()
+///
+/// 	let appearanceSettings = AppearanceSettings()
+/// 	appearanceSettings.tintColor = UIColor(red: 66 / 255, green: 105 / 255, blue: 154 / 255, alpha: 1)
+/// 	appearanceSettings.barTintColor = .systemRed
+/// 	appearanceSettings.navigationBarTitleColor = .white
+/// 	appearanceSettings.tableViewBackgroundColor = UIColor(white: 242 / 255, alpha: 1)
+/// 	appearanceSettings.statusBarStyle = .lightContent
+/// 	self.appearanceSettings = appearanceSettings
+/// }
+/// ```
+///
 /// ```objc
 /// - (instancetype)init {
 /// 	self = [super init];

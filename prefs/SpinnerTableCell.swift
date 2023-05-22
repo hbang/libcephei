@@ -20,11 +20,23 @@
 ///
 /// List controller implementation:
 ///
+/// ```swift
+/// @objc func doStuffTapped(_ specifier: PSSpecifier) {
+/// 	guard let cell = cachedCell(for: specifier) else {
+/// 		return
+/// 	}
+///
+/// 	cell.cellEnabled = false
+/// 	// Do something in the background…
+/// 	cell.cellEnabled = true
+/// }
+/// ```
+///
 /// ```objc
 /// - (void)doStuffTapped:(PSSpecifier *)specifier {
 /// 	PSTableCell *cell = [self cachedCellForSpecifier:specifier];
 /// 	cell.cellEnabled = NO;
-/// 	// do something in the background…
+/// 	// Do something in the background…
 /// 	cell.cellEnabled = YES;
 /// }
 /// ```
