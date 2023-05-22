@@ -297,8 +297,6 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 ///
 /// @param value The object to store in the preferences.
 /// @param key The key with which to associate with the value.
-/// @exception HBPreferencesNotMobileException Thrown when the method is called by a process not
-/// running as the `mobile` user.
 - (void)setObject:(nullable id)value forKey:(NSString *)key NS_SWIFT_NAME(set(_:forKey:));
 
 /// Sets the value of the specified key to the specified integer value.

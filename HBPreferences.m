@@ -12,20 +12,16 @@
 
 typedef CFPropertyListRef (*_CFPreferencesCopyValueWithContainerType)(CFStringRef key, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef void (*_CFPreferencesSetValueWithContainerType)(CFStringRef key, CFPropertyListRef value, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
-typedef Boolean (*_CFPreferencesSynchronizeWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef CFArrayRef (*_CFPreferencesCopyKeyListWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef CFDictionaryRef (*_CFPreferencesCopyMultipleWithContainerType)(CFArrayRef keysToFetch, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 
 static _CFPreferencesCopyValueWithContainerType _CFPreferencesCopyValueWithContainer;
 static _CFPreferencesSetValueWithContainerType _CFPreferencesSetValueWithContainer;
-static _CFPreferencesSynchronizeWithContainerType _CFPreferencesSynchronizeWithContainer;
 static _CFPreferencesCopyKeyListWithContainerType _CFPreferencesCopyKeyListWithContainer;
 static _CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContainer;
 
 static BOOL isSystemApp;
 #endif
-
-NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileException";
 
 #pragma mark - Class implementation
 
@@ -43,7 +39,6 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 	dispatch_once(&onceToken, ^{
 		_CFPreferencesCopyValueWithContainer = (_CFPreferencesCopyValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
 		_CFPreferencesSetValueWithContainer = (_CFPreferencesSetValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSetValueWithContainer");
-		_CFPreferencesSynchronizeWithContainer = (_CFPreferencesSynchronizeWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSynchronizeWithContainer");
 		_CFPreferencesCopyKeyListWithContainer = (_CFPreferencesCopyKeyListWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyKeyListWithContainer");
 		_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyMultipleWithContainer");
 
@@ -85,18 +80,6 @@ NSString *const HBPreferencesNotMobileException = @"HBPreferencesNotMobileExcept
 #endif
 
 	return self;
-}
-
-#pragma mark - Reloading
-
-- (BOOL)synchronize {
-	if (_container) {
-#if !CEPHEI_EMBEDDED
-		return _CFPreferencesSynchronizeWithContainer((__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost, _container);
-#endif
-	} else {
-		return CFPreferencesSynchronize((__bridge CFStringRef)self.identifier, CFSTR("mobile"), kCFPreferencesAnyHost);
-	}
 }
 
 #pragma mark - Dictionary representation

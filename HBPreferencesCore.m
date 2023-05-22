@@ -71,11 +71,7 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 #pragma mark - Reloading
 
-- (void)synchronize {}
-
 - (void)_preferencesChanged {
-	[self synchronize];
-
 	// We need to copy lastSeenValues now, so we have the state of last seen values before we start
 	// accessing these values and therefore changing the hashes in _lastSeenValues.
 	NSMapTable *lastSeenValues = NSCopyMapTableWithZone(_lastSeenValues, NULL);
