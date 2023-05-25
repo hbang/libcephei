@@ -1,4 +1,5 @@
 #import <Preferences/PSListController.h>
+#import <Preferences/PSSpecifier.h>
 #import <MobileCoreServices/LSApplicationProxy.h>
 #import <MobileCoreServices/LSApplicationWorkspace.h>
 #import <UIKit/UIImage+Private.h>
@@ -17,13 +18,6 @@ static NSString *const installPrefix = @INSTALL_PREFIX;
 
 @interface HBRespringController (Private)
 + (NSURL *)_preferencesReturnURL;
-@end
-
-@interface UIColor ()
-
-+ (nullable instancetype)hb_colorWithPropertyListValue:(id)value NS_SWIFT_NAME(withPropertyListValue(_:));
-- (UIColor *)hb_colorWithDarkInterfaceVariant:(UIColor *)darkColor NS_SWIFT_NAME(withDarkInterfaceVariant(_:));
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,4 +1,6 @@
+import UIKit
 import MessageUI
+import CepheiPrefs_Private
 
 @objc(HBContactViewController)
 class ContactViewController: ListController {

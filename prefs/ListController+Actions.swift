@@ -1,5 +1,5 @@
+import UIKit
 import SafariServices
-import os.log
 
 fileprivate protocol URLConvertible {
 	var url: URL? { get }

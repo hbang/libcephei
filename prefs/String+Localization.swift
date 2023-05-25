@@ -1,3 +1,5 @@
+import UIKit
+
 extension String {
 	private static let cepheiBundle = Bundle(identifier: "ws.hbang.common.prefs")!
 	private static let uikitBundle  = Bundle(for: UIView.self)

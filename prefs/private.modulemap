@@ -1,0 +1,4 @@
+module CepheiPrefs_Private {
+	header "GlobalSwift.h"
+	requires objc
+}

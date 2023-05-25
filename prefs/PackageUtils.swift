@@ -1,4 +1,4 @@
-import os.log
+import Foundation
 
 @_cdecl("shellEscape")
 func shellEscape(_ input: [String]) -> String {

@@ -1,4 +1,5 @@
 import UIKit
+import CepheiUI
 import ObjectiveC
 
 fileprivate protocol SymbolWeight {
@@ -80,7 +81,7 @@ extension String: SymbolWeight, SymbolScale {
 		let scale = (dictionary["scale"] as? SymbolScale)?.symbolScaleValue ?? .medium
 
 		// Tint color: If we have one, use original mode, otherwise inherit tint color via template mode.
-		let tintColor = UIColor.withPropertyListValue(dictionary["tintColor"] ?? "")
+		let tintColor = UIColor(propertyListValue: dictionary["tintColor"] as? ColorPropertyListValue ?? "")
 		let renderingMode: UIImage.RenderingMode = tintColor == nil ? .alwaysTemplate : .alwaysOriginal
 
 		let configuration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
@@ -90,7 +91,8 @@ extension String: SymbolWeight, SymbolScale {
 		}
 
 		// Background color
-		if let backgroundColor = UIColor.withPropertyListValue(dictionary["backgroundColor"] ?? "") {
+		if let backgroundColorValue = dictionary["backgroundColor"] as? ColorPropertyListValue,
+			 let backgroundColor = UIColor(propertyListValue: backgroundColorValue) {
 			let tintedSymbolImage = symbolImage.withTintColor(tintColor ?? .white, renderingMode: renderingMode)
 			return makeIcon(backgroundColor: backgroundColor, isBig: false, glyph: tintedSymbolImage)
 		}

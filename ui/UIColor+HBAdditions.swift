@@ -163,37 +163,55 @@ public extension UIColor {
 	/// color object.
 	/// @see `+hb_colorWithInterfaceStyleVariants:`
 	@objc(hb_colorWithDarkInterfaceVariant)
-	func withDarkInterfaceVariant() -> UIColor {
-		if isDynamicColor {
-			return self
-		}
-		var (h, s, b, a) = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
-		getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-		let darkColor = UIColor(hue: h, saturation: max(0.20, s * 0.96), brightness: b, alpha: a)
-		return withDarkInterfaceVariant(darkColor)
+	func _withDarkInterfaceVariantObjC() -> UIColor {
+		withDarkInterfaceVariant(nil)
 	}
 
 	/// Initializes and returns a dynamic color object, with the specified variant color for the dark
 	/// interface style.
 	///
+	/// If no color is specified, the color is desaturated by 4% in the dark interface style.
+	///
+	/// If the color is already a dynamic color, and no color is specified, returns the receiver.
+	/// Otherwise, returns a new dynamic color object with the specified color for the dark interface
+	/// style.
+	///
 	/// Example:
 	///
 	/// ```swift
-	/// let myColor = UIColor.systemRed.withDarkInterfaceVariant(.systemOrange)
+	/// let myColor = UIColor.systemRed.withDarkInterfaceVariant()
+	/// // or
+	/// let otherColor = UIColor.systemRed.withDarkInterfaceVariant(.systemOrange)
 	/// ```
 	///
 	/// ```objc
-	/// UIColor *myColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant:[UIColor systemOrangeColor]];
+	/// UIColor *myColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant];
+	/// // or
+	/// UIColor *otherColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant:[UIColor systemOrangeColor]];
 	/// ```
 	///
 	/// @param darkColor The color to use in the dark interface style.
 	/// @return A new dynamic color object.
 	/// @see `-hb_colorWithInterfaceStyleVariants:`
 	@objc(hb_colorWithDarkInterfaceVariant:)
-	func withDarkInterfaceVariant(_ darkColor: UIColor) -> UIColor {
+	func withDarkInterfaceVariant(_ darkColor: UIColor? = nil) -> UIColor {
+		if darkColor == nil && isDynamicColor {
+			// Don’t apply an automatic dark color, we already are a dynamic color.
+			return self
+		}
+
+		let newDarkColor: UIColor
+		if let darkColor = darkColor {
+			newDarkColor = darkColor
+		} else {
+			var (h, s, b, a): (CGFloat, CGFloat, CGFloat, CGFloat) = (0, 0, 0, 0)
+			getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+			newDarkColor = UIColor(hue: h, saturation: max(0.20, s * 0.96), brightness: b, alpha: a)
+		}
+
 		return UIColor(interfaceStyleVariants: [
 			.light: self,
-			.dark: darkColor
+			.dark: newDarkColor
 		])
 	}
 

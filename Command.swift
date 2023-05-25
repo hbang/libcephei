@@ -9,7 +9,7 @@ fileprivate func WEXITSTATUS(_ value: Int32) -> Int32 { (value >> 8) & 0xff }
 fileprivate typealias PipeDescriptor = Array<Int32>
 
 @objc(HBCommand)
-class Command: NSObject {
+public class Command: NSObject {
 
 	enum ExecuteError: Error {
 		case pipeFailed(code: errno_t)
@@ -26,7 +26,7 @@ class Command: NSObject {
 	private var stdout: PipeDescriptor = [0, 0]
 
 	@discardableResult
-	@objc class func executeSync(_ command: String, arguments: [String]?, status: UnsafeMutablePointer<Int32>?) -> String {
+	@objc public class func executeSync(_ command: String, arguments: [String]?, status: UnsafeMutablePointer<Int32>?) -> String {
 		// As this method is intended for convenience, the arguments array isn’t expected to have the
 		// first argument, which is typically the path or name of the binary being invoked. Add it now.
 		let task = Command(command: command, arguments: [command] + (arguments ?? []))

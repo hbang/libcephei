@@ -1,3 +1,6 @@
+import UIKit
+import CepheiPrefs_Private
+
 /// The HBAboutListController class in CepheiPrefs provides a list controller with functions
 /// that would typically be used on an "about" page. It includes two class methods you can override
 /// to provide a developer website and donation URL, and a class method to provide an email address

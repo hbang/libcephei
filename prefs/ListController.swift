@@ -1,4 +1,4 @@
-import os.log
+import UIKit
 
 /// The HBListController class in CepheiPrefs provides a list controller with various
 /// conveniences such as a unique tint color for the list controllers within a preference bundle,
