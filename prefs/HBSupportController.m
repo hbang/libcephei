@@ -1,10 +1,10 @@
 #import "HBSupportController.h"
-#import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
 #import "CepheiPrefs-Swift.h"
 @import Cephei;
 @import CepheiPrefs_Private;
 @import MessageUI;
+@import os.log;
 
 @implementation HBSupportController
 
@@ -26,7 +26,7 @@
 	CFErrorRef error = nil;
 	NSData *data = (__bridge_transfer NSData *)CFPropertyListCreateData(kCFAllocatorDefault, (__bridge CFDictionaryRef)dictionary, kCFPropertyListXMLFormat_v1_0, kNilOptions, &error);
 	if (error) {
-		HBLogError(@"error serializing prefs for %@: %@", identifier, error);
+		os_log(OS_LOG_DEFAULT, "error serializing prefs for %{public}@: %{public}@", identifier, error);
 		return nil;
 	}
 	return data;

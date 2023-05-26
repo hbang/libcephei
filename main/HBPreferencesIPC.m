@@ -1,7 +1,7 @@
 #import "HBPreferencesIPC.h"
 #import "HBPreferencesCommon.h"
-#import <HBLog.h>
 #import <version.h>
+@import os.log;
 
 static LMConnection preferencesService;
 
@@ -31,7 +31,7 @@ static LMConnection preferencesService;
 	// Block Apple preferences from being read/written via IPC for security. These are also blocked at
 	// the server side. See HBPreferences.h for an explanation.
 	if (!isIdentifierPermitted(identifier)) {
-		HBLogWarn(@"An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
+		os_log(OS_LOG_DEFAULT, "An attempt to access potentially sensitive Apple preferences was blocked. See https://hbang.github.io/libcephei/Classes/HBPreferences.html for more information.");
 		return nil;
 	}
 
@@ -64,7 +64,7 @@ static LMConnection preferencesService;
 	LMResponseBuffer buffer;
 	kern_return_t result = LMConnectionSendTwoWayPropertyList(&preferencesService, 0, data, &buffer);
 	if (result != KERN_SUCCESS) {
-		HBLogError(@"Could not contact preferences IPC server! (Error %i)", result);
+		os_log(OS_LOG_DEFAULT, "Could not contact preferences IPC server! (Error %i)", result);
 		return nil;
 	}
 	return LMResponseConsumePropertyList(&buffer);

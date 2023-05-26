@@ -1,6 +1,6 @@
 #import "HBPreferences.h"
 #import "HBPreferencesCommon.h"
-#import <HBLog.h>
+@import os.log;
 
 #if !CEPHEI_EMBEDDED && !TARGET_OS_SIMULATOR
 
@@ -12,7 +12,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// Check that we aren’t being given a corrupt message
 	if ((size_t)size < sizeof(LMMessage)) {
 		// Send a blank reply, free the buffer, and return
-		HBLogError(@"Received a bad message? size = %li", size);
+		os_log(OS_LOG_DEFAULT, "Received a bad message? size = %li", size);
 		LMSendReply(request->head.msgh_remote_port, NULL, 0);
 		LMResponseBufferFree(bytes);
 		return;
@@ -83,7 +83,7 @@ static void HandleReceivedMessage(CFMachPortRef port, void *bytes, CFIndex size,
 	// Start the service
 	kern_return_t result = LMStartService(preferencesService.serverName, CFRunLoopGetCurrent(), HandleReceivedMessage);
 	if (result != KERN_SUCCESS) {
-		HBLogError(@"Failed to start preferences IPC service! (Error %i)", result);
+		os_log(OS_LOG_DEFAULT, "Failed to start preferences IPC service! (Error %{public}i)", result);
 	}
 }
 

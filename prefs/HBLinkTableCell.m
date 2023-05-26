@@ -3,8 +3,8 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UIColor+Private.h>
 #import <version.h>
-#import <HBLog.h>
 #import "CepheiPrefs-Swift.h"
+@import os.log;
 
 @implementation HBLinkTableCell
 
@@ -137,7 +137,7 @@
 		[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
 			if (error != nil || statusCode != 200) {
-				HBLogWarn(@"Error loading icon (%@): %li %@ - %@", _iconURL.absoluteString, (long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], error);
+				os_log(OS_LOG_DEFAULT, "Error loading icon (%@): %{public}li %{public}@ - %{public}@", _iconURL.absoluteString, (long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], error);
 				[self iconLoadDidFailWithResponse:response error:error];
 				return;
 			}

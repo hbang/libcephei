@@ -1,8 +1,8 @@
 #import "HBPreferencesCore.h"
 #import "HBPreferencesCore+Conveniences.h"
 #import "HBPreferences.h"
-#import <HBLog.h>
 #import <notify.h>
+@import os.log;
 
 typedef NS_ENUM(NSUInteger, HBPreferencesType) {
 	HBPreferencesTypeObjectiveC,
@@ -61,7 +61,7 @@ static NSMutableDictionary <NSString *, HBPreferencesCore *> *KnownIdentifiers;
 
 		int notifyToken;
 		notify_register_dispatch([_identifier stringByAppendingPathComponent:@"ReloadPrefs"].UTF8String, &notifyToken, dispatch_get_main_queue(), ^(int token) {
-			HBLogDebug(@"Received change notification for %@ - reloading preferences", identifier);
+			os_log(OS_LOG_DEFAULT, "Received change notification for %{public}@ - reloading preferences", identifier);
 			[(HBPreferencesCore *)KnownIdentifiers[identifier] _didReceiveDarwinNotification];
 		});
 	}
