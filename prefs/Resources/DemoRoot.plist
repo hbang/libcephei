@@ -380,7 +380,7 @@
 			<key>subtitle</key>
 			<string>NewTerm is also awesome!</string>
 			<key>packageIdentifier</key>
-			<string>ws.hbang.newterm2</string>
+			<string>ws.hbang.newterm3</string>
 		</dict>
 		<dict>
 			<key>cellClass</key>
