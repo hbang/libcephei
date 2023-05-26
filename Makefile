@@ -66,14 +66,14 @@ sdk: stage
 	@rm -rf $(CEPHEI_SDK_DIR) $(notdir $(CEPHEI_SDK_DIR)).zip
 	@set -e; for i in Cephei CepheiUI CepheiPrefs; do \
 		mkdir -p $(CEPHEI_SDK_DIR)/$$i.framework; \
-		cp -ra $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/$$i.framework/{$$i,Headers} $(CEPHEI_SDK_DIR)/$$i.framework/; \
+		cp -ra $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/$$i.framework/{$$i,Headers,Modules} $(CEPHEI_SDK_DIR)/$$i.framework/; \
 		xcrun tapi stubify \
 			--filetype=tbd-v4 \
 			--delete-input-file \
 			$(CEPHEI_SDK_DIR)/$$i.framework/$$i; \
 		rm -rf $(THEOS_VENDOR_LIBRARY_PATH)/iphone/rootless/$$i.framework; \
 	done
-	@rm -r $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/*.framework/Headers
+	@rm -r $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/*.framework/{Headers,Modules}
 	@cp -ra $(CEPHEI_SDK_DIR)/* $(THEOS_VENDOR_LIBRARY_PATH)/iphone/rootless/
 	@printf 'This is an SDK for developers wanting to use Cephei.\n\nVersion: %s\n\nFor more information, visit %s.' \
 		"$(THEOS_PACKAGE_BASE_VERSION)" \
