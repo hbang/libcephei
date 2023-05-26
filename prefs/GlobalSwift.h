@@ -15,8 +15,4 @@ static NSString *const installPrefix = @INSTALL_PREFIX;
 + (NSURL *)_preferencesReturnURL;
 @end
 
-@interface PSListController (HBTintAdditions)
-@property (nonatomic, copy, nullable, setter=hb_setAppearanceSettings:) HBAppearanceSettings *hb_appearanceSettings NS_SWIFT_NAME(appearanceSettings);
-@end
-
 NS_ASSUME_NONNULL_END

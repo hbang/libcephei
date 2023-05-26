@@ -82,7 +82,7 @@ public class SymbolRenderer: NSObject {
 		let scale = (dictionary["scale"] as? SymbolScale)?.symbolScaleValue ?? .medium
 
 		// Tint color: If we have one, use original mode, otherwise inherit tint color via template mode.
-		let tintColor = UIColor(propertyListValue: dictionary["tintColor"] as? CepheiUI.ColorPropertyListValue ?? "")
+		let tintColor = UIColor(propertyListValue: dictionary["tintColor"] as? ColorPropertyListValue ?? "")
 		let renderingMode: UIImage.RenderingMode = tintColor == nil ? .alwaysTemplate : .alwaysOriginal
 
 		let configuration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
@@ -92,7 +92,7 @@ public class SymbolRenderer: NSObject {
 		}
 
 		// Background color
-		if let backgroundColorValue = dictionary["backgroundColor"] as? CepheiUI.ColorPropertyListValue,
+		if let backgroundColorValue = dictionary["backgroundColor"] as? ColorPropertyListValue,
 			 let backgroundColor = UIColor(propertyListValue: backgroundColorValue) {
 			let tintedSymbolImage = symbolImage.withTintColor(tintColor ?? .white, renderingMode: renderingMode)
 			return makeIcon(backgroundColor: backgroundColor, isBig: false, glyph: tintedSymbolImage)
