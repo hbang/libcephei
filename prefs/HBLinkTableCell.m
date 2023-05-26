@@ -134,7 +134,7 @@
 		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_iconURL];
 		[request setValue:kHBCepheiUserAgent forHTTPHeaderField:@"User-Agent"];
 
-		[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		[[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
 			if (error != nil || statusCode != 200) {
 				os_log(OS_LOG_DEFAULT, "Error loading icon (%@): %{public}li %{public}@ - %{public}@", _iconURL.absoluteString, (long)statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode], error);
@@ -150,7 +150,7 @@
 					self.iconImage = image;
 				}
 			});
-		}];
+		}] resume];
 	});
 }
 
