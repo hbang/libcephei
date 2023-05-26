@@ -42,6 +42,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(StepperTableCell)
 @interface HBStepperTableCell : PSControlTableCell
 
 /// The stepper control.

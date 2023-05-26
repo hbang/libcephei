@@ -58,6 +58,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(PackageTableCell)
 @interface HBPackageTableCell : HBLinkTableCell
 
 @end

@@ -1,4 +1,6 @@
 import UIKit
+import Preferences
+@_exported import CepheiPrefs_ObjC
 
 /// The HBSpinnerTableCell class in CepheiPrefs displays an activity indicator when the cell is
 /// disabled.
@@ -43,7 +45,7 @@ import UIKit
 /// ```
 
 @objc(HBSpinnerTableCell)
-class SpinnerTableCell: HBTintedTableCell {
+public class SpinnerTableCell: TintedTableCell {
 
 	private let spinner = UIActivityIndicatorView(style: .medium)
 
@@ -52,16 +54,11 @@ class SpinnerTableCell: HBTintedTableCell {
 		accessoryView = spinner
 	}
 
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		accessoryView = spinner
-	}
-
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override var cellEnabled: Bool {
+	override public var cellEnabled: Bool {
 		didSet {
 			if cellEnabled {
 				spinner.stopAnimating()

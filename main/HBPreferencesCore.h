@@ -3,6 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(PreferencesCore)
 @interface HBPreferencesCore : NSObject
 
 @property (nonatomic, retain, readonly) NSString *identifier;

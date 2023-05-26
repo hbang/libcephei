@@ -1,4 +1,5 @@
 import UIKit
+import Preferences
 
 /// The HBImageTableCell class in CepheiPrefs provides a simple way to display an image as a
 /// table cell, or a header or footer.
@@ -46,11 +47,6 @@ class ImageTableCell: PSTableCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, specifier: PSSpecifier?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier, specifier: specifier)
-		setUp()
-	}
-
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setUp()
 	}
 

@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The resulting view controller should be presented modally; it should not be pushed on a
 /// navigation controller stack.
 
+NS_SWIFT_NAME(SupportController)
 @interface HBSupportController : NSObject
 
 /// Initialises a Mail composer by using information provided by a bundle and preferences identifier.

@@ -16,8 +16,8 @@ extension String: ColorPropertyListValue {}
 /// - see: `UIColor.init(propertyListValue:)`
 extension Array: ColorPropertyListValue where Element: FixedWidthInteger {}
 
-/// Alderis provides extensions to `UIColor` for the purpose of serializing and deserializing colors
-/// into representations that can be stored in property lists, JSON, and similar formats.
+/// CepheiUI provides extensions to `UIColor` for the purpose of serializing and deserializing
+/// colors into representations that can be stored in property lists, JSON, and similar formats.
 public extension UIColor {
 
 	/// Initializes and returns a color object using data from the specified object.

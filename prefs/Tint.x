@@ -1,6 +1,7 @@
 #import "UINavigationItem+HBTintAdditions.h"
 #import <UIKit/UINavigationBar+Private.h>
 #import "CepheiPrefs-Swift.h"
+@import CepheiUI;
 
 @interface UINavigationBar (HBTintAdditions)
 

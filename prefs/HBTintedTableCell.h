@@ -38,6 +38,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(TintedTableCell)
 @interface HBTintedTableCell : PSTableCell
 
 @end

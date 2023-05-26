@@ -1,4 +1,7 @@
 import UIKit
+import Preferences
+@_exported import CepheiPrefs_ObjC
+@_implementationOnly import CepheiPrefs_Private
 
 /// The HBListController class in CepheiPrefs provides a list controller with various
 /// conveniences such as a unique tint color for the list controllers within a preference bundle,
@@ -299,13 +302,13 @@ public class ListController: PSListController {
 			}
 
 			if let cellClass = specifier.properties?[PSCellClassKey] as? AnyClass,
-				 cellClass.isSubclass(of: HBLinkTableCell.self) && specifier.buttonAction == nil {
+				 cellClass.isSubclass(of: LinkTableCell.self) && specifier.buttonAction == nil {
 				// Override the type and action to our own.
 				specifier.cellType = .linkCell
 				let action: Selector
-				if cellClass.isSubclass(of: HBPackageTableCell.self) {
+				if cellClass.isSubclass(of: PackageTableCell.self) {
 					action = #selector(openPackage)
-				} else if cellClass.isSubclass(of: HBMastodonTableCell.self) {
+				} else if cellClass.isSubclass(of: MastodonTableCell.self) {
 					action = #selector(openMastodon)
 				} else {
 					action = #selector(openURL)

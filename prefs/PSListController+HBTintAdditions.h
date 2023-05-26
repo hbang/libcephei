@@ -1,4 +1,4 @@
-#import <Preferences/PSListController.h>
+@import Preferences;
 
 @class HBAppearanceSettings;
 

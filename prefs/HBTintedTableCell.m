@@ -1,5 +1,7 @@
 #import "HBTintedTableCell.h"
 #import <Preferences/PSSpecifier.h>
+@import CepheiUI;
+@import CepheiPrefs_Private;
 
 @implementation HBTintedTableCell
 

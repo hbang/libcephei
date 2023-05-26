@@ -106,6 +106,8 @@ typedef void (^HBPreferencesValueChangeCallback)(NSString *key, id<NSCopying> _N
 /// This could be done [using IPC](http://iphonedevwiki.net/index.php/IPC) from an unsandboxed
 /// process such as SpringBoard. Avoid sending sensitive information via IPC to sandboxed apps, as
 /// they can still get access to data you send through various ways.
+
+NS_SWIFT_NAME(Preferences)
 @interface HBPreferences : NSObject
 
 /// @name Initializing an HBPreferences Object

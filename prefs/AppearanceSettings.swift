@@ -48,7 +48,7 @@ public class AppearanceSettings: NSObject {
 
 	/// Constants indicating how to size the title of this item.
 	@objc(HBAppearanceSettingsLargeTitleStyle)
-	enum LargeTitleStyle: UInt {
+	public enum LargeTitleStyle: UInt {
 		/// Display a large title only when the current view controller is a subclass of
 		/// `HBRootListController`.
 		///
@@ -70,12 +70,12 @@ public class AppearanceSettings: NSObject {
 	/// A nil value will cause no modification of the tint to occur.
 	///
 	/// @return By default, nil.
-	@objc var tintColor: UIColor?
+	@objc public var tintColor: UIColor?
 
 	/// The user interface style to use. Set this property to a UIUserInterfaceStyle to use.
 	///
 	/// @return By default, UIUserInterfaceStyleUnspecified.
-	@objc var userInterfaceStyle: UIUserInterfaceStyle = .unspecified
+	@objc public var userInterfaceStyle: UIUserInterfaceStyle = .unspecified
 
 	/// @name Navigation Bar
 
@@ -86,39 +86,39 @@ public class AppearanceSettings: NSObject {
 	/// A nil value will cause no modification of the navigation bar tint to occur.
 	///
 	/// @return By default, nil.
-	@objc var navigationBarTintColor: UIColor?
+	@objc public var navigationBarTintColor: UIColor?
 
 	/// The color to use for the navigation bar title label. Set this property to a UIColor to use.
 	///
 	/// A nil value will cause no modification of the navigation bar title color to occur.
 	///
 	/// @return By default, nil.
-	@objc var navigationBarTitleColor: UIColor?
+	@objc public var navigationBarTitleColor: UIColor?
 
 	/// The background color to use for the navigation bar. Set this property to a UIColor to use.
 	///
 	/// A nil value will cause no modification of the navigation bar background to occur.
 	///
 	/// @return By default, nil.
-	@objc var navigationBarBackgroundColor: UIColor?
+	@objc public var navigationBarBackgroundColor: UIColor?
 
 	/// The status bar style to use. Set this property to a UIStatusBarStyle to use.
 	///
 	/// @return By default, UIStatusBarStyleDefault.
-	@objc var statusBarStyle: UIStatusBarStyle = .default
+	@objc public var statusBarStyle: UIStatusBarStyle = .default
 
 	/// Whether to show the shadow (separator line) at the bottom of the navigation bar.
 	///
 	/// Requires iOS 13 or later.
 	///
 	/// @return By default, YES.
-	@objc var showsNavigationBarShadow = true
+	@objc public var showsNavigationBarShadow = true
 
 	/// Whether to use a large title on iOS 11 and newer. Set this property to a value from
 	/// HBAppearanceSettingsLargeTitleStyle.
 	///
 	/// @return By default, HBAppearanceSettingsLargeTitleStyleRootOnly.
-	@objc var largeTitleStyle: LargeTitleStyle = .rootOnly
+	@objc public var largeTitleStyle: LargeTitleStyle = .rootOnly
 
 	/// @name Table View
 
@@ -126,31 +126,31 @@ public class AppearanceSettings: NSObject {
 	/// UIColor to use.
 	///
 	/// @return By default, nil.
-	@objc var tableViewBackgroundColor: UIColor?
+	@objc public var tableViewBackgroundColor: UIColor?
 
 	/// The color to be used for the text color of table view cells. Set this property to a UIColor to
 	/// use.
 	///
 	/// @return By default, nil.
-	@objc var tableViewCellTextColor: UIColor?
+	@objc public var tableViewCellTextColor: UIColor?
 
 	/// The color to be used for the background color of table view cells. Set this property to a
 	/// UIColor to use.
 	///
 	/// @return By default, nil.
-	@objc var tableViewCellBackgroundColor: UIColor?
+	@objc public var tableViewCellBackgroundColor: UIColor?
 
 	/// The color to be used for the separator between table view cells. Set this property to a UIColor
 	/// to use.
 	///
 	/// @return By default, nil.
-	@objc var tableViewCellSeparatorColor: UIColor?
+	@objc public var tableViewCellSeparatorColor: UIColor?
 
 	/// The color to be used when a table view cell is selected. This color will be shown when the cell
 	/// is in the highlighted state.
 	///
 	/// @return By default, nil.
-	@objc var tableViewCellSelectionColor: UIColor?
+	@objc public var tableViewCellSelectionColor: UIColor?
 
 }
 

@@ -66,6 +66,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(MastodonTableCell)
 @interface HBMastodonTableCell : HBLinkTableCell
 
 @end

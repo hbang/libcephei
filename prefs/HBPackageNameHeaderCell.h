@@ -109,6 +109,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(PackageNameHeaderCell)
 @interface HBPackageNameHeaderCell : PSTableCell <PSHeaderFooterView>
 
 @end

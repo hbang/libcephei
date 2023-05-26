@@ -1,6 +1,7 @@
 import UIKit
 import CryptoKit
 import os.log
+@_implementationOnly import CepheiPrefs_Private
 
 fileprivate struct WebFingerData: Codable {
 	let links: [WebFingerLink]
@@ -36,18 +37,18 @@ fileprivate struct MastodonUserInfo: Codable {
 }
 
 @objc(HBMastodonAPIClientDelegate)
-protocol MastodonAPIClientDelegate: NSObjectProtocol {
-	func mastodonAPIClientDidLoad(account: String, actualAccount: String, url: URL?, profileImage: UIImage?)
+public protocol MastodonAPIClientDelegate: NSObjectProtocol {
+	@objc func mastodonAPIClientDidLoad(account: String, actualAccount: String, url: URL?, profileImage: UIImage?)
 }
 
 @objc(HBMastodonAPIClient)
-class MastodonAPIClient: NSObject {
+public class MastodonAPIClient: NSObject {
 
 	private static let userAgent = "Cephei/\(cepheiVersion) iOS/\(UIDevice.current.systemVersion) (+https://hbang.github.io/libcephei/)"
 	private static let cacheCutoff: TimeInterval = 4 * 24 * 60 * 60
 
 	@objc(sharedInstance)
-	static let shared = MastodonAPIClient()
+	public static let shared = MastodonAPIClient()
 
 	private let logger = Logger(subsystem: "ws.hbang.common", category: "MastodonAPIClient")
 
@@ -162,7 +163,7 @@ class MastodonAPIClient: NSObject {
 
 	// MARK: - Queue
 
-	@objc func queueLookup(forAccount account: String) {
+	@objc public func queueLookup(forAccount account: String) {
 		Task.detached(priority: .userInitiated) {
 			if let key = self.cacheKey(forAccount: account),
 				 let item = self.cache[key] {
@@ -173,14 +174,14 @@ class MastodonAPIClient: NSObject {
 		}
 	}
 
-	@objc func addDelegate(_ delegate: MastodonAPIClientDelegate, forAccount account: String) {
+	@objc public func addDelegate(_ delegate: MastodonAPIClientDelegate, forAccount account: String) {
 		if delegates[account] == nil {
 			delegates[account] = NSHashTable.weakObjects()
 		}
 		delegates[account]?.add(delegate)
 	}
 
-	@objc func removeDelegate(_ delegate: MastodonAPIClientDelegate, forAccount account: String?) {
+	@objc public func removeDelegate(_ delegate: MastodonAPIClientDelegate, forAccount account: String?) {
 		if let account = account {
 			delegates[account]?.remove(delegate)
 		} else {

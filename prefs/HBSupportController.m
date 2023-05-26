@@ -1,9 +1,9 @@
 #import "HBSupportController.h"
-#import "../HBOutputForShellCommand.h"
-#import "../HBPreferences.h"
 #import <HBLog.h>
 #import <MobileGestalt/MobileGestalt.h>
 #import "CepheiPrefs-Swift.h"
+@import Cephei;
+@import CepheiPrefs_Private;
 @import MessageUI;
 
 @implementation HBSupportController
@@ -52,15 +52,15 @@
 #else
 	// Try and figure out what package we have.
 	NSString *package = bundle.infoDictionary[@"HBPackageIdentifier"] ?: bundle.bundleIdentifier;
-	NSDictionary <NSString *, NSString *> *fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+	NSDictionary <NSString *, NSString *> *fields = [HBPackageUtils getFields:@[@"Name", @"Author", @"Maintainer", @"Version"] forPackage:package];
 	NSString *author = sendToEmail ?: fields[@"Author"] ?: fields[@"Maintainer"];
 	if (author == nil) {
 		// Try something else.
 		NSParameterAssert(bundle);
-		package = resolvePackageForFile(bundle.executablePath);
+		package = [HBPackageUtils resolvePackageForFile:bundle.executablePath];
 		NSAssert(package != nil, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 
-		fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+		fields = [HBPackageUtils getFields:@[@"Name", @"Author", @"Maintainer", @"Version"] forPackage:package];
 		author = fields[@"Author"] ?: fields[@"Maintainer"];
 		NSAssert(author != nil, @"Could not retrieve a package for preferences identifier %@, bundle %@.", preferencesIdentifier, bundle);
 	}

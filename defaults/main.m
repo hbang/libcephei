@@ -1,4 +1,4 @@
-#import "../HBPreferences.h"
+@import Cephei;
 
 void usage(char *name) {
 	printf(

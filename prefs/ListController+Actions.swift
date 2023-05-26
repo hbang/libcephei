@@ -1,5 +1,10 @@
 import UIKit
+import Cephei
+import MobileCoreServices
+import MobileIcons
+import Preferences
 import SafariServices
+@_implementationOnly import CepheiPrefs_Private
 
 fileprivate protocol URLConvertible {
 	var url: URL? { get }

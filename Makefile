@@ -21,7 +21,6 @@ include $(THEOS)/makefiles/common.mk
 
 export ADDITIONAL_CFLAGS = \
 	-fobjc-arc \
-	-fmodule-map-file=module.modulemap \
 	-Wextra -Wno-unused-parameter \
 	-F$(THEOS_OBJ_DIR) \
 	-DTHEOS -DTHEOS_LEAN_AND_MEAN \
@@ -29,49 +28,24 @@ export ADDITIONAL_CFLAGS = \
 	-DINSTALL_PREFIX="\"$(THEOS_PACKAGE_INSTALL_PREFIX)\"" \
 	-DCEPHEI_EMBEDDED=$(if $(CEPHEI_EMBEDDED),1,0)
 export ADDITIONAL_SWIFTFLAGS = -enable-library-evolution
-export ADDITIONAL_LDFLAGS = -Xlinker -no_warn_inits
+export ADDITIONAL_LDFLAGS = \
+	-F$(THEOS_OBJ_DIR) \
+	-Xlinker -no_warn_inits
 
-FRAMEWORK_NAME = Cephei
-Cephei_FILES = $(wildcard *.swift) $(wildcard *.m) $(wildcard *.x)
-Cephei_PUBLIC_HEADERS = Cephei.h HBOutputForShellCommand.h HBPreferences.h HBRespringController.h
-Cephei_CFLAGS = -fapplication-extension -include Global.h -DROCKETBOOTSTRAP_LOAD_DYNAMIC
-Cephei_LDFLAGS = -fapplication-extension -install_name @rpath/Cephei.framework/Cephei
-Cephei_SWIFTFLAGS = -emit-module-interface-path $(THEOS_OBJ_DIR)/Cephei.swiftinterface
-Cephei_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
-
-SUBPROJECTS = ui prefs
+SUBPROJECTS = main ui prefs
 
 ifeq ($(CEPHEI_EMBEDDED),1)
 	PACKAGE_BUILDNAME += embedded
-	Cephei_INSTALL_PATH = @rpath
-	Cephei_LOGOSFLAGS = -c generator=internal
 else ifneq ($(CEPHEI_SIMULATOR),1)
 	SUBPROJECTS += defaults
 endif
 
-include $(THEOS_MAKE_PATH)/framework.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
-after-Cephei-all::
-	@mkdir -p $(THEOS_OBJ_DIR)/Cephei.framework/Modules/Cephei.swiftmodule
-	@cp $(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated/Cephei-Swift.h $(THEOS_OBJ_DIR)/Cephei.framework/Headers
-	@cp module.modulemap $(THEOS_OBJ_DIR)/Cephei.framework/Modules
-	@for arch in $(ARCHS); do \
-		for file in swiftdoc swiftmodule swiftinterface; do \
-			cp $(THEOS_OBJ_DIR)/$$arch/Cephei.$$file $(THEOS_OBJ_DIR)/Cephei.framework/Modules/Cephei.swiftmodule/$$arch.$$file; \
-		done; \
-	done
-
-after-Cephei-stage::
+after-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
-	@mkdir -p \
-		$(THEOS_STAGING_DIR)/DEBIAN \
-		$(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries
+	@mkdir -p $(THEOS_STAGING_DIR)/DEBIAN
 	@cp postinst prerm $(THEOS_STAGING_DIR)/DEBIAN
-
-	@# Set up CepheiSpringBoard
-	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/Cephei.framework/Cephei $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries/CepheiSpringBoard.dylib
-	@cp CepheiSpringBoard.plist $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/MobileSubstrate/DynamicLibraries
 endif
 
 after-install::

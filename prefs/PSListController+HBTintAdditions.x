@@ -4,6 +4,7 @@
 #import "CepheiPrefs-Swift.h"
 #import <UIKit/UIApplication+Private.h>
 #import <UIKit/UIStatusBar.h>
+@import CepheiUI;
 
 @interface PSListController ()
 
@@ -22,22 +23,11 @@
 
 @dynamic hb_appearanceSettings;
 
-@end
-
-%hook PSListController
-
-%property (nonatomic, retain) HBAppearanceSettings *_hb_internalAppearanceSettings;
-%property (nonatomic, retain) UIColor *_hb_tableViewCellTextColor;
-%property (nonatomic, retain) UIColor *_hb_tableViewCellBackgroundColor;
-%property (nonatomic, retain) UIColor *_hb_tableViewCellSelectionColor;
-
-#pragma mark - Getter/setter
-
-%new - (HBAppearanceSettings *)hb_appearanceSettings {
+- (HBAppearanceSettings *)hb_appearanceSettings {
 	return self._hb_internalAppearanceSettings;
 }
 
-%new - (void)hb_setAppearanceSettings:(HBAppearanceSettings *)appearanceSettings {
+- (void)hb_setAppearanceSettings:(HBAppearanceSettings *)appearanceSettings {
 	// If appearanceSettings is nil, instantiate a generic appearance object
 	if (appearanceSettings == nil) {
 		appearanceSettings = [[HBAppearanceSettings alloc] init];
@@ -73,6 +63,15 @@
 	self.navigationItem.scrollEdgeAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.scrollEdgeAppearance];
 	self.navigationItem.compactAppearance = [self _hb_configureNavigationBarAppearance:self.navigationItem.compactAppearance];
 }
+
+@end
+
+%hook PSListController
+
+%property (nonatomic, retain) HBAppearanceSettings *_hb_internalAppearanceSettings;
+%property (nonatomic, retain) UIColor *_hb_tableViewCellTextColor;
+%property (nonatomic, retain) UIColor *_hb_tableViewCellBackgroundColor;
+%property (nonatomic, retain) UIColor *_hb_tableViewCellSelectionColor;
 
 #pragma mark - UIViewController
 

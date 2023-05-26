@@ -1,5 +1,7 @@
 import UIKit
 import CepheiUI
+import Preferences
+@_implementationOnly import CepheiPrefs_Private
 
 /// The HBDemoRootListController class in CepheiPrefs provides a demo of a preference page
 /// created using `HBRootListController`. See the Cephei readme for details.

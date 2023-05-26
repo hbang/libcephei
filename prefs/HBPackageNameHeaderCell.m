@@ -2,6 +2,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <UIKit/UITableViewCell+Private.h>
 #import "CepheiPrefs-Swift.h"
+@import CepheiUI;
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
 static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
@@ -93,7 +94,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 
 #if !CEPHEI_EMBEDDED
 		NSString *package = specifier.properties[@"packageIdentifier"];
-		NSDictionary <NSString *, NSString *> *fields = getFieldsForPackage(package, @[ @"Name", @"Author", @"Maintainer", @"Version" ]);
+		NSDictionary <NSString *, NSString *> *fields = [HBPackageUtils getFields:@[@"Name", @"Author", @"Maintainer", @"Version"] forPackage:package];
 		_name = fields[@"Name"] ?: @"";
 		_author = fields[@"Author"] ?: fields[@"Maintainer"] ?: @"";
 		_version = fields[@"Version"] ?: @"";

@@ -79,7 +79,7 @@
 
 					UIImage *maskImage = iconMasks[@(iconSize)];
 					if (maskImage == nil) {
-						maskImage = [SymbolRenderer makeIconWithBackgroundColor:[UIColor whiteColor] isBig:_isBig glyph:nil];
+						maskImage = [HBSymbolRenderer makeIconWithBackgroundColor:[UIColor whiteColor] isBig:_isBig glyph:nil];
 						iconMasks[@(iconSize)] = maskImage;
 					}
 					CALayer *maskLayer = [CALayer layer];

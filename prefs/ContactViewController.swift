@@ -1,19 +1,20 @@
 import UIKit
+import Cephei
 import MessageUI
-import CepheiPrefs_Private
+@_implementationOnly import CepheiPrefs_Private
 
 @objc(HBContactViewController)
-class ContactViewController: ListController {
+public class ContactViewController: ListController {
 
-	@objc var to: String?
-	@objc var subject: String?
-	@objc var messageBody: String?
-	@objc var preferencesPlist: Data?
-	@objc var preferencesIdentifier: String?
+	@objc public var to: String?
+	@objc public var subject: String?
+	@objc public var messageBody: String?
+	@objc public var preferencesPlist: Data?
+	@objc public var preferencesIdentifier: String?
 
 	private var hasShown = false
 
-	init() {
+	public init() {
 		super.init(nibName: nil, bundle: nil)
 		modalPresentationStyle = .overCurrentContext
 	}
@@ -22,7 +23,7 @@ class ContactViewController: ListController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override func viewDidLoad() {
+	override public func viewDidLoad() {
 		super.viewDidLoad()
 
 		if navigationController == nil || navigationController?.viewControllers.count == 1 {
@@ -30,7 +31,7 @@ class ContactViewController: ListController {
 		}
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
+	override public func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
 		if hasShown {
@@ -81,7 +82,7 @@ class ContactViewController: ListController {
 }
 
 extension ContactViewController: MFMailComposeViewControllerDelegate {
-	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+	public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
 		controller.dismiss(animated: true)
 		dismiss()
 	}

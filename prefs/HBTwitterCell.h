@@ -17,6 +17,7 @@
 /// </tr>
 /// </table>
 
+NS_SWIFT_NAME(TwitterTableCell)
 @interface HBTwitterCell : HBLinkTableCell
 
 @end

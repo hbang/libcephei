@@ -1,5 +1,9 @@
 include $(THEOS)/makefiles/common.mk
 
+ifeq ($(ROOT_OBJ_DIR),)
+	export ROOT_OBJ_DIR := $(THEOS_OBJ_DIR)
+endif
+
 FRAMEWORK_NAME = CepheiPrefs
 
 CepheiPrefs_FILES = $(wildcard *.swift) $(wildcard *.m) $(wildcard *.x)
@@ -8,9 +12,18 @@ CepheiPrefs_FRAMEWORKS = MobileCoreServices
 CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
 CepheiPrefs_LIBRARIES = MobileGestalt
 CepheiPrefs_WEAK_FRAMEWORKS = SafariServices
-CepheiPrefs_CFLAGS = -include Global.h -I.
+CepheiPrefs_CFLAGS = \
+	-fmodule-map-file=$(PWD)/module.modulemap \
+	-fmodule-map-file=$(PWD)/module.private.modulemap \
+	-fmodule-map-file=$(PWD)/objc/module.modulemap \
+	-include Global.h \
+	-I$(ROOT_OBJ_DIR)
 CepheiPrefs_LDFLAGS = -install_name @rpath/CepheiPrefs.framework/CepheiPrefs
-CepheiPrefs_SWIFTFLAGS = -emit-module-interface-path $(THEOS_OBJ_DIR)/CepheiPrefs.swiftinterface -Xcc -fmodule-map-file=$(PWD)/private.modulemap
+CepheiPrefs_SWIFTFLAGS = \
+	-emit-module-interface-path $(THEOS_OBJ_DIR)/CepheiPrefs.swiftinterface \
+	-I. \
+	-Iprivate \
+	-I$(ROOT_OBJ_DIR)
 CepheiPrefs_INSTALL_PATH = $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks
 
 ifeq ($(CEPHEI_EMBEDDED),1)
@@ -29,15 +42,14 @@ after-CepheiPrefs-all::
 	@cp $(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated/CepheiPrefs-Swift.h $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
 	@cp module.modulemap $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Modules
 	@for arch in $(ARCHS); do \
-		for file in swiftdoc swiftmodule swiftinterface; do \
-			cp $(THEOS_OBJ_DIR)/$$arch/CepheiPrefs.$$file $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Modules/CepheiPrefs.swiftmodule/$$arch.$$file; \
+		for file in swiftdoc swiftmodule swiftinterface abi.json; do \
+			cp $(THEOS_OBJ_DIR)/$$arch/CepheiPrefs.$$file $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Modules/CepheiPrefs.swiftmodule/$$arch-apple-ios.$$file; \
 		done; \
 	done
 
 after-CepheiPrefs-stage::
 ifneq ($(CEPHEI_EMBEDDED),1)
-	@mkdir -p \
-		$(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles
+	@mkdir -p $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles
 	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/CepheiPrefs.framework $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles/Cephei.bundle
 
 ifeq ($(PACKAGE_BUILDNAME),debug)

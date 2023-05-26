@@ -1,5 +1,7 @@
 import UIKit
-import CepheiPrefs_Private
+import Preferences
+@_exported import CepheiPrefs_ObjC
+@_implementationOnly import CepheiPrefs_Private
 
 /// The HBAboutListController class in CepheiPrefs provides a list controller with functions
 /// that would typically be used on an "about" page. It includes two class methods you can override
@@ -80,15 +82,21 @@ public class AboutListController: ListController {
 	///
 	/// @see `HBSupportController`
 	@objc(hb_sendSupportEmail)
-	public func sendSupportEmail() {
+	public func _sendSupportEmailObjC() {
 		sendSupportEmail(nil)
 	}
 
+	/// Displays a support composer form.
+	///
+	/// The `-hb_supportEmailAddress` method provides the appropriate parameters to
+	/// `HBSupportController`.
+	///
+	/// @see `HBSupportController`
 	@objc(hb_sendSupportEmail:)
-	public func sendSupportEmail(_ sender: PSSpecifier?) {
-		let viewController = HBSupportController.supportViewController(for: Bundle(for: Self.self),
-																																	 preferencesIdentifier: specifier?.properties["defaults"] as? String,
-																																	 sendToEmail: supportEmailAddress) as! ListController
+	public func sendSupportEmail(_ sender: PSSpecifier? = nil) {
+		let viewController = SupportController.supportViewController(for: Bundle(for: Self.self),
+																																 preferencesIdentifier: specifier?.properties["defaults"] as? String,
+																																 sendToEmail: supportEmailAddress) as! ListController
 		viewController.appearanceSettings = appearanceSettings
 		viewController.overrideUserInterfaceStyle = overrideUserInterfaceStyle
 		realNavigationController?.present(viewController, animated: false)

@@ -22,7 +22,7 @@
 		];
 		NSURL *iconURL = canisterURL.URL;
 
-		NSString *iconField = getFieldForPackage(_identifier, @"Icon");
+		NSString *iconField = [HBPackageUtils getField:@"Icon" forPackage:_identifier];
 		if (iconField && ![iconField isEqualToString:@""]) {
 			NSURL *maybeIconURL = [NSURL URLWithString:iconField];
 			if (maybeIconURL != nil && (!maybeIconURL.isFileURL || [maybeIconURL checkResourceIsReachableAndReturnError:nil])) {

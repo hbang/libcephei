@@ -1,6 +1,6 @@
 import UIKit
 import CepheiUI
-import ObjectiveC
+@_implementationOnly import CepheiPrefs_Private
 
 fileprivate protocol SymbolWeight {
 	var symbolWeightValue: UIImage.SymbolWeight? { get }
@@ -41,9 +41,10 @@ extension String: SymbolWeight, SymbolScale {
 	}
 }
 
-@objc class SymbolRenderer: NSObject {
+@objc(HBSymbolRenderer)
+public class SymbolRenderer: NSObject {
 
-	@objc static func makeIcon(backgroundColor: UIColor, isBig: Bool, glyph: UIImage?) -> UIImage {
+	@objc public static func makeIcon(backgroundColor: UIColor, isBig: Bool, glyph: UIImage?) -> UIImage {
 		let iconSize = isBig ? 40 : 29
 		let iconRect = CGRect(x: 0, y: 0, width: iconSize, height: iconSize)
 
@@ -81,7 +82,7 @@ extension String: SymbolWeight, SymbolScale {
 		let scale = (dictionary["scale"] as? SymbolScale)?.symbolScaleValue ?? .medium
 
 		// Tint color: If we have one, use original mode, otherwise inherit tint color via template mode.
-		let tintColor = UIColor(propertyListValue: dictionary["tintColor"] as? ColorPropertyListValue ?? "")
+		let tintColor = UIColor(propertyListValue: dictionary["tintColor"] as? CepheiUI.ColorPropertyListValue ?? "")
 		let renderingMode: UIImage.RenderingMode = tintColor == nil ? .alwaysTemplate : .alwaysOriginal
 
 		let configuration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
@@ -91,7 +92,7 @@ extension String: SymbolWeight, SymbolScale {
 		}
 
 		// Background color
-		if let backgroundColorValue = dictionary["backgroundColor"] as? ColorPropertyListValue,
+		if let backgroundColorValue = dictionary["backgroundColor"] as? CepheiUI.ColorPropertyListValue,
 			 let backgroundColor = UIColor(propertyListValue: backgroundColorValue) {
 			let tintedSymbolImage = symbolImage.withTintColor(tintColor ?? .white, renderingMode: renderingMode)
 			return makeIcon(backgroundColor: backgroundColor, isBig: false, glyph: tintedSymbolImage)

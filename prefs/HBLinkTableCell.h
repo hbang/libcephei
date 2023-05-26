@@ -89,6 +89,7 @@
 /// </dict>
 /// ```
 
+NS_SWIFT_NAME(LinkTableCell)
 @interface HBLinkTableCell : HBTintedTableCell
 
 /// Whether the cell is 64 pixels or more in height.
