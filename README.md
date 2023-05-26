@@ -1,4 +1,6 @@
 # ![Cephei Tweak Support](info/logo.jpg)
+[![wakatime](https://wakatime.com/badge/user/b9fcf8ba-3fce-41a4-a480-d3fe6074a1ad/project/006da170-06ce-425f-a548-6e74a366cf3a.svg)](https://wakatime.com/badge/user/b9fcf8ba-3fce-41a4-a480-d3fe6074a1ad/project/006da170-06ce-425f-a548-6e74a366cf3a)
+
 Cephei is a framework for jailbroken iOS devices that includes various convenience features for developers. Primarily, it focuses on settings-related features, but it also contains other utilties. I hope you’ll appreciate what it has to offer.
 
 All iOS versions since 5.0 are supported, on all devices.
@@ -23,7 +25,7 @@ You can now use Cephei components in your project.
 You must also add `ws.hbang.common` to the `Depends:` list in your control file. If Cephei isn’t present on the device, your binaries will fail to load. For example:
 
 ```yaml
-Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common (>= 1.17)
+Depends: mobilesubstrate, something-else, some-other-package, ws.hbang.common (>= 2.0)
 ```
 
 You should specify the current version of Cephei as the minimum requirement, so you can guarantee all features you use are available.
