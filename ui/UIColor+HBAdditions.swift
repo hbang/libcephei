@@ -31,10 +31,10 @@ public extension UIColor {
 	///
 	/// Use `-[UIColor initWithHbcp_propertyListValue:]` to access this method from Objective-C.
 	///
-	/// - parameter value: The object to retrieve data from. See the discussion for the supported object
-	/// types.
+	/// - parameter value: The object to retrieve data from. See the discussion for the supported
+	///   object types.
 	/// - returns: An initialized color object, or nil if the value does not conform to the expected
-	/// type. The color information represented by this object is in the device RGB colorspace.
+	///   type. The color information represented by this object is in the device RGB colorspace.
 	/// - see: `propertyListValue`
 	@nonobjc convenience init?(propertyListValue: ColorPropertyListValue?) {
 		if let array = propertyListValue as? [Int], array.count == 3 || array.count == 4 {
@@ -90,9 +90,9 @@ public extension UIColor {
 	/// `-[UIColor hb_initWithPropertyListValue:]` as per usual.
 	///
 	/// - parameter value: The object to retrieve data from. See the discussion for the supported
-	/// object types.
+	///   object types.
 	/// - returns: An initialized color object, or nil if the value does not conform to the expected
-	/// type. The color information represented by this object is in the device RGB colorspace.
+	///   type. The color information represented by this object is in the device RGB colorspace.
 	/// - see: `init(propertyListValue:)`
 	@objc(hb_initWithPropertyListValue:)
 	convenience init?(_propertyListValueObjC propertyListValue: Any?) {
@@ -132,9 +132,8 @@ public extension UIColor {
 	/// }];
 	/// ```
 	///
-	/// @param variants A dictionary of interface style keys and UIColor values.
-	/// @return An initialized dynamic color object, or the receiver if dynamic colors are unsupported
-	/// by the current operating system.
+	/// - parameter variants: A dictionary of interface style keys and UIColor values.
+	/// - returns: An initialized dynamic color object.
 	@nonobjc convenience init(interfaceStyleVariants variants: [UIUserInterfaceStyle: UIColor]) {
 		self.init(dynamicProvider: { traitCollection in
 			let style = traitCollection.userInterfaceStyle
@@ -159,9 +158,9 @@ public extension UIColor {
 	/// Initializes and returns a dynamic color object, with saturation decreased by 4% in the dark
 	/// interface style.
 	///
-	/// @return If the color is already a dynamic color, returns the receiver. Otherwise, a new dynamic
+	/// - returns: If the color is already a dynamic color, returns the receiver. Otherwise, a new dynamic
 	/// color object.
-	/// @see `+hb_colorWithInterfaceStyleVariants:`
+	/// - see: `+hb_colorWithInterfaceStyleVariants:`
 	@objc(hb_colorWithDarkInterfaceVariant)
 	func _withDarkInterfaceVariantObjC() -> UIColor {
 		withDarkInterfaceVariant(nil)
@@ -190,9 +189,9 @@ public extension UIColor {
 	/// UIColor *otherColor = [[UIColor systemRedColor] hb_colorWithDarkInterfaceVariant:[UIColor systemOrangeColor]];
 	/// ```
 	///
-	/// @param darkColor The color to use in the dark interface style.
-	/// @return A new dynamic color object.
-	/// @see `-hb_colorWithInterfaceStyleVariants:`
+	/// - parameter darkColor: The color to use in the dark interface style.
+	/// - returns: A new dynamic color object.
+	/// - see: `-hb_colorWithInterfaceStyleVariants:`
 	@objc(hb_colorWithDarkInterfaceVariant:)
 	func withDarkInterfaceVariant(_ darkColor: UIColor? = nil) -> UIColor {
 		if darkColor == nil && isDynamicColor {

@@ -60,18 +60,23 @@ public class AboutListController: ListController {
 
 	public override var specifierPlist: String? { "About" }
 
-	/// @name Constants
+	/// - name: Constants
 
-	// TODO: DEPRECATE
 	/// The email address to use in the support email composer form. Override this method to return an
 	/// email address.
 	///
 	/// If this method returns nil, the package’s author email address is used.
 	///
-	/// @return By default, nil.
+	/// - returns: By default, nil.
 	@objc(hb_supportEmailAddress)
 	public static var supportEmailAddress: String? { nil }
 
+	/// The email address to use in the support email composer form. Override this method to return an
+	/// email address.
+	///
+	/// If this method returns nil, the package’s author email address is used.
+	///
+	/// - returns: By default, nil.
 	@objc(hb_supportEmailAddress)
 	public var supportEmailAddress: String? { Self.supportEmailAddress }
 
@@ -80,7 +85,7 @@ public class AboutListController: ListController {
 	/// The `-hb_supportEmailAddress` method provides the appropriate parameters to
 	/// `HBSupportController`.
 	///
-	/// @see `HBSupportController`
+	/// - see: `HBSupportController`
 	@objc(hb_sendSupportEmail)
 	public func _sendSupportEmailObjC() {
 		sendSupportEmail(nil)
@@ -91,7 +96,7 @@ public class AboutListController: ListController {
 	/// The `-hb_supportEmailAddress` method provides the appropriate parameters to
 	/// `HBSupportController`.
 	///
-	/// @see `HBSupportController`
+	/// - see: `HBSupportController`
 	@objc(hb_sendSupportEmail:)
 	public func sendSupportEmail(_ sender: PSSpecifier? = nil) {
 		let viewController = SupportController.supportViewController(for: Bundle(for: Self.self),

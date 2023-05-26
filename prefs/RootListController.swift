@@ -11,7 +11,7 @@ import UIKit
 @objc(HBRootListController)
 public class RootListController: ListController {
 
-	/// @name Constants
+	/// - name: Constants
 
 	// TODO: DEPRECATE
 	/// A string to be used as a default message when the user shares the package to a friend or social
@@ -20,7 +20,7 @@ public class RootListController: ListController {
 	/// If the return value of this method and `hb_shareURL `are nil, the sharing button will not be
 	/// displayed.
 	///
-	/// @return By default, nil.
+	/// - returns: By default, nil.
 	@objc(hb_shareText)
 	static var shareText: String? { nil }
 
@@ -30,7 +30,7 @@ public class RootListController: ListController {
 	/// If the return value of this method and `hb_shareText` are nil, the sharing button will not be
 	/// displayed.
 	///
-	/// @return By default, nil.
+	/// - returns: By default, nil.
 	@objc(hb_shareURL)
 	static var shareURL: URL? { nil }
 

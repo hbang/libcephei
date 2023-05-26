@@ -227,7 +227,7 @@ import Preferences
 @objc(HBListController)
 public class ListController: PSListController {
 
-	/// @name Specifiers
+	/// - name: Specifiers
 
 	// TODO: DEPRECATE
 	/// The property list that contains Preference framework specifiers to display as the content of the
@@ -249,7 +249,7 @@ public class ListController: PSListController {
 	/// If you use this method and override the `specifiers` method, ensure you call the super method
 	/// with `[super specifiers];` first in your `specifiers` implementation.
 	///
-	/// @return By default, nil.
+	/// - returns: By default, nil.
 	@objc(hb_specifierPlist)
 	static var specifierPlist: String? { nil }
 
@@ -335,7 +335,7 @@ public class ListController: PSListController {
 		return (specifiers as NSArray).mutableCopy() as! NSMutableArray
 	}
 
-	/// @name Related View Controllers
+	/// - name: Related View Controllers
 
 	/// Returns the “real” navigation controller for this view controller.
 	///
@@ -343,7 +343,7 @@ public class ListController: PSListController {
 	/// is actually a parent of `self.navigationController` on iPhone, due to the larger Plus models.
 	/// The realNavigationController method returns the correct navigation controller.
 	///
-	/// @return The real navigation controller.
+	/// - returns: The real navigation controller.
 	@objc var realNavigationController: UINavigationController? {
 		navigationController?.navigationController ?? navigationController
 	}

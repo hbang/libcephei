@@ -34,7 +34,7 @@ public extension ListController {
 	///
 	/// You should prefer to have preferences immediately take effect, rather than using this method.
 	///
-	/// @see `-hb_respringAndReturn:`
+	/// - see: `-hb_respringAndReturn:`
 	@objc(hb_respring:)
 	func respring(specifier: PSSpecifier?) {
 		handleRespring(andReturn: false, specifier: specifier)
@@ -45,7 +45,7 @@ public extension ListController {
 	///
 	/// You should prefer to have preferences immediately take effect, rather than using this method.
 	///
-	/// @see `-hb_respring:`
+	/// - see: `-hb_respring:`
 	@objc(hb_respringAndReturn:)
 	func respringAndReturn(specifier: PSSpecifier?) {
 		handleRespring(andReturn: true, specifier: specifier)
@@ -67,7 +67,7 @@ public extension ListController {
 	///
 	/// This is intended to be used with `HBLinkTableCell`.
 	///
-	/// @see `HBLinkTableCell`
+	/// - see: `HBLinkTableCell`
 	@objc(hb_openURL:)
 	func openURL(specifier: PSSpecifier?) {
 		guard let url = (specifier?.properties?["url"] as? URLConvertible)?.url else {
@@ -140,7 +140,7 @@ public extension ListController {
 	///
 	/// This is intended to be used with `HBPackageTableCell`.
 	///
-	/// @see `HBPackageTableCell`
+	/// - see: `HBPackageTableCell`
 	@objc(hb_openPackage:)
 	func openPackage(specifier: PSSpecifier?) {
 		guard let packageID = specifier?.properties?["packageIdentifier"] as? String,
@@ -171,7 +171,7 @@ public extension ListController {
 	///
 	/// This is intended to be used with `HBMastodonTableCell`.
 	///
-	/// @see `HBMastodonTableCell`
+	/// - see: `HBMastodonTableCell`
 
 	@objc(hb_openMastodon:)
 	func openMastodon(specifier: PSSpecifier?) {
