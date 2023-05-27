@@ -79,11 +79,11 @@ class ImageTableCell: PSTableCell {
 	}
 
 	override func refreshCellContents(with specifier: PSSpecifier) {
-		super.refreshCellContents(with: specifier)
-
 		if let image = specifier.properties["iconImage"] as? UIImage {
 			bigImageView.image = image
 		}
+
+		super.refreshCellContents(with: specifier)
 	}
 
 }
