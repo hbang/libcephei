@@ -7,7 +7,6 @@ extension ListController {
 
 	/// - name: Specifiers
 
-	// TODO: DEPRECATE
 	/// The property list that contains Preference framework specifiers to display as the content of the
 	/// list controller. Override this method to return the file name of a property list inside your
 	/// preference bundle, omitting the file extension.
@@ -31,6 +30,26 @@ extension ListController {
 	@objc(hb_specifierPlist)
 	static var specifierPlist: String? { nil }
 
+	/// The property list that contains Preference framework specifiers to display as the content of the
+	/// list controller. Override this method to return the file name of a property list inside your
+	/// preference bundle, omitting the file extension.
+	///
+	/// Example:
+	///
+	/// ```swift
+	/// override var specifierPlist: String { "Root" }
+	/// ```
+	///
+	/// ```objc
+	/// + (NSString *)hb_specifierPlist {
+	/// 	return @"Root";
+	/// }
+	/// ```
+	///
+	/// If you use this method and override the `specifiers` method, ensure you call the super method
+	/// with `[super specifiers];` first in your `specifiers` implementation.
+	///
+	/// - returns: By default, nil.
 	@objc(hb_specifierPlist)
 	var specifierPlist: String? { Self.specifierPlist }
 
