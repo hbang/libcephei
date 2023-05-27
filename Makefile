@@ -57,7 +57,7 @@ docs: stage
 	@$(PRINT_FORMAT_MAKING) "Generating docs"
 	@mkdir -p $(THEOS_STAGING_DIR)/usr/lib
 	@ln -s $(THEOS_VENDOR_INCLUDE_PATH) $(THEOS_STAGING_DIR)/usr/lib/include
-	@$(PRINT_FORMAT_MAKING) "Generating docs"; jazzy --module-version $(THEOS_PACKAGE_BASE_VERSION)
+	@jazzy --module-version $(THEOS_PACKAGE_BASE_VERSION)
 	@rm -r $(THEOS_STAGING_DIR)/usr
 	@rm docs/undocumented.json
 
