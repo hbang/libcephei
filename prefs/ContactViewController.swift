@@ -1,6 +1,7 @@
 import UIKit
 import Cephei
 import MessageUI
+@_exported import CepheiPrefs_ObjC
 @_implementationOnly import CepheiPrefs_Private
 
 @objc(HBContactViewController)
