@@ -22,7 +22,7 @@ include $(THEOS_MAKE_PATH)/framework.mk
 
 after-Cephei-all::
 	@mkdir -p $(THEOS_OBJ_DIR)/Cephei.framework/Modules/Cephei.swiftmodule
-	@cp $(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated/Cephei-Swift.h $(THEOS_OBJ_DIR)/Cephei.framework/Headers
+	@cp $(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated-headers/Cephei-Swift.h $(THEOS_OBJ_DIR)/Cephei.framework/Headers
 	@cp module.modulemap $(THEOS_OBJ_DIR)/Cephei.framework/Modules
 	@for arch in $(ARCHS); do \
 		for file in swiftdoc swiftmodule swiftinterface abi.json; do \
