@@ -7,7 +7,7 @@ endif
 FRAMEWORK_NAME = CepheiPrefs
 
 CepheiPrefs_FILES = $(wildcard *.swift) $(wildcard *.m) $(wildcard *.x)
-CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBLinkTableCell.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
+CepheiPrefs_PUBLIC_HEADERS = CepheiPrefs.h HBAboutListController.h HBLinkTableCell.h HBListController.h HBMastodonTableCell.h HBPackageTableCell.h HBPackageNameHeaderCell.h HBRootListController.h HBStepperTableCell.h HBSupportController.h HBTintedTableCell.h HBTwitterCell.h PSListController+HBTintAdditions.h
 CepheiPrefs_FRAMEWORKS = MobileCoreServices
 CepheiPrefs_PRIVATE_FRAMEWORKS = MobileIcons Preferences
 CepheiPrefs_LIBRARIES = MobileGestalt
@@ -39,7 +39,8 @@ include $(THEOS_MAKE_PATH)/framework.mk
 
 after-CepheiPrefs-all::
 	@mkdir -p $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Modules/CepheiPrefs.swiftmodule
-	@cp $(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated/CepheiPrefs-Swift.h $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers
+	@sed '/@import CepheiPrefs_ObjC;/d' \
+		$(THEOS_OBJ_DIR)/$(firstword $(ARCHS))/generated/CepheiPrefs-Swift.h > $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Headers/CepheiPrefs-Swift.h
 	@cp module.modulemap $(THEOS_OBJ_DIR)/CepheiPrefs.framework/Modules
 	@for arch in $(ARCHS); do \
 		for file in swiftdoc swiftmodule swiftinterface abi.json; do \
