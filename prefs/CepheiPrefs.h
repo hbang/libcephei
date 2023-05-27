@@ -10,3 +10,7 @@
 #import "HBTintedTableCell.h"
 #import "HBTwitterCell.h"
 #import "PSListController+HBTintAdditions.h"
+
+#ifndef _CEPHEIPREFS_OBJC_MODULE
+#import "CepheiPrefs-Swift.h"
+#endif

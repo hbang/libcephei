@@ -17,7 +17,8 @@ CepheiPrefs_CFLAGS = \
 	-fmodule-map-file=$(PWD)/module.private.modulemap \
 	-fmodule-map-file=$(PWD)/objc/module.modulemap \
 	-include Global.h \
-	-I$(ROOT_OBJ_DIR)
+	-I$(ROOT_OBJ_DIR) \
+	-D_CEPHEIPREFS_OBJC_MODULE
 CepheiPrefs_LDFLAGS = -install_name @rpath/CepheiPrefs.framework/CepheiPrefs
 CepheiPrefs_SWIFTFLAGS = \
 	-emit-module-interface-path $(THEOS_OBJ_DIR)/CepheiPrefs.swiftinterface \
