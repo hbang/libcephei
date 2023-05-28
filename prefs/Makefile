@@ -58,5 +58,8 @@ ifeq ($(PACKAGE_BUILDNAME),debug)
 	@# Install the demo entry plist
 	@mkdir -p $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceLoader/Preferences
 	@ln -s $(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceBundles/Cephei.bundle/entry.plist $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/PreferenceLoader/Preferences/Cephei.plist
+
+	@# Install the demo banner
+	@cp ../info/logo.jpg $(THEOS_STAGING_DIR)$(THEOS_PACKAGE_INSTALL_PREFIX)/Library/Frameworks/CepheiPrefs.framework/banner.jpg
 endif
 endif

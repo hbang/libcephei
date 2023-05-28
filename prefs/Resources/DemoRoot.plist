@@ -176,6 +176,30 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 			<key>label</key>
+			<string>HBImageTableCell</string>
+			<key>footerText</key>
+			<string>Note: The test image is only installed with debug builds of Cephei.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>headerCellClass</key>
+			<string>HBImageTableCell</string>
+			<key>icon</key>
+			<string>banner.jpg</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>HBImageTableCell</string>
+			<key>height</key>
+			<integer>200</integer>
+			<key>icon</key>
+			<string>banner.jpg</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
 			<string>HBTintedTableCell</string>
 		</dict>
 		<dict>
