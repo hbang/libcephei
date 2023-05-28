@@ -17,14 +17,6 @@
 			<string>ws.hbang.common</string>
 			<key>packageNameOverride</key>
 			<string>Cephei</string>
-			<key>titleColor</key>
-			<string>#ffffff</string>
-			<key>subtitleColor</key>
-			<string>#aaaaaa</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
 		</dict>
 		<dict>
 			<key>big</key>

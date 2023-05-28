@@ -15,10 +15,6 @@
 			<string>ws.hbang.common</string>
 			<key>packageNameOverride</key>
 			<string>Cephei</string>
-			<key>titleColor</key>
-			<string>#ffffff</string>
-			<key>subtitleColor</key>
-			<string>#aaaaaa</string>
 			<key>footerText</key>
 			<string>This is a demo of Cephei features. Refer to https://hbang.github.io/libcephei/ for further details.</string>
 		</dict>

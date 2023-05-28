@@ -4,8 +4,7 @@
 @import CepheiUI;
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
-static CGFloat const kHBPackageNameTableCellHeaderFontSize    = 42.f;
-static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
+static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 15.f;
 
 @implementation HBPackageNameHeaderCell {
 	BOOL _condensed;
@@ -82,7 +81,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
 		}
 
 		if (_subtitleColor == nil) {
-			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [[UIColor labelColor] colorWithAlphaComponent:0.68f];
+			_subtitleColor = _hasGradient ? [UIColor colorWithWhite:235.f / 255.f alpha:0.7f] : [UIColor secondaryLabelColor];
 		}
 
 #if !CEPHEI_EMBEDDED
@@ -124,7 +123,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
 #pragma mark - PSHeaderFooterView
 
 - (CGFloat)preferredHeightForWidth:(CGFloat)width {
-	CGFloat height = _condensed ? 74.f : 94.f;
+	CGFloat height = 72.f;
 
 	if (_showAuthor) {
 		height += 26.f;
@@ -153,15 +152,24 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
 	NSString *version = _showVersion ? [NSString stringWithFormat:_condensed ? @" %@" : [@"\n" stringByAppendingString:LOCALIZE(@"HEADER_VERSION", @"PackageNameHeaderCell", @"The subheading containing the package version.")], _version] : @"";
 	NSString *author = _showAuthor ? [NSString stringWithFormat:[@"\n" stringByAppendingString:LOCALIZE(@"HEADER_AUTHOR", @"PackageNameHeaderCell", @"The subheading containing the package author.")], cleanedAuthor] : @"";
 
-	UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle1];
+	UIFontDescriptor *systemTitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleLargeTitle];
+	UIFontDescriptor *systemTitleSemiboldFontDescriptor = [systemTitleFontDescriptor fontDescriptorByAddingAttributes:@{
+		UIFontDescriptorTraitsAttribute: @{
+			UIFontWeightTrait: @(UIFontWeightSemibold)
+		}
+	}];
 	UIFontDescriptor *systemTitle2FontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleTitle2];
-	UIFontDescriptor *systemSubtitleFontDescriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
+	UIFontDescriptor *systemSubtitleFontDescriptor = [[UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline] fontDescriptorByAddingAttributes:@{
+		UIFontDescriptorTraitsAttribute: @{
+			UIFontWeightTrait: @(UIFontWeightMedium)
+		}
+	}];
 
 	// Use the specified font names, with either the font sizes we want, or the sizes the user wants,
 	// whichever is larger
-	UIFont *headerFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:MAX(systemTitleFontDescriptor.pointSize * 1.7f, kHBPackageNameTableCellHeaderFontSize)];
-	UIFont *subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellSubtitleFontSize)];
-	UIFont *condensedFont = [UIFont systemFontOfSize:MAX(systemTitle2FontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
+	UIFont *headerFont = [UIFont fontWithDescriptor:systemTitleSemiboldFontDescriptor size:systemTitleSemiboldFontDescriptor.pointSize * 1.15f];
+	UIFont *subtitleFont = [UIFont systemFontOfSize:MAX(systemSubtitleFontDescriptor.pointSize, kHBPackageNameTableCellSubtitleFontSize)];
+	UIFont *condensedFont = [UIFont fontWithDescriptor:systemTitleSemiboldFontDescriptor size:MAX(systemTitle2FontDescriptor.pointSize * 1.1f, kHBPackageNameTableCellCondensedFontSize)];
 	UIFont *condensedLightFont = [UIFont fontWithDescriptor:systemTitleFontDescriptor size:condensedFont.pointSize];
 
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@%@", icon, name, version, author] attributes:@{
@@ -169,7 +177,6 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
 	}];
 
 	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-	paragraphStyle.lineSpacing = _condensed ? 4.f : 2.f;
 	paragraphStyle.alignment = NSTextAlignmentCenter;
 
 	NSUInteger location = 0, length = 0;
