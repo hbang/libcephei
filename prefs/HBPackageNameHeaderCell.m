@@ -1,12 +1,11 @@
 #import "HBPackageNameHeaderCell.h"
 #import <Preferences/PSSpecifier.h>
-#import <UIKit/UITableViewCell+Private.h>
 #import "CepheiPrefs-Swift.h"
 @import CepheiUI;
 
 static CGFloat const kHBPackageNameTableCellCondensedFontSize = 25.f;
-static CGFloat const kHBPackageNameTableCellHeaderFontSize = 42.f;
-static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
+static CGFloat const kHBPackageNameTableCellHeaderFontSize    = 42.f;
+static CGFloat const kHBPackageNameTableCellSubtitleFontSize  = 18.f;
 
 @implementation HBPackageNameHeaderCell {
 	BOOL _condensed;
@@ -20,6 +19,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 	NSString *_nameOverride;
 	UIImage *_icon;
 	UILabel *_label;
+	NSLayoutConstraint *_labelLeadingConstraint;
 
 	NSString *_name;
 	NSString *_version;
@@ -57,14 +57,8 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 			layer.colors = [colors copy];
 		}
 
-		// Hack to resolve odd margins
-		CGRect labelFrame = self.contentView.bounds;
-		labelFrame.origin.x -= self._marginWidth * 2;
-		labelFrame.origin.y += _hasGradient ? 0.f : 30.f;
-		labelFrame.size.height -= _hasGradient ? 0.f : 30.f;
-
-		_label = [[UILabel alloc] initWithFrame:labelFrame];
-		_label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		_label = [[UILabel alloc] init];
+		_label.translatesAutoresizingMaskIntoConstraints = NO;
 		_label.textAlignment = NSTextAlignmentCenter;
 		_label.adjustsFontSizeToFitWidth = NO;
 		_label.backgroundColor = [UIColor clearColor];
@@ -72,8 +66,7 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 		_label.adjustsLetterSpacingToFitWidth = NO;
 #pragma clang diagnostic pop
-
-		[self.contentView addSubview:_label];
+		[self addSubview:_label];
 
 		_condensed = specifier.properties[@"condensed"] ? ((NSNumber *)specifier.properties[@"condensed"]).boolValue : NO;
 		_showAuthor = specifier.properties[@"showAuthor"] ? ((NSNumber *)specifier.properties[@"showAuthor"]).boolValue : YES;
@@ -100,6 +93,14 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 		_version = fields[@"Version"] ?: @"";
 #endif
 
+		_labelLeadingConstraint = [_label.leadingAnchor constraintEqualToAnchor:self.leadingAnchor];
+		[NSLayoutConstraint activateConstraints:@[
+			_labelLeadingConstraint,
+			[_label.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+			[_label.topAnchor constraintEqualToAnchor:self.topAnchor],
+			[_label.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+		]];
+
 		[self updateData];
 	}
 
@@ -109,6 +110,15 @@ static CGFloat const kHBPackageNameTableCellSubtitleFontSize = 18.f;
 - (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
 	self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil specifier:specifier];
 	return self;
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
+
+	if ([self.superview.superview isKindOfClass:UITableView.class]) {
+		UITableView *tableView = (UITableView *)self.superview.superview;
+		_labelLeadingConstraint.constant = self.frame.size.width - tableView.frame.size.width;
+	}
 }
 
 #pragma mark - PSHeaderFooterView
