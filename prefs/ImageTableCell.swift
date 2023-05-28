@@ -44,22 +44,24 @@ import Preferences
 class ImageTableCell: PSTableCell {
 
 	private let bigImageView = UIImageView()
+	private var imageViewLeadingConstraint: NSLayoutConstraint?
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, specifier: PSSpecifier?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier, specifier: specifier)
-		setUp()
+		setUp(asHeaderFooterView: false)
 	}
 
 	required init(specifier: PSSpecifier?) {
-		super.init(style: .default, reuseIdentifier: "", specifier: specifier)
-		setUp()
+		super.init(style: .default, reuseIdentifier: nil, specifier: specifier)
+		self.specifier = specifier
+		setUp(asHeaderFooterView: true)
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func setUp() {
+	private func setUp(asHeaderFooterView: Bool) {
 		backgroundColor = .clear
 		backgroundView = nil
 
@@ -71,11 +73,23 @@ class ImageTableCell: PSTableCell {
 			bigImageView.image = image
 		}
 
-		bigImageView.bounds = contentView.bounds
-		bigImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		bigImageView.translatesAutoresizingMaskIntoConstraints = false
 		bigImageView.contentMode = .scaleAspectFit
+		bigImageView.clipsToBounds = true
 		bigImageView.layer.minificationFilter = .trilinear
-		contentView.addSubview(bigImageView)
+		addSubview(bigImageView)
+
+		let imageViewLeadingConstraint = bigImageView.leadingAnchor.constraint(equalTo: leadingAnchor)
+		if asHeaderFooterView {
+			self.imageViewLeadingConstraint = imageViewLeadingConstraint
+		}
+
+		NSLayoutConstraint.activate([
+			bigImageView.topAnchor.constraint(equalTo: topAnchor),
+			bigImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			imageViewLeadingConstraint,
+			bigImageView.trailingAnchor.constraint(equalTo: trailingAnchor)
+		])
 	}
 
 	override func refreshCellContents(with specifier: PSSpecifier) {
@@ -86,14 +100,22 @@ class ImageTableCell: PSTableCell {
 		super.refreshCellContents(with: specifier)
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		if let tableView = superview?.superview as? UITableView {
+			imageViewLeadingConstraint?.constant = frame.size.width - tableView.frame.size.width
+		}
+	}
+
 }
 
 extension ImageTableCell: PSHeaderFooterView {
-	func preferredHeight(forWidth width: CGFloat) -> CGFloat {
+	func preferredHeight(forWidth width: CGFloat, in tableView: UITableView) -> CGFloat {
 		guard let image = bigImageView.image else {
 			return 0
 		}
 
-		return width * (image.size.height / image.size.width)
+		return tableView.frame.size.width * (image.size.height / image.size.width)
 	}
 }
