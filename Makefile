@@ -19,6 +19,10 @@ CEPHEI_SDK_DIR = $(THEOS_OBJ_DIR)/cephei_sdk_$(THEOS_PACKAGE_BASE_VERSION)
 
 include $(THEOS)/makefiles/common.mk
 
+export THEOS_INCLUDE_PROJECT_DIR = no
+# terrible hack but it ensures that the linker finds our Cephei libs *before* the vendored ones
+export TARGET_LD += -F$(THEOS_OBJ_DIR)
+
 export ADDITIONAL_CFLAGS = \
 	-fobjc-arc \
 	-Wextra -Wno-unused-parameter \
@@ -27,7 +31,10 @@ export ADDITIONAL_CFLAGS = \
 	-DCEPHEI_VERSION="\"$(THEOS_PACKAGE_BASE_VERSION)\"" \
 	-DINSTALL_PREFIX="\"$(THEOS_PACKAGE_INSTALL_PREFIX)\"" \
 	-DCEPHEI_EMBEDDED=$(if $(CEPHEI_EMBEDDED),1,0)
-export ADDITIONAL_SWIFTFLAGS = -enable-library-evolution
+export ADDITIONAL_SWIFTFLAGS = \
+	-F$(THEOS_OBJ_DIR) \
+	-enable-library-evolution \
+	-no-verify-emitted-module-interface
 export ADDITIONAL_LDFLAGS = \
 	-F$(THEOS_OBJ_DIR) \
 	-Xlinker -no_warn_inits
