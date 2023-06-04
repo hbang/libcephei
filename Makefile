@@ -20,7 +20,7 @@ CEPHEI_SDK_DIR = $(THEOS_OBJ_DIR)/cephei_sdk_$(THEOS_PACKAGE_BASE_VERSION)
 include $(THEOS)/makefiles/common.mk
 
 export THEOS_INCLUDE_PROJECT_DIR = no
-# terrible hack but it ensures that the linker finds our Cephei libs *before* the vendored ones
+# Terrible hack but it ensures that the linker finds our Cephei libs *before* the vendored ones
 export TARGET_LD += -F$(THEOS_OBJ_DIR)
 
 export ADDITIONAL_CFLAGS = \
@@ -44,7 +44,7 @@ SUBPROJECTS = main ui prefs
 ifeq ($(CEPHEI_EMBEDDED),1)
 	PACKAGE_BUILDNAME += embedded
 else ifneq ($(CEPHEI_SIMULATOR),1)
-	SUBPROJECTS += defaults
+	SUBPROJECTS += cfprefsd defaults
 endif
 
 include $(THEOS_MAKE_PATH)/aggregate.mk

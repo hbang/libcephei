@@ -2,6 +2,7 @@
 #import <SpringBoardServices/SBSRestartRenderServerAction.h>
 #import <FrontBoardServices/FBSSystemService.h>
 #import <Preferences/PreferencesAppController.h>
+#import <UIKit/UIApplication.h>
 
 @implementation HBRespringController
 

@@ -4,9 +4,9 @@
 <dict>
 	<key>Filter</key>
 	<dict>
-		<key>Bundles</key>
+		<key>Executables</key>
 		<array>
-			<string>com.apple.FrontBoard</string>
+			<string>cfprefsd</string>
 		</array>
 	</dict>
 </dict>

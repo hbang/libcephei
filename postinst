@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Restart cfprefsd to inject CepheiCfprefsd.dylib.
+killall cfprefsd 2>/dev/null || true
+
 # Install defaults alternative. This is used so Procursus’s defaults package has higher priority
 # over Cephei’s defaults, maintaining compatibility.
 if [ "$1" = "configure" ]; then

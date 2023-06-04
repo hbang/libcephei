@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# Restart cfprefsd to un-inject CepheiCfprefsd.dylib.
+killall cfprefsd 2>/dev/null || true
+
 # Uninstall defaults alternative.
 if [ "$1" = "remove" ]; then
 	update-alternatives --remove defaults /var/jb/usr/bin/hbprefs

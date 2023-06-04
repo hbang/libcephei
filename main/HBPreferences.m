@@ -1,5 +1,4 @@
 #import "HBPreferences-Private.h"
-#import "HBPreferencesIPC.h"
 #import <version.h>
 @import os.log;
 
@@ -20,8 +19,6 @@ static _CFPreferencesCopyValueWithContainerType    _CFPreferencesCopyValueWithCo
 static _CFPreferencesSetValueWithContainerType     _CFPreferencesSetValueWithContainer;
 static _CFPreferencesCopyKeyListWithContainerType  _CFPreferencesCopyKeyListWithContainer;
 static _CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContainer;
-
-static BOOL isSystemApp;
 #endif
 
 #pragma mark - Class implementation
@@ -43,14 +40,12 @@ static BOOL isSystemApp;
 		_CFPreferencesSetValueWithContainer     = (_CFPreferencesSetValueWithContainerType)dlsym(coreFoundation, "_CFPreferencesSetValueWithContainer");
 		_CFPreferencesCopyKeyListWithContainer  = (_CFPreferencesCopyKeyListWithContainerType)dlsym(coreFoundation, "_CFPreferencesCopyKeyListWithContainer");
 		_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(coreFoundation, "_CFPreferencesCopyMultipleWithContainer");
-
-		isSystemApp = IS_SYSTEM_APP;
 	});
 #endif
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
-	if (!identifier || identifier.count == 0) {
+	if (!identifier || identifier.length == 0) {
 		os_log(OS_LOG_DEFAULT, "Empty or nil identifier passed to -[HBPreferences initWithIdentifier:]");
 		return nil;
 	}
@@ -62,25 +57,18 @@ static BOOL isSystemApp;
 	// preferences we can’t access without the IPC relay available.
 	_container = nil;
 #else
-	// We may not have the appropriate sandbox rules to access the preferences from this process, so
-	// find out whether we do or not. If we don’t, swap the instance of this class out for an instance
-	// of the class that works around this by doing IPC with our preferences server.
-	if (isSystemApp || sandbox_check(getpid(), "user-preference-read", SANDBOX_FILTER_PREFERENCE_DOMAIN | SANDBOX_CHECK_NO_REPORT, identifier) == KERN_SUCCESS) {
-		self = [super initWithIdentifier:identifier];
+	self = [super initWithIdentifier:identifier];
 
-		// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found
-		// within the container’s directory. We also assume no container is in use if the process is
-		// running as root.
-		// A nil container indicates to use the current container. kCFPreferencesNoContainer forces the
-		// user’s home directory to be used. We assume that if the identifier starts with the app bundle
-		// id, it probably wants its own preferences inside its container.
-		// TODO: Is there a better way to guess this? Should we not guess at all except for the exact
-		// main bundle id?
-		if (getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
-			_container = kCFPreferencesNoContainer;
-		}
-	} else {
-		self = (HBPreferences *)[[HBPreferencesIPC alloc] initWithIdentifier:identifier];
+	// iOS 8 and newer don’t fall back to the user’s home directory if the identifier isn’t found
+	// within the container’s directory. We also assume no container is in use if the process is
+	// running as root.
+	// A nil container indicates to use the current container. kCFPreferencesNoContainer forces the
+	// user’s home directory to be used. We assume that if the identifier starts with the app bundle
+	// id, it probably wants its own preferences inside its container.
+	// TODO: Is there a better way to guess this? Should we not guess at all except for the exact
+	// main bundle id?
+	if (getuid() != 0 && ![[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@"."] hasPrefix:[identifier stringByAppendingString:@"."]] && ![[NSBundle mainBundle].bundleIdentifier isEqualToString:@"ws.hbang.Terminal"]) {
+		_container = kCFPreferencesNoContainer;
 	}
 #endif
 
