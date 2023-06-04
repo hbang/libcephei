@@ -1,6 +1,7 @@
 #import "HBPreferences-Private.h"
 #import "HBPreferencesIPC.h"
 #import <version.h>
+@import os.log;
 
 // Ensure private symbols don’t get included if we’re in embedded mode. Any empty code paths will be
 // optimised out by the compiler.
@@ -49,7 +50,10 @@ static BOOL isSystemApp;
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
-	NSParameterAssert(identifier);
+	if (!identifier || identifier.count == 0) {
+		os_log(OS_LOG_DEFAULT, "Empty or nil identifier passed to -[HBPreferences initWithIdentifier:]");
+		return nil;
+	}
 
 #if CEPHEI_EMBEDDED || TARGET_OS_SIMULATOR
 	self = [super initWithIdentifier:identifier];
