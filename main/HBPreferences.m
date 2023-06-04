@@ -15,9 +15,9 @@ typedef void (*_CFPreferencesSetValueWithContainerType)(CFStringRef key, CFPrope
 typedef CFArrayRef (*_CFPreferencesCopyKeyListWithContainerType)(CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 typedef CFDictionaryRef (*_CFPreferencesCopyMultipleWithContainerType)(CFArrayRef keysToFetch, CFStringRef applicationID, CFStringRef userName, CFStringRef hostName, CFStringRef containerPath);
 
-static _CFPreferencesCopyValueWithContainerType _CFPreferencesCopyValueWithContainer;
-static _CFPreferencesSetValueWithContainerType _CFPreferencesSetValueWithContainer;
-static _CFPreferencesCopyKeyListWithContainerType _CFPreferencesCopyKeyListWithContainer;
+static _CFPreferencesCopyValueWithContainerType    _CFPreferencesCopyValueWithContainer;
+static _CFPreferencesSetValueWithContainerType     _CFPreferencesSetValueWithContainer;
+static _CFPreferencesCopyKeyListWithContainerType  _CFPreferencesCopyKeyListWithContainer;
 static _CFPreferencesCopyMultipleWithContainerType _CFPreferencesCopyMultipleWithContainer;
 
 static BOOL isSystemApp;
@@ -37,10 +37,11 @@ static BOOL isSystemApp;
 #if !CEPHEI_EMBEDDED
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		_CFPreferencesCopyValueWithContainer = (_CFPreferencesCopyValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyValueWithContainer");
-		_CFPreferencesSetValueWithContainer = (_CFPreferencesSetValueWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesSetValueWithContainer");
-		_CFPreferencesCopyKeyListWithContainer = (_CFPreferencesCopyKeyListWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyKeyListWithContainer");
-		_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(RTLD_DEFAULT, "_CFPreferencesCopyMultipleWithContainer");
+		void *coreFoundation = dlopen("/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation", RTLD_LAZY);
+		_CFPreferencesCopyValueWithContainer    = (_CFPreferencesCopyValueWithContainerType)dlsym(coreFoundation, "_CFPreferencesCopyValueWithContainer");
+		_CFPreferencesSetValueWithContainer     = (_CFPreferencesSetValueWithContainerType)dlsym(coreFoundation, "_CFPreferencesSetValueWithContainer");
+		_CFPreferencesCopyKeyListWithContainer  = (_CFPreferencesCopyKeyListWithContainerType)dlsym(coreFoundation, "_CFPreferencesCopyKeyListWithContainer");
+		_CFPreferencesCopyMultipleWithContainer = (_CFPreferencesCopyMultipleWithContainerType)dlsym(coreFoundation, "_CFPreferencesCopyMultipleWithContainer");
 
 		isSystemApp = IS_SYSTEM_APP;
 	});
